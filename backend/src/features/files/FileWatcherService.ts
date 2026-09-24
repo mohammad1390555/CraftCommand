@@ -80,7 +80,7 @@ export class FileWatcherService extends EventEmitter {
      */
     watchServer(serverId: string, directory?: string) {
         this.watchedServers.add(serverId);
-        // // // // // // // // // // // // // // // // // // // // // // // // console.log(`[FileWatcher] Dispatching enabled for ${serverId}`);
+        // // // // // // // // // // // // // // // // // // // // // // // // // console.log(`[FileWatcher] Dispatching enabled for ${serverId}`);
     }
 
     unwatchServer(serverId: string) {
