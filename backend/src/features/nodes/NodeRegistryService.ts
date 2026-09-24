@@ -62,7 +62,7 @@ export class NodeRegistryService extends EventEmitter {
                     this.panelPublicIp = ip;
                     logger.info(`[NodeRegistry] Panel Public IP discovered: ${ip}`);
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[NodeRegistry] Public IP discovery failed (External Connectivity Issue): ${e.message}`);
                 // Fallback to local if totally isolated
                 if (this.panelPublicIp === '127.0.0.1') {

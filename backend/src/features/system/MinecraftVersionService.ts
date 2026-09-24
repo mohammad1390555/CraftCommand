@@ -34,7 +34,7 @@ export class MinecraftVersionService {
                 headers: { 'User-Agent': 'CraftCommand-Panel/1.0' }
             });
 
-            const respData = response.data as any;
+            const respData = response.data as unknown;
             if (!respData || !respData.versions) {
                 logger.error('[MinecraftVersionService] Invalid response from Mojang (Empty data)');
                 throw new Error('Mojang returned empty data');
@@ -50,7 +50,7 @@ export class MinecraftVersionService {
 
             this.cache = { data: result, timestamp: Date.now() };
             return result;
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[MinecraftVersionService] Fetch error: ${e.message}`);
             if (this.cache) {
                 logger.info('[MinecraftVersionService] Serving from stale cache after failure.');

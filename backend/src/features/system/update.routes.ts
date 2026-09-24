@@ -16,7 +16,7 @@ router.post('/check', verifyToken, requireRole(['OWNER']), async (req, res) => {
         logger.info(`[API] Manual update check requested by ${req.user?.username}`);
         const result = await updateService.checkForUpdates(true);
         res.json(result);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -41,7 +41,7 @@ router.post('/download', verifyToken, requireRole(['OWNER']), async (req, res) =
         });
 
         res.json({ message: 'Update process started', version });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });

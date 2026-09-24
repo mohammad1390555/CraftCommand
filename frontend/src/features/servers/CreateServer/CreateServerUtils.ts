@@ -12,7 +12,7 @@ export const getRecommendedJavaForVersion = (ver: string, software?: string): st
         const minor = parseInt(parts[1] || '0');
         const patch = parseInt(parts[2] || '0');
         
-        // 26+ or any future year-based major version
+        // 26+ or unknown future year-based major version
         if (major >= 26) return 'Java 21';
         
         // Legacy 1.x logic
@@ -70,7 +70,7 @@ export const synthesizeDefaultState = (
     }
 
     // 2. Synchronize Java Version
-    newData.javaVersion = getRecommendedJavaForVersion(newData.version, software) as any;
+    newData.javaVersion = getRecommendedJavaForVersion(newData.version, software) as unknown;
 
     // 3. Clear Template (If switching software manually, we shouldn't keep a ghost template)
     if (software !== currentData.software) {
@@ -125,7 +125,7 @@ export const syncFormDataForModpack = (
         software: targetSoftware,
         modpackUrl: `modrinth:${pack.id}`,
         version: bestVersion,
-        javaVersion: getRecommendedJavaForVersion(bestVersion, targetSoftware) as any
+        javaVersion: getRecommendedJavaForVersion(bestVersion, targetSoftware) as unknown
     };
 };
 

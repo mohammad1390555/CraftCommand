@@ -23,8 +23,8 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
     private processes: Map<string, ChildProcess> = new Map();
 
     // --- GLOBAL PROCESS CACHE (v1.14.0: Top-Down Aggregation) ---
-    private static cachedProcessList: any[] = [];
-    private static processIndex: Map<number, any> = new Map(); 
+    private static cachedProcessList: unknown[] = [];
+    private static processIndex: Map<number, unknown> = new Map(); 
     private static serverResourceMap: Map<number, { cpu: number, memory: number, targetPid: number, commandLine: string }> = new Map();
     private static lastGlobalScan = 0;
     private static scanPromise: Promise<void> | null = null;
@@ -37,8 +37,8 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         NativeRunner.scanPromise = (async () => {
             try {
                 const isWindows = process.platform === 'win32';
-                const newList: any[] = [];
-                const newIndex = new Map<number, any>();
+                const newList: unknown[] = [];
+                const newIndex = new Map<number, unknown>();
                 const parentChildMap = new Map<number, number[]>();
 
                 // 1. Fetch Process Inventory
@@ -182,7 +182,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         'APPDATA', 'LOCALAPPDATA'
     ]);
 
-    private buildSafeEnv(env: NodeJS.ProcessEnv, runtimeEnv: any = {}): NodeJS.ProcessEnv {
+    private buildSafeEnv(env: NodeJS.ProcessEnv, runtimeEnv: unknown = {}): NodeJS.ProcessEnv {
         const safe: NodeJS.ProcessEnv = {};
         // Copy only safe keys from host environment
         for (const key of NativeRunner.SAFE_ENV_KEYS) {
@@ -248,7 +248,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         // --- HARDWARE THROTTLING (Windows Job Objects / Linux Cgroups) ---
         // Detached: env.CC_DETACHED determines if the process survives panel restart
         const isDetached = env.CC_DETACHED !== 'false';
-        const options: any = { 
+        const options: unknown = { 
             cwd, 
             shell: false, 
             detached: isDetached, 
@@ -313,12 +313,12 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
                     // We can't get real stdout/stderr pipes back, so management will rely on logs and RCON
                     const ghostChild = { 
                         pid, 
-                        kill: (sig: any) => treeKill(pid, sig || 'SIGKILL'),
+                        kill: (sig: unknown) => treeKill(pid, sig || 'SIGKILL'),
                         stdin: { write: () => false }, // Stdin is lost forever on restart
                         stdout: { on: () => {} },
                         stderr: { on: () => {} },
                         on: () => {} 
-                    } as any;
+                    } as unknown;
 
                     this.processes.set(server.id, ghostChild);
                     this.emit('recovered', { id: server.id, pid });
@@ -361,7 +361,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         if (!proc) return;
 
         // If stdin is writable (Managed Process), use it directly
-        if (proc.stdin && (proc.stdin as any).writable !== false) {
+        if (proc.stdin && (proc.stdin as unknown).writable !== false) {
              proc.stdin.write(command + "\n");
              return;
         }
@@ -435,11 +435,11 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         return this.processes.has(id);
     }
 
-    async createBackup(id: string, serverDir: string, options: any): Promise<any> {
+    async createBackup(id: string, serverDir: string, options: unknown): Promise<unknown> {
         return backupService.createBackup(serverDir, id, options.description, options.worldOnly);
     }
 
-    async restoreBackup(id: string, serverDir: string, backupId: string, options: any): Promise<void> {
+    async restoreBackup(id: string, serverDir: string, backupId: string, options: unknown): Promise<void> {
         return backupService.restoreBackup(serverDir, id, backupId, options);
     }
 }

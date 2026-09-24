@@ -232,20 +232,20 @@ export class ScheduleService extends EventEmitter {
         try {
             const actions = task.actions && task.actions.length > 0 
                 ? task.actions 
-                : [{ type: (task.command === 'backup' || task.command === 'restart') ? task.command : 'command', command: task.command } as any];
+                : [{ type: (task.command === 'backup' || task.command === 'restart') ? task.command : 'command', command: task.command } as unknown];
 
             logger.info(`[ScheduleService] Executing ${actions.length} actions for task "${task.name}"`);
 
             for (const action of actions) {
                 await this.executeSingleAction(serverId, task.name, action);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ScheduleService] Task "${task.name}" failed: ${e}`);
             await this.logExecution(serverId, task.name, false, e.message || "Execution failed");
         }
     }
 
-    private async executeSingleAction(serverId: string, taskName: string, action: any) {
+    private async executeSingleAction(serverId: string, taskName: string, action: unknown) {
         const type = action.type;
         const command = action.command;
 
@@ -298,7 +298,7 @@ export class ScheduleService extends EventEmitter {
                         '127.0.0.1',
                         'system@craftcommand.internal'
                     );
-                } catch (e: any) {
+                } catch (e: unknown) {
                     throw new Error(`Restart start failed: ${e.message}`);
                 }
             } else if (type === 'start') {
@@ -318,7 +318,7 @@ export class ScheduleService extends EventEmitter {
                     throw new Error("Cannot send command: Server not running");
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             throw e; // Bubble up to executeTask for final logging
         }
     }
@@ -349,7 +349,7 @@ export class ScheduleService extends EventEmitter {
         return tasks;
     }
 
-    async getHistory(serverId: string): Promise<any[]> {
+    async getHistory(serverId: string): Promise<unknown[]> {
         return scheduleRepository.getHistory(serverId);
     }
 

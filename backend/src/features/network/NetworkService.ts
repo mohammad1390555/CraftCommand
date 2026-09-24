@@ -29,7 +29,7 @@ class NetworkService extends EventEmitter {
 
     constructor() {
         super();
-        this.state = this.loadState();
+        ();
         this.startMonitoring();
     }
 
@@ -73,7 +73,7 @@ class NetworkService extends EventEmitter {
             try {
                 const response = await axios.get(source, { timeout: 5000 });
                 let ip = '';
-                const data = response.data as any;
+                const data = response.data as unknown;
                 if (typeof data === 'string') {
                     ip = data.trim();
                 } else if (data && typeof data === 'object' && 'ip' in data) {
@@ -146,8 +146,8 @@ class NetworkService extends EventEmitter {
             isMatching: false,
             lastVerifiedAt: Date.now(),
             error: lastError?.message,
-            errorType: (lastError as any)?.code === 'EREFUSED' ? 'REFUSED' : 
-                       (lastError as any)?.code === 'ETIMEOUT' ? 'TIMEOUT' : 'DNS_ERROR'
+            errorType: (lastError as unknown)?.code === 'EREFUSED' ? 'REFUSED' : 
+                       (lastError as unknown)?.code === 'ETIMEOUT' ? 'TIMEOUT' : 'DNS_ERROR'
         };
     }
 
@@ -209,7 +209,7 @@ class NetworkService extends EventEmitter {
             { timeout: 10000 }
         );
 
-        const data = response.data as any;
+        const data = response.data as unknown;
         const isOpen = data?.status === 'open' || data?.open === true;
 
         const result: PortReachability = {
@@ -228,7 +228,7 @@ class NetworkService extends EventEmitter {
         this.saveState();
 
         return result;
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.warn(`[NetworkService] Port check failed for ${port}: ${e.message}`);
         // Fallback: try a simple TCP self-check as a secondary signal
         return { port, status: 'unknown', lastCheckedAt: Date.now() };
@@ -310,7 +310,7 @@ class NetworkService extends EventEmitter {
                 await fs.writeFile(secretPath, playitSecret);
                 await sidecarManager.startPlayit(serverId, secretPath);
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[NetworkService:${serverId}] Failed to start sidecar: ${err.message}`);
         }
     }

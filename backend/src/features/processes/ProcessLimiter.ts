@@ -49,7 +49,7 @@ class ProcessLimiterService {
             } else {
                 return await this.setLinuxAffinity(pid, cores);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ProcessLimiter] Failed to set CPU affinity for PID ${pid}: ${e.message}`);
             return false;
         }
@@ -67,7 +67,7 @@ class ProcessLimiterService {
             } else {
                 return await this.setLinuxPriority(pid, priority);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ProcessLimiter] Failed to set priority for PID ${pid}: ${e.message}`);
             return false;
         }

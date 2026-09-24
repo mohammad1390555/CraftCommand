@@ -20,7 +20,7 @@ export const DuckDnsAuthRule: DiagnosisRule = {
         const ddnsStatus = networkState.serverDdns?.[server.id];
 
         // --- SMART HANDLING (v4.5) ---
-        // If DDNS is now successfully matching, any old KO errors in logs are stale history.
+        // If DDNS is now successfully matching, unknown old KO errors in logs are stale history.
         if (ddnsStatus && ddnsStatus.isMatching) return null;
 
         if (ddnsStatus && ddnsStatus.errorType === 'AUTH') {
@@ -122,7 +122,7 @@ export const NoFallbackRule: DiagnosisRule = {
 export const UnlinkedServerRule: DiagnosisRule = {
     id: 'network_unlinked_server',
     name: 'Unlinked Running Server',
-    description: 'Detects running Minecraft servers not connected to any Velocity proxy.',
+    description: 'Detects running Minecraft servers not connected to unknown Velocity proxy.',
     tier: 3,
     defaultConfidence: 50,
     triggers: [],
@@ -137,9 +137,9 @@ export const UnlinkedServerRule: DiagnosisRule = {
         // Skip if no proxy exists at all
         if (proxies.length === 0) return null;
 
-        // Check if this server is linked to any proxy
+        // Check if this server is linked to unknown proxy
         const isLinked = proxies.some(p =>
-            p.network?.proxyConfig?.links?.some((l: any) => l.serverId === server.id)
+            p.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === server.id)
         );
 
         if (isLinked) return null;
@@ -152,7 +152,7 @@ export const UnlinkedServerRule: DiagnosisRule = {
             ruleId: 'network_unlinked_server',
             severity: 'INFO',
             title: 'Server Not Connected to Proxy',
-            explanation: `"${server.name}" is running but not linked to any Velocity proxy. Players must connect directly to port ${server.port} instead of through the proxy.`,
+            explanation: `"${server.name}" is running but not linked to unknown Velocity proxy. Players must connect directly to port ${server.port} instead of through the proxy.`,
             recommendation: `Link this server to your proxy in the Network tab to enable proxy routing, cross-server player transfers, and centralized access control.`,
             confidence: 60,
             timestamp: Date.now()

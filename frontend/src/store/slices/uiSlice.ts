@@ -51,7 +51,7 @@ export const createUISlice: StateCreator<StoreState, [["zustand/devtools", never
         // Sync to user prefs if available
         const { user, updatePreferences } = get();
         if (user) {
-            updatePreferences({ theme: newTheme } as any);
+            updatePreferences({ theme: newTheme } as unknown);
         }
     },
 

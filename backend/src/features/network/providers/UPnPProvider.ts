@@ -26,7 +26,7 @@ export class UPnPProvider implements ConnectivityProvider {
     public id: ConnectivityMethod = 'direct'; // UPnP extends direct connectivity
     
     private mappedPorts: PortMapping[] = [];
-    private client: any = null;
+    private client: unknown = null;
 
     async connect(): Promise<ConnectionStatus> {
         logger.info('[UPnP] Attempting automatic port forwarding...');
@@ -53,7 +53,7 @@ export class UPnPProvider implements ConnectivityProvider {
                     await this.mapPort(mapping);
                     this.mappedPorts.push(mapping);
                     logger.success(`[UPnP] Mapped port ${mapping.public} → ${mapping.private} (${mapping.description})`);
-                } catch (e: any) {
+                } catch (e: unknown) {
                     logger.warn(`[UPnP] Could not map port ${mapping.public}: ${e.message}`);
                 }
             }
@@ -80,7 +80,7 @@ export class UPnPProvider implements ConnectivityProvider {
                     mappedPorts: this.mappedPorts.map(p => p.public)
                 }
             };
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UPnP] Failed: ${e.message}`);
             return {
                 enabled: false,
@@ -98,7 +98,7 @@ export class UPnPProvider implements ConnectivityProvider {
             try {
                 await this.unmapPort(mapping.public);
                 logger.info(`[UPnP] Removed port mapping: ${mapping.public}`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[UPnP] Failed to remove mapping for port ${mapping.public}: ${e.message}`);
             }
         }
@@ -132,7 +132,7 @@ export class UPnPProvider implements ConnectivityProvider {
                 description: mapping.description,
                 ttl: mapping.ttl,
                 protocol: 'TCP'
-            }, (err: any) => err ? reject(err) : resolve());
+            }, (err: unknown) => err ? reject(err) : resolve());
         });
     }
 
@@ -142,7 +142,7 @@ export class UPnPProvider implements ConnectivityProvider {
     private unmapPort(publicPort: number): Promise<void> {
         return new Promise((resolve, reject) => {
             if (!this.client) return reject(new Error('UPnP client not initialized'));
-            this.client.portUnmapping({ public: publicPort }, (err: any) => err ? reject(err) : resolve());
+            this.client.portUnmapping({ public: publicPort }, (err: unknown) => err ? reject(err) : resolve());
         });
     }
 
@@ -152,14 +152,14 @@ export class UPnPProvider implements ConnectivityProvider {
     private getExternalIp(): Promise<string> {
         return new Promise((resolve, reject) => {
             if (!this.client) return reject(new Error('UPnP client not initialized'));
-            this.client.externalIp((err: any, ip: string) => err ? reject(err) : resolve(ip));
+            this.client.externalIp((err: unknown, ip: string) => err ? reject(err) : resolve(ip));
         });
     }
 
     /**
      * Try to load nat-upnp dynamically (it's an optional dependency)
      */
-    private async loadNatUpnp(): Promise<any> {
+    private async loadNatUpnp(): Promise<unknown> {
         try {
             return require('nat-upnp');
         } catch {

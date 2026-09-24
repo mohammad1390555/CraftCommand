@@ -6,9 +6,9 @@ import { logger } from '../../utils/logger';
 
 export class SafetyError extends Error {
     public code: string;
-    public details?: any;
+    public details?: unknown;
 
-    constructor(message: string, code: string, details?: any) {
+    constructor(message: string, code: string, details?: unknown) {
         super(message);
         this.name = 'SafetyError';
         this.code = code;
@@ -26,7 +26,7 @@ export class SafetyService {
         let defaultExe = 'server.jar';
         if (server.software === 'Bedrock') {
             defaultExe = process.platform === 'win32' ? 'bedrock_server.exe' : 'bedrock_server';
-        } else if (server.software === 'Velocity' || (server as any).type === 'Velocity') {
+        } else if (server.software === 'Velocity' || (server as unknown).type === 'Velocity') {
             defaultExe = 'velocity.jar';
         }
         const exeName = server.executable || defaultExe;
@@ -92,7 +92,7 @@ export class SafetyService {
                     { allocated: allocatedRAM, total: totalRAM }
                  );
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             if (e instanceof SafetyError) throw e;
         }
 
@@ -116,7 +116,7 @@ export class SafetyService {
                 }
             }
 
-            // Critical Root Causes: If any Tier 1 issue is identified as a root cause, BLOCK boot.
+            // Critical Root Causes: If unknown Tier 1 issue is identified as a root cause, BLOCK boot.
             const fatalRootCauses = diagnosis.filter(d => 
                 (d.isRootCause || d.severity === 'CRITICAL') && 
                 ['java_binary_missing', 'port_binding', 'eula_not_accepted', 'invalid_jvm_args'].includes(d.ruleId)
@@ -137,7 +137,7 @@ export class SafetyService {
                 logger.warn(`[Safety] Pre-flight warning for ${server.name}: ${warnings[0].explanation}`);
             }
 
-        } catch (diagErr: any) {
+        } catch (diagErr: unknown) {
             if (diagErr instanceof SafetyError) throw diagErr;
             logger.debug(`[Safety] Pre-flight diagnosis skipped: ${diagErr.message}`);
         }

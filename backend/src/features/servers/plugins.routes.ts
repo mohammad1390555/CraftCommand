@@ -38,7 +38,7 @@ router.get('/search', requirePermission('server.view'), async (req, res) => {
 
         const result = await pluginService.search(query, serverId);
         res.json(result);
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -53,7 +53,7 @@ router.get('/servers/:id', requirePermission('server.view'), async (req, res) =>
     try {
         const plugins = pluginService.getInstalled(req.params.id);
         res.json(plugins);
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] List error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -64,7 +64,7 @@ router.get('/servers/:id/scan', requirePermission('server.files.read'), async (r
     try {
         const plugins = await pluginService.scanInstalled(req.params.id);
         res.json(plugins);
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Scan error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -90,7 +90,7 @@ router.post('/servers/:id/install', requirePermission('server.files.write'), asy
             source, 
             sourceId 
         });
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Install error: ${err.message}`);
         const msg = err.message || 'Install failed';
         
@@ -114,7 +114,7 @@ router.delete('/servers/:id/:pluginId', requirePermission('server.files.write'),
         await pluginService.uninstall(req.params.id, req.params.pluginId);
         res.json({ success: true });
         auditService.log(req.user.id, 'PLUGIN_UNINSTALL', req.params.id, { pluginId: req.params.pluginId });
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Uninstall error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -130,7 +130,7 @@ router.patch('/servers/:id/:pluginId/toggle', requirePermission('server.files.wr
             pluginName: plugin.name,
             enabled: plugin.enabled 
         });
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Toggle error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -146,7 +146,7 @@ router.post('/servers/:id/:pluginId/update', requirePermission('server.files.wri
             pluginName: plugin.name,
             version: plugin.version 
         });
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Update error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -166,7 +166,7 @@ router.post('/servers/:id/bulk-update', requirePermission('server.files.write'),
             pluginIds,
             count: results.length 
         });
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Bulk update error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -177,7 +177,7 @@ router.get('/servers/:id/updates', requirePermission('server.view'), async (req,
     try {
         const updates = await pluginService.checkUpdates(req.params.id);
         res.json(updates);
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Update check error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -193,7 +193,7 @@ router.get('/servers/:id/:pluginId/config/files', requirePermission('server.file
         const subPath = (req.query.path as string) || '';
         const files = await pluginConfigService.listFiles(req.params.id, req.params.pluginId, subPath);
         res.json(files);
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Config list error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -207,7 +207,7 @@ router.get('/servers/:id/:pluginId/config/read', requirePermission('server.files
         
         const content = await pluginConfigService.readFile(req.params.id, req.params.pluginId, filePath);
         res.json({ content });
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Config read error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
@@ -227,7 +227,7 @@ router.post('/servers/:id/:pluginId/config/save', requirePermission('server.file
             pluginId: req.params.pluginId, 
             path: filePath 
         });
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.error(`[PluginRoutes] Config save error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }

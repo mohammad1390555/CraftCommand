@@ -112,7 +112,7 @@ export const JavaVersionRule: DiagnosisRule = {
 
         // --- SMART HANDLING ---
         // Rule: If current config ALREADY meets or exceeds the required version,
-        // we assume any log error is stale/historical and return null.
+        // we assume unknown log error is stale/historical and return null.
         if (currentJavaNum >= minVersion) {
             return null;
         }

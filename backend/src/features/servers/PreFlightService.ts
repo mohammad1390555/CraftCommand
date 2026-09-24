@@ -9,7 +9,7 @@ import { SystemError, ErrorCode } from '../../utils/ErrorCodes';
  * 
  * Central orchestrator for proactive server health checks.
  * Integrates directly with the Diagnosis engine to perform "Tier 1"
- * environment validation before any child process is spawned.
+ * environment validation before unknown child process is spawned.
  * 
  * Target: Fulfill the "Intelligent Mod Stabilization" and "System Diagnostics" 
  * claims with proactive, synchronous validation.
@@ -23,7 +23,7 @@ class PreFlightService {
     public async validate(server: ServerConfig): Promise<DiagnosisResult[]> {
         logger.info(`[PreFlight] Initiating validation for ${server.name} (${server.id})...`);
 
-        // 1. Reset any previous suppression AND clear stats cache for this server
+        // 1. Reset unknown previous suppression AND clear stats cache for this server
         diagnosisService.clearResolved(server.id);
         diagnosisService.clearCache();
 
