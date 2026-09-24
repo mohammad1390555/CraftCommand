@@ -157,7 +157,7 @@ router.get('/agent', async (req, res) => {
 
         await archive.finalize();
         logger.success(`[Install] Standalone agent zip served successfully.`);
-    } catch (error: any) {
+    } catch (error: unknown) {
         logger.error(`[Install] Failed to serve agent zip: ${error.message}`);
         if (!res.headersSent) {
             res.status(500).json({ error: 'Failed to serve agent' });
