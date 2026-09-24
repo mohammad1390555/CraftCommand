@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-interface ConfirmSetup {
+export interface
     title: string;
     description: string;
     confirmText?: string;
