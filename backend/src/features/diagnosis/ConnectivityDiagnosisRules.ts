@@ -29,7 +29,7 @@ export const PortUnreachableRule: DiagnosisRule = {
         const state = networkService.getState();
 
         // Only fire if we've actually performed a check and it returned 'closed'
-        const portStatus = state.reachability.find((r: any) => r.port === server.port);
+        const portStatus = state.reachability.find((r: unknown) => r.port === server.port);
         if (!portStatus || portStatus.status !== 'closed') return null;
 
         const isBedrock = server.software === 'Bedrock';
@@ -212,13 +212,13 @@ export const PacketTooBigRule: DiagnosisRule = {
     description: 'Detects payload size violations',
     triggers: [
         /Packet too large/i,
-        /tried to send too many bytes/i,
+        /tried to send too munknown bytes/i,
         /Payload may not be larger than/i
     ],
     tier: 3,
     defaultConfidence: 100,
     analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
-        const logLine = logs.find(l => /Packet too large|too many bytes/i.test(l));
+        const logLine = logs.find(l => /Packet too large|too munknown bytes/i.test(l));
         if (logLine) {
             return {
                 id: `packet-size-${server.id}-${Date.now()}`,

@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { logger } from '../../utils/logger';
 
-export interface CrashReport {
+export export interface
     filename: string;
     description: string;
     content: string;
