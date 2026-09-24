@@ -754,7 +754,12 @@ export const DiagnosisActions = {
             const stats = await processManager.getServerStats(server.id);
             if (stats?.pid) {
                 try {
-                    await execAsync(`jcmd ${stats.pid} GC.run`);
+                    // FIX: Validate PID is numeric before using in command
+if (!/^[0-9]+$/.test(String(stats.pid))) {
+    logger.error("[DiagnosisAction] Invalid PID provided");
+    throw new Error("Invalid PID");
+}
+await execAsync(`jcmd ${stats.pid} GC.run`);
                     logger.success(`[DiagnosisAction] Native JVM GC triggered for PID ${stats.pid}`);
                     return;
                 } catch (e) { /* jcmd might not be available, fall back to console */ }
