@@ -23,7 +23,7 @@ router.post('/start', verifyToken, requirePermission('server.start'), async (req
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_START', id, { force: !!force }, req.ip).catch(e => logger.error(`[Audit] Failed: ${e.message}`));
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[Server:${id}] Start Route failed: ${e}`);
         if (e instanceof AppError) {
             return res.status(e.statusCode).json({ 
@@ -48,7 +48,7 @@ router.post('/stop', verifyToken, requirePermission('server.stop'), async (req, 
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_STOP', id, { force: !!force }, req.ip).catch(e => logger.error(`[Audit] Failed: ${e.message}`));
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[Server:${id}] Stop Route failed: ${e.message} ${e.stack || ''}`);
         if (e.message.includes('Server is initializing')) {
             return res.status(423).json({
@@ -76,7 +76,7 @@ router.post('/restart', verifyToken, requirePermission('server.start'), async (r
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_RESTART', id, undefined, req.ip).catch(e => logger.error(`[Audit] Failed: ${e.message}`));
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -92,7 +92,7 @@ router.post('/stop/graceful', verifyToken, requirePermission('server.stop'), asy
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_STOP_GRACEFUL', id, { delay: delay || 30 }, req.ip).catch(e => logger.error(`[Audit] Failed: ${e.message}`));
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -106,7 +106,7 @@ router.post('/stop/cancel', verifyToken, requirePermission('server.stop'), async
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_STOP_CANCEL', id, undefined, req.ip).catch(e => logger.error(`[Audit] Failed: ${e.message}`));
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
