@@ -30,7 +30,7 @@ export class NodeEnrollmentService {
         });
 
         // Load and process the .bat template
-        let batContent = await fs.readFile(this.templatePath, 'utf8');
+        const  await fs.readFile(this.templatePath, 'utf8');
         batContent = batContent
             .replace(/{{NODE_ID}}/g, nodeId)
             .replace(/{{NODE_SECRET}}/g, node.enrollmentSecret)
