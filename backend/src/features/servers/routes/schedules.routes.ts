@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     try {
         const schedules = await scheduleService.getSchedules(id);
         res.json(schedules);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -28,7 +28,7 @@ router.get('/history', async (req, res) => {
     try {
         const history = await scheduleService.getHistory(id);
         res.json(history);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
         if (req.user) {
             auditService.log(req.user.id, 'SCHEDULE_CREATE', id, { taskName: task.name, type: task.type });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -58,7 +58,7 @@ router.put('/:taskId', async (req, res) => {
         if (req.user) {
             auditService.log(req.user.id, 'SCHEDULE_UPDATE', id, { taskId: task.id, taskName: task.name });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -72,7 +72,7 @@ router.delete('/:taskId', async (req, res) => {
         if (req.user) {
             auditService.log(req.user.id, 'SCHEDULE_DELETE', id, { taskId });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -84,9 +84,9 @@ router.post('/:taskId/run', async (req, res) => {
         await scheduleService.runTaskNow(id, taskId);
         res.json({ success: true });
         if (req.user) {
-            auditService.log(req.user.id, 'SCHEDULE_RUN_NOW' as any, id, { taskId });
+            auditService.log(req.user.id, 'SCHEDULE_RUN_NOW' as unknown, id, { taskId });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
