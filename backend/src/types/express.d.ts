@@ -3,7 +3,7 @@ import { Server } from 'socket.io';
 
 declare global {
     namespace Express {
-        export interface Request {
+        export export interface
             user?: UserProfile;
             io?: Server;
         }
