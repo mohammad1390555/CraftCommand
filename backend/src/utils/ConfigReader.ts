@@ -29,7 +29,7 @@ export class ConfigReader {
         return props;
     }
 
-    static async readYaml(filePath: string): Promise<any> {
+    static async readYaml(filePath: string): Promise<unknown> {
         if (!await fs.pathExists(filePath)) return null;
         try {
             // Check if user has js-yaml, if not return null or try crude regex
