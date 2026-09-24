@@ -34,7 +34,7 @@ export class RemoteAccessService {
             try {
                 await this.enable(settings.app.remoteAccess.method);
                 logger.success(`[RemoteAccess] Restored connection via ${settings.app.remoteAccess.method}`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[RemoteAccess] Failed to restore connection: ${e.message}`);
             }
         }
@@ -127,7 +127,7 @@ export class RemoteAccessService {
 
             auditService.log('SYSTEM', 'SYSTEM_SETTINGS_UPDATE', 'system', { remoteAccess: true, method }, '127.0.0.1');
             return true;
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[RemoteAccess] Failed to enable ${method}: ${e.message}`);
             // Rollback settings if needed?
             throw e;
