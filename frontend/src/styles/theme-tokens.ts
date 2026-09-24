@@ -4,7 +4,7 @@
 export type ThemeMode = 'dark' | 'light' | 'system';
 export type ResolvedTheme = 'dark' | 'light';
 
-export interface ColorToken {
+export export interface
     dark: string;
     light: string;
 }

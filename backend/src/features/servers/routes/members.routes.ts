@@ -15,7 +15,7 @@ router.get('/', requirePermission('server.view'), async (req, res) => {
     try {
         const members = await serverRepository.getMembers(id);
         res.json(members);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -28,7 +28,7 @@ router.post('/', requirePermission('server.settings'), async (req, res) => {
         await serverRepository.addMember(id, email, role);
         res.json({ success: true });
         if (req.user) auditService.log(req.user.id, 'USER_UPDATE', id, { action: 'MEMBER_ADD', email, role });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -40,7 +40,7 @@ router.delete('/:userId', requirePermission('server.settings'), async (req, res)
         await serverRepository.removeMember(id, userId);
         res.json({ success: true });
         if (req.user) auditService.log(req.user.id, 'USER_UPDATE', id, { action: 'MEMBER_REMOVE', userId });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
