@@ -78,7 +78,7 @@ router.post('/background', verifyToken, upload.single('file'), async (req, res) 
         auditService.log(user.id, 'ASSET_UPLOAD', 'BACKGROUND', { filename: req.file.filename }, req.ip, user.email);
         
         res.json({ url: publicUrl });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -96,7 +96,7 @@ router.post('/avatar', verifyToken, uploadAvatar.single('file'), async (req, res
         auditService.log(user.id, 'ASSET_UPLOAD', 'AVATAR', { filename: req.file.filename }, req.ip, user.email);
         
         res.json({ url: publicUrl });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
