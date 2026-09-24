@@ -10,7 +10,7 @@ router.get('/status', verifyToken, requirePermission('server.map.view'), async (
     try {
         const status = await mapService.getMapStatus(req.params.id);
         res.json(status);
-    } catch (error: any) {
+    } catch (error: unknown) {
         res.status(500).json({ error: error.message });
     }
 });
@@ -21,7 +21,7 @@ router.post('/verify', verifyToken, requirePermission('server.map.manage'), asyn
         const result = await mapService.verifyHealth(req.params.id);
         res.json(result);
         auditService.log(req.user.id, 'MAP_VERIFY', req.params.id);
-    } catch (error: any) {
+    } catch (error: unknown) {
         res.status(500).json({ error: error.message });
     }
 });
@@ -32,7 +32,7 @@ router.post('/install', verifyToken, requirePermission('server.map.manage'), asy
         const result = await mapService.installDynmap(req.params.id);
         res.json(result);
         auditService.log(req.user.id, 'MAP_INSTALL', req.params.id);
-    } catch (error: any) {
+    } catch (error: unknown) {
         res.status(500).json({ error: error.message });
     }
 });
@@ -44,7 +44,7 @@ router.post('/render', verifyToken, requirePermission('server.map.manage'), asyn
         const result = await mapService.renderWorld(req.params.id, mode, radius);
         res.json(result);
         auditService.log(req.user.id, 'MAP_RENDER', req.params.id, { mode, radius });
-    } catch (error: any) {
+    } catch (error: unknown) {
         res.status(500).json({ error: error.message });
     }
 });
