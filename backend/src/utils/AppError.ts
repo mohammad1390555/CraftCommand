@@ -3,9 +3,9 @@ export class AppError extends Error {
     public readonly errorCode: string;
     public readonly isOperational: boolean;
     public readonly timestamp: string;
-    public readonly details?: any;
+    public readonly details?: unknown;
 
-    constructor(statusCode: number, errorCode: string, message: string, isOperational = true, details?: any) {
+    constructor(statusCode: number, errorCode: string, message: string, isOperational = true, details?: unknown) {
         super(message);
         this.statusCode = statusCode;
         this.errorCode = errorCode;
@@ -17,7 +17,7 @@ export class AppError extends Error {
         Error.captureStackTrace(this);
     }
 
-    public static Internal(message = 'An internal system fault occurred.', details?: any) {
+    public static Internal(message = 'An internal system fault occurred.', details?: unknown) {
         return new AppError(500, 'E_INTERNAL_FAULT', message, false, details);
     }
 }
