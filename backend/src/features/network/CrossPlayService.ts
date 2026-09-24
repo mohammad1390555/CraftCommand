@@ -18,7 +18,7 @@ const DEFAULT_BEDROCK_PORT = 19132;
 const GEYSER_SLUG = 'geyser';
 const FLOODGATE_SLUG = 'floodgate';
 
-export interface CrossPlayStatus {
+export export interface
     enabled: boolean;
     compatible: boolean;
     incompatibleReason?: string;
@@ -43,7 +43,7 @@ export class CrossPlayService {
         // Check if this server is itself a Velocity proxy
         if (server.software === 'Velocity') return 'standalone';
 
-        // Check if any Velocity proxy has this server linked
+        // Check if unknown Velocity proxy has this server linked
         const proxy = proxyService.findProxyForServer(serverId);
         return proxy ? 'velocity' : 'standalone';
     }
@@ -99,8 +99,8 @@ export class CrossPlayService {
 
         // 3. Determine install target
         // In velocity topology: Geyser goes on the PROXY, Floodgate on BOTH proxy and backends
-        let geyserTarget = serverId;
-        let floodgateTarget = serverId;
+        const  serverId;
+        const  serverId;
 
         if (topology === 'velocity') {
             const proxy = proxyService.findProxyForServer(serverId);
@@ -116,7 +116,7 @@ export class CrossPlayService {
             logger.info(`[CrossPlay] Installing Geyser on ${geyserTarget}...`);
             await pluginService.install(geyserTarget, GEYSER_SLUG, 'modrinth');
             logger.success(`[CrossPlay] Geyser installed.`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             // May already be installed
             if (e.message?.includes('already installed') || e.message?.includes('already exists')) {
                 logger.info(`[CrossPlay] Geyser already installed on ${geyserTarget}.`);
@@ -143,7 +143,7 @@ export class CrossPlayService {
                 await pluginService.install(floodgateTarget, `${geyserApiUrl}|floodgate-spigot.jar`, 'direct');
             }
             logger.success(`[CrossPlay] Floodgate installed.`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             if (e.message?.includes('already installed') || e.message?.includes('already exists')) {
                 logger.info(`[CrossPlay] Floodgate already installed on ${floodgateTarget}.`);
             } else {
@@ -167,7 +167,7 @@ export class CrossPlayService {
                 }
 
                 logger.success(`[CrossPlay] Floodgate installed on backend ${server.name}.`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 if (!e.message?.includes('already')) {
                     logger.warn(`[CrossPlay] Could not install Floodgate on backend: ${e.message}`);
                 }
@@ -233,7 +233,7 @@ export class CrossPlayService {
                 try {
                     await pluginService.uninstall(serverId, plugin.id);
                     logger.info(`[CrossPlay] Uninstalled ${plugin.name}`);
-                } catch (e: any) {
+                } catch (e: unknown) {
                     logger.warn(`[CrossPlay] Failed to uninstall ${plugin.name}: ${e.message}`);
                 }
             }
@@ -250,7 +250,7 @@ export class CrossPlayService {
                         try {
                             await pluginService.uninstall(proxy.id, plugin.id);
                             logger.info(`[CrossPlay] Uninstalled ${plugin.name} from proxy ${proxy.name}`);
-                        } catch (e: any) {
+                        } catch (e: unknown) {
                             logger.warn(`[CrossPlay] Failed to uninstall ${plugin.name} from proxy: ${e.message}`);
                         }
                     }
@@ -354,7 +354,7 @@ export class CrossPlayService {
         const configPath = path.join(configDir, 'config.yml');
         
         // Build config — Geyser will generate defaults on first run, but we set key values
-        const config: Record<string, any> = {
+        const config: Record<string, unknown> = {
             bedrock: {
                 address: '0.0.0.0',
                 port: bedrockPort,
@@ -376,7 +376,7 @@ export class CrossPlayService {
             const yamlStr = YAML.stringify(config, { indent: 2 });
             await fs.writeFile(configPath, yamlStr, 'utf8');
             logger.info(`[CrossPlay] Wrote Geyser config to ${configPath}`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[CrossPlay] Failed to write Geyser config: ${e.message}`);
         }
     }
