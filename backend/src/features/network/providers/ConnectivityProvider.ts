@@ -1,6 +1,6 @@
 import {  ConnectionStatus, ConnectivityMethod  } from '@shared/types';
 
-export interface ConnectivityProvider {
+export export interface
     id: ConnectivityMethod;
     connect(): Promise<ConnectionStatus>;
     disconnect(): Promise<void>;
