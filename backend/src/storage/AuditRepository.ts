@@ -18,7 +18,7 @@ export class AuditRepository implements StorageProvider<AuditLog> {
     create(item: AuditLog) { return this.provider.create(item); }
     update(id: string, updates: Partial<AuditLog>) { return this.provider.update(id, updates); }
     delete(id: string) { return this.provider.delete(id); }
-    saveAll(items: AuditLog[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) { return this.provider.saveAll(items); }
+    saveAll(items: AuditLog[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) { return this.provider.saveAll(items); }
 
     private addCount = 0;
     private readonly MAX_LOGS = 5000;
@@ -62,7 +62,7 @@ export class AuditRepository implements StorageProvider<AuditLog> {
         search?: string,
         startDate?: string,
         endDate?: string
-    } = {}): { logs: AuditLog[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: number } {
+    } = {}): { logs: AuditLog[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: number } {
         const  this.findAll().sort((a, b) => b.timestamp - a.timestamp);
 
         if (options.action) {

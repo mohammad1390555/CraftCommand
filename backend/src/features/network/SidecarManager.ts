@@ -18,7 +18,7 @@ export class SidecarManager extends EventEmitter {
     /**
      * Start a networking sidecar
      */
-    async startSidecar(serverId: string, type: string, command: string, args: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], cwd: string): Promise<void> {
+    async startSidecar(serverId: string, type: string, command: string, args: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], cwd: string): Promise<void> {
         this.stopSidecar(serverId, type); // Ensure clean start
 
         logger.info(`[SidecarManager:${serverId}] Starting ${type} sidecar...`);

@@ -19,7 +19,7 @@ export const PortUnreachableRule: DiagnosisRule = {
     description: 'Detects when a running server port cannot be reached from the internet.',
     tier: 1,
     defaultConfidence: 90,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (server.status !== 'ONLINE') return null;
         // Skip servers without a port set
@@ -58,7 +58,7 @@ export const NoRemoteAccessRule: DiagnosisRule = {
     description: 'Warns when an online server has no remote access method enabled.',
     tier: 2,
     defaultConfidence: 60,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (server.status !== 'ONLINE') return null;
         // Skip proxy — we only care about servers people connect to
@@ -95,7 +95,7 @@ export const PortConflictRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const hasError = logs.some(l => /already in use|FAILED TO BIND TO PORT|Could not bind to port/i.test(l));
         if (hasError) {
             return {
@@ -128,7 +128,7 @@ export const InvalidIpRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 95,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
          const hasError = logs.some(l => /Can't assign requested address/i.test(l));
          if (hasError) {
               return {
@@ -161,7 +161,7 @@ export const NetworkOfflineRule: DiagnosisRule = {
     ],
     tier: 2,
     defaultConfidence: 90,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const hasError = logs.some(l => /UnknownHostException|Authentication servers are down/i.test(l));
         if (hasError) {
             return {
@@ -189,7 +189,7 @@ export const NetworkProtocolRule: DiagnosisRule = {
     ],
     tier: 3,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const logLine = logs.find(l => /Outdated client|Outdated server/i.test(l));
         if (logLine) {
             return {
@@ -217,7 +217,7 @@ export const PacketTooBigRule: DiagnosisRule = {
     ],
     tier: 3,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const logLine = logs.find(l => /Packet too large|too munknown bytes/i.test(l));
         if (logLine) {
             return {
@@ -234,7 +234,7 @@ export const PacketTooBigRule: DiagnosisRule = {
     }
 };
 
-export const ConnectivityRules: DiagnosisRule[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
+export const ConnectivityRules: DiagnosisRule[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
     PortUnreachableRule,
     NoRemoteAccessRule,
     PortConflictRule,

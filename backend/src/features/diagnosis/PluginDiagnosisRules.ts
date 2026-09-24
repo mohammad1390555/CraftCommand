@@ -12,7 +12,7 @@ export const PluginFolderMissingRule: DiagnosisRule = {
     description: 'Server software supports plugins but the plugins folder is missing.',
     tier: 2,
     defaultConfidence: 100,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         const supports = ['Paper', 'Spigot', 'Purpur', 'BungeeCord', 'Velocity'].includes(server.software);
         if (!supports || !server.workingDirectory || !server.hasStarted) return null;
@@ -56,7 +56,7 @@ export const DuplicatePluginJarRule: DiagnosisRule = {
     triggers: [/Ambiguous plugin name/i, /Duplicate plugin/i],
     tier: 2,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         if (!server.workingDirectory) return null;
         const pluginsDir = path.join(server.workingDirectory, 'plugins');
         if (!(await fs.pathExists(pluginsDir))) return null;
@@ -64,11 +64,11 @@ export const DuplicatePluginJarRule: DiagnosisRule = {
         const files = await fs.readdir(pluginsDir);
         const jars = files.filter(f => f.endsWith('.jar'));
         
-        const groups: Record<string, string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> = {};
+        const groups: Record<string, string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> = {};
         jars.forEach(file => {
             const baseName = file.split(/[-_\d]/)[0].toLowerCase();
             if (baseName.length > 3) {
-                if (!groups[baseName]) groups[baseName] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+                if (!groups[baseName]) groups[baseName] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                 groups[baseName].push(file);
             }
         });
@@ -105,7 +105,7 @@ export const PluginIncompatibleRule: DiagnosisRule = {
     triggers: [/UnsupportedClassVersionError/i, /Incompatible server version/i, /Could not load.*plugin.yml/i],
     tier: 3,
     defaultConfidence: 90,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const errorLine = logs.find(l => l.includes('UnsupportedClassVersionError') || l.includes('Incompatible server version'));
         if (errorLine) {
             return {
@@ -133,7 +133,7 @@ export const PluginAccessRule: DiagnosisRule = {
     triggers: [/Permission denied.*plugins/i, /java.nio.file.AccessDeniedException.*plugins/i],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         if (!server.workingDirectory) return null;
         const pluginsDir = path.join(server.workingDirectory, 'plugins');
 
@@ -181,7 +181,7 @@ export const PluginPendingRestartRule: DiagnosisRule = {
     description: 'A restart is required to apply recent plugin installations or changes.',
     tier: 3,
     defaultConfidence: 100,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (server.needsRestart && (server.status === ServerStatus.ONLINE || server.status === ServerStatus.STARTING)) {
             return {
@@ -212,7 +212,7 @@ export const GeyserPortConflictRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const { NetUtils } = require('../../utils/NetUtils');
         
         // --- SMART HANDLING (v4.5) ---

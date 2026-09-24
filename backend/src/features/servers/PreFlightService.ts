@@ -20,7 +20,7 @@ class PreFlightService {
      * Executes a suite of synchronous health checks.
      * Throws a SystemError if a CRITICAL issue is detected.
      */
-    public async validate(server: ServerConfig): Promise<DiagnosisResult[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    public async validate(server: ServerConfig): Promise<DiagnosisResult[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         logger.info(`[PreFlight] Initiating validation for ${server.name} (${server.id})...`);
 
         // 1. Reset unknown previous suppression AND clear stats cache for this server
@@ -29,7 +29,7 @@ class PreFlightService {
 
         // 2. Perform Targeted Diagnosis (Tier 1 & 2 Proactive Rules)
         // v4.0 Resilience: forceRefresh=true ensures we don't use stale disk stats
-        const results = await diagnosisService.diagnose(server, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], true);
+        const results = await diagnosisService.diagnose(server, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], true);
 
         // 3. Evaluate results for blockers
         const blockers = results.filter(r => r.severity === 'CRITICAL' && r.isRepairable !== false);
