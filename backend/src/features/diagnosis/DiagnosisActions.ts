@@ -363,11 +363,16 @@ export const DiagnosisActions = {
         }
 
         const pluginsDir = path.join(server.workingDirectory, 'plugins');
+        // Security: Validate path to prevent command injection
+        if (!pluginsDir || !/^[a-zA-Z0-9\/\-]+$/.test(pluginsDir)) {
+            logger.error(`[DiagnosisAction] Invalid plugins path: ${pluginsDir}`);
+            return;
+        }
         logger.info(`[DiagnosisAction] Repairing permissions on ${pluginsDir}...`);
         
         try {
             // Set read/write/execute for owner, read/execute for group and others
-            await execAsync(`chmod -R 755 "${pluginsDir}"`);
+            await execFile('chmod', ['-R', '755', pluginsDir]);
             logger.success(`[DiagnosisAction] Permissions repaired for ${pluginsDir}`);
         } catch (error: any) {
             logger.error(`[DiagnosisAction] Failed to repair permissions: ${error.message}`);
