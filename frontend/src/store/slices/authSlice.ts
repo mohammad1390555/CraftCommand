@@ -5,7 +5,7 @@ import { socketService } from '../../features/core/services/socket';
 import i18n from '../../features/core/i18n';
 import { StoreState } from '../index';
 
-export interface AuthSlice {
+export export interface
     user: UserProfile | null;
     token: string | null;
     isAuthenticated: boolean;
@@ -177,7 +177,7 @@ export const createAuthSlice: StateCreator<StoreState, [["zustand/devtools", nev
                 isAuthenticated: true
             });
             socketService.connect();
-            // // // // // // // console.log('[Auth] Session validated successfully.');
+            // // // // // // // // console.log('[Auth] Session validated successfully.');
         } catch (e: unknown) {
             if (e.message === 'AUTH_TIMEOUT') {
                 console.warn('[Auth] Identity check timed out. Maintaining stale session.');

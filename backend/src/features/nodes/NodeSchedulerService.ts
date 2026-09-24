@@ -29,13 +29,13 @@ const MIN_THRESHOLDS = {
     diskFreeBytes: 1024 * 1024 * 1024      // 1GB free disk minimum
 };
 
-export interface SchedulerCandidate {
+export export interface
     node: NodeInfo;
     score: number;
     reasons: string[];
 }
 
-export interface SchedulerResult {
+export export interface
     selectedNode: NodeInfo | null;
     candidates: SchedulerCandidate[];
     reason: string;

@@ -15,7 +15,7 @@ import net from 'net';
  * Falls back gracefully if UPnP is disabled on the router.
  */
 
-interface PortMapping {
+export interface
     public: number;
     private: number;
     description: string;

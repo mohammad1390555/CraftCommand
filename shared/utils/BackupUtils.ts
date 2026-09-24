@@ -15,7 +15,7 @@ export const BACKUP_EXCLUDES = [
     '.temp/**'
 ];
 
-export interface SharedBackup {
+export export interface
     id: string;
     serverId: string;
     filename: string;

@@ -17,7 +17,7 @@ const execAsync = util.promisify(exec);
 
 export type CpuPriority = 'normal' | 'high' | 'realtime';
 
-export interface ProcessLimits {
+export export interface
     cpuCores?: number[];   // Pin to specific cores (e.g., [0, 1, 2, 3])
     cpuPercent?: number;   // Max CPU % (Linux cgroups v2 only, optional)
     priority?: CpuPriority;

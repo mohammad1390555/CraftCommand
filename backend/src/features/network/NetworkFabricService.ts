@@ -21,7 +21,7 @@ const execAsync = promisify(exec);
  * ╚══════════════════════════════════════════════════════╝
  */
 
-export interface FabricHealth {
+export export interface
     proxyId: string | null;
     proxyName: string | null;
     proxyOnline: boolean;

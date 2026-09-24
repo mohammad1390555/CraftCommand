@@ -18,7 +18,7 @@ const DEFAULT_BEDROCK_PORT = 19132;
 const GEYSER_SLUG = 'geyser';
 const FLOODGATE_SLUG = 'floodgate';
 
-export interface CrossPlayStatus {
+export export interface
     enabled: boolean;
     compatible: boolean;
     incompatibleReason?: string;

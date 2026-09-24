@@ -6,7 +6,7 @@ import { pluginRepository } from '../../storage/PluginRepository';
 import { getTargetDir } from './MarketplaceRegistry';
 import { logger } from '../../utils/logger';
 
-export interface ConfigFileInfo {
+export export interface
     name: string;
     path: string;
     isDirectory: boolean;

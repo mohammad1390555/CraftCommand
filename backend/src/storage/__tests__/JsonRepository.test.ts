@@ -12,7 +12,7 @@ jest.mock('../../utils/logger', () => ({
 // Import the abstract class after mocks
 import { JsonRepository } from '../JsonRepository';
 
-interface TestItem {
+export interface
     id: string;
     name: string;
     status: string;

@@ -11,7 +11,7 @@ import { ServerConfig, ServerStatus } from '@shared/types';
  * ╚══════════════════════════════════════════════════════╝
  */
 
-export interface JoinInfo {
+export export interface
     serverId: string;
     serverName: string;
     address: string;        // hostname:port or ip:port

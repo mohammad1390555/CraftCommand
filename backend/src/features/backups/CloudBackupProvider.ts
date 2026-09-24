@@ -5,14 +5,14 @@ import { logger } from '../../utils/logger';
 // --- Cloud Backup Provider Interface ---
 // Extensible provider pattern: add new cloud destinations by implementing this interface.
 
-export interface CloudBackupDestination {
+export export interface
     type: 'local-copy' | 's3' | 'sftp';
     enabled: boolean;
     name: string;
     config: Record<string, unknown>;
 }
 
-export interface CloudUploadResult {
+export export interface
     destination: string;
     type: string;
     success: boolean;
@@ -21,7 +21,7 @@ export interface CloudUploadResult {
     durationMs: number;
 }
 
-export interface ICloudBackupProvider {
+export export interface
     type: string;
     name: string;
     upload(localFilePath: string, remoteFileName: string): Promise<CloudUploadResult>;

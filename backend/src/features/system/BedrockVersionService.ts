@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { logger } from '../../utils/logger';
 
-interface BedrockVersionsResponse {
+export interface
     latest: string;
     versions: string[];
 }

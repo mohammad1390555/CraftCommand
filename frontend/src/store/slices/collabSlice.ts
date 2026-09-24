@@ -3,7 +3,7 @@ import { PresenceEntry, ActivityEvent, ChatMessage } from '@shared/types';
 import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
-export interface CollabSlice {
+export export interface
     presence: Record<string, PresenceEntry[]>;
     activities: Record<string, ActivityEvent[]>;
     chatMessages: Record<string, ChatMessage[]>;

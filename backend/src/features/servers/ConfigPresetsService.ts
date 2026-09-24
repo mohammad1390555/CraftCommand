@@ -14,7 +14,7 @@ import { logger } from '../../utils/logger';
 
 export type PlayerTier = 'small' | 'medium' | 'large' | 'mega';
 
-export interface ConfigPreset {
+export export interface
     id: string;
     name: string;
     tier: PlayerTier;

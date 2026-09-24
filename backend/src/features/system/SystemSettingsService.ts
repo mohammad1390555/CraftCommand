@@ -9,7 +9,7 @@ import { networkConfigGenerator } from '../network/NetworkConfigGenerator';
 const DATA_DIR = path.join(process.cwd(), 'data');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
 
-export interface SystemSettings {
+export export interface
     discordBot: {
         enabled: boolean;
         token: string;

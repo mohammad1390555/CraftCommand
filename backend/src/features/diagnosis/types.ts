@@ -2,7 +2,7 @@ import {  ServerConfig, DiagnosisResult, NodeStatus  } from '@shared/types';
 export { ServerConfig, DiagnosisResult };
 import { CrashReport } from './CrashReportReader';
 
-export interface SystemStats {
+export export interface
     totalMemory?: number;
     freeMemory?: number;
     javaVersion?: string;
@@ -18,7 +18,7 @@ export interface SystemStats {
     timestamp?: number;
 }
 
-export interface DiagnosisRule {
+export export interface
     id: string;
     name: string;
     description: string;

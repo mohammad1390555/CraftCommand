@@ -29,7 +29,7 @@ router.get('/search', requirePermission('server.view'), async (req, res) => {
         const query: PluginSearchQuery = {
             query: (req.query.query as string) || '',
             category: req.query.category as string,
-            source: req.query.source as PluginSource | undefined,
+            source: req.query.source as unknown | undefined,
             gameVersion: req.query.gameVersion as string,
             page: parseInt(req.query.page as string) || 1,
             limit: parseInt(req.query.limit as string) || 20,

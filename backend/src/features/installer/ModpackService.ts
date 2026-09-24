@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { logger } from '../../utils/logger';
 
-interface ModpackHit {
+export interface
     id: string;
     title: string;
     description: string;

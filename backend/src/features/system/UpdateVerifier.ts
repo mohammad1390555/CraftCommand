@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { logger } from '../../utils/logger';
 
-export interface UpdateManifest {
+export export interface
     version: string;
     buildDate: string;
     minFrontendVersion?: string; // Minimum frontend version required

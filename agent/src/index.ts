@@ -39,7 +39,7 @@ import treeKill from 'tree-kill';
 // Types & State
 // ──────────────────────────────────────────────
 
-interface NodeSettings {
+export interface
     dockerEnabled: boolean;
     baseServersPath: string;
 }
@@ -128,7 +128,7 @@ const LOG_PREFIX = `[Agent:${NODE_ID.slice(0, 8)}]`;
 
 function log(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
-    // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
+    // // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
 }
 function warn(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
@@ -143,7 +143,7 @@ function error(msg: string): void {
 // Local Process Manager (embedded NativeRunner)
 // ──────────────────────────────────────────────
 
-interface ManagedServer {
+export interface
     process: ChildProcess;
     serverId: string;
     startTime: number;

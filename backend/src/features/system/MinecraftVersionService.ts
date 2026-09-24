@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { logger } from '../../utils/logger';
 
-interface MojangVersion {
+export interface
     id: string;
     type: 'release' | 'snapshot' | 'old_beta' | 'old_alpha';
     url: string;
@@ -9,7 +9,7 @@ interface MojangVersion {
     releaseTime: string;
 }
 
-interface MinecraftVersionsResponse {
+export interface
     latest: {
         release: string;
         snapshot: string;

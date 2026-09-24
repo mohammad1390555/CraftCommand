@@ -26,13 +26,13 @@ import { sendToAgent, isAgentConnected } from './NodeAgentHandler';
 
 const CHUNK_SIZE = 64 * 1024; // 64KB
 
-export interface FileManifestEntry {
+export export interface
     relativePath: string;
     size: number;
     hash: string;
 }
 
-export interface TransferProgress {
+export export interface
     serverId: string;
     nodeId: string;
     phase: 'scanning' | 'transferring' | 'reconnecting' | 'verifying' | 'complete' | 'error';

@@ -4,7 +4,7 @@ import { getCoreRules } from './DiagnosisRules';
 import { logger } from '../../utils/logger';
 import { ServerStatus } from '@shared/types';
 
-interface CooldownEntry {
+export interface
     lastTriggered: number;
     ruleId: string;
 }

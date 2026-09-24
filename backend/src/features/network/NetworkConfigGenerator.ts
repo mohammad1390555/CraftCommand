@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { logger } from '../../utils/logger';
 
-export interface NginxEdgeConfig {
+export export interface
     domain: string;
     backendPort: number;
     enableCache: boolean;
@@ -13,7 +13,7 @@ export interface NginxEdgeConfig {
     keyPath?: string;
 }
 
-export interface VelocityAdvancedConfig {
+export export interface
     compressionLevel: number; // 0-9
     compressionThreshold: number; // bytes
     enableRateLimiting: boolean;

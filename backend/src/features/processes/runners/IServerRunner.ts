@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-export interface RunnerStats {
+export export interface
     cpu: number;
     memory: number;
     pid?: number;

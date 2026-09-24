@@ -4,7 +4,7 @@ import { API } from '../../features/core/services/api';
 import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
-export interface ServerStats {
+export export interface
     cpu: number;
     memory: number;
     uptime: number;
@@ -18,7 +18,7 @@ export interface ServerStats {
     diagnosis?: unknown[];
 }
 
-export interface ServerSlice {
+export export interface
     servers: ServerConfig[];
     currentServer: ServerConfig | null;
     stats: Record<string, ServerStats>;

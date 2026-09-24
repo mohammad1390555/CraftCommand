@@ -18,7 +18,7 @@ const GITHUB_RELEASES_API = 'https://api.github.com/repos/Extroos/Craft-Commands
 
 export type UpdateStatus = 'IDLE' | 'CHECKING' | 'DOWNLOADING' | 'VERIFYING' | 'READY_TO_INSTALL' | 'ERROR';
 
-export interface UpdateStateInfo {
+export export interface
     status: UpdateStatus;
     progress: number;
     currentStep?: string;
@@ -29,7 +29,7 @@ export interface UpdateStateInfo {
 
 type UpdateLevel = 'MAJOR' | 'MINOR' | 'PATCH';
 
-interface VersionInfo {
+export interface
     version: string;
     title: string;
     notes: string[];
@@ -41,7 +41,7 @@ interface VersionInfo {
     minAgentVersion?: string;
 }
 
-interface UpdateCheckResult {
+export interface
     available: boolean;
     currentVersion: string;
     latestVersion: string;
@@ -55,7 +55,7 @@ interface UpdateCheckResult {
     error?: string;
 }
 
-interface InternalUpdateState {
+export interface
     lastNotifiedVersion?: string;
 }
 
