@@ -11,7 +11,7 @@ import { ServerStatus } from '@shared/types';
 export const VelocityNoBackendsRule: DiagnosisRule = {
     id: 'velocity_no_backends',
     name: 'Velocity Backend Check',
-    description: 'Checks if any backend servers are linked to the proxy',
+    description: 'Checks if unknown backend servers are linked to the proxy',
     triggers: [],
     tier: 1,
     defaultConfidence: 100,
@@ -25,7 +25,7 @@ export const VelocityNoBackendsRule: DiagnosisRule = {
                 ruleId: 'velocity_no_backends',
                 severity: 'WARNING',
                 title: 'No Backends Linked',
-                explanation: 'This Velocity proxy is running but has no backend servers linked. Players will not be able to connect to any game servers.',
+                explanation: 'This Velocity proxy is running but has no backend servers linked. Players will not be able to connect to unknown game servers.',
                 recommendation: 'Go to the "Proxy Network" tab and link at least one backend server (e.g. Lobby).',
                 evidence: 'Links defined: 0',
                 timestamp: Date.now()
@@ -36,7 +36,7 @@ export const VelocityNoBackendsRule: DiagnosisRule = {
 };
 
 /**
- * Checks if any linked backend servers are currently offline.
+ * Checks if unknown linked backend servers are currently offline.
  */
 export const VelocityBackendOfflineRule: DiagnosisRule = {
     id: 'velocity_backend_offline',

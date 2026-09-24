@@ -1,6 +1,6 @@
 import { ServerStatus } from '@shared/types';
 
-export interface ServerMetrics {
+export export interface
     cpu: number;      // Percentage 0-100
     memory: number;   // Used in MB
     allocated: number;// Max in MB
@@ -8,7 +8,7 @@ export interface ServerMetrics {
     uptime: number;
 }
 
-export interface AnalysisResult {
+export export interface
     status: 'HEALTHY' | 'WARNING' | 'CRITICAL';
     issues: string[];
     environment: {
