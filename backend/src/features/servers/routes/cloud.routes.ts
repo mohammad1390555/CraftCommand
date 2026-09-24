@@ -12,7 +12,7 @@ router.get('/', async (_req, res) => {
     try {
         const destinations = await backupService.getCloudDestinations();
         res.json(destinations);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
     try {
         const destinations = await backupService.addCloudDestination(req.body);
         res.json(destinations);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
@@ -32,7 +32,7 @@ router.post('/test', async (req, res) => {
     try {
         const result = await backupService.testCloudDestination(req.body);
         res.json(result);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -42,7 +42,7 @@ router.delete('/:name', async (req, res) => {
     try {
         const remaining = await backupService.removeCloudDestination(req.params.name);
         res.json(remaining);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
