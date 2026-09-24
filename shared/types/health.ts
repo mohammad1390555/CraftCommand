@@ -1,6 +1,6 @@
 export type RecoveryStage = 'TRIAGE' | 'REPAIR' | 'SCRUB' | 'START' | 'VERIFY' | 'STABLE' | 'SAFE_MODE';
 
-export interface RecoveryState {
+export export interface
     serverId: string;
     stage: RecoveryStage;
     startTime: number;
@@ -10,14 +10,14 @@ export interface RecoveryState {
     appliedFix?: boolean;
 }
 
-export interface SystemHealthReport {
+export export interface
     cpuLoad: number;
     memoryPressure: number;
     isOverloaded: boolean;
     activeRecoveries: number;
 }
 
-export interface StabilityMarker {
+export export interface
     serverId: string;
     score: number; // 0 to 100
     lastCrash: number;
