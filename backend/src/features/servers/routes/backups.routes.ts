@@ -23,7 +23,7 @@ router.post('/:backupId/lock', async (req, res) => {
         if (req.user) {
             auditService.log(req.user.id, isLocked ? 'BACKUP_LOCK' : 'BACKUP_UNLOCK', id, { backupId });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
         if (req.user) {
             auditService.log(req.user.id, 'BACKUP_CREATE', id, { backupId: backup.id, description, worldOnly });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -63,7 +63,7 @@ router.get('/', async (req, res) => {
     try {
         const backups = await backupService.listBackups(id);
         res.json(backups);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -101,7 +101,7 @@ router.post('/:backupId/restore', async (req, res) => {
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_RESTORE', id, { backupId, worldOnly: !!worldOnly });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -119,7 +119,7 @@ router.delete('/:backupId', async (req, res) => {
         if (req.user) {
             auditService.log(req.user.id, 'BACKUP_DELETE', id, { backupId });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -134,7 +134,7 @@ router.get('/:backupId/download', async (req, res) => {
     try {
         const filePath = await backupService.getBackupPath(id, backupId);
         res.download(filePath);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
