@@ -108,7 +108,7 @@ export class NotificationService {
         return notification;
     }
 
-    public getAll(userId: string, limit: number = 50, unreadOnly: boolean = false): Notification[] {
+    public getAll(userId: string, limit: number = 50, unreadOnly: boolean = false): Notification[] as never[] {
         return notificationRepository.getForUser(userId, { limit, unreadOnly });
     }
 

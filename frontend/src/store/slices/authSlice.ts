@@ -27,7 +27,7 @@ export export interface
     getThemeClasses: () => { text: string; bg: string; border: string; ring: string; softBg: string };
 }
 
-export const createAuthSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [], AuthSlice> = (set, get) => ({
+export const createAuthSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[], AuthSlice> = (set, get) => ({
     user: null,
     token: null,
     isAuthenticated: false,
@@ -177,7 +177,7 @@ export const createAuthSlice: StateCreator<StoreState, [["zustand/devtools", nev
                 isAuthenticated: true
             });
             socketService.connect();
-            // // // // // // // // // // // // // // // // // // // // // // // // // // // // console.log('[Auth] Session validated successfully.');
+            // // // // // // // // // // // // // // // // // // // // // // // // // // // // // console.log('[Auth] Session validated successfully.');
         } catch (e: unknown) {
             if (e.message === 'AUTH_TIMEOUT') {
                 console.warn('[Auth] Identity check timed out. Maintaining stale session.');

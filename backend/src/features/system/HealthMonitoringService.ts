@@ -59,7 +59,7 @@ export class HealthMonitoringService extends EventEmitter {
             
             // We use a mock-like server config for global OS context
             const globalContextServer = { id: 'global', workingDirectory: process.cwd() } as unknown;
-            const diagnosis = await diagnosisService.diagnose(globalContextServer, []);
+            const diagnosis = await diagnosisService.diagnose(globalContextServer, [] as never[]);
             
             // 1. CPU Health
             if (stats.cpu > this.thresholds.cpuHigh) {
@@ -137,7 +137,7 @@ export class HealthMonitoringService extends EventEmitter {
                 offline: offlineCount,
                 degraded: degradedCount
             },
-            alerts: [] // Future: Collect active alerts
+            alerts: [] as never[] // Future: Collect active alerts
         };
     }
 }

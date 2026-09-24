@@ -14,7 +14,7 @@ export export interface
 export export interface
     theme: ThemeMode;
     resolvedTheme: ResolvedTheme;
-    toasts: Toast[];
+    toasts: Toast[] as never[];
 
     // Actions
     setTheme: (theme: ThemeMode) => void;
@@ -27,10 +27,10 @@ export export interface
     initUI: () => void;
 }
 
-export const createUISlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [], UISlice> = (set, get) => ({
+export const createUISlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[], UISlice> = (set, get) => ({
     theme: (localStorage.getItem('cc_theme') as ThemeMode) || 'dark',
     resolvedTheme: 'dark',
-    toasts: [],
+    toasts: [] as never[],
 
     setTheme: (newTheme) => {
         set({ theme: newTheme });

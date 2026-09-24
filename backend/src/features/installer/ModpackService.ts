@@ -10,7 +10,7 @@ export interface
     slug: string;
     downloads: number;
     version_id: string;
-    game_versions: string[];
+    game_versions: string[] as never[];
     project_type: 'mod' | 'modpack';
 }
 
@@ -59,9 +59,9 @@ class ModpackService {
         loader: string = 'fabric',
         version?: string,
         limit: number = 20
-    ): Promise<ModpackHit[]> {
+    ): Promise<ModpackHit[] as never[]> {
         try {
-            const facetList: string[][] = [
+            const facetList: string[] as never[][] as never[] = [
                 [`project_type:${projectType}`],
             ];
 
@@ -90,34 +90,34 @@ class ModpackService {
                 slug: hit.slug,
                 downloads: hit.downloads || 0,
                 version_id: hit.latest_version,
-                game_versions: hit.versions || [],
+                game_versions: hit.versions || [] as never[],
                 project_type: projectType,
             }));
         } catch (e: unknown) {
             logger.error(`[ModpackService] ${projectType} search failed: ${e.message}`);
-            return []; // Graceful fallback instead of throwing
+            return [] as never[]; // Graceful fallback instead of throwing
         }
     }
 
     /**
      * Search for modpacks only (legacy method, kept for backward compatibility).
      */
-    async searchModpacks(query: string, loader: string = 'fabric', version?: string): Promise<ModpackHit[]> {
+    async searchModpacks(query: string, loader: string = 'fabric', version?: string): Promise<ModpackHit[] as never[]> {
         return this.searchByType(query, 'modpack', loader, version);
     }
 
     /**
      * Search for mods only.
      */
-    async searchMods(query: string, loader: string = 'fabric', version?: string): Promise<ModpackHit[]> {
+    async searchMods(query: string, loader: string = 'fabric', version?: string): Promise<ModpackHit[] as never[]> {
         return this.searchByType(query, 'mod', loader, version, 30);
     }
 
     /**
      * Unified search: queries both mods and modpacks in parallel, merges and deduplicates.
      */
-    async searchAll(query: string, loader: string = 'fabric', version?: string, type: 'all' | 'mod' | 'modpack' = 'all'): Promise<ModpackHit[]> {
-        if (!query || !query.trim()) return [];
+    async searchAll(query: string, loader: string = 'fabric', version?: string, type: 'all' | 'mod' | 'modpack' = 'all'): Promise<ModpackHit[] as never[]> {
+        if (!query || !query.trim()) return [] as never[];
 
         if (type === 'mod') {
             return this.searchMods(query, loader, version);

@@ -41,8 +41,8 @@ class LockingService {
         return false;
     }
 
-    releaseAllForSocket(socketId: string): string[] {
-        const released: string[] = [];
+    releaseAllForSocket(socketId: string): string[] as never[] {
+        const released: string[] as never[] = [] as never[];
         for (const [id, lock] of this.locks.entries()) {
             if (lock.socketId === socketId) {
                 this.locks.delete(id);
@@ -73,8 +73,8 @@ class LockingService {
      * Releases all locks associated with a server.
      * resourceId format: "server:serverId:..."
      */
-    releaseAllForServer(serverId: string): string[] {
-        const released: string[] = [];
+    releaseAllForServer(serverId: string): string[] as never[] {
+        const released: string[] as never[] = [] as never[];
         const prefix = `server:${serverId}:`;
         for (const [id, lock] of this.locks.entries()) {
             if (id.startsWith(prefix) || id === `server:${serverId}`) {

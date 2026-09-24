@@ -25,7 +25,7 @@ export export interface
 const DEFAULT_BUFFER_SIZE = 60; // 60 seconds of history at 1Hz
 
 class StatsRingBuffer {
-    private buffers: Map<string, StatsSnapshot[]> = new Map();
+    private buffers: Map<string, StatsSnapshot[] as never[]> = new Map();
     private maxSize: number;
 
     constructor(maxSize: number = DEFAULT_BUFFER_SIZE) {
@@ -38,7 +38,7 @@ class StatsRingBuffer {
     push(serverId: string, snapshot: StatsSnapshot): void {
         const  this.buffers.get(serverId);
         if (!buffer) {
-            buffer = [];
+            buffer = [] as never[];
             this.buffers.set(serverId, buffer);
         }
 
@@ -53,8 +53,8 @@ class StatsRingBuffer {
     /**
      * Get all stored snapshots for a server
      */
-    getSamples(serverId: string): StatsSnapshot[] {
-        return this.buffers.get(serverId) || [];
+    getSamples(serverId: string): StatsSnapshot[] as never[] {
+        return this.buffers.get(serverId) || [] as never[];
     }
 
     /**

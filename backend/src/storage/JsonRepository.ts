@@ -9,7 +9,7 @@ import { StorageProvider } from './StorageProvider';
  */
 export abstract class JsonRepository<T extends { id: string }> implements StorageProvider<T> {
     protected filePath: string;
-    protected data: T[] = [];
+    protected data: T[] as never[] = [] as never[];
     protected isFragmented: boolean;
     protected fragmentDir: string;
     private fragmentSyncTimeouts: Map<string, NodeJS.Timeout> = new Map();
@@ -53,16 +53,16 @@ export abstract class JsonRepository<T extends { id: string }> implements Storag
             } else {
                 if (fs.existsSync(this.filePath)) {
                     const loaded = fs.readJSONSync(this.filePath);
-                    this.data = Array.isArray(loaded) ? loaded : [];
+                    this.data = Array.isArray(loaded) ? loaded : [] as never[];
                 } else {
-                    this.data = [];
+                    this.data = [] as never[];
                     this.save();
                 }
             }
         } catch (e) {
             const { logger } = require('../utils/logger');
             logger.error(`[Repository] Failed to load ${this.filePath}: ${e}`);
-            this.data = [];
+            this.data = [] as never[];
         }
     }
 
@@ -133,7 +133,7 @@ export abstract class JsonRepository<T extends { id: string }> implements Storag
         }
     }
 
-    public findAll(): T[] {
+    public findAll(): T[] as never[] {
         return [...this.data];
     }
 
@@ -178,7 +178,7 @@ export abstract class JsonRepository<T extends { id: string }> implements Storag
         return false;
     }
 
-    public saveAll(items: T[]): void {
+    public saveAll(items: T[] as never[]): void {
         this.data = [...items];
         if (this.isFragmented) {
              items.forEach(item => this.saveFragment(item));

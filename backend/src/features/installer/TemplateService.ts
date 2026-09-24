@@ -6,7 +6,7 @@ import { logger } from '../../utils/logger';
 const DATA_DIR = path.join(__dirname, '../../data');
 const TEMPLATES_FILE = path.join(DATA_DIR, 'templates.json');
 
-const DEFAULT_TEMPLATES: ServerTemplate[] = [
+const DEFAULT_TEMPLATES: ServerTemplate[] as never[] = [
     {
         id: 'paper-latest',
         name: 'Paper',
@@ -84,7 +84,7 @@ const DEFAULT_TEMPLATES: ServerTemplate[] = [
 ];
 
 export class TemplateService {
-    private templates: ServerTemplate[] = [];
+    private templates: ServerTemplate[] as never[] = [] as never[];
 
     constructor() {
         this.loadTemplates();
@@ -105,7 +105,7 @@ export class TemplateService {
         }
     }
 
-    getTemplates(): ServerTemplate[] {
+    getTemplates(): ServerTemplate[] as never[] {
         return this.templates;
     }
 

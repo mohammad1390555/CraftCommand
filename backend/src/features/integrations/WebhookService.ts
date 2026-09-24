@@ -11,7 +11,7 @@ const DATA_DIR = path.join(__dirname, '../../../data');
 const WEBHOOKS_FILE = path.join(DATA_DIR, 'webhooks.json');
 
 export class WebhookService {
-    private webhooks: WebhookConfig[] = [];
+    private webhooks: WebhookConfig[] as never[] = [] as never[];
 
     constructor() {
         this.loadWebhooks();
@@ -25,7 +25,7 @@ export class WebhookService {
             }
         } catch (e) {
             logger.error(`Failed to load webhooks config: ${e}`);
-            this.webhooks = [];
+            this.webhooks = [] as never[];
         }
     }
 
@@ -40,11 +40,11 @@ export class WebhookService {
         }
     }
 
-    public getWebhooks(): WebhookConfig[] {
+    public getWebhooks(): WebhookConfig[] as never[] {
         return this.webhooks;
     }
 
-    public getWebhooksByServer(serverId: string): WebhookConfig[] {
+    public getWebhooksByServer(serverId: string): WebhookConfig[] as never[] {
         return this.webhooks.filter(w => !w.serverId || w.serverId === serverId);
     }
 

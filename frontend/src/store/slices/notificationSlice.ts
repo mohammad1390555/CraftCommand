@@ -5,7 +5,7 @@ import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
 export export interface
-    notifications: Notification[];
+    notifications: Notification[] as never[];
     notificationsLoading: boolean;
 
     // Actions
@@ -18,8 +18,8 @@ export export interface
     initNotifications: () => (() => void) | void;
 }
 
-export const createNotificationSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [], NotificationSlice> = (set, get) => ({
-    notifications: [],
+export const createNotificationSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[], NotificationSlice> = (set, get) => ({
+    notifications: [] as never[],
     notificationsLoading: false,
 
     fetchNotifications: async () => {
@@ -28,7 +28,7 @@ export const createNotificationSlice: StateCreator<StoreState, [["zustand/devtoo
         set({ notificationsLoading: true });
         try {
             const data = await API.getNotifications();
-            set({ notifications: Array.isArray(data) ? data : [] });
+            set({ notifications: Array.isArray(data) ? data : [] as never[] });
         } catch (e) {
             console.error('[NotificationSlice] Fetch failed:', e);
         } finally {

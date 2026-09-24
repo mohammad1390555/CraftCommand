@@ -24,11 +24,11 @@ export export interface
     name: string;
     description: string;
     icon: string;
-    servers: NetworkServerDef[];
+    servers: NetworkServerDef[] as never[];
     defaultGamemode?: string;
 }
 
-const NETWORK_TEMPLATES: NetworkTemplate[] = [
+const NETWORK_TEMPLATES: NetworkTemplate[] as never[] = [
     {
         id: 'skyblock-network',
         name: 'SkyBlock Network',
@@ -97,7 +97,7 @@ class NetworkTemplateService {
     /**
      * Get all available network templates.
      */
-    getTemplates(): NetworkTemplate[] {
+    getTemplates(): NetworkTemplate[] as never[] {
         return NETWORK_TEMPLATES;
     }
 
@@ -126,7 +126,7 @@ class NetworkTemplateService {
      * Generate server creation payloads from a network template.
      * Returns ordered creation instructions — proxy first, then backends.
      */
-    generateCreatePayloads(templateId: string): NetworkServerDef[] | null {
+    generateCreatePayloads(templateId: string): NetworkServerDef[] as never[] | null {
         const template = this.getTemplate(templateId);
         if (!template) return null;
 

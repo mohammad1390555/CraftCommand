@@ -58,7 +58,7 @@ export export interface
         release: string;
         arch: string;
     };
-    serverDiskUsage: DiskUsageInfo[];
+    serverDiskUsage: DiskUsageInfo[] as never[];
     totalServerDiskMB: number;
     timestamp: number;
 }
@@ -165,9 +165,9 @@ class HostingOSService {
     /**
      * Calculate disk usage per server directory.
      */
-    async getServerDiskUsage(): Promise<DiskUsageInfo[]> {
+    async getServerDiskUsage(): Promise<DiskUsageInfo[] as never[]> {
         const servers = getServers();
-        const results: DiskUsageInfo[] = [];
+        const results: DiskUsageInfo[] as never[] = [] as never[];
 
         for (const server of servers) {
             if (!server.workingDirectory) continue;
@@ -252,9 +252,9 @@ class HostingOSService {
      * Check all servers against their disk quotas.
      * Returns servers exceeding their quota.
      */
-    async checkDiskQuotas(defaultQuotaMB: number = 10_000): Promise<DiskQuotaViolation[]> {
+    async checkDiskQuotas(defaultQuotaMB: number = 10_000): Promise<DiskQuotaViolation[] as never[]> {
         const diskUsage = await this.getServerDiskUsage();
-        const violations: DiskQuotaViolation[] = [];
+        const violations: DiskQuotaViolation[] as never[] = [] as never[];
 
         for (const usage of diskUsage) {
             const quotaMB = defaultQuotaMB; // Could be per-server in future
@@ -296,7 +296,7 @@ class HostingOSService {
      * Get servers sorted by disk usage (heaviest first).
      * Useful for UI display and admin alerts.
      */
-    async getTopDiskConsumers(limit: number = 5): Promise<DiskUsageInfo[]> {
+    async getTopDiskConsumers(limit: number = 5): Promise<DiskUsageInfo[] as never[]> {
         const usage = await this.getServerDiskUsage();
         return usage.slice(0, limit);
     }

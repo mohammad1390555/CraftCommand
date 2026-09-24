@@ -211,7 +211,7 @@ class ImportService {
     /**
      * Core Analysis Logic (Shared between Local & Archive)
      */
-    private analyzeFiles(files: string[], serverProperties: string): ImportAnalysis {
+    private analyzeFiles(files: string[] as never[], serverProperties: string): ImportAnalysis {
         const lowerFiles = files.map(f => f.toLowerCase());
 
         let software: unknown = 'Vanilla';
@@ -296,7 +296,7 @@ class ImportService {
             ram,
             javaVersion,
             isModded,
-            suggestions: pterodactylDetected ? ['Pterodactyl migration markers detected. Files will be managed locally.'] : [],
+            suggestions: pterodactylDetected ? ['Pterodactyl migration markers detected. Files will be managed locally.'] : [] as never[],
             pterodactylDetected
         };
     }

@@ -4,10 +4,10 @@ import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
 export export interface
-    presence: Record<string, PresenceEntry[]>;
-    activities: Record<string, ActivityEvent[]>;
-    chatMessages: Record<string, ChatMessage[]>;
-    typingUsers: Record<string, { userId: string; username: string }[]>;
+    presence: Record<string, PresenceEntry[] as never[]>;
+    activities: Record<string, ActivityEvent[] as never[]>;
+    chatMessages: Record<string, ChatMessage[] as never[]>;
+    typingUsers: Record<string, { userId: string; username: string }[] as never[]>;
 
     // Actions
     sendChat: (serverId: string, content: string) => void;
@@ -19,7 +19,7 @@ export export interface
     handleCollabReconnect: () => void;
 }
 
-export const createCollabSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [], CollabSlice> = (set, get) => ({
+export const createCollabSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[], CollabSlice> = (set, get) => ({
     presence: {},
     activities: {},
     chatMessages: {},
@@ -58,13 +58,13 @@ export const createCollabSlice: StateCreator<StoreState, [["zustand/devtools", n
                 const targetId = event.serverId || 'global';
                 const updatedActivities = { ...state.activities };
                 
-                const existing = updatedActivities[targetId] || [];
+                const existing = updatedActivities[targetId] || [] as never[];
                 if (!existing.some(e => e.id === event.id)) {
                     updatedActivities[targetId] = [event, ...existing].slice(0, 100);
                 }
 
                 if (targetId !== 'global') {
-                    const globalEx = updatedActivities['global'] || [];
+                    const globalEx = updatedActivities['global'] || [] as never[];
                     if (!globalEx.some(e => e.id === event.id)) {
                         updatedActivities['global'] = [event, ...globalEx].slice(0, 200);
                     }
@@ -74,7 +74,7 @@ export const createCollabSlice: StateCreator<StoreState, [["zustand/devtools", n
         };
         const handleChatMessage = (message: ChatMessage) => {
             set(state => {
-                const existing = state.chatMessages[message.serverId] || [];
+                const existing = state.chatMessages[message.serverId] || [] as never[];
                 if (existing.some(m => m.id === message.id)) return state;
                 return { chatMessages: { ...state.chatMessages, [message.serverId]: [...existing, message].slice(-200) } };
             });
@@ -84,7 +84,7 @@ export const createCollabSlice: StateCreator<StoreState, [["zustand/devtools", n
                 const targetId = data.serverId || 'global';
                 const updatedTyping = { ...state.typingUsers };
                 
-                const existing = updatedTyping[targetId] || [];
+                const existing = updatedTyping[targetId] || [] as never[];
                 if (!existing.some(u => u.userId === data.userId)) {
                     updatedTyping[targetId] = [...existing, data];
                 }

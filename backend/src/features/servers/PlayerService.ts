@@ -13,17 +13,17 @@ export class PlayerService {
         return path.join(serverDir, file);
     }
 
-    private async readJsonFile(serverDir: string, file: string): Promise<unknown[]> {
+    private async readJsonFile(serverDir: string, file: string): Promise<unknown[] as never[]> {
         const filePath = this.getFilePath(serverDir, file);
         if (await fs.pathExists(filePath)) {
             try {
                 return await fs.readJSON(filePath);
             } catch (e) {
                 logger.error(`[PlayerService] Failed to read ${file}: ${e}`);
-                return [];
+                return [] as never[];
             }
         }
-        return [];
+        return [] as never[];
     }
 
     // --- Offline/Online Handling ---
@@ -34,7 +34,7 @@ export class PlayerService {
         
         const isBedrock = server.software === 'Bedrock';
         const status = processManager.getCachedStatus(serverId);
-        const onlineNames: string[] = status.playerList || [];
+        const onlineNames: string[] as never[] = status.playerList || [] as never[];
 
         // All Known Players (History + Online)
         if (type === 'all') {
@@ -76,7 +76,7 @@ export class PlayerService {
 
         // Online Players (Runtime)
         if (type === 'online') {
-            const onlineNames: string[] = status.playerList || [];
+            const onlineNames: string[] as never[] = status.playerList || [] as never[];
             
             const opsFile = isBedrock ? 'permissions.json' : 'ops.json';
             const ops = await this.readJsonFile(server.workingDirectory, opsFile);

@@ -95,7 +95,7 @@ router.post('/enroll', verifyToken, nodeEnrollLimiter, requireRole(['OWNER']), r
         const validPort = ValidationUtils.validatePort(port);
         const validName = ValidationUtils.validateId(name, 'Node Name');
 
-        const node = nodeRegistryService.enroll(validName, validHost, validPort, labels || []);
+        const node = nodeRegistryService.enroll(validName, validHost, validPort, labels || [] as never[]);
         
         auditService.log(req.user.id, 'SYSTEM_SETTINGS_UPDATE', node.id, {
             action: 'NODE_ENROLL',

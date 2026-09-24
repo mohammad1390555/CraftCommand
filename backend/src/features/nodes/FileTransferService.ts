@@ -49,8 +49,8 @@ type ProgressCallback = (progress: TransferProgress) => void;
 /**
  * Scan a directory recursively and build a file manifest.
  */
-function scanDirectory(baseDir: string, currentDir: string = ''): FileManifestEntry[] {
-    const entries: FileManifestEntry[] = [];
+function scanDirectory(baseDir: string, currentDir: string = ''): FileManifestEntry[] as never[] {
+    const entries: FileManifestEntry[] as never[] = [] as never[];
     const fullPath = currentDir ? path.join(baseDir, currentDir) : baseDir;
 
     if (!fs.existsSync(fullPath)) return entries;
@@ -138,7 +138,7 @@ export async function transferServerFiles(
     progress.phase = 'transferring';
     onProgress?.(progress);
 
-    let filesToTransfer: string[];
+    let filesToTransfer: string[] as never[];
     try {
         const beginResult = await sendToAgent(nodeId, 'agent:file-begin', {
             serverId,

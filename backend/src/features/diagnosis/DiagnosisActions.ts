@@ -221,7 +221,7 @@ export const DiagnosisActions = {
     /**
      * Removes duplicate versions of the same plugin, keeping the most recent one
      */
-    removeDuplicatePlugins: async (fs: FileSystemManager, files: string[]) => {
+    removeDuplicatePlugins: async (fs: FileSystemManager, files: string[] as never[]) => {
         logger.info(`[DiagnosisAction] Resolving duplicate plugins: ${files.join(', ')}`);
         
         // Find the "best" one to keep (latest modification time)

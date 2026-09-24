@@ -79,7 +79,7 @@ export const IncompatibleModsRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         const fullLog = logs.join('\n');
         
         // --- SMART HANDLING (v4.5) ---
@@ -117,7 +117,7 @@ export const IncompatibleModsRule: DiagnosisRule = {
             }
 
             const installMatches = [...rawSolutions.matchAll(/- Install ([^,\n]+?)(?:,\s*version\s+([^\s]+)\s+or later)?\.?\s*$/gim)];
-            const missingDeps: string[] = [];
+            const missingDeps: string[] as never[] = [] as never[];
             for (const m of installMatches) {
                 const depSlug = m[1].trim().toLowerCase();
                 if (!['java', 'minecraft', 'fabricloader', 'forge'].includes(depSlug)) {
@@ -126,7 +126,7 @@ export const IncompatibleModsRule: DiagnosisRule = {
             }
 
             const detailsBlockMatch = fullLog.match(/More details:[\s\S]+/i);
-            const requirerNames: string[] = [];
+            const requirerNames: string[] as never[] = [] as never[];
             if (detailsBlockMatch) {
                 const extractRegex = /- Mod '([^']+)'/ig;
                 let m;
@@ -178,7 +178,7 @@ export const ModDependencyRule: DiagnosisRule = {
     ],
     tier: 3,
     defaultConfidence: 95,
-    analyze: async (server: ServerConfig, logs: string[], env: SystemStats, crashReport?: CrashReport): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[], env: SystemStats, crashReport?: CrashReport): Promise<DiagnosisResult | null> => {
         const content = crashReport?.content || logs.join('\n');
         
         const missingClassMatch = content.match(/NoClassDefFoundError: ([\w\/\.]+)/);
@@ -240,7 +240,7 @@ export const DuplicateModRule: DiagnosisRule = {
     ],
     tier: 2,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         const logLine = logs.find(l => /Duplicate mods found/i.test(l) || /Found a duplicate mod/i.test(l));
         if (logLine) {
              const modMatch = logLine.match(/Found a duplicate mod: (\S+)/i) || logLine.match(/Duplicate mods found: ([\w, ]+)/i);
@@ -272,7 +272,7 @@ export const MixinConflictRule: DiagnosisRule = {
     ],
     tier: 3,
     defaultConfidence: 90,
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         // --- SMART HANDLING: FIX MARKER BLINDNESS ---
         // Mixin conflicts are hard to verify via FS. 
         // If a [FIX] marker exists after the last Mixin error, we assume it's resolved.
@@ -314,7 +314,7 @@ export const TickingEntityRule: DiagnosisRule = {
     ],
     tier: 3,
     defaultConfidence: 90,
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         const trigger = logs.find(l => /Ticking entity|Entity being ticked|Description: Ticking entity/i.test(l));
         if (trigger) {
              const entityLine = logs.find(l => /Entity Type: ([\w:]+)/i.test(l) || /Entity being ticked: ([\w:]+)/i.test(l)) || trigger;
@@ -397,7 +397,7 @@ export const ClientOnlyModRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 95,
-    analyze: async (server: ServerConfig, logs: string[], env: SystemStats, crashReport?: CrashReport): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[], env: SystemStats, crashReport?: CrashReport): Promise<DiagnosisResult | null> => {
         const fullLog = crashReport ? crashReport.content : logs.join('\n');
         
         // --- SMART HANDLING: FIX MARKER BLINDNESS ---
@@ -477,7 +477,7 @@ export const CorruptedModJarRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         const fullLog = logs.join('\n');
         
         const zipErrorMatch = fullLog.match(/(java\.util\.zip\.ZipException: (?:zip file is empty|error in opening zip file)|Invalid zip file).*?([a-zA-Z0-9_+\-\.\[\] ]+\.jar)/is);
@@ -504,7 +504,7 @@ export const ProactiveModIntegrityRule: DiagnosisRule = {
     id: 'proactive_mod_integrity',
     name: 'Proactive Mod Integrity Scan',
     description: 'Scans the mods folder for client-side mods and corruption before startup.',
-    triggers: [], // Explicitly proactive
+    triggers: [] as never[], // Explicitly proactive
     tier: 1,
     defaultConfidence: 100,
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
@@ -565,7 +565,7 @@ export const ProactiveModIntegrityRule: DiagnosisRule = {
     }
 };
 
-export const ModDiagnosisRules: DiagnosisRule[] = [
+export const ModDiagnosisRules: DiagnosisRule[] as never[] = [
     IncompatibleModsRule,
     ModDependencyRule,
     DuplicateModRule,

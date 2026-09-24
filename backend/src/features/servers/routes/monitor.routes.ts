@@ -89,7 +89,7 @@ router.get('/query', async (req, res) => {
                  processManager.updateCachedStatus(id, {
                      online: true,
                      players: status.players,
-                     playerList: [], // mcstatus simplified doesn't provide sample
+                     playerList: [] as never[], // mcstatus simplified doesn't provide sample
                      maxPlayers: status.max_players,
                      latency: status.ping,
                      version: status.version
@@ -124,7 +124,7 @@ router.get('/query', async (req, res) => {
                           processManager.updateCachedStatus(id, { 
                               online: isRunning, 
                               players: 0, 
-                              playerList: [] 
+                              playerList: [] as never[] 
                           });
                           
                           if (!isRunning) {

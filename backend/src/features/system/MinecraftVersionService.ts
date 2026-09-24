@@ -14,7 +14,7 @@ export interface
         release: string;
         snapshot: string;
     };
-    versions: MojangVersion[];
+    versions: MojangVersion[] as never[];
 }
 
 export class MinecraftVersionService {

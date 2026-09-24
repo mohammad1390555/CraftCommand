@@ -93,7 +93,7 @@ class LocalAgentManager {
         const useDist = isProduction || require('fs').existsSync(distPath);
 
         const  'node';
-        const  [];
+        const  [] as never[];
 
         if (useDist) {
             scriptArgs = [distPath];

@@ -27,13 +27,13 @@ class ChatRepository implements StorageProvider<ChatMessage> {
         return result;
     }
     update(id: string, updates: Partial<ChatMessage>) { return this.provider.update(id, updates); }
-    saveAll(items: ChatMessage[]) { return this.provider.saveAll(items); }
+    saveAll(items: ChatMessage[] as never[]) { return this.provider.saveAll(items); }
     delete(id: string) { return this.provider.delete(id); }
 
     /**
      * Get chat history for a specific server (or 'global')
      */
-    public getHistory(serverId: string, limit: number = 50): ChatMessage[] {
+    public getHistory(serverId: string, limit: number = 50): ChatMessage[] as never[] {
         return this.findAll()
             .filter(m => m.serverId === serverId)
             .sort((a, b) => a.timestamp - b.timestamp)

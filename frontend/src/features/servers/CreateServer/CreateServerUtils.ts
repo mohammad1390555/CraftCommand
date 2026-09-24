@@ -93,7 +93,7 @@ export const synthesizeDefaultState = (
 };
 
 export const syncFormDataForModpack = (
-    pack: { id: string; title: string; game_versions?: string[] },
+    pack: { id: string; title: string; game_versions?: string[] as never[] },
     loader: string,
     currentData: FormData,
     bedrockVersions?: { latest: string }

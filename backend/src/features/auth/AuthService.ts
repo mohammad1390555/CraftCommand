@@ -65,7 +65,7 @@ class AuthService {
         userRepository.create(admin);
     }
 
-    getUsers(): UserProfile[] {
+    getUsers(): UserProfile[] as never[] {
         return userRepository.findAll().map(u => {
             const { passwordHash, ...rest } = u;
             return rest as UserProfile;
@@ -349,7 +349,7 @@ class AuthService {
         return { qrCode, secret };
     }
 
-    async confirm2FASetup(userId: string, code: string): Promise<{ backupCodes: string[] }> {
+    async confirm2FASetup(userId: string, code: string): Promise<{ backupCodes: string[] as never[] }> {
         const user = userRepository.findById(userId);
         if (!user || !user.twoFactorPendingSecretEncrypted) {
             throw new ValidationError('2FA setup not initiated');
@@ -503,7 +503,7 @@ class AuthService {
 
     // --- 2FA Backup Code Regeneration ---
 
-    async regenerateBackupCodes(userId: string, password: string, code: string): Promise<{ backupCodes: string[] }> {
+    async regenerateBackupCodes(userId: string, password: string, code: string): Promise<{ backupCodes: string[] as never[] }> {
         const user = userRepository.findById(userId);
         if (!user || !user.twoFactorEnabled || !user.twoFactorSecretEncrypted) {
             throw new ValidationError('2FA is not enabled');

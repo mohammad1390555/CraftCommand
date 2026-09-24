@@ -198,7 +198,7 @@ export const requirePermission = (permission: Permission) => {
     };
 };
 
-export const requireRole = (allowedRoles: string[]) => {
+export const requireRole = (allowedRoles: string[] as never[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
         const user = (req as unknown).user;
         if (!user) return res.status(401).json({ error: 'Unauthorized' });

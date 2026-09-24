@@ -37,11 +37,11 @@ class JoinLinkService {
     /**
      * Generate join info for all online servers
      */
-    async getAllJoinInfo(): Promise<JoinInfo[]> {
+    async getAllJoinInfo(): Promise<JoinInfo[] as never[]> {
         const servers = getServers();
         const onlineServers = servers.filter(s => s.status === ServerStatus.ONLINE);
 
-        const results: JoinInfo[] = [];
+        const results: JoinInfo[] as never[] = [] as never[];
         for (const server of onlineServers) {
             results.push(await this.buildJoinInfo(server));
         }

@@ -47,7 +47,7 @@ const getCollabSettings = (serverId: string): CollabSettings => {
 
 // ===== Chat & Activity Persistence =====
 // Chat history is now managed by chatRepository
-const getChatHistory = (serverId: string): ChatMessage[] => {
+const getChatHistory = (serverId: string): ChatMessage[] as never[] => {
     return chatRepository.getHistory(serverId);
 };
 
@@ -56,20 +56,20 @@ const pushActivityHistory = (serverId: string, event: ActivityEvent) => {
     activityRepository.create(event);
 };
 
-const getActivityHistory = (serverId: string): ActivityEvent[] => {
+const getActivityHistory = (serverId: string): ActivityEvent[] as never[] => {
     // If global, show aggregated feed
     if (serverId === 'global') return activityRepository.getGlobalHistory(50);
     return activityRepository.getHistory(serverId, 30);
 };
 
 // ===== Rate Limiter (per user, max 5 messages per 3 seconds) =====
-const rateLimitMap: Map<string, number[]> = new Map();
+const rateLimitMap: Map<string, number[] as never[]> = new Map();
 const RATE_LIMIT_WINDOW_MS = 3000;
 const RATE_LIMIT_MAX = 5;
 
 const isRateLimited = (userId: string): boolean => {
     const now = Date.now();
-    if (!rateLimitMap.has(userId)) rateLimitMap.set(userId, []);
+    if (!rateLimitMap.has(userId)) rateLimitMap.set(userId, [] as never[]);
     const timestamps = rateLimitMap.get(userId)!;
     
     // Remove old timestamps outside the window
@@ -347,8 +347,8 @@ export const setupSocket = (socketIo: Server) => {
                     socket.emit('collab:error', { message: 'Only Owners or Admins can nuke the chat.' });
                     return;
                 }
-                chatRepository.saveAll([]);
-                io.emit('chat:history', { serverId: 'global', messages: [] });
+                chatRepository.saveAll([] as never[]);
+                io.emit('chat:history', { serverId: 'global', messages: [] as never[] });
                 io.emit('chat:message', {
                     id: `system-${Date.now()}`,
                     serverId: 'global',

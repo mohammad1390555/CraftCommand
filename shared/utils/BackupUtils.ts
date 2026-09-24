@@ -29,8 +29,8 @@ export export interface
 /**
  * Detect world folders in a Minecraft server directory.
  */
-export async function detectWorldFolders(serverDir: string): Promise<string[]> {
-    const worlds: string[] = [];
+export async function detectWorldFolders(serverDir: string): Promise<string[] as never[]> {
+    const worlds: string[] as never[] = [] as never[];
     
     // 1. Bedrock Container Discovery
     const bedrockWorldsDir = path.join(serverDir, 'worlds');

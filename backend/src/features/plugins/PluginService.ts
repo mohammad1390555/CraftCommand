@@ -21,7 +21,7 @@ export class PluginService {
         if (!server) throw new Error('Server not found');
         
         if (!supportsPlugins(server.software)) {
-            return { plugins: [], total: 0, page: 1, pages: 0 };
+            return { plugins: [] as never[], total: 0, page: 1, pages: 0 };
         }
 
         return marketplaceRegistry.search(query, server.software);
@@ -30,7 +30,7 @@ export class PluginService {
     /**
      * Get all installed plugins for a server.
      */
-    getInstalled(serverId: string): InstalledPlugin[] {
+    getInstalled(serverId: string): InstalledPlugin[] as never[] {
         return pluginRepository.findByServer(serverId);
     }
 
@@ -93,7 +93,7 @@ export class PluginService {
         // Resolve download URL with clear error handling
         let downloadInfo;
         try {
-            const platforms = SOFTWARE_TO_PLATFORMS[server.software] || [];
+            const platforms = SOFTWARE_TO_PLATFORMS[server.software] || [] as never[];
             downloadInfo = await marketplaceRegistry.getDownloadUrl(sourceId, source, server.version, platforms);
         } catch (err: unknown) {
             logger.error(`[PluginService] Failed to resolve download URL for ${sourceId} (${source}): ${err.message}`);
@@ -166,7 +166,7 @@ export class PluginService {
         serverRepository.update(serverId, { needsRestart: true } as unknown);
         
         // --- Dependency Resolution ---
-        const deps = (downloadInfo as unknown).dependencies || [];
+        const deps = (downloadInfo as unknown).dependencies || [] as never[];
         if (deps.length > 0) {
             logger.info(`[PluginService] Resolving dependencies for ${plugin.name}...`);
             for (const dep of deps) {
@@ -274,9 +274,9 @@ export class PluginService {
     /**
      * Check for available updates across all installed plugins.
      */
-    async checkUpdates(serverId: string): Promise<PluginUpdateInfo[]> {
+    async checkUpdates(serverId: string): Promise<PluginUpdateInfo[] as never[]> {
         const installed = pluginRepository.findByServer(serverId);
-        const updates: PluginUpdateInfo[] = [];
+        const updates: PluginUpdateInfo[] as never[] = [] as never[];
 
         const toCheck = installed.filter(p => p.sourceId && p.source !== 'manual');
         const limit = 5; // Concurrency limit
@@ -375,8 +375,8 @@ export class PluginService {
     /**
      * Bulk update multiple plugins for a server.
      */
-    async bulkUpdate(serverId: string, pluginIds: string[]): Promise<Array<{ pluginId: string; success: boolean; error?: string }>> {
-        const results: Array<{ pluginId: string; success: boolean; error?: string }> = [];
+    async bulkUpdate(serverId: string, pluginIds: string[] as never[]): Promise<Array<{ pluginId: string; success: boolean; error?: string }>> {
+        const results: Array<{ pluginId: string; success: boolean; error?: string }> = [] as never[];
         const limit = 3; // Max 3 concurrent downloads to avoid overwhelming network/APIs
         
         for (const  0; i < pluginIds.length; i += limit) {
@@ -399,19 +399,19 @@ export class PluginService {
      * Scan the plugins/mods directory and reconcile with DB records.
      * Discovers manually installed plugins.
      */
-    async scanInstalled(serverId: string): Promise<InstalledPlugin[]> {
+    async scanInstalled(serverId: string): Promise<InstalledPlugin[] as never[]> {
         const server = serverRepository.findById(serverId);
         if (!server) throw new Error('Server not found');
 
-        if (!supportsPlugins(server.software)) return [];
+        if (!supportsPlugins(server.software)) return [] as never[];
 
         const targetDir = path.join(server.workingDirectory, getTargetDir(server.software));
-        if (!(await fs.pathExists(targetDir))) return [];
+        if (!(await fs.pathExists(targetDir))) return [] as never[];
 
         const files = await fs.readdir(targetDir);
         const jarFiles = files.filter(f => f.endsWith('.jar') || f.endsWith('.jar.disabled'));
 
-        const discovered: InstalledPlugin[] = [];
+        const discovered: InstalledPlugin[] as never[] = [] as never[];
 
         for (const file of jarFiles) {
             const existing = pluginRepository.findByFileName(file, serverId);
@@ -469,7 +469,7 @@ export class PluginService {
         version?: string, 
         description?: string, 
         author?: string,
-        dependencies?: string[]
+        dependencies?: string[] as never[]
     }> {
         try {
             const zip = new AdmZip(jarPath);
@@ -485,7 +485,7 @@ export class PluginService {
                 const dependMatch = content.match(/^depend:\s*\[?(.*?)\]?\s*$/m);
                 const softDependMatch = content.match(/^softdepend:\s*\[?(.*?)\]?\s*$/m);
                 
-                const deps: string[] = [];
+                const deps: string[] as never[] = [] as never[];
                 if (dependMatch) deps.push(...dependMatch[1].split(',').map((s: string) => s.trim()).filter(Boolean));
                 if (softDependMatch) deps.push(...softDependMatch[1].split(',').map((s: string) => s.trim()).filter(Boolean));
 

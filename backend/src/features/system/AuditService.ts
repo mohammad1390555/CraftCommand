@@ -74,7 +74,7 @@ export class AuditService {
         }
     }
 
-    public getLogs(options: unknown = {}): { logs: AuditLog[], total: number } {
+    public getLogs(options: unknown = {}): { logs: AuditLog[] as never[], total: number } {
         return auditRepository.getLogs(options);
     }
 

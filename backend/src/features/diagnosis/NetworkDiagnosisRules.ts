@@ -11,8 +11,8 @@ export const DuckDnsAuthRule: DiagnosisRule = {
     description: 'Detects if the DuckDNS token is invalid or the domain is not owned by the account.',
     tier: 1,
     defaultConfidence: 100,
-    triggers: [], // Metrics/State based
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    triggers: [] as never[], // Metrics/State based
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         if (!server.network?.updateEnabled || server.network?.provider !== 'duckdns') return null;
         
         const hasLogMatch = logs.some(l => /DuckDNS.*KO/i.test(l) || /auth failed/i.test(l));
@@ -48,7 +48,7 @@ export const PublicIpMismatchRule: DiagnosisRule = {
     description: 'Detects when the public IP has changed but the DDNS record is still pointing to the old IP.',
     tier: 1,
     defaultConfidence: 90,
-    triggers: [], 
+    triggers: [] as never[], 
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (!server.network?.updateEnabled || !server.network?.hostname) return null;
 
@@ -85,7 +85,7 @@ export const NoFallbackRule: DiagnosisRule = {
     description: 'Detects when a Velocity proxy has linked backends but none are online.',
     tier: 1,
     defaultConfidence: 95,
-    triggers: [],
+    triggers: [] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         // Only run on Velocity proxy servers
         if (server.software !== 'Velocity') return null;
@@ -125,7 +125,7 @@ export const UnlinkedServerRule: DiagnosisRule = {
     description: 'Detects running Minecraft servers not connected to unknown Velocity proxy.',
     tier: 3,
     defaultConfidence: 50,
-    triggers: [],
+    triggers: [] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         // Only check non-proxy, online servers
         if (server.software === 'Velocity' || server.status !== ServerStatus.ONLINE) return null;
@@ -174,7 +174,7 @@ export const ProxyForwardingConfigRule: DiagnosisRule = {
         /This server requires you to connect with Velocity/i,
         /Unexpected packet received during login process/i
     ],
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         const fullLog = logs.join('\n');
         
         const bungeeMatch = /If you wish to use IP forwarding, please enable it in your BungeeCord config/i.test(fullLog);

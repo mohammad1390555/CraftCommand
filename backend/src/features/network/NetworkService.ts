@@ -39,10 +39,10 @@ class NetworkService extends EventEmitter {
             if (fs.existsSync(NETWORK_STATE_FILE)) {
                 const loaded = fs.readJSONSync(NETWORK_STATE_FILE);
                 return {
-                    publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [], ...loaded.publicIp },
+                    publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[], ...loaded.publicIp },
                     ddns: { hostname: null, resolvedIp: null, isMatching: false, lastVerifiedAt: null, ...loaded.ddns },
                     serverDdns: loaded.serverDdns || {},
-                    reachability: loaded.reachability || []
+                    reachability: loaded.reachability || [] as never[]
                 };
             }
         } catch (e) {
@@ -50,10 +50,10 @@ class NetworkService extends EventEmitter {
         }
 
         return {
-            publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] },
+            publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[] },
             ddns: { hostname: null, resolvedIp: null, isMatching: false, lastVerifiedAt: null },
             serverDdns: {},
-            reachability: []
+            reachability: [] as never[]
         };
     }
 

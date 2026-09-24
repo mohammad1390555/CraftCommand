@@ -13,7 +13,7 @@ import { logStreamer } from '../../utils/LogStreamer';
 
 class ProcessManager extends EventEmitter {
     private activeRunners: Map<string, IServerRunner> = new Map();
-    private logHistory: Map<string, string[]> = new Map();
+    private logHistory: Map<string, string[] as never[]> = new Map();
     private startTimes: Map<string, number> = new Map();
     private onlineTimes: Map<string, number> = new Map();
     private statusCache: Map<string, unknown> = new Map();
@@ -25,7 +25,7 @@ class ProcessManager extends EventEmitter {
     private players: Map<string, Set<string>> = new Map();
     private readonly MAX_LOGS = 100; 
     private lastEmittedStatus: Map<string, string> = new Map();
-    private activityHistory: Map<string, unknown[]> = new Map();
+    private activityHistory: Map<string, unknown[] as never[]> = new Map();
     private focusedServerId: string | null = null; // v1.14.0: Focus mode for UI
     private readonly MAX_ACTIVITY_HISTORY = 100;
     private runnerListeners: Map<string, { log: unknown, close: unknown }> = new Map();
@@ -56,7 +56,7 @@ class ProcessManager extends EventEmitter {
                             online: true, 
                             status: ServerStatus.ONLINE, 
                             players: 0, 
-                            playerList: [], 
+                            playerList: [] as never[], 
                             uptime: 0, 
                             tps: "0.00" 
                         });
@@ -365,12 +365,12 @@ class ProcessManager extends EventEmitter {
             online: initialStatus === ServerStatus.ONLINE, 
             status: initialStatus, 
             players: 0, 
-            playerList: [], 
+            playerList: [] as never[], 
             uptime: 0, 
             tps: "0.00" 
         });
-        this.logHistory.set(id, this.logHistory.get(id) || []);
-        this.activityHistory.set(id, this.activityHistory.get(id) || []);
+        this.logHistory.set(id, this.logHistory.get(id) || [] as never[]);
+        this.activityHistory.set(id, this.activityHistory.get(id) || [] as never[]);
         this.players.set(id, this.players.get(id) || new Set());
         this.activeRunners.set(id, runner);
         if (!this.startTimes.has(id)) {
@@ -389,7 +389,7 @@ class ProcessManager extends EventEmitter {
             const server = getServer(id);
             if (server) {
                 logStreamer.tail(server.workingDirectory, this.MAX_LOGS).then(lines => {
-                    const history = this.logHistory.get(id) || [];
+                    const history = this.logHistory.get(id) || [] as never[];
                     if (history.length === 0) {
                         this.logHistory.set(id, lines);
                         // Emit recovered logs to unknown active socket listeners
@@ -442,7 +442,7 @@ class ProcessManager extends EventEmitter {
 
     private handleServerLog(id: string, line: string, type: 'stdout' | 'stderr') {
         this.lastActivityTime.set(id, Date.now()); // Mark activity for Adaptive Stats
-        const history = this.logHistory.get(id) || [];
+        const history = this.logHistory.get(id) || [] as never[];
 
         history.push(line);
         if (history.length > this.MAX_LOGS) history.shift();
@@ -542,7 +542,7 @@ class ProcessManager extends EventEmitter {
 
     private addActivity(id: string, activity: unknown) {
         this.lastActivityTime.set(id, Date.now()); // Mark activity for Adaptive Stats
-        const history = this.activityHistory.get(id) || [];
+        const history = this.activityHistory.get(id) || [] as never[];
 
         const entry = {
             ...activity,
@@ -558,7 +558,7 @@ class ProcessManager extends EventEmitter {
     }
 
     getActivityHistory(id: string) {
-        return this.activityHistory.get(id) || [];
+        return this.activityHistory.get(id) || [] as never[];
     }
 
     private handleServerClose(id: string, code: number) {
@@ -600,7 +600,7 @@ class ProcessManager extends EventEmitter {
             tps: "0.00",
             uptime: 0,
             players: 0,
-            playerList: []
+            playerList: [] as never[]
         }, true); // PERSIST final state
     }
 
@@ -794,8 +794,8 @@ class ProcessManager extends EventEmitter {
         });
     }
 
-    getLogs(id: string): string[] {
-        return this.logHistory.get(id) || [];
+    getLogs(id: string): string[] as never[] {
+        return this.logHistory.get(id) || [] as never[];
     }
 
     getUptime(id: string): number {
@@ -832,7 +832,7 @@ class ProcessManager extends EventEmitter {
             return cached?.online ? "20.00" : "0.00";
         }
 
-        const logs = this.logHistory.get(id) || [];
+        const logs = this.logHistory.get(id) || [] as never[];
         // Scan deeper (150 lines) for TPS logs
         for (const  logs.length - 1; i >= Math.max(0, logs.length - 150); i--) {
             const line = logs[i];
@@ -861,8 +861,8 @@ class ProcessManager extends EventEmitter {
         
         // --- SMART PLAYER MERGE (Preserved from v1.12.16) ---
         if (data.playerList) {
-            const currentList: string[] = current.playerList || [];
-            const newList: string[] = data.playerList;
+            const currentList: string[] as never[] = current.playerList || [] as never[];
+            const newList: string[] as never[] = data.playerList;
             if (newList.length === 0 && currentList.length > 0 && data.players > 0) {
                  data.playerList = currentList;
             } else if (newList.length > 0) {
@@ -917,7 +917,7 @@ class ProcessManager extends EventEmitter {
 
     getCachedStatus(id: string) {
         return this.statusCache.get(id) || {
-            online: false, players: 0, playerList: [], uptime: this.getUptime(id), tps: "0.00", latency: 0
+            online: false, players: 0, playerList: [] as never[], uptime: this.getUptime(id), tps: "0.00", latency: 0
         };
     }
 

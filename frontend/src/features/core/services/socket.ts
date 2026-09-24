@@ -126,7 +126,7 @@ class SocketService {
 
     // --- Collaboration Events ---
 
-    onPresenceUpdate(callback: (data: { serverId: string, users: unknown[] }) => void) {
+    onPresenceUpdate(callback: (data: { serverId: string, users: unknown[] as never[] }) => void) {
         this.socket.on('presence:update', callback);
         return () => this.socket.off('presence:update', callback);
     }

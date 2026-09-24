@@ -41,7 +41,7 @@ export class DiagnosisService {
         this.rulesInitialized = true;
     }
 
-    private getRules(): DiagnosisRule[] {
+    private getRules(): DiagnosisRule[] as never[] {
         this.initRules();
         return Array.from(this.rules.values());
     }
@@ -131,7 +131,7 @@ export class DiagnosisService {
         logger.debug('[DiagnosisService] System stats cache forced CLEAR.');
     }
 
-    public async diagnose(server: ServerConfig, recentLogs: string[], forceRefresh = false): Promise<DiagnosisResult[]> {
+    public async diagnose(server: ServerConfig, recentLogs: string[] as never[], forceRefresh = false): Promise<DiagnosisResult[] as never[]> {
         const filteredLogs = this.filterSpam(recentLogs);
         
         // 1. Get Shared Context (Force refresh if requested)
@@ -172,8 +172,8 @@ export class DiagnosisService {
         this.resolvedRules.delete(serverId);
     }
 
-    private filterSpam(logs: string[]): string[] {
-        if (logs.length === 0) return [];
+    private filterSpam(logs: string[] as never[]): string[] as never[] {
+        if (logs.length === 0) return [] as never[];
         
         // --- SMART LOG CLIPPING (v4.5) ---
         // Look for the [FIX] marker appended by DiagnosisActions. 
@@ -186,7 +186,7 @@ export class DiagnosisService {
         }
 
         const MAX_LINES = 1000;
-        const processed: string[] = [];
+        const processed: string[] as never[] = [] as never[];
         const  '';
         const  0;
 

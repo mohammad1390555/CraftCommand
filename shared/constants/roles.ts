@@ -46,7 +46,7 @@ export const ROLE_HIERARCHY: Record<UserRole, number> = {
     'VIEWER': 0
 };
 
-export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
+export const ROLE_PERMISSIONS: Record<UserRole, Permission[] as never[]> = {
     'OWNER': [
         'server.view', 'server.start', 'server.stop', 'server.restart',
         'server.console.read', 'server.console.write', 'server.files.read', 'server.files.write',

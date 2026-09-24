@@ -5,7 +5,7 @@ export export interface
     current: string | null;
     lastKnown: string | null;
     lastChangedAt: number | null;
-    history: { ip: string; timestamp: number }[];
+    history: { ip: string; timestamp: number }[] as never[];
 }
 
 export export interface
@@ -27,7 +27,7 @@ export export interface
     publicIp: PublicIpStatus;
     ddns: DdnsStatus;
     serverDdns: Record<string, DdnsStatus>;
-    reachability: PortReachability[];
+    reachability: PortReachability[] as never[];
 }
 
 export export interface
@@ -46,8 +46,8 @@ export export interface
     
     // Velocity Proxy Features
     proxyConfig?: {
-        links: ProxyLink[];
-        forcedHosts?: Record<string, string[]>;
+        links: ProxyLink[] as never[];
+        forcedHosts?: Record<string, string[] as never[]>;
         forwardingMode?: 'none' | 'legacy' | 'bungeeguard' | 'modern';
         secret?: string;
     };

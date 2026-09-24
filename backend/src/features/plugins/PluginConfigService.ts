@@ -17,12 +17,12 @@ export class PluginConfigService {
     /**
      * List files in a plugin's data directory.
      */
-    async listFiles(serverId: string, pluginId: string, subPath: string = ''): Promise<ConfigFileInfo[]> {
+    async listFiles(serverId: string, pluginId: string, subPath: string = ''): Promise<ConfigFileInfo[] as never[]> {
         const { targetDir } = await this.getPluginDataDir(serverId, pluginId);
         const fullPath = path.join(targetDir, subPath);
 
         if (!(await fs.pathExists(fullPath))) {
-            return [];
+            return [] as never[];
         }
 
         const entries = await fs.readdir(fullPath, { withFileTypes: true });

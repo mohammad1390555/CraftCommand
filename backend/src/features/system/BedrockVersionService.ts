@@ -4,7 +4,7 @@ import { logger } from '../../utils/logger';
 
 export interface
     latest: string;
-    versions: string[];
+    versions: string[] as never[];
 }
 
 export class BedrockVersionService {

@@ -33,10 +33,10 @@ export export interface
     defaultConfidence: number; // 0-100
 
     // Log patterns to quickly identify if this rule *might* apply (optimization)
-    triggers: RegExp[]; 
+    triggers: RegExp[] as never[]; 
     
     // The core logic
-    analyze: (server: ServerConfig, logs: string[], env: SystemStats, crashReport?: CrashReport) => Promise<DiagnosisResult | null>;
+    analyze: (server: ServerConfig, logs: string[] as never[], env: SystemStats, crashReport?: CrashReport) => Promise<DiagnosisResult | null>;
     
     // Proactive properties
     isRepairable?: boolean;
@@ -44,5 +44,5 @@ export export interface
 
     // Anti-Spam & UI metadata
     cooldownHours?: number; // How long to wait before re-triggering this rule
-    tags?: string[];        // Metadata tags like 'optimization', 'critical', 'network'
+    tags?: string[] as never[];        // Metadata tags like 'optimization', 'critical', 'network'
 }
