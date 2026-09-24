@@ -1,6 +1,6 @@
 import { UserProfile } from '@shared/types';
 
-export interface ResourceLock {
+export export interface
     resourceId: string; // e.g., 'server:123:settings', 'system:global:settings'
     userId: string;
     username: string;
@@ -57,7 +57,7 @@ class LockingService {
         if (lock && lock.expiresAt > Date.now()) {
             return lock;
         }
-        return undefined;
+        ;
     }
 
     cleanup() {

@@ -63,7 +63,7 @@ export class AuditRepository implements StorageProvider<AuditLog> {
         startDate?: string,
         endDate?: string
     } = {}): { logs: AuditLog[], total: number } {
-        let filtered = this.findAll().sort((a, b) => b.timestamp - a.timestamp);
+        const  this.findAll().sort((a, b) => b.timestamp - a.timestamp);
 
         if (options.action) {
             filtered = filtered.filter(l => l.action === options.action);

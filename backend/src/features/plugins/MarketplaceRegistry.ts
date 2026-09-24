@@ -13,14 +13,14 @@ const searchCache = new Map<string, { data: PluginSearchResult, timestamp: numbe
 try {
     if (fs.existsSync(CACHE_FILE)) {
         const data = fs.readJsonSync(CACHE_FILE);
-        Object.entries(data).forEach(([key, value]: [string, any]) => {
+        Object.entries(data).forEach(([key, value]: [string, unknown]) => {
             if (Date.now() - value.timestamp < CACHE_TTL) {
                 searchCache.set(key, value);
             }
         });
         logger.info(`[MarketplaceRegistry] Loaded ${searchCache.size} search results from disk cache`);
     }
-} catch (err: any) {
+} catch (err: unknown) {
     logger.warn(`[MarketplaceRegistry] Failed to load disk cache: ${err.message}`);
 }
 
@@ -29,7 +29,7 @@ function saveCacheToDisk() {
         fs.ensureDirSync(CACHE_DIR);
         const obj = Object.fromEntries(searchCache.entries());
         fs.writeJsonSync(CACHE_FILE, obj);
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.warn(`[MarketplaceRegistry] Failed to save disk cache: ${err.message}`);
     }
 }
@@ -130,7 +130,7 @@ async function searchModrinth(query: PluginSearchQuery, software: string): Promi
     });
 
     const data = response.data;
-    const plugins = (data as any).hits.map((hit: any) => ({
+    const plugins = (data as unknown).hits.map((hit: unknown) => ({
         sourceId: hit.project_id,
         source: 'modrinth',
         name: hit.title,
@@ -150,9 +150,9 @@ async function searchModrinth(query: PluginSearchQuery, software: string): Promi
 
     return {
         plugins,
-        total: (data as any).total_hits,
+        total: (data as unknown).total_hits,
         page: query.page || 1,
-        pages: Math.ceil((data as any).total_hits / limit),
+        pages: Math.ceil((data as unknown).total_hits / limit),
     };
 }
 
@@ -162,7 +162,7 @@ export async function getModrinthDownloadUrl(projectId: string, gameVersion?: st
     
     // Build strict query parameters for Modrinth API (Layer 1 Stabilization)
     const versionUrl = `https://api.modrinth.com/v2/project/${projectId}/version`;
-    const params: any = {};
+    const params: unknown = {};
     if (gameVersion) params.game_versions = JSON.stringify([gameVersion]);
     if (platforms && platforms.length > 0) {
         // Map common software names to Modrinth loaders
@@ -176,31 +176,31 @@ export async function getModrinthDownloadUrl(projectId: string, gameVersion?: st
         axios.get(versionUrl, { headers, params, timeout: 10000 })
     ]);
 
-    const project = projectRes.data as any;
-    const versions = versionsRes.data as any[];
+    const project = projectRes.data as unknown;
+    const versions = versionsRes.data as unknown[];
 
     if (!versions.length) {
-        const platformStr = platforms?.join('/') || 'any';
-        throw new Error(`No versions found for ${project.title} on Minecraft ${gameVersion || 'any'} (${platformStr})`);
+        const platformStr = platforms?.join('/') || 'unknown';
+        throw new Error(`No versions found for ${project.title} on Minecraft ${gameVersion || 'unknown'} (${platformStr})`);
     }
 
     const latest = versions[0];
-    const primaryFile = (latest as any).files.find((f: any) => f.primary) || (latest as any).files[0];
+    const primaryFile = (latest as unknown).files.find((f: unknown) => f.primary) || (latest as unknown).files[0];
 
     if (!primaryFile?.url) throw new Error('No download URL found');
 
     const dependencies = (latest.dependencies || [])
-        .filter((d: any) => d.dependency_type === 'required')
-        .map((d: any) => ({
+        .filter((d: unknown) => d.dependency_type === 'required')
+        .map((d: unknown) => ({
             id: d.project_id,
             versionId: d.version_id,
             required: true
         }));
 
     return {
-        url: (primaryFile as any).url,
-        fileName: (primaryFile as any).filename,
-        version: (latest as any).version_number,
+        url: (primaryFile as unknown).url,
+        fileName: (primaryFile as unknown).filename,
+        version: (latest as unknown).version_number,
         // Metadata fields
         description: project.description,
         author: project.author || 'Unknown',
@@ -238,7 +238,7 @@ async function searchSpiget(query: PluginSearchQuery): Promise<PluginSearchResul
             },
             timeout: 10000,
         });
-    } catch (err: any) {
+    } catch (err: unknown) {
         if (err.response?.status === 404) {
             // Spiget returns 404 for search queries it can't handle (e.g. including slashes or dots)
             // We return empty results instead of letting the error bubble up.
@@ -248,7 +248,7 @@ async function searchSpiget(query: PluginSearchQuery): Promise<PluginSearchResul
     }
 
     const data = response.data;
-    const plugins = (Array.isArray(data) ? data : []).map((resource: any) => ({
+    const plugins = (Array.isArray(data) ? data : []).map((resource: unknown) => ({
         sourceId: String(resource.id),
         source: 'spiget',
         name: resource.name || 'Unknown',
@@ -267,7 +267,7 @@ async function searchSpiget(query: PluginSearchQuery): Promise<PluginSearchResul
     }));
 
     return {
-        plugins: plugins.map((p: any) => ({ ...p, source: p.source as PluginSource })),
+        plugins: plugins.map((p: unknown) => ({ ...p, source: p.source as PluginSource })),
         total: plugins.length < limit ? (page - 1) * limit + plugins.length : page * limit + 1,
         page,
         pages: plugins.length < limit ? page : page + 1,
@@ -277,7 +277,7 @@ async function searchSpiget(query: PluginSearchQuery): Promise<PluginSearchResul
 // --- Spiget Download URL ---
 export async function getSpigetDownloadUrl(resourceId: string) {
     const detailRes = await axios.get(`https://api.spiget.org/v2/resources/${resourceId}`, { timeout: 10000 });
-    const resource = detailRes.data as any;
+    const resource = detailRes.data as unknown;
     const name = resource.name || 'plugin';
     const version = resource.version?.id ? String(resource.version.id) : 'latest';
 
@@ -306,7 +306,7 @@ async function searchHangar(query: PluginSearchQuery): Promise<PluginSearchResul
         'rating': '-stars',
     };
 
-    const params: any = {
+    const params: unknown = {
         q: query.query,
         limit,
         offset,
@@ -322,7 +322,7 @@ async function searchHangar(query: PluginSearchQuery): Promise<PluginSearchResul
     });
 
     const data = response.data;
-    const plugins = ((data as any).result || []).map((project: any) => ({
+    const plugins = ((data as unknown).result || []).map((project: unknown) => ({
         sourceId: project.namespace?.slug || project.name,
         source: 'hangar',
         name: project.name || 'Unknown',
@@ -335,8 +335,8 @@ async function searchHangar(query: PluginSearchQuery): Promise<PluginSearchResul
         category: project.category || 'General',
         platforms: ['paper', 'purpur'],
         latestVersion: project.lastUpdated || 'Unknown',
-        latestGameVersions: (project.promotedVersions || []).flatMap((pv: any) => 
-            (pv.tags || []).filter((t: any) => t.name).map((t: any) => t.name)
+        latestGameVersions: (project.promotedVersions || []).flatMap((pv: unknown) => 
+            (pv.tags || []).filter((t: unknown) => t.name).map((t: unknown) => t.name)
         ),
         externalUrl: `https://hangar.papermc.io/${project.namespace?.owner}/${project.namespace?.slug}`,
         updatedAt: new Date(project.lastUpdated).getTime() || 0,
@@ -344,15 +344,15 @@ async function searchHangar(query: PluginSearchQuery): Promise<PluginSearchResul
 
     return {
         plugins,
-        total: (data as any).pagination?.count || plugins.length,
+        total: (data as unknown).pagination?.count || plugins.length,
         page: query.page || 1,
-        pages: Math.ceil(((data as any).pagination?.count || 1) / limit),
+        pages: Math.ceil(((data as unknown).pagination?.count || 1) / limit),
     };
 }
 
 // --- Hangar Download URL ---
 export async function getHangarDownloadUrl(slug: string, gameVersion?: string) {
-    const params: any = { limit: 1, offset: 0 };
+    const params: unknown = { limit: 1, offset: 0 };
     if (gameVersion) params.version = gameVersion;
 
     const [projectRes, versionsRes] = await Promise.all([
@@ -360,8 +360,8 @@ export async function getHangarDownloadUrl(slug: string, gameVersion?: string) {
         axios.get(`https://hangar.papermc.io/api/v1/projects/${slug}/versions`, { params, timeout: 10000 })
     ]);
 
-    const project = projectRes.data as any;
-    const versions = (versionsRes.data as any).result;
+    const project = projectRes.data as unknown;
+    const versions = (versionsRes.data as unknown).result;
 
     if (!versions?.length) throw new Error(`No versions found for this plugin${gameVersion ? ' matching ' + gameVersion : ''}`);
 
@@ -393,8 +393,8 @@ export class MarketplaceRegistry {
             ? [query.source as string] 
             : SOFTWARE_TO_SEARCH_ORDER[software] || ['modrinth'];
 
-        const allPlugins: any[] = [];
-        let totalHits = 0;
+        const allPlugins: unknown[] = [];
+        const  0;
 
         for (const source of sources) {
             const cacheKey = getCacheKey(query, source);
@@ -423,7 +423,7 @@ export class MarketplaceRegistry {
                 setCache(cacheKey, result);
                 allPlugins.push(...result.plugins);
                 totalHits += result.total;
-            } catch (err: any) {
+            } catch (err: unknown) {
                 logger.warn(`[Marketplace] ${source} search failed: ${err.message}`);
             }
         }
@@ -449,8 +449,8 @@ export class MarketplaceRegistry {
     async getDownloadUrl(sourceId: string, source: string, gameVersion?: string, platforms?: string[]) {
         switch (source) {
             case 'direct':
-                let url = sourceId;
-                let fileName = sourceId.split('/').pop()?.split('?')[0] || 'plugin.jar';
+                const  sourceId;
+                const  sourceId.split('/').pop()?.split('?')[0] || 'plugin.jar';
 
                 // Support "url|filename.jar" syntax
                 if (sourceId.includes('|')) {
