@@ -14,7 +14,7 @@ router.get('/', requirePermission('server.view'), async (req, res) => {
     try {
         const databases = await databaseService.getDatabases(id);
         res.json(databases);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -26,7 +26,7 @@ router.post('/', requirePermission('server.databases.manage'), async (req, res) 
         const newDb = await databaseService.createDatabase(id, req.body);
         res.json(newDb);
         if (req.user) auditService.log(req.user.id, 'SYSTEM_SETTINGS_UPDATE', id, { detail: 'Provisioned database', name: newDb.name });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -38,7 +38,7 @@ router.delete('/:dbId', requirePermission('server.databases.manage'), async (req
         await databaseService.deleteDatabase(id, dbId);
         res.json({ success: true });
         if (req.user) auditService.log(req.user.id, 'SYSTEM_SETTINGS_UPDATE', id, { detail: 'Deleted database', dbId });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -50,7 +50,7 @@ router.post('/:dbId/rotate', requirePermission('server.databases.manage'), async
         const result = await databaseService.rotateDatabasePassword(id, dbId);
         res.json(result);
         if (req.user) auditService.log(req.user.id, 'SYSTEM_SETTINGS_UPDATE', id, { detail: 'Rotated database password', dbId });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
