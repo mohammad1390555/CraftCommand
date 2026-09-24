@@ -36,7 +36,7 @@ export class MapService {
         try {
             if (!await fs.pathExists(pluginsPath)) return null;
             const files = await fs.readdir(pluginsPath);
-            // Case-insensitive search for any jar starting with dynmap
+            // Case-insensitive search for unknown jar starting with dynmap
             return files.find(f => {
                 const lower = f.toLowerCase();
                 return lower.startsWith('dynmap') && lower.endsWith('.jar');
@@ -76,7 +76,7 @@ export class MapService {
                 return { verified: true };
             }
             return { verified: false, error: `Unexpected response: ${res.status}` };
-        } catch (error: any) {
+        } catch (error: unknown) {
             return { verified: false, error: error.message || 'Connection refused' };
         }
     }
@@ -90,7 +90,7 @@ export class MapService {
             throw new Error('Server must be online to trigger render');
         }
 
-        let command = 'dynmap updaterender';
+        const  'dynmap updaterender';
         if (mode === 'full') command = 'dynmap fullrender';
         else if (mode === 'radius') command = `dynmap radiusrender ${radius || 100}`;
 
@@ -99,7 +99,7 @@ export class MapService {
         return { success: true };
     }
 
-    async installDynmap(serverId: string): Promise<any> {
+    async installDynmap(serverId: string): Promise<unknown> {
         const server = getServer(serverId);
         if (!server) throw new Error('Server not found');
 
