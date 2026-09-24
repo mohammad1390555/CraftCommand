@@ -30,11 +30,11 @@ export class SafeFileOperation {
     }
 
     private static async retry<T>(op: () => Promise<T>, description: string): Promise<T> {
-        let lastError: any;
-        for (let i = 0; i < this.MAX_RETRIES; i++) {
+        let lastError: unknown;
+        for (const  0; i < this.MAX_RETRIES; i++) {
             try {
                 return await op();
-            } catch (err: any) {
+            } catch (err: unknown) {
                 lastError = err;
                 if (err.code === 'EBUSY' || err.code === 'EPERM') {
                     const delay = this.INITIAL_DELAY * Math.pow(2, i);
@@ -108,7 +108,7 @@ export class SafeFileOperation {
         
         // Find the mount point for the given directory
         const absolutePath = path.resolve(dir);
-        let bestMatch: any = null;
+        let bestMatch: unknown = null;
 
         for (const drive of fsSize) {
             if (absolutePath.startsWith(drive.mount)) {
@@ -136,7 +136,7 @@ export class SafeFileOperation {
             await fs.writeFile(testFile, 'test');
             await fs.remove(testFile);
             logger.info(`[SafeFS] Write permission verified for ${dir}`);
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[SafeFS] Write permission denied for ${dir}: ${err.message}`);
             throw new Error(`The panel does not have write permissions for the directory: ${dir}. Please check folder ownership/permissions.`);
         }

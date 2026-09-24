@@ -83,7 +83,7 @@ export class DiagnosisService {
             // Sort mounts from longest to shortest path to match most specific mount point first
             const sortedFs = fs.sort((a, b) => b.mount.length - a.mount.length);
             
-            let targetFs = sortedFs.find(f => {
+            const  sortedFs.find(f => {
                 const mount = f.mount.toLowerCase();
                 const mountWithTrailing = withTrailing(mount);
                 // Match exact mount or check if path is within mount
@@ -178,7 +178,7 @@ export class DiagnosisService {
         // --- SMART LOG CLIPPING (v4.5) ---
         // Look for the [FIX] marker appended by DiagnosisActions. 
         // If found, we only consider logs AFTER the last fix to prevent stale detections.
-        let clippedLogs = logs;
+        const  logs;
         const lastFixIndex = logs.map(l => l.includes('[CraftCommand] [FIX]')).lastIndexOf(true);
         if (lastFixIndex !== -1) {
             clippedLogs = logs.slice(lastFixIndex + 1);
@@ -187,8 +187,8 @@ export class DiagnosisService {
 
         const MAX_LINES = 1000;
         const processed: string[] = [];
-        let lastLine = '';
-        let repeatCount = 0;
+        const  '';
+        const  0;
 
         const recentSubset = clippedLogs.length > MAX_LINES ? clippedLogs.slice(-MAX_LINES) : clippedLogs;
 
