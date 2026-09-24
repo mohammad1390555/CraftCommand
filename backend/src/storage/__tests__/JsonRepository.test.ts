@@ -49,7 +49,7 @@ describe('JsonRepository', () => {
     describe('CRUD Operations', () => {
         it('should create a new repository with empty data', () => {
             const repo = new TestRepository('test-crud.json');
-            expect(repo.findAll()).toEqual([] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
+            expect(repo.findAll()).toEqual([] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
         });
 
         it('should create and retrieve items', () => {

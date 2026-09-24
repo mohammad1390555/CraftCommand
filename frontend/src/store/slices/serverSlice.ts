@@ -10,32 +10,32 @@ export export interface
     uptime: number;
     latency: number;
     players: number;
-    playerList: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    playerList: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     isRealOnline: boolean;
     tps: string;
     pid: number;
     lastUpdate: number;
-    diagnosis?: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    diagnosis?: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 }
 
 export export interface
-    servers: ServerConfig[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    servers: ServerConfig[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     currentServer: ServerConfig | null;
     stats: Record<string, ServerStats>;
-    backups: Record<string, Backup[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
-    schedules: Record<string, ScheduleTask[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
-    players: Record<string, Player[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
-    logs: Record<string, string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
+    backups: Record<string, Backup[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
+    schedules: Record<string, ScheduleTask[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
+    players: Record<string, Player[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
+    logs: Record<string, string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>;
     javaDownloadStatus: { message: string, phase: string, percent?: number, serverId?: string } | null;
     installProgress: Record<string, { message: string, percent: number }>;
-    visibleServerIds: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    visibleServerIds: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     backgroundTasks: Record<string, unknown>;
     serversLoading: boolean;
 
     // Actions
     setCurrentServer: (server: ServerConfig | null) => void;
     setCurrentServerById: (id: string | null) => void;
-    registerVisibleServers: (ids: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) => void;
+    registerVisibleServers: (ids: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) => void;
     refreshServers: (showSplash?: boolean) => Promise<void>;
     refreshServerData: (serverId: string) => Promise<void>;
     updateServerConfig: (serverId: string, config: Partial<ServerConfig>) => void;
@@ -51,8 +51,8 @@ export export interface
     startPolling: () => () => void;
 }
 
-export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], ServerSlice> = (set, get) => ({
-    servers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], ServerSlice> = (set, get) => ({
+    servers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     currentServer: null,
     stats: {},
     backups: {},
@@ -61,7 +61,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
     logs: {},
     javaDownloadStatus: null,
     installProgress: {},
-    visibleServerIds: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    visibleServerIds: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     backgroundTasks: JSON.parse(localStorage.getItem('cc_bg_tasks') || '{}'),
     serversLoading: true,
 
@@ -133,7 +133,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
                 API.getPlayers(serverId, 'online')
             ]);
 
-            const normalizedPlayers: Player[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = playerData.map((p: unknown) => ({
+            const normalizedPlayers: Player[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = playerData.map((p: unknown) => ({
                 name: p.name || 'Unknown',
                 uuid: p.uuid || p.ip || 'unknown',
                 skinUrl: p.skinUrl || (p.name ? `https://mc-heads.net/avatar/${encodeURIComponent(p.name)}/64` : ''),
@@ -241,7 +241,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
             const isClosing = server?.status === ServerStatus.OFFLINE || server?.status === ServerStatus.STOPPING;
             if (isClosing && data.cpu > 0) return;
 
-            const existing = currentStats[data.id] || { cpu:0, memory:0, uptime:0, latency:0, players:0, playerList:[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], isRealOnline:false, tps:"0.0", pid:0, lastUpdate:0 };
+            const existing = currentStats[data.id] || { cpu:0, memory:0, uptime:0, latency:0, players:0, playerList:[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], isRealOnline:false, tps:"0.0", pid:0, lastUpdate:0 };
             
             set(state => ({
                 stats: {
@@ -261,7 +261,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
 
         socket.on('log', (data) => {
             set(state => {
-                const serverLogs = state.logs[data.id] || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+                const serverLogs = state.logs[data.id] || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                 return { logs: { ...state.logs, [data.id]: [...serverLogs, data.line].slice(-10) } };
             });
         });
@@ -331,7 +331,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
 
         socket.on('player:join', (data) => {
             set(state => {
-                const existing = state.stats[data.serverId] || { cpu:0, memory:0, uptime:0, latency:0, players:0, playerList:[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], isRealOnline:false, tps:"0.0", pid:0, lastUpdate:0 };
+                const existing = state.stats[data.serverId] || { cpu:0, memory:0, uptime:0, latency:0, players:0, playerList:[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], isRealOnline:false, tps:"0.0", pid:0, lastUpdate:0 };
                 return { stats: { ...state.stats, [data.serverId]: { ...existing, players: data.onlinePlayers } } };
             });
             refreshServerData(data.serverId);
@@ -434,14 +434,14 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
                         const { queryStats, procStats, isOnline } = res.value;
                         
                         // 1. Update stats object
-                        const current = newStats[s.id] || { cpu:0, memory:0, uptime:0, latency:0, players:0, playerList:[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], isRealOnline:false, tps:"0.0", pid:0, lastUpdate:0 };
+                        const current = newStats[s.id] || { cpu:0, memory:0, uptime:0, latency:0, players:0, playerList:[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], isRealOnline:false, tps:"0.0", pid:0, lastUpdate:0 };
                         if (current.lastUpdate <= pollStartTime) {
                             const statsUpdate = {
                                 ...current,
                                 isRealOnline: isOnline,
                                 latency: queryStats.latency || 0,
                                 players: queryStats.players || 0,
-                                diagnosis: procStats?.diagnosis || queryStats?.diagnosis || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+                                diagnosis: procStats?.diagnosis || queryStats?.diagnosis || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
                                 lastUpdate: Date.now()
                             };
 

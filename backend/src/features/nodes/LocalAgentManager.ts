@@ -93,7 +93,7 @@ class LocalAgentManager {
         const useDist = isProduction || require('fs').existsSync(distPath);
 
         const  'node';
-        const  [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+        const  [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         if (useDist) {
             scriptArgs = [distPath];

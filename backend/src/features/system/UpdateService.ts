@@ -32,9 +32,9 @@ type UpdateLevel = 'MAJOR' | 'MINOR' | 'PATCH';
 export interface
     version: string;
     title: string;
-    notes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    notes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     body?: string; // GitHub release body
-    assets?: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; // GitHub release assets
+    assets?: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; // GitHub release assets
     priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
     breaking?: boolean;
     minNodeVersion?: string;
@@ -46,11 +46,11 @@ export interface
     currentVersion: string;
     latestVersion: string;
     title?: string;
-    notes?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    notes?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
     breaking?: boolean;
     incompatible?: boolean;
-    incompatibleNodes?: { id: string; name: string; version: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    incompatibleNodes?: { id: string; name: string; version: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     level?: UpdateLevel;
     error?: string;
 }
@@ -142,7 +142,7 @@ class UpdateService {
 
             // Check Distributed Nodes Compatibility
             const nodes = nodeRegistryService.getAllNodes();
-            const incompatibleNodes: { id: string; name: string; version: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+            const incompatibleNodes: { id: string; name: string; version: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
             
             if (remoteData.minAgentVersion) {
                  for (const node of nodes) {
@@ -173,7 +173,7 @@ class UpdateService {
                 currentVersion,
                 latestVersion: remoteData.version,
                 title: remoteData.title || `Update v${remoteData.version}`,
-                notes: remoteData.notes || (remoteData.body ? remoteData.body.split('\n') : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]),
+                notes: remoteData.notes || (remoteData.body ? remoteData.body.split('\n') : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]),
                 priority: remoteData.priority || (level === 'MAJOR' ? 'CRITICAL' : (level === 'MINOR' ? 'HIGH' : 'LOW')),
                 breaking,
                 incompatible,

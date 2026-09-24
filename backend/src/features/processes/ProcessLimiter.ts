@@ -18,7 +18,7 @@ const execAsync = util.promisify(exec);
 export type CpuPriority = 'normal' | 'high' | 'realtime';
 
 export export interface
-    cpuCores?: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];   // Pin to specific cores (e.g., [0, 1, 2, 3])
+    cpuCores?: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];   // Pin to specific cores (e.g., [0, 1, 2, 3])
     cpuPercent?: number;   // Max CPU % (Linux cgroups v2 only, optional)
     priority?: CpuPriority;
 }
@@ -31,7 +31,7 @@ class ProcessLimiterService {
      * On Windows: uses `PowerShell` to set processor affinity mask.
      * On Linux: uses `taskset -p` to set CPU affinity.
      */
-    async setCpuAffinity(pid: number, cores: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<boolean> {
+    async setCpuAffinity(pid: number, cores: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<boolean> {
         if (cores.length === 0 || cores.length > this.totalCores) {
             logger.warn(`[ProcessLimiter] Invalid core list: ${cores.join(',')} (system has ${this.totalCores} cores)`);
             return false;
@@ -94,8 +94,8 @@ class ProcessLimiterService {
      * Generate a recommended core allocation for N server processes.
      * Distributes cores evenly across servers, ensuring no overlap.
      */
-    generateCoreAllocation(serverCount: number): number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[][] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
-        if (serverCount <= 0) return [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    generateCoreAllocation(serverCount: number): number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[][] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
+        if (serverCount <= 0) return [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         
         const availableCores = Array.from({ length: this.totalCores }, (_, i) => i);
         
@@ -105,7 +105,7 @@ class ProcessLimiterService {
             : availableCores;
 
         const coresPerServer = Math.max(1, Math.floor(serverCores.length / serverCount));
-        const allocations: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[][] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+        const allocations: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[][] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         for (const  0; i < serverCount; i++) {
             const start = i * coresPerServer;
@@ -142,7 +142,7 @@ class ProcessLimiterService {
 
     // ─── Windows Implementation ───────────────────────────
 
-    private async setWindowsAffinity(pid: number, cores: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<boolean> {
+    private async setWindowsAffinity(pid: number, cores: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<boolean> {
         // Calculate affinity mask (bitmask of cores)
         const  0;
         for (const core of cores) {
@@ -173,7 +173,7 @@ class ProcessLimiterService {
 
     // ─── Linux Implementation ─────────────────────────────
 
-    private async setLinuxAffinity(pid: number, cores: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<boolean> {
+    private async setLinuxAffinity(pid: number, cores: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<boolean> {
         // Build taskset mask
         const  0;
         for (const core of cores) {

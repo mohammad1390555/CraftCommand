@@ -128,7 +128,7 @@ const LOG_PREFIX = `[Agent:${NODE_ID.slice(0, 8)}]`;
 
 function log(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
-    // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
+    // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
 }
 function warn(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
@@ -147,7 +147,7 @@ export interface
     process: ChildProcess;
     serverId: string;
     startTime: number;
-    logBuffer: { line: string; type: 'stdout' | 'stderr' }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    logBuffer: { line: string; type: 'stdout' | 'stderr' }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     flushTimer: NodeJS.Timeout | null;
     readonly MAX_LOG_BUFFER: 1000;
 }
@@ -173,7 +173,7 @@ function flushLogBuffer(managed: ManagedServer, socket: Socket): void {
             lines: managed.logBuffer.map(e => ({ line: e.line, type: e.type }))
         });
     }
-    managed.logBuffer = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    managed.logBuffer = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 }
 
 function bufferLog(managed: ManagedServer, line: string, type: 'stdout' | 'stderr', socket: Socket): void {
@@ -260,15 +260,15 @@ function translateToHostPath(internalPath: string): string {
  * Handles quoted paths and spaces.
  * Example: '"C:\Program Files\Java.exe" -Xmx4G' -> ['C:\Program Files\Java.exe', '-Xmx4G']
  */
-function parseCommand(cmd: string): { executable: string; args: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] } {
-    const parts: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+function parseCommand(cmd: string): { executable: string; args: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] } {
+    const parts: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     const regex = /"([^"]*)"|'([^']*)'|(\S+)/g;
     let match;
     while ((match = regex.exec(cmd)) !== null) {
         parts.push(match[1] || match[2] || match[3]);
     }
     
-    if (parts.length === 0) return { executable: '', args: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] };
+    if (parts.length === 0) return { executable: '', args: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] };
     const executable = parts[0];
     const args = parts.slice(1);
     return { executable, args };
@@ -354,7 +354,7 @@ function startLocalServer(
         process: child,
         serverId,
         startTime: Date.now(),
-        logBuffer: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+        logBuffer: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
         flushTimer: null,
         MAX_LOG_BUFFER: 1000
     };
@@ -477,7 +477,7 @@ async function startLocalServerDocker(
         process: child,
         serverId,
         startTime: Date.now(),
-        logBuffer: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+        logBuffer: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
         flushTimer: null,
         MAX_LOG_BUFFER: 1000
     };
@@ -539,7 +539,7 @@ function adoptLocalServer(
         } as unknown,
         serverId,
         startTime: Date.now(), // Approximate
-        logBuffer: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+        logBuffer: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
         flushTimer: null,
         MAX_LOG_BUFFER: 1000
     };
@@ -759,7 +759,7 @@ async function collectServerStats(serverId: string): Promise<{ cpu: number; memo
         const shellPid = managed.process.pid;
 
         // Walk the process tree to find the Java process
-        const descendants: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+        const descendants: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         const queue = [shellPid];
         const seen = new Set<number>([shellPid]);
 
@@ -1149,7 +1149,7 @@ function connect(): void {
     // ── File Transfer Handlers (Phase 21) ──
 
     // Track in-progress file transfers: serverId → { chunks buffer }
-    const activeTransfers: Map<string, Map<string, Buffer[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>> = new Map();
+    const activeTransfers: Map<string, Map<string, Buffer[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>> = new Map();
 
     /**
      * Security Helper: Ensure path is within the server directory
@@ -1182,7 +1182,7 @@ function connect(): void {
             }
 
             // Determine which files the agent needs (hash diff)
-            const needed: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+            const needed: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
             for (const entry of manifest) {
                 // Security check: validate relativePath
                 const filePath = resolveSafePath(serverId, entry.relativePath);
@@ -1228,7 +1228,7 @@ function connect(): void {
 
             const  transfer.get(relativePath);
             if (!chunks) {
-                chunks = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+                chunks = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                 transfer.set(relativePath, chunks);
             }
 

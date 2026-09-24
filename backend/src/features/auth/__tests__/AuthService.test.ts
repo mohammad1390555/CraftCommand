@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 // Mock dependencies
 jest.mock('../../../storage/UserRepository', () => ({
     userRepository: {
-        findAll: jest.fn().mockReturnValue([] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]),
+        findAll: jest.fn().mockReturnValue([] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]),
         findById: jest.fn(),
         findByEmail: jest.fn(),
         create: jest.fn(),
@@ -52,7 +52,7 @@ describe('AuthService', () => {
     });
 
     it('should generate the default admin user if the database is completely empty', () => {
-        (userRepository.findAll as jest.Mock).mockReturnValue([] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
+        (userRepository.findAll as jest.Mock).mockReturnValue([] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
         
         // Trigger constructor logic by forcing a private method directly for the test
         // Because the singleton init ran before the test, we'll manually invoke the check

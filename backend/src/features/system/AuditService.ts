@@ -74,7 +74,7 @@ export class AuditService {
         }
     }
 
-    public getLogs(options: unknown = {}): { logs: AuditLog[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: number } {
+    public getLogs(options: unknown = {}): { logs: AuditLog[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: number } {
         return auditRepository.getLogs(options);
     }
 

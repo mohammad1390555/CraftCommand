@@ -518,7 +518,7 @@ class AutomaticRepairService extends EventEmitter {
             if (serverInstance) {
                 // Background start without awaiting to keep UI snappy
                 const { diagnosisService: dService } = require('./DiagnosisService');
-                dService.diagnose(serverInstance, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], true).catch(e => 
+                dService.diagnose(serverInstance, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], true).catch(e => 
                     logger.error(`[AutomaticRepair] Post-fix re-analysis failed: ${e.message}`)
                 );
             }
@@ -613,7 +613,7 @@ class AutomaticRepairService extends EventEmitter {
         return marker;
     }
 
-    public getAllStabilityMarkers(): StabilityMarker[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
+    public getAllStabilityMarkers(): StabilityMarker[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         return Array.from(this.stabilityMarkers.values());
     }
 

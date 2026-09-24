@@ -93,7 +93,7 @@ export const synthesizeDefaultState = (
 };
 
 export const syncFormDataForModpack = (
-    pack: { id: string; title: string; game_versions?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] },
+    pack: { id: string; title: string; game_versions?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] },
     loader: string,
     currentData: FormData,
     bedrockVersions?: { latest: string }
