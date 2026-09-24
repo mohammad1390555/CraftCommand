@@ -14,7 +14,7 @@ export interface
         release: string;
         snapshot: string;
     };
-    versions: MojangVersion[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    versions: MojangVersion[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 }
 
 export class MinecraftVersionService {

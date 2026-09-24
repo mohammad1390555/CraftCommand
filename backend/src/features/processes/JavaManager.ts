@@ -76,8 +76,8 @@ export class JavaManager extends EventEmitter {
 
 
     // Simplistic detection - in reality needs to scan registry or common paths
-    async detectJavaVersions(): Promise<{ version: string, path: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
-        const foundJavas: { version: string, path: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    async detectJavaVersions(): Promise<{ version: string, path: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+        const foundJavas: { version: string, path: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         
         // Check system PATH java
         try {

@@ -39,10 +39,10 @@ class NetworkService extends EventEmitter {
             if (fs.existsSync(NETWORK_STATE_FILE)) {
                 const loaded = fs.readJSONSync(NETWORK_STATE_FILE);
                 return {
-                    publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], ...loaded.publicIp },
+                    publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], ...loaded.publicIp },
                     ddns: { hostname: null, resolvedIp: null, isMatching: false, lastVerifiedAt: null, ...loaded.ddns },
                     serverDdns: loaded.serverDdns || {},
-                    reachability: loaded.reachability || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
+                    reachability: loaded.reachability || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
                 };
             }
         } catch (e) {
@@ -50,10 +50,10 @@ class NetworkService extends EventEmitter {
         }
 
         return {
-            publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] },
+            publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] },
             ddns: { hostname: null, resolvedIp: null, isMatching: false, lastVerifiedAt: null },
             serverDdns: {},
-            reachability: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
+            reachability: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
         };
     }
 

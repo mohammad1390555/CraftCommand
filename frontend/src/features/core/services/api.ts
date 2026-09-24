@@ -127,7 +127,7 @@ class ApiService {
 
     // --- Server Management ---
 
-    async getServers(): Promise<ServerConfig[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getServers(): Promise<ServerConfig[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get('/servers');
     }
 
@@ -210,28 +210,28 @@ class ApiService {
     
     // --- File Management ---
     
-    async getFiles(id: string, path: string = '.'): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getFiles(id: string, path: string = '.'): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/files?path=${encodeURIComponent(path)}`);
     }
     
     // --- System & Install ---
     
 
-    async getJavaVersions(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getJavaVersions(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get('/system/java');
     }
 
-    async getBedrockVersions(): Promise<{ latest: string, versions: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }> {
+    async getBedrockVersions(): Promise<{ latest: string, versions: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }> {
         return this.get('/system/bedrock/versions');
     }
 
     async getMinecraftVersions(): Promise<{ 
         latest: string, 
         latestSnapshot: string, 
-        releases: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
-        snapshots: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
-        beta: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
-        alpha: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
+        releases: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
+        snapshots: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+        beta: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+        alpha: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
     }> {
         return this.get(`/system/minecraft/versions`);
     }
@@ -246,7 +246,7 @@ class ApiService {
 
     // --- Global Webhooks ---
 
-    async getGlobalWebhooks(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getGlobalWebhooks(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get('/system/webhooks');
     }
 
@@ -268,11 +268,11 @@ class ApiService {
 
     // --- API Tokens ---
 
-    async getApiTokens(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getApiTokens(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get('/system/tokens');
     }
 
-    async createApiToken(name: string, scopes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<unknown> {
+    async createApiToken(name: string, scopes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<unknown> {
         return this.post('/system/tokens', { name, scopes });
     }
 
@@ -326,7 +326,7 @@ class ApiService {
         await this.post('/network/proxy/install-via-suite', { proxyId }, 600000); // 10 minutes
     }
     
-    async searchFiles(id: string, query: string, dir: string = '.', content: boolean = false): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async searchFiles(id: string, query: string, dir: string = '.', content: boolean = false): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/files/search?query=${encodeURIComponent(query)}&dir=${encodeURIComponent(dir)}&content=${content}`);
     }
 
@@ -443,7 +443,7 @@ class ApiService {
         await this.post(`/servers/${id}/files/folder`, { path });
     }
 
-    async deleteFiles(id: string, paths: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<void> {
+    async deleteFiles(id: string, paths: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<void> {
         await this.post(`/servers/${id}/files/delete-bulk`, { paths }, 300000); // 5 mins for massive dirs
     }
 
@@ -451,13 +451,13 @@ class ApiService {
         await this.post(`/servers/${id}/files/move`, { source, dest });
     }
 
-    async archiveFiles(id: string, paths: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], archiveName: string): Promise<void> {
+    async archiveFiles(id: string, paths: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], archiveName: string): Promise<void> {
         await this.post(`/servers/${id}/files/archive`, { paths, archiveName });
     }
 
     // --- Databases ---
 
-    async getDatabases(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getDatabases(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/databases`);
     }
 
@@ -475,7 +475,7 @@ class ApiService {
 
     // --- Server Members ---
 
-    async getServerMembers(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getServerMembers(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/members`);
     }
 
@@ -483,7 +483,7 @@ class ApiService {
         return this.post(`/servers/${id}/members`, { email, role });
     }
 
-    async getServerPorts(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getServerPorts(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/ports`);
     }
 
@@ -509,7 +509,7 @@ class ApiService {
         return this.post(`/servers/${id}/backups`, { description, worldOnly }, 600000); // 10 minutes
     }
 
-    async getBackups(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getBackups(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/backups`);
     }
 
@@ -557,11 +557,11 @@ class ApiService {
 
     // --- Schedules ---
 
-    async getSchedules(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getSchedules(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/schedules`);
     }
 
-    async getScheduleHistory(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getScheduleHistory(id: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/schedules/history`);
     }
 
@@ -581,7 +581,7 @@ class ApiService {
         await this.post(`/servers/${id}/schedules/${taskId}/run`, {});
     }
 
-    async getLogs(id: string): Promise<string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getLogs(id: string): Promise<string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/logs`);
     }
 
@@ -641,7 +641,7 @@ class ApiService {
 
     // --- Players ---
 
-    async getPlayers(id: string, type: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getPlayers(id: string, type: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${id}/players/${type}`);
     }
 
@@ -665,7 +665,7 @@ class ApiService {
         return this.get('/auth/me');
     }
 
-    async getUsers(): Promise<UserProfile[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getUsers(): Promise<UserProfile[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get('/auth/users');
     }
 
@@ -724,7 +724,7 @@ class ApiService {
         return this.post('/auth/2fa/setup/start', {});
     }
 
-    async confirm2FASetup(code: string): Promise<{ backupCodes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }> {
+    async confirm2FASetup(code: string): Promise<{ backupCodes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }> {
         return this.post('/auth/2fa/setup/confirm', { code });
     }
 
@@ -734,7 +734,7 @@ class ApiService {
 
     // --- Notifications ---
 
-    async getNotifications(limit: number = 50, unreadOnly?: boolean): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getNotifications(limit: number = 50, unreadOnly?: boolean): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         const query = new URLSearchParams({ limit: limit.toString() });
         if (unreadOnly) query.append('unreadOnly', 'true');
         return this.get(`/notifications?${query.toString()}`);
@@ -768,7 +768,7 @@ class ApiService {
         return this.get('/settings/persistence/status');
     }
 
-    async getTemplates(): Promise<ServerTemplate[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getTemplates(): Promise<ServerTemplate[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get('/templates');
     }
 
@@ -816,7 +816,7 @@ class ApiService {
 
     // --- Webhooks (Extensions) ---
 
-    async getWebhooks(serverId: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getWebhooks(serverId: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/webhooks/servers/${serverId}`);
     }
 
@@ -846,7 +846,7 @@ class ApiService {
         search?: string,
         startDate?: string,
         endDate?: string
-    } = {}): Promise<{ logs: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: number }> {
+    } = {}): Promise<{ logs: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: number }> {
         const params = new URLSearchParams();
         if (options.limit) params.append('limit', options.limit.toString());
         if (options.offset) params.append('offset', options.offset.toString());
@@ -952,7 +952,7 @@ class ApiService {
         return this.get(`/plugins/search?${params.toString()}`);
     }
 
-    async getInstalledPlugins(serverId: string): Promise<InstalledPlugin[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getInstalledPlugins(serverId: string): Promise<InstalledPlugin[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/plugins/servers/${serverId}`);
     }
 
@@ -972,25 +972,25 @@ class ApiService {
         return this.post(`/plugins/servers/${serverId}/${pluginId}/update`, {});
     }
 
-    async bulkUpdatePlugins(serverId: string, pluginIds: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<Array<{ pluginId: string; success: boolean; error?: string }>> {
+    async bulkUpdatePlugins(serverId: string, pluginIds: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): Promise<Array<{ pluginId: string; success: boolean; error?: string }>> {
         return this.post(`/plugins/servers/${serverId}/bulk-update`, { pluginIds });
     }
 
-    async checkPluginUpdates(serverId: string): Promise<PluginUpdateInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async checkPluginUpdates(serverId: string): Promise<PluginUpdateInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/plugins/servers/${serverId}/updates`);
     }
 
-    async getActivityHistory(serverId: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getActivityHistory(serverId: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/servers/${serverId}/activity`);
     }
 
-    async scanPlugins(serverId: string): Promise<InstalledPlugin[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async scanPlugins(serverId: string): Promise<InstalledPlugin[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get(`/plugins/servers/${serverId}/scan`);
     }
 
     // --- Distributed Nodes ---
 
-    async getNodes(): Promise<{ nodes: NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; total: number }> {
+    async getNodes(): Promise<{ nodes: NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; total: number }> {
         return this.get('/nodes');
     }
 
@@ -998,7 +998,7 @@ class ApiService {
         return this.get(`/nodes/${nodeId}`);
     }
 
-    async enrollNode(data: { name: string; host: string; port: number; labels?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }): Promise<NodeInfo> {
+    async enrollNode(data: { name: string; host: string; port: number; labels?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }): Promise<NodeInfo> {
         return this.post('/nodes/enroll', data);
     }
 
@@ -1039,11 +1039,11 @@ class ApiService {
 
     // --- Cloud Backup Destinations ---
 
-    async getCloudDestinations(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async getCloudDestinations(): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.get('/servers/cloud-destinations');
     }
 
-    async addCloudDestination(destination: unknown): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async addCloudDestination(destination: unknown): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.post('/servers/cloud-destinations', destination);
     }
 
@@ -1051,7 +1051,7 @@ class ApiService {
         return this.post('/servers/cloud-destinations/test', destination);
     }
 
-    async deleteCloudDestination(name: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
+    async deleteCloudDestination(name: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return this.delete(`/servers/cloud-destinations/${encodeURIComponent(name)}`);
     }
 

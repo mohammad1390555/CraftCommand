@@ -6,7 +6,7 @@ import { StoreState } from '../index';
 
 export export interface
     settings: GlobalSettings | null;
-    nodes: NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    nodes: NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     systemLoading: boolean;
     isRestarting: boolean;
     isReconnecting: boolean;
@@ -19,9 +19,9 @@ export export interface
     initSystem: () => (() => void) | void;
 }
 
-export const createSystemSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], SystemSlice> = (set, get) => ({
+export const createSystemSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], SystemSlice> = (set, get) => ({
     settings: null,
-    nodes: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    nodes: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     systemLoading: true,
     isRestarting: false,
     isReconnecting: false,
@@ -43,10 +43,10 @@ export const createSystemSlice: StateCreator<StoreState, [["zustand/devtools", n
             if (data?.app?.distributedNodes?.enabled) {
                 try {
                     const nodeData = await API.getNodes();
-                    set({ nodes: nodeData.nodes || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] });
+                    set({ nodes: nodeData.nodes || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] });
                 } catch { /* non-fatal */ }
             } else {
-                set({ nodes: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] });
+                set({ nodes: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] });
             }
         } catch (e) {
             console.error('[SystemSlice] Failed to fetch settings:', e);

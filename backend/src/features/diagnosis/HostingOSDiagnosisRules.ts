@@ -21,7 +21,7 @@ export const ThermalAlertRule: DiagnosisRule = {
     description: 'Detects dangerously high CPU temperatures that can cause throttling or hardware damage.',
     tier: 1,
     defaultConfidence: 95,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         // Only run this rule once (for the first server evaluated, not per-server)
         // We use a static sentinel — if we already reported thermal in this cycle, skip
@@ -71,7 +71,7 @@ export const MemoryPressureRule: DiagnosisRule = {
     description: 'Warns when overall system memory usage exceeds 90%, leaving little headroom.',
     tier: 1,
     defaultConfidence: 85,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (server.status !== 'ONLINE') return null;
 
@@ -99,7 +99,7 @@ export const InsufficientRamRule: DiagnosisRule = {
     description: 'Checks if the allocated RAM meets minimum requirements',
     tier: 1,
     defaultConfidence: 100,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         const minRam = 1;
         if (server.ram < minRam) {
@@ -133,7 +133,7 @@ export const DiskSpaceRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         const hasError = logs.some(l => /No space left on device|Insufficient space/i.test(l));
         
         // env.diskFree is in MB (from DiagnosisService)
@@ -157,7 +157,7 @@ export const DiskSpaceRule: DiagnosisRule = {
 
 // --- CPU SMOOTHING (v4.8) ---
 // We track the last 3 CPU readings to ensure we don't fire on quick spikes.
-const cpuHistory: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+const cpuHistory: number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 const HISTORY_LIMIT = 3;
 
 export const NodeHealthRule: DiagnosisRule = {
@@ -166,8 +166,8 @@ export const NodeHealthRule: DiagnosisRule = {
     description: 'Monitors the health of the local hosting engine',
     tier: 1,
     defaultConfidence: 90,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
-    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         // v4.0 Resilience: Stabilization Period (2 Minutes)
         const uptime = os.uptime();
         if (uptime < 120) return null;
@@ -212,7 +212,7 @@ export const LogManagementRule: DiagnosisRule = {
     description: 'Detects massive log files that cause performance lag',
     tier: 3,
     defaultConfidence: 100,
-    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (!server.workingDirectory) return null;
         const logPath = path.join(server.workingDirectory, 'logs', 'latest.log');
@@ -241,7 +241,7 @@ export const LogManagementRule: DiagnosisRule = {
     }
 };
 
-export const HostingOSRules: DiagnosisRule[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
+export const HostingOSRules: DiagnosisRule[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
     ThermalAlertRule,
     MemoryPressureRule,
     InsufficientRamRule,

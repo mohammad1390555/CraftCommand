@@ -101,7 +101,7 @@ export class FileSystemManager {
         logger.info(`[FileSys] Copied ${source} -> ${dest}`);
     }
 
-    async compress(paths: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], archiveName: string): Promise<void> {
+    async compress(paths: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], archiveName: string): Promise<void> {
         return new Promise((resolve, reject) => {
             const archiver = require('archiver');
             const destPath = this.getAbsolutePath(archiveName);
@@ -143,7 +143,7 @@ export class FileSystemManager {
         modified: string;
         snippet?: string;
     }>> {
-        const results: Array<{ name: string; path: string; isDirectory: boolean; size: number; modified: string; snippet?: string }> = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+        const results: Array<{ name: string; path: string; isDirectory: boolean; size: number; modified: string; snippet?: string }> = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         const lowerQuery = query.toLowerCase();
 
         const walk = async (currentDir: string) => {

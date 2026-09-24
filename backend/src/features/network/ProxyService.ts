@@ -30,7 +30,7 @@ export class ProxyService {
             };
         }
         if (!proxy.network.proxyConfig) {
-            proxy.network.proxyConfig = { links: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] };
+            proxy.network.proxyConfig = { links: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] };
         }
         
         // Remove existing link to this server if it exists or alias conflict
@@ -113,8 +113,8 @@ export class ProxyService {
         if (!proxy || !proxy.network?.proxyConfig) return '';
         
         const allServers = getServers();
-        const serverLines: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
-        const tryList: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+        const serverLines: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+        const tryList: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         
         for (const link of proxy.network.proxyConfig.links) {
             const backend = allServers.find(s => s.id === link.serverId);
@@ -139,7 +139,7 @@ export class ProxyService {
         
         // Velocity requires at least one server in the 'try' list if it's not empty, 
         // normally we want to prioritize the first linked server as the fallback.
-        // If empty, we MUST explicitly set it to [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] to avoid internal defaults like ["lobby"]
+        // If empty, we MUST explicitly set it to [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] to avoid internal defaults like ["lobby"]
         config += `\n  # Priority list of servers to try when a player joins the proxy\n`;
         config += `  try = [${tryList.join(', ')}]\n`;
         

@@ -21,7 +21,7 @@ class NotificationRepository implements StorageProvider<Notification> {
     findOne(criteria: Partial<Notification>) { return this.provider.findOne(criteria); }
     create(item: Notification) { return this.provider.create(item); }
     update(id: string, updates: Partial<Notification>) { return this.provider.update(id, updates); }
-    saveAll(items: Notification[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) { return this.provider.saveAll(items); }
+    saveAll(items: Notification[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) { return this.provider.saveAll(items); }
 
     public delete(id: string): boolean {
         const notification = this.findById(id);
@@ -31,7 +31,7 @@ class NotificationRepository implements StorageProvider<Notification> {
         return this.provider.delete(id);
     }
 
-    public getForUser(userId: string, options: { limit?: number, unreadOnly?: boolean } = {}): Notification[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
+    public getForUser(userId: string, options: { limit?: number, unreadOnly?: boolean } = {}): Notification[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         const  this.findAll().filter(n => n.userId === userId || n.userId === 'ALL');
         
         if (options.unreadOnly) {

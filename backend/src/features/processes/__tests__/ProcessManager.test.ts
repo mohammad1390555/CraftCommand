@@ -14,7 +14,7 @@ jest.mock('../runners/RunnerFactory', () => {
     return {
         runnerFactory: {
             getRunner: jest.fn().mockReturnValue(runner),
-            getAllRunners: jest.fn().mockReturnValue([] as never[] as never[] as never[] as never[] as never[] as never[] as never[])
+            getAllRunners: jest.fn().mockReturnValue([] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[])
         }
     };
 });
