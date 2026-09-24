@@ -12,7 +12,7 @@ jest.mock('../../utils/logger', () => ({
 // Import the abstract class after mocks
 import { JsonRepository } from '../JsonRepository';
 
-interface TestItem {
+export interface
     id: string;
     name: string;
     status: string;
@@ -36,7 +36,7 @@ describe('JsonRepository', () => {
         
         // Override process.cwd to point to our temp dir 
         originalCwd = process.cwd;
-        process.cwd = jest.fn().mockReturnValue(testDir) as any;
+        process.cwd = jest.fn().mockReturnValue(testDir) as unknown;
     });
 
     afterEach(async () => {
@@ -49,7 +49,7 @@ describe('JsonRepository', () => {
     describe('CRUD Operations', () => {
         it('should create a new repository with empty data', () => {
             const repo = new TestRepository('test-crud.json');
-            expect(repo.findAll()).toEqual([]);
+            expect(repo.findAll()).toEqual([] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
         });
 
         it('should create and retrieve items', () => {
@@ -75,7 +75,7 @@ describe('JsonRepository', () => {
             expect(repo.findAll()).toHaveLength(0);
         });
 
-        it('should return undefined when updating non-existent item', () => {
+        it('should  when updating non-existent item', () => {
             const repo = new TestRepository('test-crud5.json');
             const result = repo.update('nope', { status: 'online' });
             expect(result).toBeNull();
@@ -90,7 +90,7 @@ describe('JsonRepository', () => {
             repo.create({ id: 'srv-1', name: 'Test', status: 'offline' });
 
             // Force save (bypass debounce)
-            await (repo as any).executeSave();
+            await (repo as unknown).executeSave();
 
             // Read the file directly
             const dataFile = path.join(testDir, 'data', 'test-persist.json');
@@ -113,7 +113,7 @@ describe('JsonRepository', () => {
             const repo = new TestRepository('test-atomic.json');
             repo.create({ id: 'srv-1', name: 'Test', status: 'offline' });
 
-            await (repo as any).executeSave();
+            await (repo as unknown).executeSave();
 
             // Verify no .tmp file left behind
             const dataFile = path.join(testDir, 'data', 'test-atomic.json');

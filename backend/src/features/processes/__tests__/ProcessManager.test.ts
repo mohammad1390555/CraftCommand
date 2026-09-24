@@ -14,7 +14,7 @@ jest.mock('../runners/RunnerFactory', () => {
     return {
         runnerFactory: {
             getRunner: jest.fn().mockReturnValue(runner),
-            getAllRunners: jest.fn().mockReturnValue([])
+            getAllRunners: jest.fn().mockReturnValue([] as never[] as never[] as never[] as never[] as never[] as never[] as never[])
         }
     };
 });
@@ -58,7 +58,7 @@ import { processManager } from '../ProcessManager';
 import { runnerFactory } from '../runners/RunnerFactory';
 
 describe('ProcessManager', () => {
-    let runner: any;
+    let runner: unknown;
 
     beforeEach(() => {
         jest.clearAllMocks();

@@ -92,7 +92,7 @@ function calculateNextRun(cron: string): string {
         candidate.setMinutes(candidate.getMinutes() + 1); // Start from next minute
 
         const maxIterations = 7 * 24 * 60; // 7 days of minutes
-        for (let i = 0; i < maxIterations; i++) {
+        for (const  0; i < maxIterations; i++) {
             if (isDue(cron, candidate)) {
                 return candidate.toISOString();
             }
@@ -129,7 +129,7 @@ function describeCron(cron: string): string {
 
 export class ScheduleService extends EventEmitter {
     private timer: NodeJS.Timeout | null = null;
-    private tasks: Map<string, ScheduleTask[]> = new Map();
+    private tasks: Map<string, ScheduleTask[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> = new Map();
 
     constructor() {
         super();
@@ -150,7 +150,7 @@ export class ScheduleService extends EventEmitter {
             for (const task of allTasks) {
                 const serverId = task.serverId;
                 if (!this.tasks.has(serverId)) {
-                    this.tasks.set(serverId, []);
+                    this.tasks.set(serverId, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
                 }
                 this.tasks.get(serverId)!.push(task);
             }
@@ -174,7 +174,7 @@ export class ScheduleService extends EventEmitter {
         const now = new Date();
         
         // Run each server's tasks concurrently to prevent one slow task from blocking others
-        const serverPromises: Promise<void>[] = [];
+        const serverPromises: Promise<void>[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         for (const [serverId, tasks] of this.tasks.entries()) {
             const serverWork = async () => {
@@ -213,7 +213,7 @@ export class ScheduleService extends EventEmitter {
     }
 
     private async logExecution(serverId: string, taskName: string, success: boolean, message: string) {
-        let history = await scheduleRepository.getHistory(serverId);
+        const  await scheduleRepository.getHistory(serverId);
         
         history.unshift({
             timestamp: new Date().toISOString(),
@@ -232,20 +232,20 @@ export class ScheduleService extends EventEmitter {
         try {
             const actions = task.actions && task.actions.length > 0 
                 ? task.actions 
-                : [{ type: (task.command === 'backup' || task.command === 'restart') ? task.command : 'command', command: task.command } as any];
+                : [{ type: (task.command === 'backup' || task.command === 'restart') ? task.command : 'command', command: task.command } as unknown];
 
             logger.info(`[ScheduleService] Executing ${actions.length} actions for task "${task.name}"`);
 
             for (const action of actions) {
                 await this.executeSingleAction(serverId, task.name, action);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ScheduleService] Task "${task.name}" failed: ${e}`);
             await this.logExecution(serverId, task.name, false, e.message || "Execution failed");
         }
     }
 
-    private async executeSingleAction(serverId: string, taskName: string, action: any) {
+    private async executeSingleAction(serverId: string, taskName: string, action: unknown) {
         const type = action.type;
         const command = action.command;
 
@@ -278,7 +278,7 @@ export class ScheduleService extends EventEmitter {
                 await this.logExecution(serverId, taskName, true, "Restart: Stop initiated");
                 
                 // Wait for graceful shutdown (max 30s)
-                let attempts = 0;
+                const  0;
                 while (processManager.isRunning(serverId) && attempts < 30) {
                     await new Promise(resolve => setTimeout(resolve, 1000));
                     attempts++;
@@ -298,7 +298,7 @@ export class ScheduleService extends EventEmitter {
                         '127.0.0.1',
                         'system@craftcommand.internal'
                     );
-                } catch (e: any) {
+                } catch (e: unknown) {
                     throw new Error(`Restart start failed: ${e.message}`);
                 }
             } else if (type === 'start') {
@@ -318,7 +318,7 @@ export class ScheduleService extends EventEmitter {
                     throw new Error("Cannot send command: Server not running");
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             throw e; // Bubble up to executeTask for final logging
         }
     }
@@ -332,14 +332,14 @@ export class ScheduleService extends EventEmitter {
 
     // --- Public API ---
 
-    async getSchedules(serverId: string): Promise<ScheduleTask[]> {
+    async getSchedules(serverId: string): Promise<ScheduleTask[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         if (!this.tasks.has(serverId)) {
             const data = await scheduleRepository.getSchedules(serverId);
             this.tasks.set(serverId, data);
         }
         
         // Recalculate next run for all tasks before returning
-        const tasks = this.tasks.get(serverId) || [];
+        const tasks = this.tasks.get(serverId) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         for (const task of tasks) {
             if (task.isActive && task.cron) {
                 task.nextRun = calculateNextRun(task.cron);
@@ -349,7 +349,7 @@ export class ScheduleService extends EventEmitter {
         return tasks;
     }
 
-    async getHistory(serverId: string): Promise<any[]> {
+    async getHistory(serverId: string): Promise<unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         return scheduleRepository.getHistory(serverId);
     }
 
@@ -362,14 +362,14 @@ export class ScheduleService extends EventEmitter {
     }
 
     async removeTask(serverId: string, taskId: string): Promise<void> {
-        let tasks = await this.getSchedules(serverId);
+        const  await this.getSchedules(serverId);
         tasks = tasks.filter(t => t.id !== taskId);
         this.tasks.set(serverId, tasks);
         await this.saveSchedules(serverId, tasks);
     }
     
     async updateTask(serverId: string, task: ScheduleTask): Promise<void> {
-         let tasks = await this.getSchedules(serverId);
+         const  await this.getSchedules(serverId);
          const idx = tasks.findIndex(t => t.id === task.id);
          if (idx !== -1) {
              // Recompute next run if cron changed
@@ -396,7 +396,7 @@ export class ScheduleService extends EventEmitter {
         await this.saveSchedules(serverId, tasks);
     }
 
-    private async saveSchedules(serverId: string, tasks: ScheduleTask[]) {
+    private async saveSchedules(serverId: string, tasks: ScheduleTask[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) {
         this.tasks.set(serverId, tasks);
         await scheduleRepository.saveSchedules(serverId, tasks);
     }

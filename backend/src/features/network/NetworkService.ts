@@ -29,7 +29,7 @@ class NetworkService extends EventEmitter {
 
     constructor() {
         super();
-        this.state = this.loadState();
+        ();
         this.startMonitoring();
     }
 
@@ -39,10 +39,10 @@ class NetworkService extends EventEmitter {
             if (fs.existsSync(NETWORK_STATE_FILE)) {
                 const loaded = fs.readJSONSync(NETWORK_STATE_FILE);
                 return {
-                    publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [], ...loaded.publicIp },
+                    publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], ...loaded.publicIp },
                     ddns: { hostname: null, resolvedIp: null, isMatching: false, lastVerifiedAt: null, ...loaded.ddns },
                     serverDdns: loaded.serverDdns || {},
-                    reachability: loaded.reachability || []
+                    reachability: loaded.reachability || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
                 };
             }
         } catch (e) {
@@ -50,10 +50,10 @@ class NetworkService extends EventEmitter {
         }
 
         return {
-            publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] },
+            publicIp: { current: null, lastKnown: null, lastChangedAt: null, history: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] },
             ddns: { hostname: null, resolvedIp: null, isMatching: false, lastVerifiedAt: null },
             serverDdns: {},
-            reachability: []
+            reachability: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
         };
     }
 
@@ -72,8 +72,8 @@ class NetworkService extends EventEmitter {
         for (const source of IP_SOURCES) {
             try {
                 const response = await axios.get(source, { timeout: 5000 });
-                let ip = '';
-                const data = response.data as any;
+                const  '';
+                const data = response.data as unknown;
                 if (typeof data === 'string') {
                     ip = data.trim();
                 } else if (data && typeof data === 'object' && 'ip' in data) {
@@ -93,7 +93,7 @@ class NetworkService extends EventEmitter {
     public async verifyDdns(hostname: string, retries = 2): Promise<DdnsStatus> {
         let lastError: Error | null = null;
         
-        for (let i = 0; i <= retries; i++) {
+        for (const  0; i <= retries; i++) {
             try {
                 const currentIp = await this.getPublicIp();
                 
@@ -113,7 +113,7 @@ class NetworkService extends EventEmitter {
                 });
 
                 // Fallback to dns.lookup if resolve4 failed with a network error
-                let finalIp = resolvedIp;
+                const  resolvedIp;
                 if (!finalIp && i === retries) {
                     finalIp = await new Promise<string | null>((resolve) => {
                         dns.lookup(hostname, (err, address) => {
@@ -146,8 +146,8 @@ class NetworkService extends EventEmitter {
             isMatching: false,
             lastVerifiedAt: Date.now(),
             error: lastError?.message,
-            errorType: (lastError as any)?.code === 'EREFUSED' ? 'REFUSED' : 
-                       (lastError as any)?.code === 'ETIMEOUT' ? 'TIMEOUT' : 'DNS_ERROR'
+            errorType: (lastError as unknown)?.code === 'EREFUSED' ? 'REFUSED' : 
+                       (lastError as unknown)?.code === 'ETIMEOUT' ? 'TIMEOUT' : 'DNS_ERROR'
         };
     }
 
@@ -209,7 +209,7 @@ class NetworkService extends EventEmitter {
             { timeout: 10000 }
         );
 
-        const data = response.data as any;
+        const data = response.data as unknown;
         const isOpen = data?.status === 'open' || data?.open === true;
 
         const result: PortReachability = {
@@ -228,7 +228,7 @@ class NetworkService extends EventEmitter {
         this.saveState();
 
         return result;
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.warn(`[NetworkService] Port check failed for ${port}: ${e.message}`);
         // Fallback: try a simple TCP self-check as a secondary signal
         return { port, status: 'unknown', lastCheckedAt: Date.now() };
@@ -310,7 +310,7 @@ class NetworkService extends EventEmitter {
                 await fs.writeFile(secretPath, playitSecret);
                 await sidecarManager.startPlayit(serverId, secretPath);
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[NetworkService:${serverId}] Failed to start sidecar: ${err.message}`);
         }
     }

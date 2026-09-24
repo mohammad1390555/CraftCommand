@@ -4,16 +4,16 @@ import {  ServerConfig  } from '@shared/types';
 import { logger } from '../../utils/logger';
 import { SafeFileOperation } from '../../utils/fs';
 
-export interface ConfigMismatch {
+export export interface
     setting: string;
     diskValue: string | number | boolean;
     dbValue: string | number | boolean;
     severity: 'high' | 'medium' | 'low';
 }
 
-export interface SyncReport {
+export export interface
     synchronized: boolean;
-    mismatches: ConfigMismatch[];
+    mismatches: ConfigMismatch[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     eulaAccepted: boolean;
 }
 
@@ -25,7 +25,7 @@ export class ServerConfigService {
     async verifyConfig(server: ServerConfig): Promise<SyncReport> {
         const report: SyncReport = {
             synchronized: true,
-            mismatches: [],
+            mismatches: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
             eulaAccepted: false
         };
 
@@ -47,7 +47,7 @@ export class ServerConfigService {
             const props = await ServerConfigService.parseProperties(propsPath);
 
             // Mapping for detection
-            const mappings: { key: keyof ServerConfig; prop: string; type: 'int' | 'bool' | 'string'; severity: 'high' | 'medium' | 'low' }[] = [
+            const mappings: { key: keyof ServerConfig; prop: string; type: 'int' | 'bool' | 'string'; severity: 'high' | 'medium' | 'low' }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
                 { key: 'port', prop: 'server-port', type: 'int', severity: 'high' },
                 { key: 'onlineMode', prop: 'online-mode', type: 'bool', severity: 'medium' },
                 { key: 'maxPlayers', prop: 'max-players', type: 'int', severity: 'low' },
@@ -68,7 +68,7 @@ export class ServerConfigService {
                 if (dbValue === undefined || typeof dbValue === 'object') continue;
 
                 const rawDiskValue = props[m.prop];
-                let diskValue: any = rawDiskValue;
+                let diskValue: unknown = rawDiskValue;
 
                 if (m.type === 'int') diskValue = parseInt(rawDiskValue || '0');
                 if (m.type === 'bool') diskValue = rawDiskValue === 'true';
@@ -76,8 +76,8 @@ export class ServerConfigService {
                 if (diskValue !== dbValue) {
                     report.mismatches.push({
                         setting: m.key as string,
-                        diskValue: (diskValue as string | number | boolean) ?? 'MISSING',
-                        dbValue: dbValue as string | number | boolean,
+                        diskValue: (diskValue as unknown | number | boolean) ?? 'MISSING',
+                        dbValue: dbValue as unknown | number | boolean,
                         severity: m.severity
                     });
                 }
@@ -130,8 +130,8 @@ export class ServerConfigService {
         const propsPath = path.join(server.workingDirectory, 'server.properties');
         if (!(await fs.pathExists(propsPath))) return; 
 
-        let content = await fs.readFile(propsPath, 'utf-8');
-        let modified = false;
+        const  await fs.readFile(propsPath, 'utf-8');
+        const  false;
 
         const syncProperty = (key: keyof ServerConfig, propName: string) => {
             const val = server[key];

@@ -23,7 +23,7 @@ export class UserRepository implements StorageProvider<UserProfile> {
     create(item: UserProfile) { return this.provider.create(item); }
     update(id: string, updates: Partial<UserProfile>) { return this.provider.update(id, updates); }
     delete(id: string) { return this.provider.delete(id); }
-    saveAll(items: UserProfile[]) { return this.provider.saveAll(items); }
+    saveAll(items: UserProfile[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) { return this.provider.saveAll(items); }
 
     public findByEmail(email: string): UserProfile | undefined {
         return this.findOne({ email });

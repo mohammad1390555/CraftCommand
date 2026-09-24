@@ -18,7 +18,7 @@ export class SidecarManager extends EventEmitter {
     /**
      * Start a networking sidecar
      */
-    async startSidecar(serverId: string, type: string, command: string, args: string[], cwd: string): Promise<void> {
+    async startSidecar(serverId: string, type: string, command: string, args: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], cwd: string): Promise<void> {
         this.stopSidecar(serverId, type); // Ensure clean start
 
         logger.info(`[SidecarManager:${serverId}] Starting ${type} sidecar...`);
@@ -94,7 +94,7 @@ export class SidecarManager extends EventEmitter {
         try {
             const binPath = await binaryProvisioner.getBinaryPath('cloudflare');
             await this.startSidecar(serverId, 'cloudflare', binPath, ['tunnel', '--no-autoupdate', 'run', '--token', token], process.cwd());
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[SidecarManager:${serverId}] Failed to provision cloudflared: ${err.message}`);
         }
     }
@@ -106,7 +106,7 @@ export class SidecarManager extends EventEmitter {
         try {
             const binPath = await binaryProvisioner.getBinaryPath('playit');
             await this.startSidecar(serverId, 'playit', binPath, ['--secret-path', secretPath], process.cwd());
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[SidecarManager:${serverId}] Failed to provision playit: ${err.message}`);
         }
     }

@@ -15,7 +15,7 @@ import { ServerConfig } from '@shared/types';
  * whether a server is over-provisioned or under-provisioned.
  */
 
-export interface MemoryRecommendation {
+export export interface
     serverId: string;
     serverName: string;
     currentRamGB: number;
@@ -39,9 +39,9 @@ class MemoryScalerService {
     /**
      * Analyze all online servers and return memory recommendations.
      */
-    async analyzeAll(): Promise<MemoryRecommendation[]> {
+    async analyzeAll(): Promise<MemoryRecommendation[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         const servers = getServers();
-        const recommendations: MemoryRecommendation[] = [];
+        const recommendations: MemoryRecommendation[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         for (const server of servers) {
             if (server.status !== 'ONLINE') continue;
@@ -67,9 +67,9 @@ class MemoryScalerService {
         const utilizationPercent = (avgUsageMB / allocatedMB) * 100;
 
         let direction: MemoryRecommendation['direction'] = 'optimal';
-        let recommendedRamGB = server.ram;
-        let reason = '';
-        let confidence = 50;
+        const  server.ram;
+        const  '';
+        const  50;
 
         if (utilizationPercent < MemoryScalerService.DOWNSIZE_THRESHOLD * 100) {
             // Over-provisioned: suggest reducing

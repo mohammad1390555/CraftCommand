@@ -22,13 +22,13 @@ export class SessionRepository implements StorageProvider<UserSession> {
     create(item: UserSession) { return this.provider.create(item); }
     update(id: string, updates: Partial<UserSession>) { return this.provider.update(id, updates); }
     delete(id: string) { return this.provider.delete(id); }
-    saveAll(items: UserSession[]) { return this.provider.saveAll(items); }
+    saveAll(items: UserSession[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) { return this.provider.saveAll(items); }
 
-    public findByUserId(userId: string): UserSession[] {
+    public findByUserId(userId: string): UserSession[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         return this.findAll().filter(s => s.userId === userId);
     }
 
-    public findActiveByUserId(userId: string): UserSession[] {
+    public findActiveByUserId(userId: string): UserSession[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         const now = Date.now();
         return this.findAll().filter(s => s.userId === userId && s.expiresAt > now && !s.revokedAt);
     }

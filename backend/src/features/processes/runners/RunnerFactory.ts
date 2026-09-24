@@ -23,7 +23,7 @@ class RunnerFactory {
     }
 
     // Helpers to get all runners for clean up or broad actions
-    getAllRunners(): IServerRunner[] {
+    getAllRunners(): IServerRunner[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         return [this.nativeRunner, this.dockerRunner, this.remoteRunner];
     }
 }

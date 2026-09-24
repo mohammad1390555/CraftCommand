@@ -12,7 +12,7 @@ export class AuditService {
 
 
 
-    public async log(userId: string, action: AuditAction, resourceId?: string, metadata?: any, ip?: string, userEmail?: string) {
+    public async log(userId: string, action: AuditAction, resourceId?: string, metadata?: unknown, ip?: string, userEmail?: string) {
         const entry: AuditLog = {
             id: crypto.randomUUID(),
             timestamp: Date.now(),
@@ -36,9 +36,9 @@ export class AuditService {
                         serverId: entry.metadata?.serverId || (entry.action.startsWith('SERVER_') ? entry.resourceId : 'global'),
                         userId: user.id,
                         username: user.username,
-                        action: entry.action as any,
+                        action: entry.action as unknown,
                         detail: this.formatActionDetail(entry),
-                        visibility: (entry.metadata?.visibility as any) || 'VIEWER',
+                        visibility: (entry.metadata?.visibility as unknown) || 'VIEWER',
                         timestamp: entry.timestamp
                     };
                     
@@ -74,7 +74,7 @@ export class AuditService {
         }
     }
 
-    public getLogs(options: any = {}): { logs: AuditLog[], total: number } {
+    public getLogs(options: unknown = {}): { logs: AuditLog[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: number } {
         return auditRepository.getLogs(options);
     }
 

@@ -13,10 +13,10 @@ import { logStreamer } from '../../utils/LogStreamer';
 
 class ProcessManager extends EventEmitter {
     private activeRunners: Map<string, IServerRunner> = new Map();
-    private logHistory: Map<string, string[]> = new Map();
+    private logHistory: Map<string, string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> = new Map();
     private startTimes: Map<string, number> = new Map();
     private onlineTimes: Map<string, number> = new Map();
-    private statusCache: Map<string, any> = new Map();
+    private statusCache: Map<string, unknown> = new Map();
     private stoppingServers: Set<string> = new Set();
     private gracefulShutdowns: Map<string, boolean> = new Map();
     private updatingStatuses: Set<string> = new Set();
@@ -25,10 +25,10 @@ class ProcessManager extends EventEmitter {
     private players: Map<string, Set<string>> = new Map();
     private readonly MAX_LOGS = 100; 
     private lastEmittedStatus: Map<string, string> = new Map();
-    private activityHistory: Map<string, any[]> = new Map();
+    private activityHistory: Map<string, unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> = new Map();
     private focusedServerId: string | null = null; // v1.14.0: Focus mode for UI
     private readonly MAX_ACTIVITY_HISTORY = 100;
-    private runnerListeners: Map<string, { log: any, close: any }> = new Map();
+    private runnerListeners: Map<string, { log: unknown, close: unknown }> = new Map();
     private serverEpochs: Map<string, number> = new Map(); // v2.2: Epoch tracking for race protection
 
     constructor() {
@@ -45,7 +45,7 @@ class ProcessManager extends EventEmitter {
                 logger.info(`[ProcessManager] Synchronizing runner...`);
                 await runner.sync();
                 
-                // Re-attach listeners for any processes recovered by the runner
+                // Re-attach listeners for unknown processes recovered by the runner
                 const { getServers } = require('../servers/ServerService');
                 const servers = getServers();
                 for (const server of servers) {
@@ -56,7 +56,7 @@ class ProcessManager extends EventEmitter {
                             online: true, 
                             status: ServerStatus.ONLINE, 
                             players: 0, 
-                            playerList: [], 
+                            playerList: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
                             uptime: 0, 
                             tps: "0.00" 
                         });
@@ -66,7 +66,7 @@ class ProcessManager extends EventEmitter {
         }
 
         // --- REMOTE RUNNER DESYNC FIX ---
-        const remoteRunner = runnerFactory.getRunner('remote') as any;
+        const remoteRunner = runnerFactory.getRunner('remote') as unknown;
         if (remoteRunner) {
             remoteRunner.on('sync-recover', (data: { id: string }) => {
                 logger.info(`[ProcessManager:${data.id}] Node Agent reconnected! Recovering ONLINE state...`);
@@ -197,7 +197,7 @@ class ProcessManager extends EventEmitter {
                     const displayMem = isLive ? normalizedMem : 0;
 
                     // TPS Throttling
-                    let tps = cachedStatus?.tps || "0.00";
+                    const  cachedStatus?.tps || "0.00";
                     if (isFocused || (Math.floor(now / 1000) % 5 === 0)) {
                         tps = await this.getTPS(id);
                     }
@@ -239,7 +239,7 @@ class ProcessManager extends EventEmitter {
         logger.debug(`[ProcessManager] UI Focus set to: ${id || 'NONE'}`);
     }
 
-    async startServer(id: string, runCommand: string, cwd: string, env: any = {}) {
+    async startServer(id: string, runCommand: string, cwd: string, env: unknown = {}) {
         if (this.activeRunners.has(id)) {
             logger.warn(`[ProcessManager:${id}] Start requested but runner is already active. (Idempotency)`);
             return;
@@ -308,7 +308,7 @@ class ProcessManager extends EventEmitter {
                 // Phase 66: Persist STARTING state so frontend pollers don't see STALE data
                 this.updateCachedStatus(id, { status: ServerStatus.STARTING, online: false }, true);
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             this.cleanupRunner(id);
             this.clearStartupLock(id);
             // Wrap in SystemError if not already one
@@ -330,7 +330,7 @@ class ProcessManager extends EventEmitter {
 
     private attachRunnerListeners(id: string, runner: IServerRunner, initialStatus: ServerStatus = ServerStatus.STARTING) {
         // --- v2.2: EPOCH EVOLUTION ---
-        // Increment epoch for this server to invalidate any pending events from previous runs
+        // Increment epoch for this server to invalidate unknown pending events from previous runs
         const epoch = (this.serverEpochs.get(id) || 0) + 1;
         this.serverEpochs.set(id, epoch);
 
@@ -365,12 +365,12 @@ class ProcessManager extends EventEmitter {
             online: initialStatus === ServerStatus.ONLINE, 
             status: initialStatus, 
             players: 0, 
-            playerList: [], 
+            playerList: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], 
             uptime: 0, 
             tps: "0.00" 
         });
-        this.logHistory.set(id, this.logHistory.get(id) || []);
-        this.activityHistory.set(id, this.activityHistory.get(id) || []);
+        this.logHistory.set(id, this.logHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
+        this.activityHistory.set(id, this.activityHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
         this.players.set(id, this.players.get(id) || new Set());
         this.activeRunners.set(id, runner);
         if (!this.startTimes.has(id)) {
@@ -389,10 +389,10 @@ class ProcessManager extends EventEmitter {
             const server = getServer(id);
             if (server) {
                 logStreamer.tail(server.workingDirectory, this.MAX_LOGS).then(lines => {
-                    const history = this.logHistory.get(id) || [];
+                    const history = this.logHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                     if (history.length === 0) {
                         this.logHistory.set(id, lines);
-                        // Emit recovered logs to any active socket listeners
+                        // Emit recovered logs to unknown active socket listeners
                         lines.forEach(line => this.emit('log', { id, line, type: 'stdout' }));
                     }
                 }).catch(err => logger.error(`[ProcessManager:${id}] Failed to tail logs for recovery: ${err}`));
@@ -442,7 +442,7 @@ class ProcessManager extends EventEmitter {
 
     private handleServerLog(id: string, line: string, type: 'stdout' | 'stderr') {
         this.lastActivityTime.set(id, Date.now()); // Mark activity for Adaptive Stats
-        const history = this.logHistory.get(id) || [];
+        const history = this.logHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         history.push(line);
         if (history.length > this.MAX_LOGS) history.shift();
@@ -540,9 +540,9 @@ class ProcessManager extends EventEmitter {
         }
     }
 
-    private addActivity(id: string, activity: any) {
+    private addActivity(id: string, activity: unknown) {
         this.lastActivityTime.set(id, Date.now()); // Mark activity for Adaptive Stats
-        const history = this.activityHistory.get(id) || [];
+        const history = this.activityHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         const entry = {
             ...activity,
@@ -558,7 +558,7 @@ class ProcessManager extends EventEmitter {
     }
 
     getActivityHistory(id: string) {
-        return this.activityHistory.get(id) || [];
+        return this.activityHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     }
 
     private handleServerClose(id: string, code: number) {
@@ -600,7 +600,7 @@ class ProcessManager extends EventEmitter {
             tps: "0.00",
             uptime: 0,
             players: 0,
-            playerList: []
+            playerList: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
         }, true); // PERSIST final state
     }
 
@@ -647,7 +647,7 @@ class ProcessManager extends EventEmitter {
                     // Still alive after timeout, escalate
                     if (this.activeRunners.get(id) === runner) {
                         logger.info(`[ProcessManager] ${id} (Bedrock) did not stop via ${stage}. Escalating to ${nextSignal}...`);
-                        await runner.kill?.(id, nextSignal as any);
+                        await runner.kill?.(id, nextSignal as unknown);
                         return false;
                     }
                     return true;
@@ -794,15 +794,15 @@ class ProcessManager extends EventEmitter {
         });
     }
 
-    getLogs(id: string): string[] {
-        return this.logHistory.get(id) || [];
+    getLogs(id: string): string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
+        return this.logHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     }
 
     getUptime(id: string): number {
         const cached = this.statusCache.get(id);
         const status = cached?.status;
         
-        let onlineTime = this.onlineTimes.get(id);
+        const  this.onlineTimes.get(id);
         if (!onlineTime) {
             const { getServer } = require('../servers/ServerService');
             const server = getServer(id);
@@ -832,9 +832,9 @@ class ProcessManager extends EventEmitter {
             return cached?.online ? "20.00" : "0.00";
         }
 
-        const logs = this.logHistory.get(id) || [];
+        const logs = this.logHistory.get(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         // Scan deeper (150 lines) for TPS logs
-        for (let i = logs.length - 1; i >= Math.max(0, logs.length - 150); i--) {
+        for (const  logs.length - 1; i >= Math.max(0, logs.length - 150); i--) {
             const line = logs[i];
             const match = line.match(/TPS from last [\d\w\s]+: ([\d\.]+)/i) || 
                           line.match(/TPS: ([\d\.]+)/i) ||
@@ -856,13 +856,13 @@ class ProcessManager extends EventEmitter {
      * Phase 66: Unified Lifecycle Engine (v2.0)
      * Centralizes status updates to prevent race conditions and split-brain sync fixes.
      */
-    updateCachedStatus(id: string, data: any, persist: boolean = false) {
+    updateCachedStatus(id: string, data: unknown, persist: boolean = false) {
         const current = this.statusCache.get(id) || {};
         
         // --- SMART PLAYER MERGE (Preserved from v1.12.16) ---
         if (data.playerList) {
-            const currentList: string[] = current.playerList || [];
-            const newList: string[] = data.playerList;
+            const currentList: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = current.playerList || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+            const newList: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = data.playerList;
             if (newList.length === 0 && currentList.length > 0 && data.players > 0) {
                  data.playerList = currentList;
             } else if (newList.length > 0) {
@@ -917,7 +917,7 @@ class ProcessManager extends EventEmitter {
 
     getCachedStatus(id: string) {
         return this.statusCache.get(id) || {
-            online: false, players: 0, playerList: [], uptime: this.getUptime(id), tps: "0.00", latency: 0
+            online: false, players: 0, playerList: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], uptime: this.getUptime(id), tps: "0.00", latency: 0
         };
     }
 
