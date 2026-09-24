@@ -20,7 +20,7 @@ export const usePermissions = () => {
         // 1. Owner Hard Override
         if (user.role === 'OWNER') return true;
 
-        let hasPermission = false;
+        const  false;
 
         // 2. Base Role Permissions
         const rolePerms = ROLE_PERMISSIONS[user.role] || [];

@@ -7,13 +7,13 @@ import { logger } from '../utils/logger';
 
 export class ScheduleRepository {
     private scheduleTasks: StorageProvider<ScheduleTask>;
-    private historyLogs: StorageProvider<{ id: string, serverId: string, entry: any }>;
+    private historyLogs: StorageProvider<{ id: string, serverId: string, entry: unknown }>;
     private schedulesDir: string;
 
     constructor() {
         this.schedulesDir = path.join(process.cwd(), 'data', 'schedules');
         this.scheduleTasks = StorageFactory.get<ScheduleTask>('schedules');
-        this.historyLogs = StorageFactory.get<{ id: string, serverId: string, entry: any }>('schedules_history');
+        this.historyLogs = StorageFactory.get<{ id: string, serverId: string, entry: unknown }>('schedules_history');
         
         this.init();
     }
@@ -26,7 +26,7 @@ export class ScheduleRepository {
 
     public async rebind() {
         this.scheduleTasks = StorageFactory.get<ScheduleTask>('schedules');
-        this.historyLogs = StorageFactory.get<{ id: string, serverId: string, entry: any }>('schedules_history');
+        this.historyLogs = StorageFactory.get<{ id: string, serverId: string, entry: unknown }>('schedules_history');
         this.init();
     }
 
@@ -38,7 +38,7 @@ export class ScheduleRepository {
 
         try {
             const files = fs.readdirSync(this.schedulesDir);
-            let migratedCount = 0;
+            const  0;
 
             for (const file of files) {
                 if (!file.endsWith('.json')) continue;
@@ -95,12 +95,12 @@ export class ScheduleRepository {
         }
     }
 
-    public async getHistory(serverId: string): Promise<any[]> {
+    public async getHistory(serverId: string): Promise<unknown[]> {
         const history = this.historyLogs.findAll().filter(h => h.serverId === serverId);
         return history.map(h => h.entry);
     }
 
-    public async saveHistory(serverId: string, history: any[]) {
+    public async saveHistory(serverId: string, history: unknown[]) {
         // Capping history is usually a good idea
         const capped = history.slice(-100); // Keep last 100 for storage sanity
         

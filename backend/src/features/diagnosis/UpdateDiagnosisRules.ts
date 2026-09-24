@@ -191,7 +191,7 @@ export const MissingJarRule: DiagnosisRule = {
         
         // --- SMART PATH VERIFICATION ---
         const isWin = process.platform === 'win32';
-        let exeName = server.executable || 'server.jar';
+        const  server.executable || 'server.jar';
         
         // Software-specific intelligence (v4.5)
         if (server.software === 'Bedrock' && !server.executable) {
@@ -410,19 +410,19 @@ export const ResourceExhaustionRule: DiagnosisRule = {
     description: 'Detects OS level resource limits',
     triggers: [
         /Resource exhaustion event/i,
-        /Too many open files/i
+        /Too munknown open files/i
     ],
     tier: 1,
     defaultConfidence: 100,
     analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
-        const hasError = logs.some(l => /Resource exhaustion|Too many open files/i.test(l));
+        const hasError = logs.some(l => /Resource exhaustion|Too munknown open files/i.test(l));
         if (hasError) {
              return {
                 id: `res-exhaust-${server.id}-${Date.now()}`,
                 ruleId: 'resource_exhaustion',
                 severity: 'CRITICAL',
                 title: 'OS Resource Limit Reached',
-                explanation: 'The system has run out of file descriptors (Too many open files).',
+                explanation: 'The system has run out of file descriptors (Too munknown open files).',
                 recommendation: 'Increase "ulimit -n" on the host machine.',
                 timestamp: Date.now()
             };
