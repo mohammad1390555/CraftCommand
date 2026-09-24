@@ -35,7 +35,7 @@ router.get('/exists', requirePermission('server.files.read'), async (req, res) =
         }
         const exists = await fs.pathExists(targetPath);
         res.json({ exists });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -53,7 +53,7 @@ router.get('/content', requirePermission('server.files.read'), async (req, res) 
     try {
         const content = await fsManager.readFile(relativePath as string);
         res.json({ content });
-    } catch (e: any) {
+    } catch (e: unknown) {
         if (e.code === 'ENOENT') {
             return res.status(404).json({ error: 'File not found' });
         }
@@ -88,7 +88,7 @@ router.post('/content', requirePermission('server.files.write'), async (req, res
                 timestamp: Date.now()
             });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -120,7 +120,7 @@ router.post('/folder', requirePermission('server.files.write'), async (req, res)
                 timestamp: Date.now()
             });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -137,7 +137,7 @@ router.get('/', requirePermission('server.files.read'), async (req, res) => {
     try {
         const files = await fsManager.listFiles((relativePath as string) || '.');
         res.json(files);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(403).json({ error: e.message });
     }
 });
@@ -158,7 +158,7 @@ router.get('/search', requirePermission('server.files.read'), async (req, res) =
         const searchContent = req.query.content === 'true';
         const results = await fsManager.searchFiles(query, (dir as string) || '.', 100, searchContent);
         res.json(results);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -181,7 +181,7 @@ router.post('/delete-bulk', requirePermission('server.files.write'), async (req,
         if (req.user) {
             auditService.log(req.user.id, 'FILE_DELETE_BULK', id, { paths, count: paths.length });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -200,7 +200,7 @@ router.post('/move', requirePermission('server.files.write'), async (req, res) =
         if (req.user) {
             auditService.log(req.user.id, 'FILE_MOVE', id, { source, dest });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -219,7 +219,7 @@ router.post('/copy', requirePermission('server.files.write'), async (req, res) =
         if (req.user) {
             auditService.log(req.user.id, 'FILE_COPY', id, { source, dest });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -238,7 +238,7 @@ router.post('/archive', requirePermission('server.files.write'), async (req, res
         if (req.user) {
             auditService.log(req.user.id, 'FILE_COMPRESS', id, { paths, count: paths.length, archive: archiveName });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -265,7 +265,7 @@ router.get('/download', requirePermission('server.files.read'), async (req, res)
         } else {
              res.status(404).json({ error: 'File not found' });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -294,7 +294,7 @@ router.post('/upload', requirePermission('server.files.write'), upload.single('f
         if (req.user) {
             auditService.log(req.user.id, 'FILE_UPLOAD', id, { filename: req.file.originalname, path: relativePath || '/' });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -331,7 +331,7 @@ router.post('/extract', requirePermission('server.files.write'), async (req, res
             return res.status(400).json({ error: `Archive exceeds maximum file limit (${MAX_ZIP_ENTRIES} entries)` });
         }
 
-        let totalSize = 0;
+        const  0;
         for (const entry of entries) {
             totalSize += entry.header.size;
             if (totalSize > MAX_ZIP_SIZE) {
@@ -365,7 +365,7 @@ router.post('/extract', requirePermission('server.files.write'), async (req, res
         if (req.user) {
             auditService.log(req.user.id, 'FILE_EXTRACT', id, { path: filePath });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[Extract] Error: ${e}`);
         res.status(500).json({ error: e.message });
     }
