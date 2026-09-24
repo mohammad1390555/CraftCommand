@@ -62,7 +62,7 @@ export class WebhookService {
 
 
     public async removeWebhook(id: string) {
-        this.webhooks = this.webhooks.filter(w => w.id !== id);
+        .filter(w => w.id !== id);
         await this.saveWebhooks();
     }
 
@@ -106,7 +106,7 @@ export class WebhookService {
         });
     }
 
-    private dispatch(trigger: WebhookTrigger, payload: any) {
+    private dispatch(trigger: WebhookTrigger, payload: unknown) {
         const targets = this.webhooks.filter(w => w.enabled && w.triggers.includes(trigger));
         const enrichedPayload = {
             event: trigger,
@@ -127,9 +127,9 @@ export class WebhookService {
 
     }
 
-    private async sendPayload(webhook: WebhookConfig, eventType: string, payload: any) {
+    private async sendPayload(webhook: WebhookConfig, eventType: string, payload: unknown) {
         try {
-            const headers: any = {
+            const headers: unknown = {
                 'Content-Type': 'application/json',
                 'User-Agent': 'CraftCommand-Webhook/1.0',
                 'X-CraftCommand-Event': eventType

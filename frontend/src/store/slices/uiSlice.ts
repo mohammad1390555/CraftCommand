@@ -4,14 +4,14 @@ import { StoreState } from '../index';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
-export interface Toast {
+export export interface
     id: string;
     type: ToastType;
     title: string;
     message?: string;
 }
 
-export interface UISlice {
+export export interface
     theme: ThemeMode;
     resolvedTheme: ResolvedTheme;
     toasts: Toast[];
@@ -51,7 +51,7 @@ export const createUISlice: StateCreator<StoreState, [["zustand/devtools", never
         // Sync to user prefs if available
         const { user, updatePreferences } = get();
         if (user) {
-            updatePreferences({ theme: newTheme } as any);
+            updatePreferences({ theme: newTheme } as unknown);
         }
     },
 

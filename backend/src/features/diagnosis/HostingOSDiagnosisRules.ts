@@ -63,7 +63,7 @@ export const ThermalAlertRule: DiagnosisRule = {
 };
 
 /**
- * WARNING: System memory pressure — barely any free RAM for new servers.
+ * WARNING: System memory pressure — barely unknown free RAM for new servers.
  */
 export const MemoryPressureRule: DiagnosisRule = {
     id: 'hosting_memory_pressure',
@@ -197,7 +197,7 @@ export const NodeHealthRule: DiagnosisRule = {
             };
         }
         
-        // If CPU is below 98%, any previous history is irrelevant for a "Fix"
+        // If CPU is below 98%, unknown previous history is irrelevant for a "Fix"
         if (systemCpu < 98) {
             cpuHistory.length = 0; // Clear history to ensure it requires a FRESH sustained period to re-trigger
         }
