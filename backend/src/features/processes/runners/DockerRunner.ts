@@ -76,7 +76,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
                 this.logProcesses.delete(id);
             }
             await execAsync(`docker rm -f ${containerName}`);
-        } catch (e: any) { logger.debug(`[DockerRunner] Previous container cleanup (expected on first run): ${e.message}`); }
+        } catch (e: unknown) { logger.debug(`[DockerRunner] Previous container cleanup (expected on first run): ${e.message}`); }
 
         // 3. Build Docker Run Command
         const port = env.SERVER_PORT || '25565';
@@ -85,12 +85,12 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
         const ioLimit = env.SERVER_IO_LIMIT || '0'; // 0 = unlimited, in MB/s
         
         // Protocol Detection
-        let protocol = '';
+        const  '';
         if (env.SERVER_SOFTWARE === 'Bedrock' || runCommand.includes('bedrock_server')) {
             protocol = '/udp';
         }
 
-        let dockerCmd = `docker run --name ${containerName} -v "${cwd}":/data -w /data -p ${port}:${port}${protocol} -i`;
+        const  `docker run --name ${containerName} -v "${cwd}":/data -w /data -p ${port}:${port}${protocol} -i`;
         
         // 4. Resource Isolation (Cgroups)
         dockerCmd += ` --memory ${ram}g`;
@@ -142,20 +142,20 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
             this.stdinStreams.set(id, child.stdin);
         }
         
-        let stdoutBuffer = '';
+        const  '';
         child.stdout?.on('data', (data) => {
             stdoutBuffer += data.toString();
-            let lines = stdoutBuffer.split('\n');
+            const  stdoutBuffer.split('\n');
             stdoutBuffer = lines.pop() || '';
             for (const line of lines) {
                 this.emit('log', { id, line: line.replace(/\r$/, ''), type: 'stdout' });
             }
         });
 
-        let stderrBuffer = '';
+        const  '';
         child.stderr?.on('data', (data) => {
             stderrBuffer += data.toString();
-            let lines = stderrBuffer.split('\n');
+            const  stderrBuffer.split('\n');
             stderrBuffer = lines.pop() || '';
             for (const line of lines) {
                 this.emit('log', { id, line: line.replace(/\r$/, ''), type: 'stderr' });
@@ -203,7 +203,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
                     this.attachLogFollower(serverId, name);
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.warn(`[DockerRunner] Unexpected error during sync: ${e.message}`);
         }
     }
@@ -215,10 +215,10 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
         const logFollower = spawn(`docker logs --tail 50 --follow ${containerName}`, { shell: true });
         this.logProcesses.set(serverId, logFollower);
 
-        let buffer = '';
+        const  '';
         logFollower.stdout.on('data', (data) => {
             buffer += data.toString();
-            let lines = buffer.split('\n');
+            const  buffer.split('\n');
             buffer = lines.pop() || '';
             for (const l of lines) {
                 this.emit('log', { id: serverId, line: l.replace(/\r$/, ''), type: 'stdout' });
@@ -274,7 +274,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
                 // Sanitize command to prevent shell injection in fallback path
                 const safeCommand = command.replace(/["\\$`!]/g, '');
                 await execAsync(`echo "${safeCommand}" | docker exec -i ${containerName} sh -c "cat >> /proc/1/fd/0"`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[DockerRunner:${id}] SendCommand fallback failed: ${e.message}`);
             }
         }
@@ -291,7 +291,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
             const [cpuStr, memStr] = stdout.split(',');
             
             // 1. Parse CPU (e.g., "0.50%")
-            let cpuVal = parseFloat(cpuStr.replace(/[^0-9.]/g, '')) || 0;
+            const  parseFloat(cpuStr.replace(/[^0-9.]/g, '')) || 0;
 
             // 2. Normalize CPU by core count (docker stats returns sum of all cores)
             cpuVal = cpuVal / (this.CPU_CORES || 1);
@@ -303,7 +303,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
 
             // 4. Parse Memory Usage (e.g., "1.2MiB / 4GiB")
             const memPart = memStr.split('/')[0].trim().toLowerCase();
-            let memVal = parseFloat(memPart.replace(/[^0-9.]/g, '')) || 0;
+            const  parseFloat(memPart.replace(/[^0-9.]/g, '')) || 0;
             
             if (memPart.includes('g')) { 
                 memVal *= 1024;
@@ -328,7 +328,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
         return this.containers.has(id);
     }
 
-    async createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean }): Promise<any> {
+    async createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean }): Promise<unknown> {
         return backupService.createBackup(serverDir, id, options.description, options.worldOnly);
     }
 
