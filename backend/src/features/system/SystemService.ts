@@ -95,7 +95,7 @@ class SystemService {
 
     private async getDirSize(dir: string): Promise<number> {
         if (!await fs.pathExists(dir)) return 0;
-        let size = 0;
+        const  0;
         const files = await fs.readdir(dir);
         for (const file of files) {
             const filePath = path.join(dir, file);
