@@ -19,7 +19,7 @@ router.post('/install', verifyToken, async (req, res) => {
         }
         await templateService.installTemplate(serverId, templateId, options);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`Template install failed: ${e}`);
         res.status(500).json({ error: e.message });
     }
@@ -34,7 +34,7 @@ router.post('/create-from-server', verifyToken, requireRole(['OWNER', 'ADMIN']),
         }
         const template = await templateService.createFromServer(serverId, name, description);
         res.json({ success: true, template });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -44,7 +44,7 @@ router.delete('/:id', verifyToken, requireRole(['OWNER', 'ADMIN']), (req, res) =
     try {
         const deleted = templateService.deleteTemplate(req.params.id);
         res.json({ success: deleted });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
