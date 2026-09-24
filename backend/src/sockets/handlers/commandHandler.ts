@@ -12,15 +12,15 @@ const getUserById = (id: string) => {
     try {
         if (!fs.existsSync(USERS_FILE)) return null;
         const users = fs.readJSONSync(USERS_FILE);
-        return users.find((u: any) => u.id === id);
+        return users.find((u: unknown) => u.id === id);
     } catch (e) { return null; }
 };
 
-export const handleCommand = (socket: Socket, data: any) => {
+export const handleCommand = (socket: Socket, data: unknown) => {
     if (!data.id && !data.serverId) return;
     const serverId = data.id || data.serverId;
     
-    const userId = (socket as any).userId;
+    const userId = (socket as unknown).userId;
     const user = getUserById(userId);
 
     if (!user) {
@@ -30,7 +30,7 @@ export const handleCommand = (socket: Socket, data: any) => {
 
     // Hardening (Phase 5): Strict Authorization Check
     // Map 'command' event to 'server.console.write' permission
-    const requiredPerm: any = 'server.console.write';
+    const requiredPerm: unknown = 'server.console.write';
 
     if (!permissionService.can(user, requiredPerm, serverId)) {
         logger.warn(`[Socket] Forbidden command attempt by ${user.username} for ${serverId}`);
@@ -51,7 +51,7 @@ export const handleCommand = (socket: Socket, data: any) => {
         return;
     }
     
-    let command = String(data.command || '').trim();
+    const  String(data.command || '').trim();
     
     // v4.6 Security Sanitization:
     // 1. Length Limit (Prevent Buffer Overflows/DoS)
