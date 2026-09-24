@@ -11,8 +11,8 @@ export const DuckDnsAuthRule: DiagnosisRule = {
     description: 'Detects if the DuckDNS token is invalid or the domain is not owned by the account.',
     tier: 1,
     defaultConfidence: 100,
-    triggers: [], // Metrics/State based
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    triggers: [] as never[], // Metrics/State based
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         if (!server.network?.updateEnabled || server.network?.provider !== 'duckdns') return null;
         
         const hasLogMatch = logs.some(l => /DuckDNS.*KO/i.test(l) || /auth failed/i.test(l));
@@ -20,7 +20,7 @@ export const DuckDnsAuthRule: DiagnosisRule = {
         const ddnsStatus = networkState.serverDdns?.[server.id];
 
         // --- SMART HANDLING (v4.5) ---
-        // If DDNS is now successfully matching, any old KO errors in logs are stale history.
+        // If DDNS is now successfully matching, unknown old KO errors in logs are stale history.
         if (ddnsStatus && ddnsStatus.isMatching) return null;
 
         if (ddnsStatus && ddnsStatus.errorType === 'AUTH') {
@@ -48,7 +48,7 @@ export const PublicIpMismatchRule: DiagnosisRule = {
     description: 'Detects when the public IP has changed but the DDNS record is still pointing to the old IP.',
     tier: 1,
     defaultConfidence: 90,
-    triggers: [], 
+    triggers: [] as never[], 
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (!server.network?.updateEnabled || !server.network?.hostname) return null;
 
@@ -85,7 +85,7 @@ export const NoFallbackRule: DiagnosisRule = {
     description: 'Detects when a Velocity proxy has linked backends but none are online.',
     tier: 1,
     defaultConfidence: 95,
-    triggers: [],
+    triggers: [] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         // Only run on Velocity proxy servers
         if (server.software !== 'Velocity') return null;
@@ -122,10 +122,10 @@ export const NoFallbackRule: DiagnosisRule = {
 export const UnlinkedServerRule: DiagnosisRule = {
     id: 'network_unlinked_server',
     name: 'Unlinked Running Server',
-    description: 'Detects running Minecraft servers not connected to any Velocity proxy.',
+    description: 'Detects running Minecraft servers not connected to unknown Velocity proxy.',
     tier: 3,
     defaultConfidence: 50,
-    triggers: [],
+    triggers: [] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         // Only check non-proxy, online servers
         if (server.software === 'Velocity' || server.status !== ServerStatus.ONLINE) return null;
@@ -137,9 +137,9 @@ export const UnlinkedServerRule: DiagnosisRule = {
         // Skip if no proxy exists at all
         if (proxies.length === 0) return null;
 
-        // Check if this server is linked to any proxy
+        // Check if this server is linked to unknown proxy
         const isLinked = proxies.some(p =>
-            p.network?.proxyConfig?.links?.some((l: any) => l.serverId === server.id)
+            p.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === server.id)
         );
 
         if (isLinked) return null;
@@ -152,7 +152,7 @@ export const UnlinkedServerRule: DiagnosisRule = {
             ruleId: 'network_unlinked_server',
             severity: 'INFO',
             title: 'Server Not Connected to Proxy',
-            explanation: `"${server.name}" is running but not linked to any Velocity proxy. Players must connect directly to port ${server.port} instead of through the proxy.`,
+            explanation: `"${server.name}" is running but not linked to unknown Velocity proxy. Players must connect directly to port ${server.port} instead of through the proxy.`,
             recommendation: `Link this server to your proxy in the Network tab to enable proxy routing, cross-server player transfers, and centralized access control.`,
             confidence: 60,
             timestamp: Date.now()
@@ -174,7 +174,7 @@ export const ProxyForwardingConfigRule: DiagnosisRule = {
         /This server requires you to connect with Velocity/i,
         /Unexpected packet received during login process/i
     ],
-    analyze: async (server: ServerConfig, logs: string[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
         const fullLog = logs.join('\n');
         
         const bungeeMatch = /If you wish to use IP forwarding, please enable it in your BungeeCord config/i.test(fullLog);
@@ -188,8 +188,8 @@ export const ProxyForwardingConfigRule: DiagnosisRule = {
                 return null; // Fix applied after last rejection
             }
 
-            let recommendation = 'Check your proxy configuration and backend server settings.';
-            let explanation = 'Your server is blocking a connection because it expects the player to connect through a proxy (like BungeeCord or Velocity) with IP forwarding enabled, but the connection was either direct or misconfigured.';
+            const  'Check your proxy configuration and backend server settings.';
+            const  'Your server is blocking a connection because it expects the player to connect through a proxy (like BungeeCord or Velocity) with IP forwarding enabled, but the connection was either direct or misconfigured.';
             
             if (velocityMatch) {
                 recommendation = 'Make sure you are connecting through your Velocity proxy IP/Port. If you are the proxy owner, check that `velocity-support` in `paper-global.yml` and the forwarding secret match between the proxy and this server.';

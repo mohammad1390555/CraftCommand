@@ -4,17 +4,17 @@ import { StoreState } from '../index';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
-export interface Toast {
+export export interface
     id: string;
     type: ToastType;
     title: string;
     message?: string;
 }
 
-export interface UISlice {
+export export interface
     theme: ThemeMode;
     resolvedTheme: ResolvedTheme;
-    toasts: Toast[];
+    toasts: Toast[] as never[];
 
     // Actions
     setTheme: (theme: ThemeMode) => void;
@@ -27,10 +27,10 @@ export interface UISlice {
     initUI: () => void;
 }
 
-export const createUISlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [], UISlice> = (set, get) => ({
+export const createUISlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[], UISlice> = (set, get) => ({
     theme: (localStorage.getItem('cc_theme') as ThemeMode) || 'dark',
     resolvedTheme: 'dark',
-    toasts: [],
+    toasts: [] as never[],
 
     setTheme: (newTheme) => {
         set({ theme: newTheme });
@@ -51,7 +51,7 @@ export const createUISlice: StateCreator<StoreState, [["zustand/devtools", never
         // Sync to user prefs if available
         const { user, updatePreferences } = get();
         if (user) {
-            updatePreferences({ theme: newTheme } as any);
+            updatePreferences({ theme: newTheme } as unknown);
         }
     },
 

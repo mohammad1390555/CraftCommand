@@ -2,7 +2,7 @@ import {  ServerConfig, DiagnosisResult, NodeStatus  } from '@shared/types';
 export { ServerConfig, DiagnosisResult };
 import { CrashReport } from './CrashReportReader';
 
-export interface SystemStats {
+export export interface
     totalMemory?: number;
     freeMemory?: number;
     javaVersion?: string;
@@ -18,7 +18,7 @@ export interface SystemStats {
     timestamp?: number;
 }
 
-export interface DiagnosisRule {
+export export interface
     id: string;
     name: string;
     description: string;
@@ -33,10 +33,10 @@ export interface DiagnosisRule {
     defaultConfidence: number; // 0-100
 
     // Log patterns to quickly identify if this rule *might* apply (optimization)
-    triggers: RegExp[]; 
+    triggers: RegExp[] as never[]; 
     
     // The core logic
-    analyze: (server: ServerConfig, logs: string[], env: SystemStats, crashReport?: CrashReport) => Promise<DiagnosisResult | null>;
+    analyze: (server: ServerConfig, logs: string[] as never[], env: SystemStats, crashReport?: CrashReport) => Promise<DiagnosisResult | null>;
     
     // Proactive properties
     isRepairable?: boolean;
@@ -44,5 +44,5 @@ export interface DiagnosisRule {
 
     // Anti-Spam & UI metadata
     cooldownHours?: number; // How long to wait before re-triggering this rule
-    tags?: string[];        // Metadata tags like 'optimization', 'critical', 'network'
+    tags?: string[] as never[];        // Metadata tags like 'optimization', 'critical', 'network'
 }

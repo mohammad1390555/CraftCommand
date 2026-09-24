@@ -34,7 +34,7 @@ class ApiService {
             });
             clearTimeout(id);
             return response;
-        } catch (error: any) {
+        } catch (error: unknown) {
             clearTimeout(id);
             if (error.name === 'AbortError') {
                 throw new Error('TIMEOUT');
@@ -59,13 +59,13 @@ class ApiService {
 
             const data = await res.json().catch(() => ({}));
             const error = new Error(data.error || `Request failed: ${res.status}`);
-            (error as any).status = res.status;
+            (error as unknown).status = res.status;
             throw error;
         }
         return res.json();
     }
 
-    async get(path: string, timeoutMs?: number): Promise<any> {
+    async get(path: string, timeoutMs?: number): Promise<unknown> {
         const fullPath = path.startsWith(API_URL) ? path : `${API_URL}${path}`;
         const res = await this.fetchWithTimeout(fullPath, {
             headers: this.getAuthHeader()
@@ -73,7 +73,7 @@ class ApiService {
         return this.handleResponse(res, fullPath);
     }
 
-    async post(path: string, body: any, timeoutMs?: number): Promise<any> {
+    async post(path: string, body: unknown, timeoutMs?: number): Promise<unknown> {
         const fullPath = path.startsWith(API_URL) ? path : `${API_URL}${path}`;
         const res = await this.fetchWithTimeout(fullPath, {
             method: 'POST',
@@ -86,7 +86,7 @@ class ApiService {
         return this.handleResponse(res, fullPath);
     }
 
-    async patch(path: string, body: any, timeoutMs?: number): Promise<any> {
+    async patch(path: string, body: unknown, timeoutMs?: number): Promise<unknown> {
         const fullPath = path.startsWith(API_URL) ? path : `${API_URL}${path}`;
         const res = await this.fetchWithTimeout(fullPath, {
             method: 'PATCH',
@@ -99,7 +99,7 @@ class ApiService {
         return this.handleResponse(res, fullPath);
     }
 
-    async put(path: string, body: any, timeoutMs?: number): Promise<any> {
+    async put(path: string, body: unknown, timeoutMs?: number): Promise<unknown> {
         const fullPath = path.startsWith(API_URL) ? path : `${API_URL}${path}`;
         const res = await this.fetchWithTimeout(fullPath, {
             method: 'PUT',
@@ -112,7 +112,7 @@ class ApiService {
         return this.handleResponse(res, fullPath);
     }
 
-    async delete(path: string, body?: any, timeoutMs?: number): Promise<any> {
+    async delete(path: string, body?: unknown, timeoutMs?: number): Promise<unknown> {
         const fullPath = path.startsWith(API_URL) ? path : `${API_URL}${path}`;
         const res = await this.fetchWithTimeout(fullPath, {
             method: 'DELETE',
@@ -127,7 +127,7 @@ class ApiService {
 
     // --- Server Management ---
 
-    async getServers(): Promise<ServerConfig[]> {
+    async getServers(): Promise<ServerConfig[] as never[]> {
         return this.get('/servers');
     }
 
@@ -210,47 +210,47 @@ class ApiService {
     
     // --- File Management ---
     
-    async getFiles(id: string, path: string = '.'): Promise<any[]> {
+    async getFiles(id: string, path: string = '.'): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/files?path=${encodeURIComponent(path)}`);
     }
     
     // --- System & Install ---
     
 
-    async getJavaVersions(): Promise<any[]> {
+    async getJavaVersions(): Promise<unknown[] as never[]> {
         return this.get('/system/java');
     }
 
-    async getBedrockVersions(): Promise<{ latest: string, versions: string[] }> {
+    async getBedrockVersions(): Promise<{ latest: string, versions: string[] as never[] }> {
         return this.get('/system/bedrock/versions');
     }
 
     async getMinecraftVersions(): Promise<{ 
         latest: string, 
         latestSnapshot: string, 
-        releases: string[], 
-        snapshots: string[],
-        beta: string[],
-        alpha: string[]
+        releases: string[] as never[], 
+        snapshots: string[] as never[],
+        beta: string[] as never[],
+        alpha: string[] as never[]
     }> {
         return this.get(`/system/minecraft/versions`);
     }
     
-    async getSystemStats(): Promise<any> {
+    async getSystemStats(): Promise<unknown> {
         return this.get('/system/stats');
     }
 
-    async getSystemHealth(): Promise<any> {
+    async getSystemHealth(): Promise<unknown> {
         return this.get('/system/health');
     }
 
     // --- Global Webhooks ---
 
-    async getGlobalWebhooks(): Promise<any[]> {
+    async getGlobalWebhooks(): Promise<unknown[] as never[]> {
         return this.get('/system/webhooks');
     }
 
-    async createGlobalWebhook(webhook: any): Promise<any> {
+    async createGlobalWebhook(webhook: unknown): Promise<unknown> {
         return this.post('/system/webhooks', webhook);
     }
 
@@ -258,21 +258,21 @@ class ApiService {
         await this.delete(`/system/webhooks/${id}`);
     }
 
-    async updateGlobalWebhook(id: string, webhook: any): Promise<any> {
+    async updateGlobalWebhook(id: string, webhook: unknown): Promise<unknown> {
         return this.put(`/system/webhooks/${id}`, webhook);
     }
 
-    async testGlobalWebhook(id: string): Promise<any> {
+    async testGlobalWebhook(id: string): Promise<unknown> {
         return this.post(`/system/webhooks/${id}/test`, {});
     }
 
     // --- API Tokens ---
 
-    async getApiTokens(): Promise<any[]> {
+    async getApiTokens(): Promise<unknown[] as never[]> {
         return this.get('/system/tokens');
     }
 
-    async createApiToken(name: string, scopes: string[]): Promise<any> {
+    async createApiToken(name: string, scopes: string[] as never[]): Promise<unknown> {
         return this.post('/system/tokens', { name, scopes });
     }
 
@@ -284,15 +284,15 @@ class ApiService {
         return this.get('/system/docker/status');
     }
 
-    async getServerStatus(id: string): Promise<any> {
+    async getServerStatus(id: string): Promise<unknown> {
         return this.get(`/servers/${id}/query`);
     }
 
-    async getServerStats(id: string): Promise<any> {
+    async getServerStats(id: string): Promise<unknown> {
         return this.get(`/servers/${id}/stats`);
     }
 
-    async installServer(id: string, type: 'paper'|'modpack'|'vanilla'|'fabric'|'forge'|'spigot'|'neoforge'|'purpur'|'bedrock'|'velocity', data: any): Promise<void> {
+    async installServer(id: string, type: 'paper'|'modpack'|'vanilla'|'fabric'|'forge'|'spigot'|'neoforge'|'purpur'|'bedrock'|'velocity', data: unknown): Promise<void> {
         await this.post(`/servers/${id}/install`, { type, ...data }, 600000); // 10 minutes for heavy modpacks
     }
     
@@ -326,7 +326,7 @@ class ApiService {
         await this.post('/network/proxy/install-via-suite', { proxyId }, 600000); // 10 minutes
     }
     
-    async searchFiles(id: string, query: string, dir: string = '.', content: boolean = false): Promise<any[]> {
+    async searchFiles(id: string, query: string, dir: string = '.', content: boolean = false): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/files/search?query=${encodeURIComponent(query)}&dir=${encodeURIComponent(dir)}&content=${content}`);
     }
 
@@ -390,7 +390,7 @@ class ApiService {
         
         // Try to get filename from content-disposition
         const disposition = res.headers.get('Content-Disposition');
-        let filename = path.split('/').pop() || 'download';
+        const  path.split('/').pop() || 'download';
         if (disposition && disposition.includes('filename=')) {
             filename = disposition.split('filename=')[1].replace(/['"]/g, '');
         }
@@ -443,7 +443,7 @@ class ApiService {
         await this.post(`/servers/${id}/files/folder`, { path });
     }
 
-    async deleteFiles(id: string, paths: string[]): Promise<void> {
+    async deleteFiles(id: string, paths: string[] as never[]): Promise<void> {
         await this.post(`/servers/${id}/files/delete-bulk`, { paths }, 300000); // 5 mins for massive dirs
     }
 
@@ -451,17 +451,17 @@ class ApiService {
         await this.post(`/servers/${id}/files/move`, { source, dest });
     }
 
-    async archiveFiles(id: string, paths: string[], archiveName: string): Promise<void> {
+    async archiveFiles(id: string, paths: string[] as never[], archiveName: string): Promise<void> {
         await this.post(`/servers/${id}/files/archive`, { paths, archiveName });
     }
 
     // --- Databases ---
 
-    async getDatabases(id: string): Promise<any[]> {
+    async getDatabases(id: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/databases`);
     }
 
-    async createDatabase(id: string, data: { name: string, type: string, host: string }): Promise<any> {
+    async createDatabase(id: string, data: { name: string, type: string, host: string }): Promise<unknown> {
         return this.post(`/servers/${id}/databases`, data);
     }
 
@@ -475,27 +475,27 @@ class ApiService {
 
     // --- Server Members ---
 
-    async getServerMembers(id: string): Promise<any[]> {
+    async getServerMembers(id: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/members`);
     }
 
-    async addServerMember(id: string, email: string, role: string): Promise<any> {
+    async addServerMember(id: string, email: string, role: string): Promise<unknown> {
         return this.post(`/servers/${id}/members`, { email, role });
     }
 
-    async getServerPorts(id: string): Promise<any[]> {
+    async getServerPorts(id: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/ports`);
     }
 
-    async assignServerPort(id: string): Promise<any> {
+    async assignServerPort(id: string): Promise<unknown> {
         return this.post(`/servers/${id}/ports`, {});
     }
 
-    async rotateServerPort(serverId: string, portId: string): Promise<any> {
+    async rotateServerPort(serverId: string, portId: string): Promise<unknown> {
         return this.patch(`/servers/${serverId}/ports/${portId}/rotate`, {});
     }
 
-    async resetSftpPassword(serverId: string): Promise<any> {
+    async resetSftpPassword(serverId: string): Promise<unknown> {
         return this.post(`/servers/${serverId}/sftp/reset`, {});
     }
 
@@ -505,11 +505,11 @@ class ApiService {
 
     // --- Backups ---
 
-    async createBackup(id: string, description?: string, worldOnly?: boolean): Promise<any> {
+    async createBackup(id: string, description?: string, worldOnly?: boolean): Promise<unknown> {
         return this.post(`/servers/${id}/backups`, { description, worldOnly }, 600000); // 10 minutes
     }
 
-    async getBackups(id: string): Promise<any[]> {
+    async getBackups(id: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/backups`);
     }
 
@@ -539,7 +539,7 @@ class ApiService {
         a.href = downloadUrl;
         
         const disposition = res.headers.get('Content-Disposition');
-        let filename = `backup-${backupId}.zip`;
+        const  `backup-${backupId}.zip`;
         if (disposition && disposition.includes('filename=')) {
             filename = disposition.split('filename=')[1].replace(/['"]/g, '');
         }
@@ -557,19 +557,19 @@ class ApiService {
 
     // --- Schedules ---
 
-    async getSchedules(id: string): Promise<any[]> {
+    async getSchedules(id: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/schedules`);
     }
 
-    async getScheduleHistory(id: string): Promise<any[]> {
+    async getScheduleHistory(id: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/schedules/history`);
     }
 
-    async createSchedule(id: string, task: any): Promise<void> {
+    async createSchedule(id: string, task: unknown): Promise<void> {
         await this.post(`/servers/${id}/schedules`, task);
     }
 
-    async updateSchedule(id: string, task: any): Promise<void> {
+    async updateSchedule(id: string, task: unknown): Promise<void> {
         await this.put(`/servers/${id}/schedules/${task.id}`, task);
     }
 
@@ -581,7 +581,7 @@ class ApiService {
         await this.post(`/servers/${id}/schedules/${taskId}/run`, {});
     }
 
-    async getLogs(id: string): Promise<string[]> {
+    async getLogs(id: string): Promise<string[] as never[]> {
         return this.get(`/servers/${id}/logs`);
     }
 
@@ -607,15 +607,15 @@ class ApiService {
         document.body.removeChild(a);
     }
 
-    async getCrashReport(id: string): Promise<any> {
+    async getCrashReport(id: string): Promise<unknown> {
         return this.get(`/servers/${id}/crash-report`);
     }
 
-    async runDiagnosis(id: string): Promise<any> {
+    async runDiagnosis(id: string): Promise<unknown> {
         return this.get(`/servers/${id}/diagnosis`);
     }
 
-    async healServer(id: string, type: string, payload: any = {}): Promise<void> {
+    async healServer(id: string, type: string, payload: unknown = {}): Promise<void> {
         await this.post(`/servers/${id}/heal`, { type, payload });
     }
 
@@ -623,11 +623,11 @@ class ApiService {
         await this.post(`/servers/${id}/health/reset`, {});
     }
 
-    async updateServer(id: string, updates: any): Promise<void> {
+    async updateServer(id: string, updates: unknown): Promise<void> {
         await this.patch(`/servers/${id}`, updates);
     }
 
-    async cloneServer(id: string, name?: string): Promise<any> {
+    async cloneServer(id: string, name?: string): Promise<unknown> {
         return this.post(`/servers/${id}/clone`, { name });
     }
 
@@ -641,15 +641,15 @@ class ApiService {
 
     // --- Players ---
 
-    async getPlayers(id: string, type: string): Promise<any[]> {
+    async getPlayers(id: string, type: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${id}/players/${type}`);
     }
 
-    async addPlayer(id: string, type: string, identifier: string): Promise<any> {
+    async addPlayer(id: string, type: string, identifier: string): Promise<unknown> {
         return this.post(`/servers/${id}/players/${type}`, { identifier });
     }
 
-    async removePlayer(id: string, type: string, identifier: string): Promise<any> {
+    async removePlayer(id: string, type: string, identifier: string): Promise<unknown> {
         return this.delete(`/servers/${id}/players/${type}/${identifier}`);
     }
 
@@ -665,11 +665,11 @@ class ApiService {
         return this.get('/auth/me');
     }
 
-    async getUsers(): Promise<UserProfile[]> {
+    async getUsers(): Promise<UserProfile[] as never[]> {
         return this.get('/auth/users');
     }
 
-    async createUser(data: any): Promise<UserProfile> {
+    async createUser(data: unknown): Promise<UserProfile> {
         return this.post('/auth/users', data);
     }
 
@@ -703,7 +703,7 @@ class ApiService {
         if (!res.ok) {
             const data = await res.json().catch(() => ({}));
             const error = new Error(data.error || `Login failed: ${res.status}`);
-            (error as any).status = res.status;
+            (error as unknown).status = res.status;
             throw error;
         }
         
@@ -724,7 +724,7 @@ class ApiService {
         return this.post('/auth/2fa/setup/start', {});
     }
 
-    async confirm2FASetup(code: string): Promise<{ backupCodes: string[] }> {
+    async confirm2FASetup(code: string): Promise<{ backupCodes: string[] as never[] }> {
         return this.post('/auth/2fa/setup/confirm', { code });
     }
 
@@ -734,7 +734,7 @@ class ApiService {
 
     // --- Notifications ---
 
-    async getNotifications(limit: number = 50, unreadOnly?: boolean): Promise<any[]> {
+    async getNotifications(limit: number = 50, unreadOnly?: boolean): Promise<unknown[] as never[]> {
         const query = new URLSearchParams({ limit: limit.toString() });
         if (unreadOnly) query.append('unreadOnly', 'true');
         return this.get(`/notifications?${query.toString()}`);
@@ -760,7 +760,7 @@ class ApiService {
         await this.post('/system/cache/clear', { type });
     }
 
-    async checkSystemUpdates(force: boolean = false): Promise<any> {
+    async checkSystemUpdates(force: boolean = false): Promise<unknown> {
         return this.post(`/system/update/check?force=${force}`, {});
     }
 
@@ -768,7 +768,7 @@ class ApiService {
         return this.get('/settings/persistence/status');
     }
 
-    async getTemplates(): Promise<ServerTemplate[]> {
+    async getTemplates(): Promise<ServerTemplate[] as never[]> {
         return this.get('/templates');
     }
 
@@ -794,7 +794,7 @@ class ApiService {
         a.href = url;
         // Content-Disposition should give the filename, but if not we guess
         const disposition = res.headers.get('Content-Disposition');
-        let filename = `${serverId}-profile.json`;
+        const  `${serverId}-profile.json`;
         if (disposition && disposition.indexOf('attachment') !== -1) {
             const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
             const matches = filenameRegex.exec(disposition);
@@ -810,21 +810,21 @@ class ApiService {
         document.body.removeChild(a);
     }
 
-    async validateProfile(profile: any): Promise<{ valid: boolean, profile?: any, error?: string }> {
+    async validateProfile(profile: unknown): Promise<{ valid: boolean, profile?: unknown, error?: string }> {
         return this.post('/profiles/validate', profile);
     }
 
     // --- Webhooks (Extensions) ---
 
-    async getWebhooks(serverId: string): Promise<any[]> {
+    async getWebhooks(serverId: string): Promise<unknown[] as never[]> {
         return this.get(`/webhooks/servers/${serverId}`);
     }
 
-    async createWebhook(serverId: string, webhook: any): Promise<any> {
+    async createWebhook(serverId: string, webhook: unknown): Promise<unknown> {
         return this.post(`/webhooks/servers/${serverId}`, webhook);
     }
 
-    async updateWebhook(webhook: any): Promise<any> {
+    async updateWebhook(webhook: unknown): Promise<unknown> {
         return this.put(`/webhooks/${webhook.id}`, webhook);
     }
 
@@ -846,7 +846,7 @@ class ApiService {
         search?: string,
         startDate?: string,
         endDate?: string
-    } = {}): Promise<{ logs: any[], total: number }> {
+    } = {}): Promise<{ logs: unknown[] as never[], total: number }> {
         const params = new URLSearchParams();
         if (options.limit) params.append('limit', options.limit.toString());
         if (options.offset) params.append('offset', options.offset.toString());
@@ -878,7 +878,7 @@ class ApiService {
         return this.post(`/servers/${serverId}/map/verify`, {});
     }
 
-    async installMap(serverId: string): Promise<any> {
+    async installMap(serverId: string): Promise<unknown> {
         return this.post(`/servers/${serverId}/map/install`, {});
     }
 
@@ -952,7 +952,7 @@ class ApiService {
         return this.get(`/plugins/search?${params.toString()}`);
     }
 
-    async getInstalledPlugins(serverId: string): Promise<InstalledPlugin[]> {
+    async getInstalledPlugins(serverId: string): Promise<InstalledPlugin[] as never[]> {
         return this.get(`/plugins/servers/${serverId}`);
     }
 
@@ -972,25 +972,25 @@ class ApiService {
         return this.post(`/plugins/servers/${serverId}/${pluginId}/update`, {});
     }
 
-    async bulkUpdatePlugins(serverId: string, pluginIds: string[]): Promise<Array<{ pluginId: string; success: boolean; error?: string }>> {
+    async bulkUpdatePlugins(serverId: string, pluginIds: string[] as never[]): Promise<Array<{ pluginId: string; success: boolean; error?: string }>> {
         return this.post(`/plugins/servers/${serverId}/bulk-update`, { pluginIds });
     }
 
-    async checkPluginUpdates(serverId: string): Promise<PluginUpdateInfo[]> {
+    async checkPluginUpdates(serverId: string): Promise<PluginUpdateInfo[] as never[]> {
         return this.get(`/plugins/servers/${serverId}/updates`);
     }
 
-    async getActivityHistory(serverId: string): Promise<any[]> {
+    async getActivityHistory(serverId: string): Promise<unknown[] as never[]> {
         return this.get(`/servers/${serverId}/activity`);
     }
 
-    async scanPlugins(serverId: string): Promise<InstalledPlugin[]> {
+    async scanPlugins(serverId: string): Promise<InstalledPlugin[] as never[]> {
         return this.get(`/plugins/servers/${serverId}/scan`);
     }
 
     // --- Distributed Nodes ---
 
-    async getNodes(): Promise<{ nodes: NodeInfo[]; total: number }> {
+    async getNodes(): Promise<{ nodes: NodeInfo[] as never[]; total: number }> {
         return this.get('/nodes');
     }
 
@@ -998,7 +998,7 @@ class ApiService {
         return this.get(`/nodes/${nodeId}`);
     }
 
-    async enrollNode(data: { name: string; host: string; port: number; labels?: string[] }): Promise<NodeInfo> {
+    async enrollNode(data: { name: string; host: string; port: number; labels?: string[] as never[] }): Promise<NodeInfo> {
         return this.post('/nodes/enroll', data);
     }
 
@@ -1014,16 +1014,16 @@ class ApiService {
         await this.delete(`/nodes/${nodeId}`);
     }
 
-    async getNodeHealth(nodeId: string): Promise<any> {
+    async getNodeHealth(nodeId: string): Promise<unknown> {
         return this.get(`/nodes/${nodeId}/health`);
     }
 
 
-    async getSystemStatus(): Promise<any> {
+    async getSystemStatus(): Promise<unknown> {
         return this.get('/status');
     }
 
-    async getDiscordStatus(): Promise<any> {
+    async getDiscordStatus(): Promise<unknown> {
         return this.get('/system/discord/status');
     }
 
@@ -1039,19 +1039,19 @@ class ApiService {
 
     // --- Cloud Backup Destinations ---
 
-    async getCloudDestinations(): Promise<any[]> {
+    async getCloudDestinations(): Promise<unknown[] as never[]> {
         return this.get('/servers/cloud-destinations');
     }
 
-    async addCloudDestination(destination: any): Promise<any[]> {
+    async addCloudDestination(destination: unknown): Promise<unknown[] as never[]> {
         return this.post('/servers/cloud-destinations', destination);
     }
 
-    async testCloudDestination(destination: any): Promise<{ success: boolean; message: string }> {
+    async testCloudDestination(destination: unknown): Promise<{ success: boolean; message: string }> {
         return this.post('/servers/cloud-destinations/test', destination);
     }
 
-    async deleteCloudDestination(name: string): Promise<any[]> {
+    async deleteCloudDestination(name: string): Promise<unknown[] as never[]> {
         return this.delete(`/servers/cloud-destinations/${encodeURIComponent(name)}`);
     }
 
@@ -1062,7 +1062,7 @@ class ApiService {
     }
 
 
-    async downloadUpdate(version: string): Promise<any> {
+    async downloadUpdate(version: string): Promise<unknown> {
         return this.post('/system/update/download', { version });
     }
 

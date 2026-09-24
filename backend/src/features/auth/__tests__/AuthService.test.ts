@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 // Mock dependencies
 jest.mock('../../../storage/UserRepository', () => ({
     userRepository: {
-        findAll: jest.fn().mockReturnValue([]),
+        findAll: jest.fn().mockReturnValue([] as never[]),
         findById: jest.fn(),
         findByEmail: jest.fn(),
         create: jest.fn(),
@@ -52,11 +52,11 @@ describe('AuthService', () => {
     });
 
     it('should generate the default admin user if the database is completely empty', () => {
-        (userRepository.findAll as jest.Mock).mockReturnValue([]);
+        (userRepository.findAll as jest.Mock).mockReturnValue([] as never[]);
         
         // Trigger constructor logic by forcing a private method directly for the test
         // Because the singleton init ran before the test, we'll manually invoke the check
-        (authService as any).ensureAdminExists();
+        (authService as unknown).ensureAdminExists();
 
         expect(userRepository.create).toHaveBeenCalledWith(expect.objectContaining({
             email: 'admin@craftcommand.io',
@@ -72,7 +72,7 @@ describe('AuthService', () => {
             username: 'tester',
             role: 'ADMIN',
             passwordHash: bcrypt.hashSync('correct-password', 10),
-            preferences: { notifications: {}, terminal: {} } as any
+            preferences: { notifications: {}, terminal: {} } as unknown
         };
         (userRepository.findByEmail as jest.Mock).mockReturnValue(mockUser);
 
@@ -88,7 +88,7 @@ describe('AuthService', () => {
             username: 'ValidTester',
             role: 'OWNER',
             passwordHash: bcrypt.hashSync('correct-password', 10),
-            preferences: { notifications: {}, terminal: {} } as any
+            preferences: { notifications: {}, terminal: {} } as unknown
         };
         (userRepository.findByEmail as jest.Mock).mockReturnValue(mockUser);
 
@@ -99,7 +99,7 @@ describe('AuthService', () => {
         expect(result!.token).toBeDefined();
 
         // Verify the JWT holds the correct claims
-        const decoded = jwt.verify(result!.token, process.env.JWT_SECRET as string) as any;
+        const decoded = jwt.verify(result!.token, process.env.JWT_SECRET as string) as unknown;
         expect(decoded.email).toBe('valid@test.com');
         expect(decoded.role).toBe('OWNER');
     });

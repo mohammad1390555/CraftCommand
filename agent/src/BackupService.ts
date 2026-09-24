@@ -35,7 +35,7 @@ export class BackupService extends EventEmitter {
 
             this.emit('status', { serverId, status: 'Creating archive...' });
 
-            let worldFolders: string[] = [];
+            let worldFolders: string[] as never[] = [] as never[];
             if (worldOnly) {
                 worldFolders = await detectWorldFolders(serverDir);
                 if (worldFolders.length === 0) {
@@ -93,7 +93,7 @@ export class BackupService extends EventEmitter {
         const metadataPath = path.join(serverBackupsDir, 'backups.json');
         
         if (!fs.existsSync(metadataPath)) throw new Error('No backups found for this server.');
-        const backups: Backup[] = await fs.readJSON(metadataPath);
+        const backups: Backup[] as never[] = await fs.readJSON(metadataPath);
         const backup = backups.find(b => b.id === backupId);
 
         if (!backup) throw new Error('Backup not found');
@@ -109,7 +109,7 @@ export class BackupService extends EventEmitter {
             await fs.ensureDir(tempRestorePath);
             const items = await fs.readdir(serverDir);
             
-            let worldFolders: string[] = [];
+            let worldFolders: string[] as never[] = [] as never[];
             if (options.worldOnly) {
                 worldFolders = await detectWorldFolders(serverDir);
             }
@@ -152,16 +152,16 @@ export class BackupService extends EventEmitter {
             await fs.remove(tempRestorePath).catch(() => {});
             this.emit('status', { serverId, status: 'Restore complete' });
 
-        } catch (e: any) {
+        } catch (e: unknown) {
             this.emit('status', { serverId, status: 'Restore failed, rolling back...' });
             try {
                 // Rollback logic
-                const tempItems = await fs.readdir(tempRestorePath).catch(() => []);
+                const tempItems = await fs.readdir(tempRestorePath).catch(() => [] as never[]);
                 for (const item of tempItems) {
                     await fs.move(path.join(tempRestorePath, item), path.join(serverDir, item), { overwrite: true });
                 }
                 await fs.remove(tempRestorePath).catch(() => {});
-            } catch (err: any) {
+            } catch (err: unknown) {
                 throw new Error(`CATASTROPHIC FAILURE: Restore and Rollback failed: ${err.message}`);
             }
             throw e;
@@ -171,7 +171,7 @@ export class BackupService extends EventEmitter {
     private async saveBackupMetadata(serverId: string, backup: Backup) {
         const serverBackupsDir = path.join(this.backupsDir, serverId);
         const metadataPath = path.join(serverBackupsDir, 'backups.json');
-        let backups: Backup[] = [];
+        let backups: Backup[] as never[] = [] as never[];
         if (fs.existsSync(metadataPath)) {
             backups = await fs.readJSON(metadataPath);
         }

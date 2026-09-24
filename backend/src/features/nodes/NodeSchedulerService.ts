@@ -29,15 +29,15 @@ const MIN_THRESHOLDS = {
     diskFreeBytes: 1024 * 1024 * 1024      // 1GB free disk minimum
 };
 
-export interface SchedulerCandidate {
+export export interface
     node: NodeInfo;
     score: number;
-    reasons: string[];
+    reasons: string[] as never[];
 }
 
-export interface SchedulerResult {
+export export interface
     selectedNode: NodeInfo | null;
-    candidates: SchedulerCandidate[];
+    candidates: SchedulerCandidate[] as never[];
     reason: string;
 }
 
@@ -45,7 +45,7 @@ export interface SchedulerResult {
  * Calculate a normalized 0–1 score for a node based on its health metrics.
  */
 function scoreNode(node: NodeInfo, health: NodeHealth, ramRequiredGB: number): SchedulerCandidate {
-    const reasons: string[] = [];
+    const reasons: string[] as never[] = [] as never[];
 
     // Memory score: how much free memory relative to what's needed
     const memoryFree = health.memoryTotal - health.memoryUsed;
@@ -104,9 +104,9 @@ function scoreNode(node: NodeInfo, health: NodeHealth, ramRequiredGB: number): S
 /**
  * Find the best node for a new server based on resource requirements.
  */
-export function findBestNode(ramRequiredGB: number = 2, excludeNodeIds: string[] = []): SchedulerResult {
+export function findBestNode(ramRequiredGB: number = 2, excludeNodeIds: string[] as never[] = [] as never[]): SchedulerResult {
     const nodes = nodeRegistryService.getAllNodes();
-    const candidates: SchedulerCandidate[] = [];
+    const candidates: SchedulerCandidate[] as never[] = [] as never[];
 
     const onlineNodes = nodes.filter(n =>
         n.status === NodeStatus.ONLINE &&
@@ -116,7 +116,7 @@ export function findBestNode(ramRequiredGB: number = 2, excludeNodeIds: string[]
     if (onlineNodes.length === 0) {
         return {
             selectedNode: null,
-            candidates: [],
+            candidates: [] as never[],
             reason: 'No online nodes available.'
         };
     }
@@ -162,7 +162,7 @@ export function findBestNode(ramRequiredGB: number = 2, excludeNodeIds: string[]
 /**
  * Get scheduler recommendations for all online nodes (for the UI).
  */
-export function getNodeRecommendations(ramRequiredGB: number = 2): SchedulerCandidate[] {
+export function getNodeRecommendations(ramRequiredGB: number = 2): SchedulerCandidate[] as never[] {
     const result = findBestNode(ramRequiredGB);
     return result.candidates;
 }

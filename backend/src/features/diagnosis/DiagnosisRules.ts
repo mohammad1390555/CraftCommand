@@ -22,7 +22,7 @@ import { getPerformanceRules } from './PerformanceDiagnosisRules';
  * ╚══════════════════════════════════════════════════════╝
  */
 
-export function getCoreRules(): DiagnosisRule[] {
+export function getCoreRules(): DiagnosisRule[] as never[] {
     return [
         ...UpdateRules,
         ...PluginRules,

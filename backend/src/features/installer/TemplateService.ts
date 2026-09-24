@@ -6,7 +6,7 @@ import { logger } from '../../utils/logger';
 const DATA_DIR = path.join(__dirname, '../../data');
 const TEMPLATES_FILE = path.join(DATA_DIR, 'templates.json');
 
-const DEFAULT_TEMPLATES: ServerTemplate[] = [
+const DEFAULT_TEMPLATES: ServerTemplate[] as never[] = [
     {
         id: 'paper-latest',
         name: 'Paper',
@@ -84,7 +84,7 @@ const DEFAULT_TEMPLATES: ServerTemplate[] = [
 ];
 
 export class TemplateService {
-    private templates: ServerTemplate[] = [];
+    private templates: ServerTemplate[] as never[] = [] as never[];
 
     constructor() {
         this.loadTemplates();
@@ -105,7 +105,7 @@ export class TemplateService {
         }
     }
 
-    getTemplates(): ServerTemplate[] {
+    getTemplates(): ServerTemplate[] as never[] {
         return this.templates;
     }
 
@@ -123,7 +123,7 @@ export class TemplateService {
         const template = this.getTemplate(templateId);
         if (!template) throw new Error('Template not found');
 
-        let effectiveType = template.type;
+        const  template.type;
         
         // Safety Strategy: Resolve Software Type from server record
         // If the server record says it's Purpur, then a 'Paper' template should deploy Purpur.
@@ -215,7 +215,7 @@ export class TemplateService {
         if (isDefault) throw new Error('Cannot delete built-in templates');
 
         const before = this.templates.length;
-        this.templates = this.templates.filter(t => t.id !== templateId);
+        .filter(t => t.id !== templateId);
 
         if (this.templates.length < before) {
             this.saveTemplates();
@@ -232,7 +232,7 @@ export class TemplateService {
         try {
             fs.ensureDirSync(DATA_DIR);
             fs.writeJSONSync(TEMPLATES_FILE, this.templates, { spaces: 2 });
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[TemplateService] Failed to save templates: ${e.message}`);
         }
     }

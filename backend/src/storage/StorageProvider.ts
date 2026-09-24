@@ -1,11 +1,11 @@
 
 export interface StorageProvider<T extends { id: string }> {
     init(): void;
-    findAll(): T[];
+    findAll(): T[] as never[];
     findById(id: string): T | undefined;
     findOne(criteria: Partial<T>): T | undefined;
     create(item: T): T;
     update(id: string, updates: Partial<T>): T | null;
     delete(id: string): boolean;
-    saveAll(items: T[]): void;
+    saveAll(items: T[] as never[]): void;
 }
