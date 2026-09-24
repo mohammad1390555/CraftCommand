@@ -31,7 +31,7 @@ router.get('/health', verifyToken, (req, res) => {
             uptime: process.uptime(),
             timestamp: Date.now()
         });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -43,7 +43,7 @@ router.get('/cache', async (req, res) => {
     try {
         const stats = await systemService.getCacheStats();
         res.json(stats);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -55,7 +55,7 @@ router.post('/cache/clear', verifyToken, requireRole(['OWNER', 'ADMIN']), async 
         await systemService.clearCache(type);
         res.json({ success: true });
         auditService.log(req.user.id, 'SYSTEM_CACHE_CLEAR', 'system', { type });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -73,7 +73,7 @@ router.get('/minecraft/versions', verifyToken, async (req, res) => {
     try {
         const result = await minecraftVersionService.getGroupedVersions();
         res.json(result);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -85,7 +85,7 @@ router.get('/bedrock/versions', verifyToken, async (req, res) => {
     try {
         const result = await bedrockVersionService.getVersions();
         res.json(result);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -96,7 +96,7 @@ router.get('/bedrock/versions', verifyToken, async (req, res) => {
 
 // Global Settings - READ (Authenticated for basic settings, maybe mask secrets?)
 router.get('/settings', verifyToken, (req, res) => {
-    // console.log('[SystemRoute] GET /settings');
+    // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // console.log('[SystemRoute] GET /settings');
     const settings = systemSettingsService.getSettings();
     // Safety: Mask Discord Token in response? 
     // For now we assume only trusted users get tokens? 
@@ -129,7 +129,7 @@ router.post('/discord/reconnect', verifyToken, requireRole(['OWNER', 'ADMIN']), 
         await discordService.reconnect();
         res.json({ success: true });
         auditService.log(req.user.id, 'DISCORD_RECONNECT', 'system');
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -139,7 +139,7 @@ router.post('/discord/sync-commands', verifyToken, requireRole(['OWNER', 'ADMIN'
         await discordService.deployCommands();
         res.json({ success: true });
         auditService.log(req.user.id, 'DISCORD_SYNC', 'system');
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -160,7 +160,7 @@ router.post('/remote-access/enable', verifyToken, requirePermission('system.remo
         }
         await remoteAccessService.enable(method);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
@@ -186,7 +186,7 @@ router.post('/remote-access/disable', verifyToken, requirePermission('system.rem
     try {
         await remoteAccessService.disable();
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -200,7 +200,7 @@ router.get('/docker/status', verifyToken, async (req, res) => {
     try {
         const { stdout } = await execAsync('docker info --format "{{.ServerVersion}}"');
         res.json({ online: true, version: stdout.trim() });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.json({ online: false, error: 'Docker Daemon not reachable' });
     }
 });
@@ -219,7 +219,7 @@ router.post('/storage/migrate', verifyToken, requireRole(['OWNER']), async (req,
         } else {
             res.status(400).json({ error: 'Invalid migration target' });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
