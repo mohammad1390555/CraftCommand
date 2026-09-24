@@ -23,11 +23,11 @@ describe('FileSystemManager', () => {
 
     describe('Path Traversal Prevention', () => {
         it('should block ../ traversal attempts', () => {
-            expect(() => (fsm as any).resolvePath('../../../etc/passwd')).toThrow('Access denied');
+            expect(() => (fsm as unknown).resolvePath('../../../etc/passwd')).toThrow('Access denied');
         });
 
         it('should block absolute path injection', () => {
-            expect(() => (fsm as any).resolvePath('/etc/passwd')).toThrow('Access denied');
+            expect(() => (fsm as unknown).resolvePath('/etc/passwd')).toThrow('Access denied');
         });
 
         it('should block prefix attacks (basepath + suffix = different dir)', async () => {
@@ -37,29 +37,29 @@ describe('FileSystemManager', () => {
             try {
                 // The relative path that would resolve to the sibling
                 const relativeSibling = path.relative(testDir, siblingDir);
-                expect(() => (fsm as any).resolvePath(relativeSibling)).toThrow('Access denied');
+                expect(() => (fsm as unknown).resolvePath(relativeSibling)).toThrow('Access denied');
             } finally {
                 await fs.remove(siblingDir);
             }
         });
 
         it('should allow valid relative paths within basePath', () => {
-            const resolved = (fsm as any).resolvePath('subdir/file.txt');
+            const resolved = (fsm as unknown).resolvePath('subdir/file.txt');
             expect(resolved).toBe(path.resolve(testDir, 'subdir/file.txt'));
         });
 
         it('should allow accessing the basePath root itself', () => {
-            const resolved = (fsm as any).resolvePath('.');
+            const resolved = (fsm as unknown).resolvePath('.');
             expect(resolved).toBe(path.resolve(testDir));
         });
 
         it('should block encoded traversal (..%2F)', () => {
             // Even if someone passes URL-encoded dots, path.resolve handles it
             // but let's ensure it still blocks
-            expect(() => (fsm as any).resolvePath('..%2F..%2Fetc/passwd')).not.toThrow();
+            expect(() => (fsm as unknown).resolvePath('..%2F..%2Fetc/passwd')).not.toThrow();
             // The above won't actually traverse because %2F is literal, 
             // but ../ inside a decoded path should still be caught:
-            expect(() => (fsm as any).resolvePath(decodeURIComponent('..%2F..%2Fetc%2Fpasswd'))).toThrow('Access denied');
+            expect(() => (fsm as unknown).resolvePath(decodeURIComponent('..%2F..%2Fetc%2Fpasswd'))).toThrow('Access denied');
         });
     });
 
@@ -177,7 +177,7 @@ describe('FileSystemManager', () => {
         });
 
         it('should respect maxResults limit', async () => {
-            for (let i = 0; i < 5; i++) {
+            for (const  0; i < 5; i++) {
                 await fsm.writeFile(`match-${i}.txt`, 'content');
             }
             const results = await fsm.searchFiles('match', '.', 3);
