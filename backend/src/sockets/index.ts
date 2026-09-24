@@ -117,7 +117,7 @@ export const setupSocket = (socketIo: Server) => {
 
     // 3. Connection Handling
     io.on('connection', (socket: Socket) => {
-        const user = (socket as any).user;
+        const user = (socket as unknown).user;
         if (user) {
             socket.join(`user:${user.id}`);
             logger.info(`[Socket] ✓ Connected: ${user.username} (${user.role}) [${socket.id}]`);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { logger } from '../../utils/logger';
 
-interface ModpackHit {
+export interface
     id: string;
     title: string;
     description: string;
@@ -30,7 +30,7 @@ class ModpackService {
     private readonly API_URL = 'https://api.modrinth.com/v2';
     private readonly HEADERS = { 'User-Agent': 'CraftCommand/1.12.0 (contact@craftcommand.io)' };
 
-    private async requestWithRetry(url: string, params: any = {}, attempts: number = 2): Promise<any> {
+    private async requestWithRetry(url: string, params: unknown = {}, attempts: number = 2): Promise<unknown> {
         for (let i = 0; i < attempts; i++) {
             try {
                 return await axios.get(url, {
@@ -38,7 +38,7 @@ class ModpackService {
                     headers: this.HEADERS,
                     timeout: 10000,
                 });
-            } catch (e: any) {
+            } catch (e: unknown) {
                 if (e.response?.status === 429 && i < attempts - 1) {
                     const retryAfter = parseInt(e.response.headers['retry-after'] || '2', 10);
                     logger.warn(`[ModpackService] Rate limited (429). Retrying in ${retryAfter}s...`);
@@ -81,7 +81,7 @@ class ModpackService {
                 index: 'relevance',
             });
 
-            return (response.data as any).hits.map((hit: any) => ({
+            return (response.data as unknown).hits.map((hit: unknown) => ({
                 id: hit.project_id,
                 title: hit.title,
                 description: hit.description,
@@ -93,7 +93,7 @@ class ModpackService {
                 game_versions: hit.versions || [],
                 project_type: projectType,
             }));
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ModpackService] ${projectType} search failed: ${e.message}`);
             return []; // Graceful fallback instead of throwing
         }
@@ -168,7 +168,7 @@ class ModpackService {
             }
 
             // Find the primary file (usually first or marked as primary)
-            const primaryFile = versionData.files.find((f: any) => f.primary) || versionData.files[0];
+            const primaryFile = versionData.files.find((f: unknown) => f.primary) || versionData.files[0];
 
             return {
                 version_number: versionData.version_number,

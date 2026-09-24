@@ -65,7 +65,7 @@ router.get('/query', async (req, res) => {
         (async () => {
              try {
                  const allServers = getServers(); 
-                 const conflict = allServers.find((s: any) => s.port === server.port && s.id !== id && processManager.isRunning(s.id));
+                 const conflict = allServers.find((s: unknown) => s.port === server.port && s.id !== id && processManager.isRunning(s.id));
                  
                  if (conflict) {
                       processManager.updateCachedStatus(id, { online: false, players: 0, status: ServerStatus.OFFLINE });
@@ -76,7 +76,7 @@ router.get('/query', async (req, res) => {
                       return;
                  }
 
-                 let status: any;
+                 let status: unknown;
                  status = await mcstatus.checkStatus({ host: '127.0.0.1', port: server.port });
                  
                  if (!processManager.isRunning(id)) {
@@ -194,7 +194,7 @@ router.get('/diagnosis', verifyToken, requirePermission('server.view'), async (r
     try {
         const results = await diagnoseServer(id);
         res.json(results);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -205,7 +205,7 @@ router.get('/test-diagnosis', async (req, res) => {
     try {
         const results = await diagnoseServer(id);
         res.json(results);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });

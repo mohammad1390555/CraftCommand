@@ -73,7 +73,7 @@ router.post('/install', requirePermission('server.settings'), async (req, res) =
             await installerService.installModpackFromZip(id, server.workingDirectory, url, version, onProgress, server.software);
         } else if (installType === 'forge') {
             logger.info(`[Installation] Starting Async Forge Install for ${id}`);
-            installerService.installForge(id, server.workingDirectory, version || '1.21.1', (req.body as any).localModpack, build, onProgress)
+            installerService.installForge(id, server.workingDirectory, version || '1.21.1', (req.body as unknown).localModpack, build, onProgress)
                 .then(executable => {
                     const s = getServer(id);
                     if (s) {
@@ -160,7 +160,7 @@ router.post('/install', requirePermission('server.settings'), async (req, res) =
             auditService.log(req.user.id, 'TEMPLATE_INSTALL', id, { type: installType, version });
         }
 
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[Installation] Fatal error during ${installType} install for ${id}: ${e}`);
         const s = getServer(id);
         if (s) {
@@ -200,11 +200,11 @@ router.post('/icon', requirePermission('server.settings'), upload.single('file')
             if (req.user) {
                 auditService.log(req.user.id, 'SERVER_ICON_UPDATE', server.id, { iconName });
             }
-        } catch (sharpError: any) {
+        } catch (sharpError: unknown) {
             logger.error(`[IconUpload] Sharp processing failed: ${sharpError.message}`);
             throw new Error(`Icon stabilization failed: ${sharpError.message}`);
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[IconUpload] Failed for ${req.params.id}: ${e.message}`);
         res.status(500).json({ error: e.message });
     }

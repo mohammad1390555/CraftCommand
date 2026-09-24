@@ -95,7 +95,7 @@ export class PluginService {
         try {
             const platforms = SOFTWARE_TO_PLATFORMS[server.software] || [];
             downloadInfo = await marketplaceRegistry.getDownloadUrl(sourceId, source, server.version, platforms);
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[PluginService] Failed to resolve download URL for ${sourceId} (${source}): ${err.message}`);
             throw new Error(`Could not find a compatible download for this plugin from ${source}. ${err.message}`);
         }
@@ -125,7 +125,7 @@ export class PluginService {
         logger.info(`[PluginService] Downloading ${downloadInfo.fileName} to ${destPath}...`);
         try {
             await installerService.downloadFile(downloadInfo.url, destPath);
-        } catch (err: any) {
+        } catch (err: unknown) {
             // Clean up partial/corrupted download
             try { await fs.remove(destPath); } catch (e) { logger.debug(`[PluginService] Failed to clean up failed download: ${e}`); }
             logger.error(`[PluginService] Download failed for ${downloadInfo.fileName}: ${err.message}`);
@@ -135,7 +135,7 @@ export class PluginService {
         // Validate downloaded file (integrity check)
         try {
             this.validateJarIntegrity(destPath);
-        } catch (err: any) {
+        } catch (err: unknown) {
             await fs.remove(destPath);
             throw new Error(`Downloaded plugin is corrupted or invalid: ${err.message}`);
         }
@@ -155,18 +155,18 @@ export class PluginService {
             autoUpdate: false,
             enabled: true,
             // Capture rich metadata
-            description: (downloadInfo as any).description,
-            author: (downloadInfo as any).author,
-            iconUrl: (downloadInfo as any).iconUrl,
-            category: (downloadInfo as any).category,
-            externalUrl: (downloadInfo as any).externalUrl
+            description: (downloadInfo as unknown).description,
+            author: (downloadInfo as unknown).author,
+            iconUrl: (downloadInfo as unknown).iconUrl,
+            category: (downloadInfo as unknown).category,
+            externalUrl: (downloadInfo as unknown).externalUrl
         });
 
         // Mark server as needing restart
-        serverRepository.update(serverId, { needsRestart: true } as any);
+        serverRepository.update(serverId, { needsRestart: true } as unknown);
         
         // --- Dependency Resolution ---
-        const deps = (downloadInfo as any).dependencies || [];
+        const deps = (downloadInfo as unknown).dependencies || [];
         if (deps.length > 0) {
             logger.info(`[PluginService] Resolving dependencies for ${plugin.name}...`);
             for (const dep of deps) {
@@ -177,7 +177,7 @@ export class PluginService {
                         try {
                             // Recursively install the dependency.
                             await this.install(serverId, dep.id, source, _visited, _depth + 1);
-                        } catch (depErr: any) {
+                        } catch (depErr: unknown) {
                             logger.error(`[PluginService] Failed to auto-install dependency ${dep.id}: ${depErr.message}`);
                         }
                     } else {
@@ -220,7 +220,7 @@ export class PluginService {
         pluginRepository.delete(pluginId);
         
         // Mark server as needing restart
-        serverRepository.update(serverId, { needsRestart: true } as any);
+        serverRepository.update(serverId, { needsRestart: true } as unknown);
         
         logger.info(`[PluginService] Uninstalled ${plugin.name} from server ${serverId}. Restart required.`);
     }
@@ -266,7 +266,7 @@ export class PluginService {
         }
 
         // Mark server as needing restart
-        serverRepository.update(serverId, { needsRestart: true } as any);
+        serverRepository.update(serverId, { needsRestart: true } as unknown);
 
         return pluginRepository.findById(pluginId)!;
     }
@@ -297,7 +297,7 @@ export class PluginService {
                             sourceId: plugin.sourceId,
                         });
                     }
-                } catch (err: any) {
+                } catch (err: unknown) {
                     logger.warn(`[PluginService] Update check failed for ${plugin.name}: ${err.message}`);
                 }
             }));
@@ -340,7 +340,7 @@ export class PluginService {
         // Validate integrity
         try {
             this.validateJarIntegrity(destPath);
-        } catch (err: any) {
+        } catch (err: unknown) {
             await fs.remove(destPath);
             throw new Error(`Update download is corrupted: ${err.message}`);
         }
@@ -358,15 +358,15 @@ export class PluginService {
             version: downloadInfo.version,
             updatedAt: Date.now(),
             // Refresh metadata
-            description: (downloadInfo as any).description,
-            author: (downloadInfo as any).author,
-            iconUrl: (downloadInfo as any).iconUrl,
-            category: (downloadInfo as any).category,
-            externalUrl: (downloadInfo as any).externalUrl
+            description: (downloadInfo as unknown).description,
+            author: (downloadInfo as unknown).author,
+            iconUrl: (downloadInfo as unknown).iconUrl,
+            category: (downloadInfo as unknown).category,
+            externalUrl: (downloadInfo as unknown).externalUrl
         });
 
         // Mark server as needing restart
-        serverRepository.update(serverId, { needsRestart: true } as any);
+        serverRepository.update(serverId, { needsRestart: true } as unknown);
 
         logger.success(`[PluginService] Updated ${plugin.name} from ${plugin.version} to ${downloadInfo.version}. Restart required.`);
         return pluginRepository.findById(pluginId)!;
@@ -385,7 +385,7 @@ export class PluginService {
                 try {
                     await this.update(serverId, pluginId);
                     results.push({ pluginId, success: true });
-                } catch (e: any) {
+                } catch (e: unknown) {
                     logger.error(`[PluginService] Bulk update failed for plugin ${pluginId}: ${e.message}`);
                     results.push({ pluginId, success: false, error: e.message });
                 }
@@ -525,7 +525,7 @@ export class PluginService {
                     description: descMatch ? descMatch[1].trim() : undefined
                 };
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.warn(`[PluginService] Failed to extract metadata from ${path.basename(jarPath)}: ${err.message}`);
         }
         return {};
@@ -536,7 +536,7 @@ export class PluginService {
             const zip = new AdmZip(jarPath);
             // Basic check: must have entries
             if (zip.getEntries().length === 0) throw new Error('JAR is empty');
-        } catch (err: any) {
+        } catch (err: unknown) {
             throw new Error(`ZIP error: ${err.message}`);
         }
     }

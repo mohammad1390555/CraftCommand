@@ -15,7 +15,7 @@ import { ServerConfig } from '@shared/types';
  * whether a server is over-provisioned or under-provisioned.
  */
 
-export interface MemoryRecommendation {
+export export interface
     serverId: string;
     serverName: string;
     currentRamGB: number;

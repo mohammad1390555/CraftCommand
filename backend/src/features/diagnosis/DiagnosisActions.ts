@@ -96,7 +96,7 @@ export const DiagnosisActions = {
      * Switches Java version
      */
     switchJavaVersion: async (server: ServerConfig, version: string) => {
-        serverRepository.update(server.id, { javaVersion: version as any });
+        serverRepository.update(server.id, { javaVersion: version as unknown });
     },
 
     /**
@@ -147,7 +147,7 @@ export const DiagnosisActions = {
                 // Create default properties if missing
                 await fs.writeFile('server.properties', 'online-mode=true\nserver-port=25565\nmax-players=20\nview-distance=10');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Properties repair failed: ${e.message}`);
         }
     },
@@ -167,7 +167,7 @@ export const DiagnosisActions = {
                     // 1. Rotate massive active logs
                     if (file.name === 'latest.log' && file.size > MAX_LOG_SIZE) {
                         logger.warn(`[DiagnosisAction] latest.log exceeded 100MB. Tail-rotating...`);
-                        await DiagnosisActions.smartLogRotation({ id: 'active' } as any, fs);
+                        await DiagnosisActions.smartLogRotation({ id: 'active' } as unknown, fs);
                     }
                     
                     // 2. Cleanup ancient archives (> 7 days or total > 2GB)
@@ -369,7 +369,7 @@ export const DiagnosisActions = {
             // Set read/write/execute for owner, read/execute for group and others
             await execAsync(`chmod -R 755 "${pluginsDir}"`);
             logger.success(`[DiagnosisAction] Permissions repaired for ${pluginsDir}`);
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[DiagnosisAction] Failed to repair permissions: ${error.message}`);
             throw error;
         }
@@ -468,7 +468,7 @@ export const DiagnosisActions = {
             } else {
                 logger.info(`[DiagnosisAction] session.lock not found at ${lockPath}, skipping.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Failed to delete session.lock: ${e.message}`);
             throw e;
         }
@@ -530,7 +530,7 @@ export const DiagnosisActions = {
                     await pluginService.install(server.id, projectId, 'modrinth');
                     installed++;
                     logger.success(`[DiagnosisAction] Successfully installed dependency: ${dep}`);
-                } catch (e: any) {
+                } catch (e: unknown) {
                     failed++;
                     logger.error(`[DiagnosisAction] Failed to install ${dep}: ${e.message}`);
                 }
@@ -541,7 +541,7 @@ export const DiagnosisActions = {
         }
         
         if (failed > 0 && installed === 0) {
-            throw new Error(`Could not install any of the requested dependencies (${name}). They may not be available on Modrinth.`);
+            throw new Error(`Could not install unknown of the requested dependencies (${name}). They may not be available on Modrinth.`);
         }
         
         logger.success(`[DiagnosisAction] Dependency installation complete: ${installed} installed, ${failed} failed.`);
@@ -585,7 +585,7 @@ export const DiagnosisActions = {
             } else {
                 throw new Error('level.dat_old not found. Manual recovery required.');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] level.dat recovery failed: ${e.message}`);
             throw e;
         }
@@ -636,7 +636,7 @@ export const DiagnosisActions = {
             } else {
                 logger.warn(`[DiagnosisAction] No Forge configuration found to enable entity purging.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Failed to update Forge config: ${e.message}`);
         }
     },
@@ -653,7 +653,7 @@ export const DiagnosisActions = {
             content = content.replace(/^server-ip=.*$/m, 'server-ip=');
             await fs.writeFile(configPath, content);
             logger.success(`[DiagnosisAction] Successfully cleared server-ip binding.`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Failed to fix IP binding: ${e.message}`);
             throw e;
         }
@@ -676,7 +676,7 @@ export const DiagnosisActions = {
                 await fs.writeFile(logPath, head + tail);
                 logger.success(`[DiagnosisAction] Log rotated successfully. Kept tail ${500} lines.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Smart rotation failed: ${e.message}`);
         }
     },
@@ -702,7 +702,7 @@ export const DiagnosisActions = {
                 if (await fs.exists(item)) await fs.deletePath(item);
             }
             logger.success(`[DiagnosisAction] Storage cleanup complete.`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Cleanup failed: ${e.message}`);
         }
     },
@@ -763,7 +763,7 @@ export const DiagnosisActions = {
             } else {
                 await serverService.sendCommand(server.id, 'gc');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] GC Sweep orchestrated failure: ${e.message}`);
         }
     }

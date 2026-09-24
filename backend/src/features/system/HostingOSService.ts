@@ -14,14 +14,14 @@ import { ServerConfig } from '@shared/types';
  * ╚══════════════════════════════════════════════════════╝
  */
 
-export interface ThermalStatus {
+export export interface
     cpuTemp: number | null;      // °C, null if unavailable
     isThrottling: boolean;
     warning: 'normal' | 'warm' | 'hot' | 'critical';
     timestamp: number;
 }
 
-export interface DiskUsageInfo {
+export export interface
     serverId: string;
     serverName: string;
     sizeBytes: number;
@@ -31,7 +31,7 @@ export interface DiskUsageInfo {
     worldSizeMB: number;
 }
 
-export interface SystemHealthSnapshot {
+export export interface
     cpu: {
         usage: number;        // %
         cores: number;
@@ -117,7 +117,7 @@ class HostingOSService {
                 usagePercent: primaryDisk ? Math.round(primaryDisk.use * 10) / 10 : 0
             },
             thermal: temp,
-            uptime: (time as any).uptime || 0,
+            uptime: (time as unknown).uptime || 0,
             os: {
                 platform: osInfo.platform,
                 distro: osInfo.distro,
@@ -188,7 +188,7 @@ class HostingOSService {
                     worldSizeBytes,
                     worldSizeMB: Math.round(worldSizeBytes / 1024 / 1024)
                 });
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[HostingOS] Failed to scan disk for ${server.name}: ${e.message}`);
             }
         }
@@ -302,7 +302,7 @@ class HostingOSService {
     }
 }
 
-export interface DiskQuotaViolation {
+export export interface
     serverId: string;
     serverName: string;
     currentMB: number;

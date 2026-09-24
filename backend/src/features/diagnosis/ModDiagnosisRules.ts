@@ -103,7 +103,7 @@ export const IncompatibleModsRule: DiagnosisRule = {
                 .map(l => l.replace(/^- /, '• '))
                 .join('\n');
                 
-            let action: any = undefined;
+            let action: unknown = undefined;
             const suggestMcUpgrade = rawSolutions.includes('replace [[minecraft') || rawSolutions.includes('add:minecraft');
             
             let customExplanation = suggestMcUpgrade 

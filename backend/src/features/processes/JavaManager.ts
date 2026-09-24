@@ -19,7 +19,7 @@ export class JavaManager extends EventEmitter {
     public currentStatus: { message: string, percent?: number, phase?: string } | null = null;
 
     // Download portable Java if missing
-    async ensureJava(version: string, serverId?: string): Promise<any> {
+    async ensureJava(version: string, serverId?: string): Promise<unknown> {
         logger.info(`[JavaManager] Request to ensure ${version}`);
         
         const majorVer = version.replace('Java ', '').trim(); 
@@ -66,7 +66,7 @@ export class JavaManager extends EventEmitter {
                 path: javaPath,
                 env
             };
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[JavaManager] Provisioning failed: ${e.message}`);
             this.currentStatus = { message: `Failed to provision ${version}`, phase: 'failed' };
             this.emit('error', { ...this.currentStatus, serverId });
@@ -177,7 +177,7 @@ export class JavaManager extends EventEmitter {
             if (num <= 11) return 'eclipse-temurin:11-jre';
             if (num <= 17) return 'eclipse-temurin:17-jre';
             
-            // For 21, 25 and any future versions
+            // For 21, 25 and unknown future versions
             return `eclipse-temurin:${num}-jre`;
         }
         

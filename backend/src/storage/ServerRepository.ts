@@ -124,7 +124,7 @@ export class ServerRepository implements StorageProvider<ServerConfig> {
         return users
             .filter(u => u.serverAcl && u.serverAcl[serverId])
             .map(u => {
-                const acl = u.serverAcl![serverId] as any;
+                const acl = u.serverAcl![serverId] as unknown;
                 return {
                     id: u.id,
                     username: u.username,
@@ -148,7 +148,7 @@ export class ServerRepository implements StorageProvider<ServerConfig> {
             deny: [],
             role: role.toUpperCase(),
             joinedAt: Date.now()
-        } as any;
+        } as unknown;
         
         await userRepository.update(user.id, { serverAcl });
     }

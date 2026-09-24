@@ -4,7 +4,7 @@ import { API } from '../../features/core/services/api';
 import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
-export interface ServerStats {
+export export interface
     cpu: number;
     memory: number;
     uptime: number;
@@ -15,10 +15,10 @@ export interface ServerStats {
     tps: string;
     pid: number;
     lastUpdate: number;
-    diagnosis?: any[];
+    diagnosis?: unknown[];
 }
 
-export interface ServerSlice {
+export export interface
     servers: ServerConfig[];
     currentServer: ServerConfig | null;
     stats: Record<string, ServerStats>;
@@ -29,7 +29,7 @@ export interface ServerSlice {
     javaDownloadStatus: { message: string, phase: string, percent?: number, serverId?: string } | null;
     installProgress: Record<string, { message: string, percent: number }>;
     visibleServerIds: string[];
-    backgroundTasks: Record<string, any>;
+    backgroundTasks: Record<string, unknown>;
     serversLoading: boolean;
 
     // Actions
@@ -42,8 +42,8 @@ export interface ServerSlice {
     updateServerStatus: (serverId: string, status: ServerStatus) => void;
     
     // Background Tasks
-    addBackgroundTask: (task: any) => void;
-    updateBackgroundTask: (id: string, updates: any) => void;
+    addBackgroundTask: (task: unknown) => void;
+    updateBackgroundTask: (id: string, updates: unknown) => void;
     removeBackgroundTask: (id: string) => void;
 
     // Initialization & Polling
@@ -87,7 +87,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
                 const newIds = new Set(data.map(s => s.id));
                 
                 set(state => {
-                    const prune = (obj: any) => {
+                    const prune = (obj: unknown) => {
                         const newObj = { ...obj };
                         Object.keys(newObj).forEach(key => {
                             if (!newIds.has(key)) delete newObj[key];
@@ -106,7 +106,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
                         // --- COLLAB PRUNING (Phase 2) ---
                         presence: prune(state.presence),
                         activities: prune(state.activities),
-                        chatMessages: prune((state as any).chatMessages), // Shared key naming (chatMessages vs chatHistory)
+                        chatMessages: prune((state as unknown).chatMessages), // Shared key naming (chatMessages vs chatHistory)
                         typingUsers: prune(state.typingUsers)
                     };
                 });
@@ -133,7 +133,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
                 API.getPlayers(serverId, 'online')
             ]);
 
-            const normalizedPlayers: Player[] = playerData.map((p: any) => ({
+            const normalizedPlayers: Player[] = playerData.map((p: unknown) => ({
                 name: p.name || 'Unknown',
                 uuid: p.uuid || p.ip || 'unknown',
                 skinUrl: p.skinUrl || (p.name ? `https://mc-heads.net/avatar/${encodeURIComponent(p.name)}/64` : ''),
@@ -235,7 +235,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
         socket.on('status', (data) => updateServerStatus(data.id, data.status as ServerStatus));
         socket.on('status:global', (data) => updateServerStatus(data.id, data.status as ServerStatus));
         
-        socket.on('stats', (data: any) => {
+        socket.on('stats', (data: unknown) => {
             const { servers, stats: currentStats } = get();
             const server = servers.find(s => s.id === data.id);
             const isClosing = server?.status === ServerStatus.OFFLINE || server?.status === ServerStatus.STOPPING;
@@ -299,7 +299,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
                 message: data.message || `Compressing archives (${data.percent}%)`
             });
 
-            // If it doesn't exist, updateBackgroundTask won't do anything, so we ensure it's added
+            // If it doesn't exist, updateBackgroundTask won't do unknownthing, so we ensure it's added
             if (!get().backgroundTasks[taskId]) {
                 get().addBackgroundTask({
                     id: taskId,
@@ -338,7 +338,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
         });
 
         // --- ZOMBIE TASK PURGE (v1.13.2) ---
-        // Clean up any tasks belonging to servers that no longer exist in the local cache
+        // Clean up unknown tasks belonging to servers that no longer exist in the local cache
         const purgeZombieTasks = () => {
             const { backgroundTasks, servers, removeBackgroundTask } = get();
             const serverIds = new Set(servers.map(s => s.id));
@@ -476,7 +476,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
 
                 if (!statsChanged && !serversChanged) return state;
 
-                const update: any = {};
+                const update: unknown = {};
                 if (statsChanged) update.stats = newStats;
                 if (serversChanged) {
                     update.servers = updatedServers;

@@ -215,7 +215,7 @@ export class TemplateService {
         if (isDefault) throw new Error('Cannot delete built-in templates');
 
         const before = this.templates.length;
-        this.templates = this.templates.filter(t => t.id !== templateId);
+        .filter(t => t.id !== templateId);
 
         if (this.templates.length < before) {
             this.saveTemplates();
@@ -232,7 +232,7 @@ export class TemplateService {
         try {
             fs.ensureDirSync(DATA_DIR);
             fs.writeJSONSync(TEMPLATES_FILE, this.templates, { spaces: 2 });
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[TemplateService] Failed to save templates: ${e.message}`);
         }
     }

@@ -4,7 +4,7 @@ import { API } from '../../features/core/services/api';
 import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
-export interface SystemSlice {
+export export interface
     settings: GlobalSettings | null;
     nodes: NodeInfo[];
     systemLoading: boolean;

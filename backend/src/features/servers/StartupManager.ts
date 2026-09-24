@@ -28,7 +28,7 @@ export class StartupManager {
     /**
      * Orchestrates the entire startup process
      */
-    async startServer(server: any, saveServerCallback: (s: any) => void, force: boolean = false): Promise<void> {
+    async startServer(server: unknown, saveServerCallback: (s: unknown) => void, force: boolean = false): Promise<void> {
         const id = server.id;
 
         try {
@@ -78,7 +78,7 @@ export class StartupManager {
                     if (resolved.length > 0) {
                         logger.success(`[StartupManager:${id}] Pre-boot: Auto-installed ${resolved.length} missing dependencies.`);
                     }
-                } catch (e: any) {
+                } catch (e: unknown) {
                     logger.warn(`[StartupManager:${id}] SmartMod pre-boot processing failed (non-fatal): ${e.message}`);
                     processManager.emit('log', { id, line: `[SmartMod] ⚠️ Warning: Verification failed: ${e.message}`, type: 'stdout' });
                 }
@@ -155,7 +155,7 @@ export class StartupManager {
             // 6. Clear Restart Flag (Hardening)
             saveServerCallback({ ...server, needsRestart: false });
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[StartupManager:${id}] Startup failed: ${error.message}`);
             throw error;
         }
@@ -163,7 +163,7 @@ export class StartupManager {
 
 
 
-    private async prepareEnvironment(server: any) {
+    private async prepareEnvironment(server: unknown) {
         const cwd = server.workingDirectory;
         const id = server.id;
 
@@ -227,7 +227,7 @@ export class StartupManager {
         }
     }
 
-    private async buildStartCommand(server: any, javaPath: string, engine: 'native' | 'docker' = 'native'): Promise<{ cmd: string, cwd: string, env: NodeJS.ProcessEnv }> {
+    private async buildStartCommand(server: unknown, javaPath: string, engine: 'native' | 'docker' = 'native'): Promise<{ cmd: string, cwd: string, env: NodeJS.ProcessEnv }> {
         const cwd = server.workingDirectory;
         const isWin = process.platform === 'win32';
         
@@ -367,7 +367,7 @@ export class StartupManager {
     // Removed autoCorrectVelocity
 
 
-    public async enforceBackendProperties(server: any) {
+    public async enforceBackendProperties(server: unknown) {
         try {
             const software = server.software?.toLowerCase() || '';
 
@@ -509,7 +509,7 @@ export class StartupManager {
                 const allServers = serverRepository.findAll();
                 const isLinkedToProxy = allServers.some(s => 
                     s.software === 'Velocity' && 
-                    s.network?.proxyConfig?.links?.some((l: any) => l.serverId === server.id)
+                    s.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === server.id)
                 );
 
                 if (isLinkedToProxy && software !== 'velocity') {
@@ -547,7 +547,7 @@ export class StartupManager {
         }
     }
 
-    private async enforcePaperForwarding(server: any, isLinked: boolean) {
+    private async enforcePaperForwarding(server: unknown, isLinked: boolean) {
         const paths = [
             path.join(server.workingDirectory, 'config', 'paper-global.yml'),
             path.join(server.workingDirectory, 'paper.yml') // Legacy 1.18 and below
@@ -564,7 +564,7 @@ export class StartupManager {
                 // Find the proxy this server is linked to
                 const proxy = allServers.find(s => 
                     s.software === 'Velocity' && 
-                    s.network?.proxyConfig?.links?.some((l: any) => l.serverId === server.id)
+                    s.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === server.id)
                 );
 
                 if (isLinked && proxy && proxy.network?.proxyConfig) {

@@ -186,7 +186,7 @@ class AuthService {
         return safeUser as UserProfile;
     }
 
-    updateUser(id: string, updates: any, actor?: UserProfile) {
+    updateUser(id: string, updates: unknown, actor?: UserProfile) {
         const current = userRepository.findById(id);
         if (!current) throw new Error('User not found');
 
@@ -199,7 +199,7 @@ class AuthService {
                 throw new Error(`Hierarchy violation: ${actor.role} cannot modify ${current.role}`);
             }
 
-            // Role Elevation Guard: Prevent non-OWNERs from ever promoting anyone (including self) to OWNER
+            // Role Elevation Guard: Prevent non-OWNERs from ever promoting unknownone (including self) to OWNER
             if (updates.role && updates.role !== current.role) {
                 if (actor.role !== 'OWNER' && updates.role === 'OWNER') {
                     throw new Error('Only Owners can promote to Owner');
@@ -361,7 +361,7 @@ class AuthService {
         }
 
         const secret = this.decrypt(user.twoFactorPendingSecretEncrypted);
-        const { valid } = await (verify as any)({ 
+        const { valid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,
@@ -393,7 +393,7 @@ class AuthService {
         if (!user || !user.twoFactorEnabled || !user.twoFactorSecretEncrypted) return false;
 
         const secret = this.decrypt(user.twoFactorSecretEncrypted);
-        const { valid } = await (verify as any)({ 
+        const { valid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,
@@ -442,7 +442,7 @@ class AuthService {
         if (!passValid) throw new UnauthorizedError('Invalid password');
 
         const secret = this.decrypt(user.twoFactorSecretEncrypted!);
-        const { valid: codeValid } = await (verify as any)({ 
+        const { valid: codeValid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,
@@ -515,7 +515,7 @@ class AuthService {
 
         // Verify TOTP code
         const secret = this.decrypt(user.twoFactorSecretEncrypted);
-        const { valid: codeValid } = await (verify as any)({ 
+        const { valid: codeValid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,

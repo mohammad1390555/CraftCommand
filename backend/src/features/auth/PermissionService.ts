@@ -12,7 +12,7 @@ class PermissionService {
      * Supports per-server scope or 'global' scope.
      */
     can(user: UserProfile, action: Permission, serverId?: string): boolean {
-        // 1. Owner can do anything (Hard override)
+        // 1. Owner can do unknownthing (Hard override)
         if (user.role === 'OWNER') return true;
 
         let hasPermission = false;

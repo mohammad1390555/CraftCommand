@@ -4,14 +4,14 @@ import {  ServerConfig  } from '@shared/types';
 import { logger } from '../../utils/logger';
 import { SafeFileOperation } from '../../utils/fs';
 
-export interface ConfigMismatch {
+export export interface
     setting: string;
     diskValue: string | number | boolean;
     dbValue: string | number | boolean;
     severity: 'high' | 'medium' | 'low';
 }
 
-export interface SyncReport {
+export export interface
     synchronized: boolean;
     mismatches: ConfigMismatch[];
     eulaAccepted: boolean;
@@ -68,7 +68,7 @@ export class ServerConfigService {
                 if (dbValue === undefined || typeof dbValue === 'object') continue;
 
                 const rawDiskValue = props[m.prop];
-                let diskValue: any = rawDiskValue;
+                let diskValue: unknown = rawDiskValue;
 
                 if (m.type === 'int') diskValue = parseInt(rawDiskValue || '0');
                 if (m.type === 'bool') diskValue = rawDiskValue === 'true';
@@ -76,8 +76,8 @@ export class ServerConfigService {
                 if (diskValue !== dbValue) {
                     report.mismatches.push({
                         setting: m.key as string,
-                        diskValue: (diskValue as string | number | boolean) ?? 'MISSING',
-                        dbValue: dbValue as string | number | boolean,
+                        diskValue: (diskValue as unknown | number | boolean) ?? 'MISSING',
+                        dbValue: dbValue as unknown | number | boolean,
                         severity: m.severity
                     });
                 }

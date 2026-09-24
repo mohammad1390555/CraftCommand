@@ -17,7 +17,7 @@ const execAsync = util.promisify(exec);
 
 export type CpuPriority = 'normal' | 'high' | 'realtime';
 
-export interface ProcessLimits {
+export export interface
     cpuCores?: number[];   // Pin to specific cores (e.g., [0, 1, 2, 3])
     cpuPercent?: number;   // Max CPU % (Linux cgroups v2 only, optional)
     priority?: CpuPriority;
@@ -49,7 +49,7 @@ class ProcessLimiterService {
             } else {
                 return await this.setLinuxAffinity(pid, cores);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ProcessLimiter] Failed to set CPU affinity for PID ${pid}: ${e.message}`);
             return false;
         }
@@ -67,7 +67,7 @@ class ProcessLimiterService {
             } else {
                 return await this.setLinuxPriority(pid, priority);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ProcessLimiter] Failed to set priority for PID ${pid}: ${e.message}`);
             return false;
         }

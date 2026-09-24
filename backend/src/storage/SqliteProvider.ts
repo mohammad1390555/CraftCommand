@@ -45,7 +45,7 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
             if (migrationMarker && fs.existsSync(migrationMarker)) return;
 
             try {
-                let items: any[] = [];
+                let items: unknown[] = [];
 
                 if (hasMonolithic) {
                     logger.info(`[SqliteProvider] Migrating from monolithic ${this.migrationJsonPath}...`);
@@ -59,14 +59,14 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
 
                 if (items.length > 0) {
                     const insert = this.db.prepare(`INSERT INTO ${this.tableName} (id, data) VALUES (?, ?)`);
-                    const tx = this.db.transaction((toMigrate: any[]) => {
+                    const tx = this.db.transaction((toMigrate: unknown[]) => {
                         for (const item of toMigrate) insert.run(item.id, JSON.stringify(item));
                     });
                     tx(items);
                 logger.info(`[SqliteProvider] Successfully migrated ${items.length} items to SQLite.`);
                     if (migrationMarker) fs.writeFileSync(migrationMarker, new Date().toISOString());
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[SqliteProvider] CRITICAL MIGRATION FAILURE: ${e}`);
                 // Throwing ensures the system doesn't start with partial/corrupted data
                 throw new Error(`Migration to SQLite failed: ${e.message}`);
@@ -94,7 +94,7 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
             
             // Verify remaining criteria
             for (const key in criteria) {
-                if ((item as any)[key] !== (criteria as any)[key]) return undefined;
+                if ((item as unknown)[key] !== (criteria as unknown)[key]) return undefined;
             }
             return item;
         }
@@ -103,7 +103,7 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
         const all = this.findAll();
         return all.find(item => {
             for (const key in criteria) {
-                if ((item as any)[key] !== (criteria as any)[key]) return false;
+                if ((item as unknown)[key] !== (criteria as unknown)[key]) return false;
             }
             return true;
         });

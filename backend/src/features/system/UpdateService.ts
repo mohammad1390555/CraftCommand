@@ -18,7 +18,7 @@ const GITHUB_RELEASES_API = 'https://api.github.com/repos/Extroos/Craft-Commands
 
 export type UpdateStatus = 'IDLE' | 'CHECKING' | 'DOWNLOADING' | 'VERIFYING' | 'READY_TO_INSTALL' | 'ERROR';
 
-export interface UpdateStateInfo {
+export export interface
     status: UpdateStatus;
     progress: number;
     currentStep?: string;
@@ -29,19 +29,19 @@ export interface UpdateStateInfo {
 
 type UpdateLevel = 'MAJOR' | 'MINOR' | 'PATCH';
 
-interface VersionInfo {
+export interface
     version: string;
     title: string;
     notes: string[];
     body?: string; // GitHub release body
-    assets?: any[]; // GitHub release assets
+    assets?: unknown[]; // GitHub release assets
     priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
     breaking?: boolean;
     minNodeVersion?: string;
     minAgentVersion?: string;
 }
 
-interface UpdateCheckResult {
+export interface
     available: boolean;
     currentVersion: string;
     latestVersion: string;
@@ -55,7 +55,7 @@ interface UpdateCheckResult {
     error?: string;
 }
 
-interface InternalUpdateState {
+export interface
     lastNotifiedVersion?: string;
 }
 
@@ -75,7 +75,7 @@ class UpdateService {
     private PLAN_FILE = path.join(process.cwd(), '../update-plan.json');
 
     public initialize() {
-        this.currentVersion = this.getLocalVersion();
+        ();
         setSystemStatus(protocol, sslStatus, this.currentVersion);
         logger.info(`[UpdateService] Initialized. Current Version: v${this.currentVersion} | CWD: ${process.cwd()}`);
 
@@ -180,7 +180,7 @@ class UpdateService {
                 incompatibleNodes,
                 level: level || undefined,
                 assetsAvailable: !!(remoteData.assets && remoteData.assets.length > 0)
-            } as any;
+            } as unknown;
             this.lastCheck = now;
 
             if (available) {
@@ -195,7 +195,7 @@ class UpdateService {
             }
             
             return this.cachedResult;
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateService] Check failed: ${e.message}`);
             return { 
                 available: false, 
@@ -224,7 +224,7 @@ class UpdateService {
     }
 
     private async fetchRemoteVersion(retries: number): Promise<VersionInfo> {
-        let lastError: any;
+        let lastError: unknown;
         for (let i = 0; i < retries; i++) {
             try {
                 const response = await axios.get(REMOTE_VERSION_URL, { timeout: 8000 });
@@ -233,7 +233,7 @@ class UpdateService {
                     return data;
                 }
                 throw new Error('Malformed remote version metadata');
-            } catch (e: any) {
+            } catch (e: unknown) {
                 lastError = e;
                 if (i < retries - 1) {
                     // Exponential backoff: 2s, 4s, 8s...
@@ -290,7 +290,7 @@ class UpdateService {
              }
 
              // Fetch all users and filter for high-privilege roles
-             // We import userRepository here to avoid circular dependency issues at top level if any
+             // We import userRepository here to avoid circular dependency issues at top level if unknown
              const { userRepository } = await import('../../storage/UserRepository');
              const allUsers = userRepository.findAll();
              const targetUsers = allUsers.filter(u => u.role === 'OWNER' || u.role === 'ADMIN');
@@ -305,7 +305,7 @@ class UpdateService {
              for (const user of targetUsers) {
                 await notificationService.create(
                     user.id, 
-                    notifType as any, 
+                    notifType as unknown, 
                     `System Update: v${result.latestVersion}`, 
                     `A new ${result.level || 'PATCH'} update is available.\n${result.title || ''}`,
                     { version: result.latestVersion, breaking: result.breaking, level: result.level },
@@ -398,7 +398,7 @@ class UpdateService {
                 `v${version} has been pre-downloaded and verified. It is ready to apply on next restart.`,
                 { version, type: 'AUTO_STAGED' }
             );
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateService] Autonomous update failed: ${e.message}`);
         }
     }
@@ -428,12 +428,12 @@ class UpdateService {
                 headers: { 'User-Agent': 'CraftCommand-Backend' } 
             });
             
-            const assets = (metaResponse.data as any).assets;
+            const assets = (metaResponse.data as unknown).assets;
             if (!assets) throw new Error('No assets found for this release.');
 
-            const bundleAsset = assets.find((a: any) => a.name.endsWith('.zip'));
-            const manifestAsset = assets.find((a: any) => a.name === 'manifest.json');
-            const signatureAsset = assets.find((a: any) => a.name === 'manifest.sig');
+            const bundleAsset = assets.find((a: unknown) => a.name.endsWith('.zip'));
+            const manifestAsset = assets.find((a: unknown) => a.name === 'manifest.json');
+            const signatureAsset = assets.find((a: unknown) => a.name === 'manifest.sig');
 
             if (!bundleAsset || !manifestAsset || !signatureAsset) {
                 throw new Error('Release is missing required artifacts (bundle, manifest, or signature).');
@@ -460,7 +460,7 @@ class UpdateService {
 
             await this.verifyUpdate(path.join(this.TEMP_DIR, 'update.zip'));
 
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateService] Download failed: ${e.message}`);
             this.updateStatus = { 
                 status: 'ERROR', 
@@ -521,7 +521,7 @@ class UpdateService {
             // Prepare Plan automatically?
             await this.prepareUpdate(manifest);
 
-        } catch (e: any) {
+        } catch (e: unknown) {
              logger.error(`[UpdateService] Verification failed: ${e.message}`);
              this.updateStatus = { 
                 status: 'ERROR', 
@@ -535,7 +535,7 @@ class UpdateService {
     /**
      * Step 3: Prepare for Launcher
      */
-    private async prepareUpdate(manifest: any): Promise<void> {
+    private async prepareUpdate(manifest: unknown): Promise<void> {
         try {
             this.updateStatus.currentStep = 'Preparing update plan...';
             
@@ -573,7 +573,7 @@ class UpdateService {
 
             this.updateStatus.progress = 100;
             this.updateStatus.currentStep = 'Waiting for user to restart.';
-        } catch (e: any) {
+        } catch (e: unknown) {
              throw new Error(`Failed to prepare update: ${e.message}`);
         }
     }

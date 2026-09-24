@@ -14,14 +14,14 @@ import { logger } from '../../utils/logger';
 
 export type PlayerTier = 'small' | 'medium' | 'large' | 'mega';
 
-export interface ConfigPreset {
+export export interface
     id: string;
     name: string;
     tier: PlayerTier;
     playerRange: string;          // "1-5", "6-25", etc.
     description: string;
     properties: Record<string, string | number | boolean>;  // server.properties overrides
-    paperConfig?: Record<string, any>;  // paper-global.yml snippets
+    paperConfig?: Record<string, unknown>;  // paper-global.yml snippets
     recommendedRamGB: number;
 }
 
@@ -218,7 +218,7 @@ class ConfigPresetsService {
                 }
             }
 
-            // Add any new keys that weren't in the original file
+            // Add unknown new keys that weren't in the original file
             for (const [key, value] of props) {
                 if (!appliedKeys.has(key)) {
                     outputLines.push(`${key}=${value}`);
@@ -228,7 +228,7 @@ class ConfigPresetsService {
             await fs.writeFile(propsPath, outputLines.join('\n'), 'utf-8');
             logger.info(`[ConfigPresets] Applied "${preset.name}" to "${server.name}" — ${applied.length} properties set`);
 
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ConfigPresets] Failed to apply preset: ${e.message}`);
             throw e;
         }

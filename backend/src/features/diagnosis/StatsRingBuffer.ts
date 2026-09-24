@@ -6,7 +6,7 @@
  * Provides linear regression for trend analysis with zero external dependencies.
  */
 
-export interface StatsSnapshot {
+export export interface
     cpu: number;
     memory: number;   // MB
     tps: number;
@@ -14,7 +14,7 @@ export interface StatsSnapshot {
     timestamp: number; // Date.now()
 }
 
-export interface TrendResult {
+export export interface
     slope: number;      // Change per second (positive = increasing)
     current: number;    // Latest value
     predicted: number;  // Projected value at `horizonSeconds` into the future

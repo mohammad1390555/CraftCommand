@@ -37,7 +37,7 @@ class ImportService {
              throw new Error('Safety Protection: You cannot import a panel system directory as a server instance.');
         }
 
-        // 2. Prevent Overlap: Check if any existing server uses this path
+        // 2. Prevent Overlap: Check if unknown existing server uses this path
         const existing = getServers();
         const conflict = existing.find(s => path.resolve(s.workingDirectory) === normalizedPath);
         if (conflict) {
@@ -52,7 +52,7 @@ class ImportService {
         const newServer: ServerConfig = {
             id,
             name: name || `Imported Server`,
-            software: (configOverrides.software as any) || analysis.software,
+            software: (configOverrides.software as unknown) || analysis.software,
             version: configOverrides.version || analysis.version,
             status: ServerStatus.OFFLINE,
             port: configOverrides.port || analysis.port,
@@ -60,7 +60,7 @@ class ImportService {
             executable: configOverrides.executable || analysis.executable,
             ram: configOverrides.ram || analysis.ram,
             autoStart: false,
-            javaVersion: (configOverrides.javaVersion as any) || analysis.javaVersion
+            javaVersion: (configOverrides.javaVersion as unknown) || analysis.javaVersion
         };
 
         // 5. Save
@@ -86,7 +86,7 @@ class ImportService {
             try {
                 const zip = new AdmZip(zipPath);
                 zip.extractAllTo(installDir, true);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 await fs.remove(installDir).catch(() => {});
                 throw new Error(`Failed to extract archive: ${e.message}`);
             }
@@ -112,7 +112,7 @@ class ImportService {
             const newServer: ServerConfig = {
                 id,
                 name: name || `Imported Server`,
-                software: (configOverrides.software as any) || analysis.software,
+                software: (configOverrides.software as unknown) || analysis.software,
                 version: configOverrides.version || analysis.version,
                 status: ServerStatus.OFFLINE,
                 port: configOverrides.port || analysis.port,
@@ -120,7 +120,7 @@ class ImportService {
                 executable: configOverrides.executable || analysis.executable,
                 ram: configOverrides.ram || analysis.ram,
                 autoStart: false,
-                javaVersion: (configOverrides.javaVersion as any) || analysis.javaVersion
+                javaVersion: (configOverrides.javaVersion as unknown) || analysis.javaVersion
             };
 
             saveServer(newServer);
@@ -147,7 +147,7 @@ class ImportService {
             let entries;
             try {
                 entries = zip.getEntries();
-            } catch (e: any) {
+            } catch (e: unknown) {
                 throw new Error(`Corrupt or invalid ZIP archive: ${e.message}`);
             }
 
@@ -181,7 +181,7 @@ class ImportService {
             }
 
             return this.analyzeFiles(relativeFilenames, serverProperties);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[ImportService] Fast ZIP Analysis failed: ${e.message}`);
             throw new Error(`Failed to analyze archive: ${e.message}`);
         }
@@ -214,7 +214,7 @@ class ImportService {
     private analyzeFiles(files: string[], serverProperties: string): ImportAnalysis {
         const lowerFiles = files.map(f => f.toLowerCase());
 
-        let software: any = 'Vanilla';
+        let software: unknown = 'Vanilla';
         let version = 'Unknown';
         let executable = 'server.jar';
         let port = 25565;
@@ -276,7 +276,7 @@ class ImportService {
 
         // 4. Heuristic for RAM & Java Version
         let ram = 2; 
-        let javaVersion: any = 'Java 17';
+        let javaVersion: unknown = 'Java 17';
 
         if (isModded) ram = 4;
         if (software === 'Velocity' || software === 'Bedrock') ram = 1;

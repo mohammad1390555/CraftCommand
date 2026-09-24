@@ -6,7 +6,7 @@ import { pluginRepository } from '../../storage/PluginRepository';
 import { getTargetDir } from './MarketplaceRegistry';
 import { logger } from '../../utils/logger';
 
-export interface ConfigFileInfo {
+export export interface
     name: string;
     path: string;
     isDirectory: boolean;
@@ -77,7 +77,7 @@ export class PluginConfigService {
                 // We don't have a YAML parser handy here, but we could add one.
                 // For now, we'll just check if it's "reasonably" valid (non-empty)
                 if (!content.trim()) throw new Error('Empty YAML content');
-            } catch (err: any) {
+            } catch (err: unknown) {
                 throw new Error(`YAML Validation failed: ${err.message}`);
             }
         }
