@@ -47,7 +47,7 @@ export function getAgentSocket(nodeId: string): Socket | undefined {
  * Send a command to a specific node agent.
  * Returns a promise that resolves when the agent acknowledges.
  */
-export async function sendToAgent(nodeId: string, event: string, data: any, timeoutMs: number = 10000): Promise<any> {
+export async function sendToAgent(nodeId: string, event: string, data: unknown, timeoutMs: number = 10000): Promise<unknown> {
     const socket = agentSockets.get(nodeId);
     if (!socket || !socket.connected) {
         agentSockets.delete(nodeId); // Clean up stale reference
@@ -59,7 +59,7 @@ export async function sendToAgent(nodeId: string, event: string, data: any, time
             reject(new SystemError(ErrorCode.E_PROC_TIMEOUT, `Timeout: Node Agent "${nodeId}" did not respond within ${timeoutMs / 1000}s.`));
         }, timeoutMs);
 
-        socket.emit(event, data, (response: any) => {
+        socket.emit(event, data, (response: unknown) => {
             clearTimeout(timer);
             if (response?.error) {
                 reject(new SystemError(ErrorCode.E_NODE_DEGRADED, response.error));
@@ -95,7 +95,7 @@ export function setupAgentNamespace(io: Server): void {
 
             if (process.env.NODE_ENV === 'test' && secret === 'e2e-secret-bypass') {
                  // Ensure node exists in registry so heartbeat works
-                 let node = nodeRegistryService.getNode(nodeId);
+                 const  nodeRegistryService.getNode(nodeId);
                  if (!node) {
                      logger.info(`[AgentHandler] E2E Bypass: Injecting missing node ${nodeId}`);
                      nodeRegistryService.injectNode({
@@ -111,8 +111,8 @@ export function setupAgentNamespace(io: Server): void {
                      });
                  }
 
-                 (socket as any).nodeId = nodeId;
-                 (socket as any).nodeName = node?.name || 'E2E Test Node';
+                 (socket as unknown).nodeId = nodeId;
+                 (socket as unknown).nodeName = node?.name || 'E2E Test Node';
                  logger.info(`[AgentHandler] E2E Bypass: Allowing connection for ${nodeId}`);
                  return next();
             }
@@ -150,8 +150,8 @@ export function setupAgentNamespace(io: Server): void {
                 return next(new Error('Authentication failed: Invalid node secret.'));
             }
 
-            (socket as any).nodeId = nodeId;
-            (socket as any).nodeName = node.name;
+            (socket as unknown).nodeId = nodeId;
+            (socket as unknown).nodeName = node.name;
 
             const agentVersion = socket.handshake.auth?.agentVersion;
             const protocolVersion = socket.handshake.auth?.protocolVersion;
@@ -166,11 +166,11 @@ export function setupAgentNamespace(io: Server): void {
                 return next(new Error(`Incompatible protocol version (v${currentProto}). Please update your Node Agent (requires v${MIN_PROTOCOL_VERSION}+).`));
             }
 
-            if (agentVersion) (socket as any).agentVersion = agentVersion;
-            if (protocolVersion) (socket as any).protocolVersion = protocolVersion;
+            if (agentVersion) (socket as unknown).agentVersion = agentVersion;
+            if (protocolVersion) (socket as unknown).protocolVersion = protocolVersion;
 
             next();
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[AgentHandler] Auth middleware error: ${err.message}`);
             next(new Error('Authentication failed.'));
         }
@@ -180,8 +180,8 @@ export function setupAgentNamespace(io: Server): void {
     agentNs.use(jitterMiddleware);
 
     agentNs.on('connection', (socket: Socket) => {
-        const nodeId = (socket as any).nodeId as string;
-        const nodeName = (socket as any).nodeName as string;
+        const nodeId = (socket as unknown).nodeId as string;
+        const nodeName = (socket as unknown).nodeName as string;
 
         // Prevent duplicate connections from the same node
         const existing = agentSockets.get(nodeId);
@@ -195,8 +195,8 @@ export function setupAgentNamespace(io: Server): void {
         }
 
         agentSockets.set(nodeId, socket);
-        const agentVer = (socket as any).agentVersion || 'unknown';
-        const protoVer = (socket as any).protocolVersion || 'unknown';
+        const agentVer = (socket as unknown).agentVersion || 'unknown';
+        const protoVer = (socket as unknown).protocolVersion || 'unknown';
         logger.info(`[AgentHandler] ✓ Node Agent connected: "${nodeName}" (${nodeId}) [${socket.id}] agent=v${agentVer} proto=v${protoVer}`);
 
         // Register with RemoteRunner
@@ -226,7 +226,7 @@ export function setupAgentNamespace(io: Server): void {
                 const cleanAddress = address.replace(/^::ffff:/, '');
                 nodeRegistryService.updateNodeAddress(nodeId, cleanAddress);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[AgentHandler] Failed to process initial heartbeat for ${nodeId}: ${e.message}`);
         }
         
@@ -240,7 +240,7 @@ export function setupAgentNamespace(io: Server): void {
         });
 
         // ── Heartbeat ──
-        socket.on('agent:heartbeat', (data: { health?: NodeHealth }, callback?: (ack: any) => void) => {
+        socket.on('agent:heartbeat', (data: { health?: NodeHealth }, callback?: (ack: unknown) => void) => {
             try {
                 nodeRegistryService.heartbeat(nodeId, data.health);
                 
@@ -252,7 +252,7 @@ export function setupAgentNamespace(io: Server): void {
                         timestamp: Date.now()
                     });
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[AgentHandler] Heartbeat processing error for node ${nodeId}: ${e.message}`);
                 if (typeof callback === 'function') {
                     callback({ success: false, error: e.message });
@@ -261,9 +261,9 @@ export function setupAgentNamespace(io: Server): void {
         });
 
         // ── Reconnect State Sync (#4) ──
-        socket.on('agent:sync', (data: { serverIds?: string[] }) => {
+        socket.on('agent:sync', (data: { serverIds?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }) => {
             if (!data?.serverIds || !Array.isArray(data.serverIds)) return;
-            const validIds = data.serverIds.filter((id: any) => typeof id === 'string' && id.trim().length > 0);
+            const validIds = data.serverIds.filter((id: unknown) => typeof id === 'string' && id.trim().length > 0);
             if (validIds.length > 0) {
                 logger.info(`[AgentHandler] Node "${nodeName}" synced ${validIds.length} running server(s): ${validIds.join(', ')}`);
                 remoteRunner.syncServersFromAgent(nodeId, validIds);
@@ -275,7 +275,7 @@ export function setupAgentNamespace(io: Server): void {
         });
 
         // Send Capabilities
-        socket.on('agent:capabilities', (caps: any) => {
+        socket.on('agent:capabilities', (caps: unknown) => {
             if (caps && typeof caps === 'object') {
                 nodeRegistryService.updateCapabilities(nodeId, caps);
             }
@@ -288,7 +288,7 @@ export function setupAgentNamespace(io: Server): void {
         });
 
         // #3 — Handle batched log lines
-        socket.on('agent:log-batch', (data: { serverId: string; lines: { line: string; type: 'stdout' | 'stderr' }[] }) => {
+        socket.on('agent:log-batch', (data: { serverId: string; lines: { line: string; type: 'stdout' | 'stderr' }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }) => {
             if (!data?.serverId || !Array.isArray(data?.lines)) return;
             for (const entry of data.lines) {
                 if (!entry?.line) continue;
@@ -321,7 +321,7 @@ export function setupAgentNamespace(io: Server): void {
             // Mark node OFFLINE immediately instead of waiting for sweep
             try {
                 nodeRegistryService.updateStatus(nodeId, NodeStatus.OFFLINE);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[AgentHandler] Failed to update status for disconnected node ${nodeId}: ${e.message}`);
             }
 
