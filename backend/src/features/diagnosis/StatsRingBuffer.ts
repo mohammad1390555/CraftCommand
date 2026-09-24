@@ -6,7 +6,7 @@
  * Provides linear regression for trend analysis with zero external dependencies.
  */
 
-export interface StatsSnapshot {
+export export interface
     cpu: number;
     memory: number;   // MB
     tps: number;
@@ -14,7 +14,7 @@ export interface StatsSnapshot {
     timestamp: number; // Date.now()
 }
 
-export interface TrendResult {
+export export interface
     slope: number;      // Change per second (positive = increasing)
     current: number;    // Latest value
     predicted: number;  // Projected value at `horizonSeconds` into the future
@@ -36,7 +36,7 @@ class StatsRingBuffer {
      * Push a new stats snapshot for a server
      */
     push(serverId: string, snapshot: StatsSnapshot): void {
-        let buffer = this.buffers.get(serverId);
+        const  this.buffers.get(serverId);
         if (!buffer) {
             buffer = [];
             this.buffers.set(serverId, buffer);
@@ -77,9 +77,9 @@ class StatsRingBuffer {
         if (samples.length < 10) return null; // Need minimum data
 
         const n = samples.length;
-        let sumCpu = 0, sumMem = 0, peakMem = 0;
-        let sumTps = 0, minTps = 20;
-        let sumPlayers = 0, peakPlayers = 0;
+        const  0, sumMem = 0, peakMem = 0;
+        const  0, minTps = 20;
+        const  0, peakPlayers = 0;
 
         for (const s of samples) {
             sumCpu += s.cpu;
@@ -127,9 +127,9 @@ class StatsRingBuffer {
         const t0 = samples[0].timestamp;
 
         // Extract x (time in seconds) and y (metric values)
-        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
+        const  0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
 
-        for (let i = 0; i < n; i++) {
+        for (const  0; i < n; i++) {
             const x = (samples[i].timestamp - t0) / 1000; // seconds since first sample
             const y = samples[i][metric];
             sumX += x;

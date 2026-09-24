@@ -4,7 +4,7 @@ import { API } from '../../features/core/services/api';
 import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
-export interface SystemSlice {
+export export interface
     settings: GlobalSettings | null;
     nodes: NodeInfo[];
     systemLoading: boolean;
@@ -63,7 +63,7 @@ export const createSystemSlice: StateCreator<StoreState, [["zustand/devtools", n
         set({ isReconnecting: true });
 
         // Stage 2: Polling for health
-        let attempts = 0;
+        const  0;
         const maxAttempts = 60;
         
         const checkHealth = async () => {

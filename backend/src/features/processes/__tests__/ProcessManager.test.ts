@@ -58,7 +58,7 @@ import { processManager } from '../ProcessManager';
 import { runnerFactory } from '../runners/RunnerFactory';
 
 describe('ProcessManager', () => {
-    let runner: any;
+    let runner: unknown;
 
     beforeEach(() => {
         jest.clearAllMocks();

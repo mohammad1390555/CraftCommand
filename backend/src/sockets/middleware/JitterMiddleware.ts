@@ -13,14 +13,14 @@ import { logger } from '../../utils/logger';
 const JITTER_RANGE = process.env.SOCKET_JITTER_MS || '0'; // e.g. "100-300"
 const [min, max] = JITTER_RANGE.split('-').map(v => parseInt(v));
 
-export const jitterMiddleware = (socket: Socket, next: (err?: any) => void) => {
+export const jitterMiddleware = (socket: Socket, next: (err?: unknown) => void) => {
     if (!min || isNaN(min)) return next();
 
     logger.info(`[Jitter] Enabling artificial latency (${JITTER_RANGE}ms) for socket ${socket.id}`);
 
     // 1. Wrap incoming events
-    const originalOnEvent = (socket as any).onevent;
-    (socket as any).onevent = function(packet: any) {
+    const originalOnEvent = (socket as unknown).onevent;
+    (socket as unknown).onevent = function(packet: unknown) {
         const delay = min + Math.random() * (max - min || 0);
         setTimeout(() => {
             originalOnEvent.call(this, packet);
@@ -29,7 +29,7 @@ export const jitterMiddleware = (socket: Socket, next: (err?: any) => void) => {
 
     // 2. Wrap outgoing emits
     const originalEmit = socket.emit;
-    socket.emit = function(event: string, ...args: any[]): any {
+    socket.emit = function(event: string, ...args: unknown[]): unknown {
         const delay = min + Math.random() * (max - min || 0);
         setTimeout(() => {
             originalEmit.apply(this, [event, ...args]);
