@@ -12,7 +12,7 @@ const router = Router();
 /**
  * Middleware: Ensure distributed nodes feature is enabled.
  */
-const requireDistributedNodes = (req: any, res: any, next: any) => {
+const requireDistributedNodes = (req: unknown, res: unknown, next: unknown) => {
     // E2E Test Bypass
     if (process.env.NODE_ENV === 'test' && req.headers['x-test-bypass'] === 'true') {
         return next();
@@ -74,7 +74,7 @@ import rateLimit from 'express-rate-limit';
 const nodeEnrollLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 10,
-    message: { error: 'Too many enrollment attempts, please try again later' }
+    message: { error: 'Too munknown enrollment attempts, please try again later' }
 });
 
 /**
@@ -95,7 +95,7 @@ router.post('/enroll', verifyToken, nodeEnrollLimiter, requireRole(['OWNER']), r
         const validPort = ValidationUtils.validatePort(port);
         const validName = ValidationUtils.validateId(name, 'Node Name');
 
-        const node = nodeRegistryService.enroll(validName, validHost, validPort, labels || []);
+        const node = nodeRegistryService.enroll(validName, validHost, validPort, labels || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
         
         auditService.log(req.user.id, 'SYSTEM_SETTINGS_UPDATE', node.id, {
             action: 'NODE_ENROLL',
@@ -104,7 +104,7 @@ router.post('/enroll', verifyToken, nodeEnrollLimiter, requireRole(['OWNER']), r
         }, req.ip);
 
         res.status(201).json(node);
-    } catch (error: any) {
+    } catch (error: unknown) {
         // Service throws descriptive errors for duplicates, invalid input, etc.
         const message = error?.message || 'Failed to enroll node';
         const isDuplicate = message.includes('already enrolled') || message.includes('already exists');
@@ -137,7 +137,7 @@ router.post('/enroll-wizard', verifyToken, requireRole(['OWNER']), requireDistri
             secret: result.secret,
             token: result.token
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (error.message?.includes('already exists')) {
             return res.status(409).json({ error: error.message });
         }
@@ -162,7 +162,7 @@ router.get('/join-command/:id', verifyToken, requireRole(['OWNER']), requireDist
             command: `./run_CraftCommand.sh --join ${panelUrl} ${token}`,
             powershell: `.\\run_CraftCommand.bat --join ${panelUrl} ${token}`
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
         res.status(404).json({ error: error.message });
     }
 });
@@ -175,7 +175,7 @@ router.get('/join-config/:token', (req, res) => {
     try {
         const config = nodeRegistryService.consumeJoinToken(req.params.token);
         res.json(config);
-    } catch (error: any) {
+    } catch (error: unknown) {
         res.status(401).json({ error: error.message });
     }
 });
@@ -212,7 +212,7 @@ router.get('/enroll-wizard/download/:id', async (req, res) => {
         res.setHeader('Content-Disposition', `attachment; filename=craftcommand-agent-${node.name.replace(/\s+/g, '-')}.zip`);
         
         zipStream.pipe(res);
-    } catch (error: any) {
+    } catch (error: unknown) {
         logger.error(`[Nodes] Failed to generate enrollment package: ${error}`);
         res.status(500).json({ error: error.message || 'Failed to generate enrollment package' });
     }
@@ -306,7 +306,7 @@ router.post('/:id/fix', verifyToken, requireRole(['OWNER']), requireDistributedN
             nodeName: node.name
         }, req.ip);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         logger.error(`[Nodes] Failed to trigger fix: ${error}`);
         res.status(500).json({ error: error.message || 'Failed to trigger fix' });
     }
@@ -347,7 +347,7 @@ router.post('/:id/shutdown', verifyToken, requireRole(['OWNER']), requireDistrib
             nodeName: node.name
         }, req.ip);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         logger.error(`[Nodes] Failed to shutdown node: ${error}`);
         res.status(500).json({ error: error.message || 'Failed to shutdown node' });
     }
@@ -410,7 +410,7 @@ router.post('/:id/backups/intake', async (req, res) => {
 
         res.json({ ok: true, message: 'Backup mirrored successfully.' });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         logger.error(`[Nodes] Mirror intake failed: ${error}`);
         res.status(500).json({ error: error.message || 'Mirror intake failed' });
     }

@@ -28,7 +28,7 @@ export class StartupManager {
     /**
      * Orchestrates the entire startup process
      */
-    async startServer(server: any, saveServerCallback: (s: any) => void, force: boolean = false): Promise<void> {
+    async startServer(server: unknown, saveServerCallback: (s: unknown) => void, force: boolean = false): Promise<void> {
         const id = server.id;
 
         try {
@@ -78,14 +78,14 @@ export class StartupManager {
                     if (resolved.length > 0) {
                         logger.success(`[StartupManager:${id}] Pre-boot: Auto-installed ${resolved.length} missing dependencies.`);
                     }
-                } catch (e: any) {
+                } catch (e: unknown) {
                     logger.warn(`[StartupManager:${id}] SmartMod pre-boot processing failed (non-fatal): ${e.message}`);
                     processManager.emit('log', { id, line: `[SmartMod] ⚠️ Warning: Verification failed: ${e.message}`, type: 'stdout' });
                 }
             }
 
             // 3. Resolve Java (Skip for Bedrock)
-            let javaPath = '';
+            const  '';
             if (server.software !== 'Bedrock') {
                 const result = await javaManager.ensureJava(server.javaVersion || 'Java 17', id);
                 javaPath = result.path;
@@ -97,7 +97,7 @@ export class StartupManager {
 
             // GLOBAL DOCKER ENFORCEMENT
             const settings = systemSettingsService.getSettings();
-            let engine = server.executionEngine;
+            const  server.executionEngine;
             
             // Use global default if per-server engine is unset
             if (!engine || engine === 'default') {
@@ -115,7 +115,7 @@ export class StartupManager {
             await networkService.onServerStart(id);
 
             // 5. Launch
-            let dockerImage = server.dockerImage;
+            const  server.dockerImage;
             const autoImage = javaManager.getDockerImageForJava(server.javaVersion);
 
             // Override: If no image set, OR if it's common default/stale, use auto-mapped
@@ -155,7 +155,7 @@ export class StartupManager {
             // 6. Clear Restart Flag (Hardening)
             saveServerCallback({ ...server, needsRestart: false });
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[StartupManager:${id}] Startup failed: ${error.message}`);
             throw error;
         }
@@ -163,7 +163,7 @@ export class StartupManager {
 
 
 
-    private async prepareEnvironment(server: any) {
+    private async prepareEnvironment(server: unknown) {
         const cwd = server.workingDirectory;
         const id = server.id;
 
@@ -192,7 +192,7 @@ export class StartupManager {
         }
 
         // 2. Forge Specific Checks (Warning only)
-        let defaultExe = 'server.jar';
+        const  'server.jar';
         if (server.software === 'Bedrock') {
             defaultExe = process.platform === 'win32' ? 'bedrock_server.exe' : 'bedrock_server';
         } else if (server.software === 'Velocity' || server.type === 'Velocity') {
@@ -227,7 +227,7 @@ export class StartupManager {
         }
     }
 
-    private async buildStartCommand(server: any, javaPath: string, engine: 'native' | 'docker' = 'native'): Promise<{ cmd: string, cwd: string, env: NodeJS.ProcessEnv }> {
+    private async buildStartCommand(server: unknown, javaPath: string, engine: 'native' | 'docker' = 'native'): Promise<{ cmd: string, cwd: string, env: NodeJS.ProcessEnv }> {
         const cwd = server.workingDirectory;
         const isWin = process.platform === 'win32';
         
@@ -238,7 +238,7 @@ export class StartupManager {
             return { cmd, cwd, env: {} };
         }
 
-        let defaultJar = 'server.jar';
+        const  'server.jar';
         if (server.software === 'Velocity' || server.type === 'Velocity') {
             defaultJar = 'velocity.jar';
         }
@@ -258,7 +258,7 @@ export class StartupManager {
         // Construct JVM Arguments
         const AIKAR_FLAGS = "-XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=true -Daikars.new.flags=true";
         
-        let jvmArgs = `-Xmx${server.ram}G`;
+        const  `-Xmx${server.ram}G`;
 
         // 1. GC Engine Selection
         const gcEngine = server.advancedFlags?.gcEngine || 'G1GC';
@@ -303,12 +303,12 @@ export class StartupManager {
         // Suppress Paper "You've not updated in a while" warning
         jvmArgs += ' -Dpaper.disableUpdateCheck=true';
 
-        let cmd = '';
+        const  '';
         // Removed duplicate isWin
 
-        let runPrefix = '';
+        const  '';
         if (isWin) {
-            let priorityFlag = '/NORMAL';
+            const  '/NORMAL';
             if (server.cpuPriority === 'high') priorityFlag = '/HIGH';
             if (server.cpuPriority === 'realtime') priorityFlag = '/REALTIME';
             
@@ -367,7 +367,7 @@ export class StartupManager {
     // Removed autoCorrectVelocity
 
 
-    public async enforceBackendProperties(server: any) {
+    public async enforceBackendProperties(server: unknown) {
         try {
             const software = server.software?.toLowerCase() || '';
 
@@ -376,7 +376,7 @@ export class StartupManager {
                 const configPath = path.join(server.workingDirectory, 'velocity.toml');
                 if (await fs.pathExists(configPath)) {
                     const originalContent = await fs.readFile(configPath, 'utf8');
-                    let content = originalContent;
+                    const  originalContent;
                     
                     // 1. Strip out all existing managed blocks and inline declarations
                     // This prevents root settings from being swallowed if a block is poorly positioned
@@ -425,7 +425,7 @@ export class StartupManager {
                         content += `\n\n${serversBlock}`;
                     }
 
-                    let forcedHostsBlock = '[forced-hosts]\n';
+                    const  '[forced-hosts]\n';
                     if (server.network?.proxyConfig?.forcedHosts && Object.keys(server.network.proxyConfig.forcedHosts).length > 0) {
                         for (const [host, targets] of Object.entries(server.network.proxyConfig.forcedHosts)) {
                             forcedHostsBlock += `  "${host}" = ${JSON.stringify(targets)}\n`;
@@ -445,7 +445,7 @@ export class StartupManager {
                     await proxyService.syncForwarding(server.id);
 
                     // SYNC: Automatically enforce configuration for all linked backend servers
-                    const links = server.network?.proxyConfig?.links || [];
+                    const links = server.network?.proxyConfig?.links || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                     if (links.length > 0) {
                         logger.info(`[StartupManager:${server.id}] Proxy starting. Auto-syncing ${links.length} linked backend servers...`);
                         
@@ -474,7 +474,7 @@ export class StartupManager {
 
             const propsPath = path.join(server.workingDirectory, 'server.properties');
             if (await fs.pathExists(propsPath)) {
-                 let content = await fs.readFile(propsPath, 'utf8');
+                 const  await fs.readFile(propsPath, 'utf8');
 
                 // 1.5 RCON ENFORCEMENT (v2.0: For Runner Decoupling)
                 if (software !== 'bedrock' && software !== 'velocity') {
@@ -509,7 +509,7 @@ export class StartupManager {
                 const allServers = serverRepository.findAll();
                 const isLinkedToProxy = allServers.some(s => 
                     s.software === 'Velocity' && 
-                    s.network?.proxyConfig?.links?.some((l: any) => l.serverId === server.id)
+                    s.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === server.id)
                 );
 
                 if (isLinkedToProxy && software !== 'velocity') {
@@ -527,7 +527,7 @@ export class StartupManager {
                 if (software.includes('spigot')) {
                     const spigotPath = path.join(server.workingDirectory, 'spigot.yml');
                     if (await fs.pathExists(spigotPath)) {
-                        let spigotContent = await fs.readFile(spigotPath, 'utf8');
+                        const  await fs.readFile(spigotPath, 'utf8');
                         if (isLinkedToProxy) {
                             spigotContent = spigotContent.replace(/bungeecord:\s*false/g, 'bungeecord: true');
                         } else {
@@ -547,7 +547,7 @@ export class StartupManager {
         }
     }
 
-    private async enforcePaperForwarding(server: any, isLinked: boolean) {
+    private async enforcePaperForwarding(server: unknown, isLinked: boolean) {
         const paths = [
             path.join(server.workingDirectory, 'config', 'paper-global.yml'),
             path.join(server.workingDirectory, 'paper.yml') // Legacy 1.18 and below
@@ -557,14 +557,14 @@ export class StartupManager {
             if (!(await fs.pathExists(configPath))) continue;
 
             try {
-                let content = await fs.readFile(configPath, 'utf8');
+                const  await fs.readFile(configPath, 'utf8');
                 const { serverRepository } = await import('../../storage/ServerRepository');
                 const allServers = serverRepository.findAll();
                 
                 // Find the proxy this server is linked to
                 const proxy = allServers.find(s => 
                     s.software === 'Velocity' && 
-                    s.network?.proxyConfig?.links?.some((l: any) => l.serverId === server.id)
+                    s.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === server.id)
                 );
 
                 if (isLinked && proxy && proxy.network?.proxyConfig) {

@@ -34,14 +34,14 @@ export const DiagnosisActions = {
      * Resolves port conflicts by finding the next available port
      */
     resolvePortConflict: async (server: ServerConfig, fs: FileSystemManager) => {
-        let currentPort = server.port;
-        let newPort = currentPort;
-        let isAvailable = false;
+        const  server.port;
+        const  currentPort;
+        const  false;
 
         logger.info(`[DiagnosisAction] Resolving port conflict (Current: ${currentPort})`);
 
         const { NetUtils } = require('../../utils/NetUtils'); // Dynamic import
-        for (let i = 1; i <= 10; i++) {
+        for (const  1; i <= 10; i++) {
             const testPort = currentPort + i;
             const busy = await NetUtils.checkPort(testPort);
             if (!busy) {
@@ -56,7 +56,7 @@ export const DiagnosisActions = {
             
             // Sync properties via FS manager
             try {
-                let props = await fs.readFile('server.properties');
+                const  await fs.readFile('server.properties');
                 props = props.replace(/^server-port=.*$/m, `server-port=${newPort}`);
                 props = props.replace(/^query.port=.*$/m, `query.port=${newPort}`);
                 await fs.writeFile('server.properties', props);
@@ -96,7 +96,7 @@ export const DiagnosisActions = {
      * Switches Java version
      */
     switchJavaVersion: async (server: ServerConfig, version: string) => {
-        serverRepository.update(server.id, { javaVersion: version as any });
+        serverRepository.update(server.id, { javaVersion: version as unknown });
     },
 
     /**
@@ -107,7 +107,7 @@ export const DiagnosisActions = {
         logger.info(`[DiagnosisAction] Repairing and sanitizing server.properties...`);
         try {
             if (await fs.exists('server.properties')) {
-                let content = await fs.readFile('server.properties');
+                const  await fs.readFile('server.properties');
                 
                 // 1. Remove obvious syntax garbage (binary symbols, illegal characters)
                 content = content.replace(/[^\x00-\x7F]/g, ''); 
@@ -147,7 +147,7 @@ export const DiagnosisActions = {
                 // Create default properties if missing
                 await fs.writeFile('server.properties', 'online-mode=true\nserver-port=25565\nmax-players=20\nview-distance=10');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Properties repair failed: ${e.message}`);
         }
     },
@@ -167,7 +167,7 @@ export const DiagnosisActions = {
                     // 1. Rotate massive active logs
                     if (file.name === 'latest.log' && file.size > MAX_LOG_SIZE) {
                         logger.warn(`[DiagnosisAction] latest.log exceeded 100MB. Tail-rotating...`);
-                        await DiagnosisActions.smartLogRotation({ id: 'active' } as any, fs);
+                        await DiagnosisActions.smartLogRotation({ id: 'active' } as unknown, fs);
                     }
                     
                     // 2. Cleanup ancient archives (> 7 days or total > 2GB)
@@ -221,12 +221,12 @@ export const DiagnosisActions = {
     /**
      * Removes duplicate versions of the same plugin, keeping the most recent one
      */
-    removeDuplicatePlugins: async (fs: FileSystemManager, files: string[]) => {
+    removeDuplicatePlugins: async (fs: FileSystemManager, files: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) => {
         logger.info(`[DiagnosisAction] Resolving duplicate plugins: ${files.join(', ')}`);
         
         // Find the "best" one to keep (latest modification time)
-        let latestFile = files[0];
-        let latestTime = 0;
+        const  files[0];
+        const  0;
 
         for (const file of files) {
             try {
@@ -331,12 +331,12 @@ export const DiagnosisActions = {
         const configPath = 'plugins/dynmap/configuration.txt';
         if (!(await fs.exists(configPath))) throw new Error('Dynmap configuration not found.');
 
-        let config = await fs.readFile(configPath);
+        const  await fs.readFile(configPath);
         
         // Find a new port
         const { NetUtils } = require('../../utils/NetUtils');
-        let newPort = 8123; // Default
-        for (let i = 1; i <= 20; i++) {
+        const  8123; // Default
+        for (const  1; i <= 20; i++) {
             const testPort = 8123 + i;
             if (!(await NetUtils.checkPort(testPort))) {
                 newPort = testPort;
@@ -369,7 +369,7 @@ export const DiagnosisActions = {
             // Set read/write/execute for owner, read/execute for group and others
             await execAsync(`chmod -R 755 "${pluginsDir}"`);
             logger.success(`[DiagnosisAction] Permissions repaired for ${pluginsDir}`);
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[DiagnosisAction] Failed to repair permissions: ${error.message}`);
             throw error;
         }
@@ -435,7 +435,7 @@ export const DiagnosisActions = {
              const { saveServer } = require('../servers/ServerService');
              
              const current = server.crossPlay?.bedrockPort || 19132;
-             for (let p = current + 1; p < current + 100; p++) {
+             for (const  current + 1; p < current + 100; p++) {
                 if (await NetUtils.checkUDPPortBind(p)) {
                     server.crossPlay!.bedrockPort = p;
                     server.needsRestart = true;
@@ -468,7 +468,7 @@ export const DiagnosisActions = {
             } else {
                 logger.info(`[DiagnosisAction] session.lock not found at ${lockPath}, skipping.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Failed to delete session.lock: ${e.message}`);
             throw e;
         }
@@ -511,13 +511,13 @@ export const DiagnosisActions = {
         // Handle comma-separated dependencies
         const deps = name.split(',').map(d => d.trim()).filter(d => d.length > 0);
         
-        let installed = 0;
-        let failed = 0;
+        const  0;
+        const  0;
         
         for (const dep of deps) {
             logger.info(`[DiagnosisAction] Attempting to install dependency: ${dep} for ${server.id}`);
             
-            let projectId = ModrinthProjectMappings[dep];
+            const  ModrinthProjectMappings[dep];
             
             // Fallback: If no direct mapping exists, try the slug directly
             if (!projectId && /^[a-z0-9-_]+$/.test(dep)) {
@@ -530,7 +530,7 @@ export const DiagnosisActions = {
                     await pluginService.install(server.id, projectId, 'modrinth');
                     installed++;
                     logger.success(`[DiagnosisAction] Successfully installed dependency: ${dep}`);
-                } catch (e: any) {
+                } catch (e: unknown) {
                     failed++;
                     logger.error(`[DiagnosisAction] Failed to install ${dep}: ${e.message}`);
                 }
@@ -541,7 +541,7 @@ export const DiagnosisActions = {
         }
         
         if (failed > 0 && installed === 0) {
-            throw new Error(`Could not install any of the requested dependencies (${name}). They may not be available on Modrinth.`);
+            throw new Error(`Could not install unknown of the requested dependencies (${name}). They may not be available on Modrinth.`);
         }
         
         logger.success(`[DiagnosisAction] Dependency installation complete: ${installed} installed, ${failed} failed.`);
@@ -562,7 +562,7 @@ export const DiagnosisActions = {
      */
     restoreLevelData: async (server: ServerConfig, fs: FileSystemManager) => {
         const { ConfigReader } = require('../../utils/ConfigReader');
-        let levelName = 'world';
+        const  'world';
         try {
             const properties = await ConfigReader.readProperties(path.join(server.workingDirectory, 'server.properties'));
             levelName = properties['level-name'] || 'world';
@@ -585,7 +585,7 @@ export const DiagnosisActions = {
             } else {
                 throw new Error('level.dat_old not found. Manual recovery required.');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] level.dat recovery failed: ${e.message}`);
             throw e;
         }
@@ -608,7 +608,7 @@ export const DiagnosisActions = {
         logger.info(`[DiagnosisAction] Enabling Forge entity purging for ${server.id}`);
         
         // 1. Detect Config Path (Forge 1.13+ uses world/serverconfig/forge-server.toml)
-        let configPath = 'world/serverconfig/forge-server.toml'; // Default for modern
+        const  'world/serverconfig/forge-server.toml'; // Default for modern
         
         // If server-properties defines a different world name
         const { ConfigReader } = require('../../utils/ConfigReader');
@@ -622,13 +622,13 @@ export const DiagnosisActions = {
 
         try {
             if (await fs.exists(configPath)) {
-                let content = await fs.readFile(configPath);
+                const  await fs.readFile(configPath);
                 content = content.replace(/removeErroringEntities\s*=\s*false/g, 'removeErroringEntities = true');
                 content = content.replace(/removeErroringTileEntities\s*=\s*false/g, 'removeErroringTileEntities = true');
                 await fs.writeFile(configPath, content);
                 logger.success(`[DiagnosisAction] Updated modern Forge config at ${configPath}`);
             } else if (await fs.exists(legacyPath)) {
-                let content = await fs.readFile(legacyPath);
+                const  await fs.readFile(legacyPath);
                 content = content.replace(/B:removeErroringEntities=false/g, 'B:removeErroringEntities=true');
                 content = content.replace(/B:removeErroringTileEntities=false/g, 'B:removeErroringTileEntities=true');
                 await fs.writeFile(legacyPath, content);
@@ -636,7 +636,7 @@ export const DiagnosisActions = {
             } else {
                 logger.warn(`[DiagnosisAction] No Forge configuration found to enable entity purging.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Failed to update Forge config: ${e.message}`);
         }
     },
@@ -649,11 +649,11 @@ export const DiagnosisActions = {
 
         logger.info(`[DiagnosisAction] Clearing invalid IP binding for ${server.id}`);
         try {
-            let content = await fs.readFile(configPath);
+            const  await fs.readFile(configPath);
             content = content.replace(/^server-ip=.*$/m, 'server-ip=');
             await fs.writeFile(configPath, content);
             logger.success(`[DiagnosisAction] Successfully cleared server-ip binding.`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Failed to fix IP binding: ${e.message}`);
             throw e;
         }
@@ -676,7 +676,7 @@ export const DiagnosisActions = {
                 await fs.writeFile(logPath, head + tail);
                 logger.success(`[DiagnosisAction] Log rotated successfully. Kept tail ${500} lines.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Smart rotation failed: ${e.message}`);
         }
     },
@@ -702,7 +702,7 @@ export const DiagnosisActions = {
                 if (await fs.exists(item)) await fs.deletePath(item);
             }
             logger.success(`[DiagnosisAction] Storage cleanup complete.`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] Cleanup failed: ${e.message}`);
         }
     },
@@ -763,7 +763,7 @@ export const DiagnosisActions = {
             } else {
                 await serverService.sendCommand(server.id, 'gc');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[DiagnosisAction] GC Sweep orchestrated failure: ${e.message}`);
         }
     }
