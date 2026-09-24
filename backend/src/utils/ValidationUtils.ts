@@ -4,7 +4,7 @@ export class ValidationUtils {
     /**
      * Validates a port number (1-65535).
      */
-    public static validatePort(port: any): number {
+    public static validatePort(port: unknown): number {
         const p = parseInt(port);
         if (isNaN(p) || p < 1 || p > 65535) {
             throw new AppError(400, 'INVALID_PORT', 'Invalid port. Must be between 1 and 65535.');
@@ -39,7 +39,7 @@ export class ValidationUtils {
     /**
      * Validates RAM input (int, GB).
      */
-    public static validateRam(ram: any): number {
+    public static validateRam(ram: unknown): number {
         const r = parseInt(ram);
         if (isNaN(r) || r < 1 || r > 512) {
             throw new AppError(400, 'INVALID_RAM', 'Invalid RAM allocation. Must be between 1 and 512 GB.');
