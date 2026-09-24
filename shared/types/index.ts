@@ -72,7 +72,7 @@ export interface UserProfile {
         theme?: 'dark' | 'light' | 'system';  // Theme preference
         language?: string; // Preferred language (e.g., 'en', 'es', 'fr')
         backgrounds?: CustomBackgrounds;
-        dashboardLayout?: any; // Stores react-grid-layout state
+        dashboardLayout?: unknown; // Stores react-grid-layout state
         notifications: {
             browser: boolean;
             sound: boolean;
@@ -354,7 +354,7 @@ export interface CloudBackupDestination {
     type: 'local-copy' | 's3' | 'sftp';
     enabled: boolean;
     name: string;
-    config: Record<string, any>;
+    config: Record<string, unknown>;
 }
 
 export interface Backup {
@@ -399,7 +399,7 @@ export interface FileNode {
     type?: string;
     size: number | string;
     lastModified?: number;
-    modified?: any;
+    modified?: unknown;
     isProtected?: boolean;
     children?: FileNode[];
 }
@@ -430,7 +430,7 @@ export interface DiscordBotConfig {
     clientId: string;
     guildId?: string;
     enabled?: boolean;
-    commandRoles?: any;
+    commandRoles?: unknown;
     notificationChannel?: string;
     chatChannel?: string;
 }
@@ -489,7 +489,7 @@ export interface AuditLog {
     userEmail?: string;
     action: AuditAction;
     resourceId?: string;
-    metadata?: any;
+    metadata?: unknown;
     ip?: string;
 }
 
@@ -520,7 +520,7 @@ export interface DiagnosisResult {
     recommendation: string;
     action?: {
         type: 'UPDATE_CONFIG' | 'SWITCH_JAVA' | 'AGREE_EULA' | 'INSTALL_DEPENDENCY' | 'REPAIR_PROPERTIES' | 'CLEANUP_TELEMETRY' | 'OPTIMIZE_ARGUMENTS' | 'PURGE_GHOST' | 'RESOLVE_PORT_CONFLICT' | 'REMOVE_DUPLICATE_PLUGIN' | 'CREATE_PLUGIN_FOLDER' | 'TAKE_HEAP_SNAPSHOT' | 'RESTORE_DATA_BACKUP' | 'REINSTALL_BEDROCK' | 'RESYNC_VELOCITY_SECRET' | 'INSTALL_JAVA' | 'TRIGGER_DDNS_UPDATE' | 'REINSTALL_GEYSER' | 'REINSTALL_FLOODGATE' | 'RESYNC_CROSSPLAY_FORWARDING' | 'REASSIGN_BEDROCK_PORT' | 'CLEANUP_WORLD_LOCK' | 'FIX_JVM_ARGS' | 'ENABLE_ENTITY_PURGE' | 'RESTORE_LEVEL_DATA' | 'CLEANUP_LOGS' | 'REPAIR_PERMISSIONS' | 'FIX_IP_BINDING' | 'SMART_LOG_ROTATION' | 'ROTATE_LOGS' | 'SAFE_GC' | 'SYSTEM_MAINTENANCE' | 'REINSTALL_LOADER' | 'PERFORM_STORAGE_CLEANUP' | 'ADJUST_RAM' | 'REINSTALL_GEYSER' | 'REINSTALL_FLOODGATE' | 'RESYNC_CROSSPLAY_FORWARDING';
-        payload: any;
+        payload: unknown;
         automaticRepair?: boolean; // If true, AutomaticRepairService can execute this automatically
     };
     connectedCrashReport?: {
@@ -552,7 +552,7 @@ export interface Notification {
     message: string;
     read: boolean;
     createdAt: number;
-    metadata?: any;
+    metadata?: unknown;
     link?: string;
     actionLabel?: string; // Custom label for the link button (e.g. "Install", "View")
     dismissible?: boolean; // If false, cannot be deleted by user
@@ -567,7 +567,7 @@ export interface ConnectionStatus {
     localIP?: string;
     bindAddress: string;
     error?: string;
-    details?: any; // Provider specific details (e.g. tunnel URL)
+    details?: unknown; // Provider specific details (e.g. tunnel URL)
 }
 
 // --- Plugin Marketplace Types ---
@@ -668,7 +668,7 @@ export interface ActivityEvent {
     username: string;
     action: ActivityAction;
     detail: string;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
     visibility: UserRole;   // Minimum role to see this event
     timestamp: number;
 }
@@ -814,8 +814,8 @@ export interface MapStatus {
 
 export interface ConfigMismatch {
     setting: string;
-    diskValue: any;
-    dbValue: any;
+    diskValue: unknown;
+    dbValue: unknown;
     severity: 'low' | 'medium' | 'high';
 }
 

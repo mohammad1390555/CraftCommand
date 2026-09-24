@@ -36,7 +36,7 @@ describe('JsonRepository', () => {
         
         // Override process.cwd to point to our temp dir 
         originalCwd = process.cwd;
-        process.cwd = jest.fn().mockReturnValue(testDir) as any;
+        process.cwd = jest.fn().mockReturnValue(testDir) as unknown;
     });
 
     afterEach(async () => {
@@ -90,7 +90,7 @@ describe('JsonRepository', () => {
             repo.create({ id: 'srv-1', name: 'Test', status: 'offline' });
 
             // Force save (bypass debounce)
-            await (repo as any).executeSave();
+            await (repo as unknown).executeSave();
 
             // Read the file directly
             const dataFile = path.join(testDir, 'data', 'test-persist.json');
@@ -113,7 +113,7 @@ describe('JsonRepository', () => {
             const repo = new TestRepository('test-atomic.json');
             repo.create({ id: 'srv-1', name: 'Test', status: 'offline' });
 
-            await (repo as any).executeSave();
+            await (repo as unknown).executeSave();
 
             // Verify no .tmp file left behind
             const dataFile = path.join(testDir, 'data', 'test-atomic.json');

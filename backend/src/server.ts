@@ -75,7 +75,7 @@ import { setSystemStatus, protocol, sslStatus } from './features/system/SystemSt
 
 const app = express();
 const settings = systemSettingsService.getSettings();
-let httpServer: any;
+let httpServer: unknown;
 
 const initHttpServer = async () => {
     if (settings.app.https?.enabled && settings.app.https.mode !== 'bridge') {
@@ -98,7 +98,7 @@ const initHttpServer = async () => {
             const currentSslStatus = isSelfSigned ? 'SELF_SIGNED' : 'VALID';
             setSystemStatus(currentProtocol, currentSslStatus);
             logger.info(`System protocol configured: ${currentProtocol.toUpperCase()} (${currentSslStatus})`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`Failed to initialize secure listener: ${e.message}`);
             logger.warn('Falling back to standard HTTP listener.');
             httpServer = createServer(app);
@@ -151,7 +151,7 @@ const startup = async () => {
                 });
             }
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.warn(`Initial server load failed: ${e.message}`);
     }
 
@@ -172,7 +172,7 @@ const startup = async () => {
         hostPersistenceService.verifyPersistencePath().catch(err => {
             logger.error(`[HostPersistence] Startup verification failed: ${err.message}`);
         });
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`Service initialization failed: ${e.message}`);
     }
 
@@ -253,7 +253,7 @@ const startMain = async () => {
 
     // Inject IO for routes
     app.use((req, res, next) => {
-        (req as any).io = io;
+        (req as unknown).io = io;
         next();
     });
     
@@ -334,7 +334,7 @@ const startMain = async () => {
     httpServer.listen(PORT, BIND_IP, async () => {
         try {
             await startup();
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`CRITICAL: Backend startup failed: ${e.message}`);
         }
     });
@@ -368,7 +368,7 @@ const startMain = async () => {
 
             logger.success('[System] Shutdown complete. Goodbye!');
             process.exit(0);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[System] Error during shutdown: ${e.message}`);
             process.exit(1);
         }

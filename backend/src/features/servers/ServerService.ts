@@ -25,7 +25,7 @@ import { DATA_DIR, SERVERS_ROOT } from '../../constants';
 import { randomUUID } from 'crypto';
 
 const operationLocks = new Set<string>();
-const lastDiagnosisResults = new Map<string, { results: any[], time: number, status: ServerStatus }>();
+const lastDiagnosisResults = new Map<string, { results: unknown[], time: number, status: ServerStatus }>();
 
 const acquireLock = (serverId: string, operation: string) => {
     if (operationLocks.has(serverId)) {
@@ -56,7 +56,7 @@ fs.ensureDirSync(SERVERS_ROOT);
 /**
  * Technical Validation Guard
  */
-const validateUpdate = (updates: any) => {
+const validateUpdate = (updates: unknown) => {
     if (updates.port !== undefined && (updates.port < 1024 || updates.port > 65535)) {
         throw new Error('Invalid port range (1024-65535)');
     }
@@ -155,7 +155,7 @@ export const purgeServerState = async (id: string) => {
         await backupService.cancelActiveBackups(id);
         await backupService.clearAllBackups(id);
         logger.info(`[ServerService] Purged all backup archives and cancelled active tasks for ${id}.`);
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.warn(`[ServerService] Failed to purge backups for ${id}: ${e.message}`);
     }
 
@@ -226,8 +226,8 @@ export const cloneServer = async (id: string, newName?: string): Promise<ServerC
         linkedProxyId: undefined,
     };
 
-    delete (clone as any).startTime;
-    delete (clone as any).linkedProxyId;
+    delete (clone as unknown).startTime;
+    delete (clone as unknown).linkedProxyId;
 
     saveServer(clone);
 
@@ -299,7 +299,7 @@ export const bootstrapDiscovery = async () => {
                     const newServer: ServerConfig = {
                         id: entry.replace('local-', '') || randomUUID(),
                         name: `Discovered: ${entry.split('-').slice(1).join('-') || entry}`,
-                        software: software as any,
+                        software: software as unknown,
                         version: 'Auto-Detected',
                         port,
                         ip: '127.0.0.1',
@@ -341,7 +341,7 @@ const runBootstrap = async () => {
 
 runBootstrap();
 
-export const updateServer = async (id: string, updates: any) => {
+export const updateServer = async (id: string, updates: unknown) => {
     acquireLock(id, 'UPDATE');
     
     try {
@@ -385,8 +385,8 @@ export const updateServer = async (id: string, updates: any) => {
             const oldLinks = oldServer.network?.proxyConfig?.links || [];
             const newLinks = updates.network.proxyConfig.links;
 
-            const oldRelatedIds = new Set(oldLinks.map((l: any) => l.serverId));
-            const newRelatedIds = new Set(newLinks.map((l: any) => l.serverId));
+            const oldRelatedIds = new Set(oldLinks.map((l: unknown) => l.serverId));
+            const newRelatedIds = new Set(newLinks.map((l: unknown) => l.serverId));
 
             for (const sid of [...newRelatedIds].filter(x => !oldRelatedIds.has(x))) {
                 const target = serverRepository.findById(sid as string);
@@ -455,7 +455,7 @@ export const startServer = async (id: string, force: boolean = false) => {
 
         // --- Phase 68: Zero-Conflict Startup (PortShield) ---
         // Ensure the port is actually free before we try to bind a new process.
-        // This clears any "Zombies" left behind by previous crashes.
+        // This clears unknown "Zombies" left behind by previous crashes.
         if (server.port) {
             await NetUtils.killProcessOnPort(server.port);
         }
@@ -471,7 +471,7 @@ export const startServer = async (id: string, force: boolean = false) => {
         }, force);
 
         return { success: true };
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[Server:${id}] Startup Manager failed: ${e.message}`);
         throw e;
     } finally {
@@ -658,7 +658,7 @@ export const getServerPorts = (id: string) => {
     const server = getServer(id);
     if (!server) throw new Error('Server not found');
     
-    const primary: any = {
+    const primary: unknown = {
         id: 'primary',
         name: 'Primary Instance (Game)',
         port: server.port,
@@ -674,7 +674,7 @@ export const assignServerPort = async (id: string) => {
     if (!server) throw new Error('Server not found');
     
     const port = await findAvailablePort();
-    const newPort: any = {
+    const newPort: unknown = {
         id: randomUUID(),
         name: `Additional Node ${((server.additionalPorts?.length || 0) + 1)}`,
         port: port,

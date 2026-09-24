@@ -76,7 +76,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
                 this.logProcesses.delete(id);
             }
             await execAsync(`docker rm -f ${containerName}`);
-        } catch (e: any) { logger.debug(`[DockerRunner] Previous container cleanup (expected on first run): ${e.message}`); }
+        } catch (e: unknown) { logger.debug(`[DockerRunner] Previous container cleanup (expected on first run): ${e.message}`); }
 
         // 3. Build Docker Run Command
         const port = env.SERVER_PORT || '25565';
@@ -203,7 +203,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
                     this.attachLogFollower(serverId, name);
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.warn(`[DockerRunner] Unexpected error during sync: ${e.message}`);
         }
     }
@@ -274,7 +274,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
                 // Sanitize command to prevent shell injection in fallback path
                 const safeCommand = command.replace(/["\\$`!]/g, '');
                 await execAsync(`echo "${safeCommand}" | docker exec -i ${containerName} sh -c "cat >> /proc/1/fd/0"`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[DockerRunner:${id}] SendCommand fallback failed: ${e.message}`);
             }
         }
@@ -328,7 +328,7 @@ export class DockerRunner extends EventEmitter implements IServerRunner {
         return this.containers.has(id);
     }
 
-    async createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean }): Promise<any> {
+    async createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean }): Promise<unknown> {
         return backupService.createBackup(serverDir, id, options.description, options.worldOnly);
     }
 

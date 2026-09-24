@@ -51,8 +51,8 @@ export const registerBroadcasters = (io: Server) => {
         const payload = typeof data === 'string' ? { message: data } : data;
         io.emit('install:status', payload);
         // Pipe installer status to logs for detailed feedback in ProgressOverlay
-        const serverId = (payload as any).serverId || 'java-install';
-        io.emit('log', { id: serverId, line: `[INSTALLER] ${(payload as any).message || payload}` });
+        const serverId = (payload as unknown).serverId || 'java-install';
+        io.emit('log', { id: serverId, line: `[INSTALLER] ${(payload as unknown).message || payload}` });
     });
     installerService.on('complete', (data) => io.emit('server:install:complete', data));
 
@@ -73,24 +73,24 @@ export const registerBroadcasters = (io: Server) => {
     javaManager.removeAllListeners('status');
     javaManager.removeAllListeners('progress');
     javaManager.removeAllListeners('error');
-    javaManager.on('status', (data: any) => {
+    javaManager.on('status', (data: unknown) => {
         const payload = typeof data === 'string' ? { message: data } : data;
         io.emit('install:status', payload); 
     });
-    javaManager.on('progress', (data: any) => {
+    javaManager.on('progress', (data: unknown) => {
         io.emit('install:progress', data);
     });
-    javaManager.on('error', (data: any) => {
+    javaManager.on('error', (data: unknown) => {
         const payload = typeof data === 'string' ? { message: data } : data;
         io.emit('server:install:error', payload);
     });
-    javaManager.on('complete', (data: any) => {
+    javaManager.on('complete', (data: unknown) => {
         io.emit('server:install:complete', data);
     });
 
     // 6. Node Registry (Global — status updates)
     nodeRegistryService.removeAllListeners('status');
-    nodeRegistryService.on('status', (data: any) => {
+    nodeRegistryService.on('status', (data: unknown) => {
         io.emit('node:status', data);
     });
 

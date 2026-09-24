@@ -78,7 +78,7 @@ export const createNotificationSlice: StateCreator<StoreState, [["zustand/devtoo
             
             // Trigger toast for urgent notifications
             if (notification.type === 'ERROR' || notification.type === 'WARNING') {
-                get().addToast(notification.type.toLowerCase() as any, notification.title, notification.message);
+                get().addToast(notification.type.toLowerCase() as unknown, notification.title, notification.message);
             }
         };
 

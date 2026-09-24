@@ -68,7 +68,7 @@ export class ServerConfigService {
                 if (dbValue === undefined || typeof dbValue === 'object') continue;
 
                 const rawDiskValue = props[m.prop];
-                let diskValue: any = rawDiskValue;
+                let diskValue: unknown = rawDiskValue;
 
                 if (m.type === 'int') diskValue = parseInt(rawDiskValue || '0');
                 if (m.type === 'bool') diskValue = rawDiskValue === 'true';

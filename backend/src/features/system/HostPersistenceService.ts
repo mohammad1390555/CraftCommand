@@ -28,7 +28,7 @@ export class HostPersistenceService {
                 return await this.enableMacOSPersistence();
             }
             throw new Error(`Platform ${platform} not supported for automatic persistence.`);
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[HostPersistence] Failed to enable persistence: ${error.message}`);
             return false;
         }
@@ -54,7 +54,7 @@ export class HostPersistenceService {
                 return await this.disableMacOSPersistence();
             }
             return true;
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[HostPersistence] Failed to disable persistence: ${error.message}`);
             return false;
         }
@@ -81,7 +81,7 @@ export class HostPersistenceService {
         const command = `(crontab -l 2>/dev/null; echo "@reboot cd ${process.cwd()} && npm run start # CraftCommand") | crontab -`;
         
         return new Promise((resolve) => {
-            exec(command, (error: any) => {
+            exec(command, (error: unknown) => {
                 if (error) {
                     logger.error(`[HostPersistence] Linux crontab update failed: ${error.message}`);
                     resolve(false);
@@ -98,7 +98,7 @@ export class HostPersistenceService {
         const command = `crontab -l 2>/dev/null | grep -v "# CraftCommand" | crontab -`;
         
         return new Promise((resolve) => {
-            exec(command, (error: any) => {
+            exec(command, (error: unknown) => {
                 if (error) {
                     logger.error(`[HostPersistence] Linux crontab cleanup failed: ${error.message}`);
                     resolve(false);
@@ -205,7 +205,7 @@ export class HostPersistenceService {
             }
             
             return 'OK'; // Fallback
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[HostPersistence] Status diagnostic failed: ${error.message}`);
             return 'ERROR';
         }
@@ -243,7 +243,7 @@ export class HostPersistenceService {
                     await this.enableLinuxPersistence();
                 }
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[HostPersistence] Verification failed: ${error.message}`);
         }
     }

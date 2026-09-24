@@ -38,7 +38,7 @@ export class BedrockVersionService {
                     return result;
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.warn(`[BedrockVersionService] Community manifest failed: ${e.message}. Trying fallback...`);
         }
 

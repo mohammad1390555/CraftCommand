@@ -78,7 +78,7 @@ class SystemSettingsService extends EventEmitter {
 
     constructor() {
         super();
-        this.settings = this.loadSettings();
+        ();
         this.watchSettings();
         this.syncClockOffset().catch(err => {
             const { logger } = require('../../utils/logger');
@@ -232,11 +232,11 @@ class SystemSettingsService extends EventEmitter {
             return {
                 discordBot: { enabled: false, token: '', clientId: '', guildId: '', commandRoles: [], notificationChannel: '', chatChannel: '' },
                 app: { theme: 'dark', autoUpdate: false, hostMode: true }
-            } as any;
+            } as unknown;
         }
     }
 
-    getSettings(): any {
+    getSettings(): unknown {
         let versionData = { version: '0.0.0', title: 'Unknown', codename: 'Unknown', notes: [] };
         try {
             const versionFile = path.join(process.cwd(), '../version.json');
@@ -284,13 +284,13 @@ class SystemSettingsService extends EventEmitter {
                     logger.info(`[SystemSettingsService] System clock drift detected: ${Math.round(this.clockOffset / 1000)}s offset applied.`);
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             const { logger } = require('../../utils/logger');
             logger.warn(`[SystemSettingsService] Failed to sync clock offset: ${e.message}`);
         }
     }
 
-    updateSettings(updates: any): SystemSettings {
+    updateSettings(updates: unknown): SystemSettings {
         const { logger } = require('../../utils/logger');
         logger.info(`[SystemSettingsService] Updating settings with: ${JSON.stringify(updates, null, 2)}`);
         if (updates.discordBot) {
@@ -300,10 +300,10 @@ class SystemSettingsService extends EventEmitter {
             this.settings.app = { ...this.settings.app, ...updates.app };
         }
         
-        // Handle top-level keys if any
+        // Handle top-level keys if unknown
         Object.keys(updates).forEach(key => {
             if (key !== 'discordBot' && key !== 'app') {
-                (this.settings as any)[key] = updates[key];
+                (this.settings as unknown)[key] = updates[key];
             }
         });
         

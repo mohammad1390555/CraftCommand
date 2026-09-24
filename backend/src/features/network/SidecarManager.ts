@@ -94,7 +94,7 @@ export class SidecarManager extends EventEmitter {
         try {
             const binPath = await binaryProvisioner.getBinaryPath('cloudflare');
             await this.startSidecar(serverId, 'cloudflare', binPath, ['tunnel', '--no-autoupdate', 'run', '--token', token], process.cwd());
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[SidecarManager:${serverId}] Failed to provision cloudflared: ${err.message}`);
         }
     }
@@ -106,7 +106,7 @@ export class SidecarManager extends EventEmitter {
         try {
             const binPath = await binaryProvisioner.getBinaryPath('playit');
             await this.startSidecar(serverId, 'playit', binPath, ['--secret-path', secretPath], process.cwd());
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[SidecarManager:${serverId}] Failed to provision playit: ${err.message}`);
         }
     }

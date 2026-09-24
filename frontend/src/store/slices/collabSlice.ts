@@ -52,7 +52,7 @@ export const createCollabSlice: StateCreator<StoreState, [["zustand/devtools", n
         const socket = socketService.socket;
         if (!socket) return;
 
-        const handlePresenceUpdate = (data: any) => set(state => ({ presence: { ...state.presence, [data.serverId]: data.users } }));
+        const handlePresenceUpdate = (data: unknown) => set(state => ({ presence: { ...state.presence, [data.serverId]: data.users } }));
         const handleActivityNew = (event: ActivityEvent) => {
             set(state => {
                 const targetId = event.serverId || 'global';

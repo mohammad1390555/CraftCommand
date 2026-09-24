@@ -54,7 +54,7 @@ class LocalAgentManager {
             this.startAgent(secret);
         }
 
-        // Logic for other distributed features (if any) could go here
+        // Logic for other distributed features (if unknown) could go here
     }
 
     private getRestartDelay(): number {

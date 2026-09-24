@@ -151,7 +151,7 @@ export async function transferServerFiles(
 
         // Agent responds with which files it needs (hash mismatch or missing)
         filesToTransfer = beginResult?.needed || manifest.map(f => f.relativePath);
-    } catch (err: any) {
+    } catch (err: unknown) {
         progress.phase = 'error';
         progress.error = err.message;
         onProgress?.(progress);
@@ -219,7 +219,7 @@ export async function transferServerFiles(
                         hash: entry.hash
                     }, 30000);
                     break; // Success
-                } catch (err: any) {
+                } catch (err: unknown) {
                     retries--;
                     if (retries === 0) {
                         progress.phase = 'error';
@@ -242,7 +242,7 @@ export async function transferServerFiles(
     // Step 4: Signal transfer complete
     try {
         await sendToAgent(nodeId, 'agent:file-end', { serverId }, 15000);
-    } catch (err: any) {
+    } catch (err: unknown) {
         logger.warn(`[FileTransfer] file-end acknowledgement failed: ${err.message}`);
         // Non-fatal — files are already transferred
     }

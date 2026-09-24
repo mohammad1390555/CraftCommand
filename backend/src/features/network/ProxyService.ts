@@ -77,9 +77,9 @@ export class ProxyService {
         let affectedCount = 0;
 
         for (const proxy of proxies) {
-            if (proxy.network?.proxyConfig?.links?.some((l: any) => l.serverId === backendId)) {
+            if (proxy.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === backendId)) {
                 logger.info(`[ProxyService] Removing ghost link for ${backendId} from proxy ${proxy.name}`);
-                proxy.network.proxyConfig.links = proxy.network.proxyConfig.links.filter((l: any) => l.serverId !== backendId);
+                proxy.network.proxyConfig.links = proxy.network.proxyConfig.links.filter((l: unknown) => l.serverId !== backendId);
                 saveServer(proxy);
                 this.syncAdvancedVelocityConfig(proxy.id);
                 
@@ -97,11 +97,11 @@ export class ProxyService {
     /**
      * Finds the proxy server that a backend server is linked to.
      */
-    public findProxyForServer(backendId: string): any | null {
+    public findProxyForServer(backendId: string): unknown | null {
         const allServers = getServers();
         return allServers.find(s => 
             s.software === 'Velocity' && 
-            s.network?.proxyConfig?.links?.some((l: any) => l.serverId === backendId)
+            s.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === backendId)
         ) || null;
     }
 
@@ -166,7 +166,7 @@ export class ProxyService {
             try {
                 await pluginService.install(proxyId, p.id, 'modrinth');
                 logger.success(`[ProxyService] Installed ${p.name}`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[ProxyService] Failed to install ${p.name}: ${e.message}`);
                 // Continue with others
             }
@@ -190,7 +190,7 @@ export class ProxyService {
                 // Velocity secret file is just the raw string
                 await fs.writeFile(secretPath, config.secret.trim());
                 logger.info(`[ProxyService] Synced forwarding.secret for ${proxy.name}`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[ProxyService] Failed to write forwarding.secret: ${e.message}`);
             }
         }

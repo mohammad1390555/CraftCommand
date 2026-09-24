@@ -117,7 +117,7 @@ class HostingOSService {
                 usagePercent: primaryDisk ? Math.round(primaryDisk.use * 10) / 10 : 0
             },
             thermal: temp,
-            uptime: (time as any).uptime || 0,
+            uptime: (time as unknown).uptime || 0,
             os: {
                 platform: osInfo.platform,
                 distro: osInfo.distro,
@@ -188,7 +188,7 @@ class HostingOSService {
                     worldSizeBytes,
                     worldSizeMB: Math.round(worldSizeBytes / 1024 / 1024)
                 });
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[HostingOS] Failed to scan disk for ${server.name}: ${e.message}`);
             }
         }

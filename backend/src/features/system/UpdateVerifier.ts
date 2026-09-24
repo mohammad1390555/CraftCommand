@@ -26,7 +26,7 @@ export class UpdateVerifier {
             } else {
                 logger.warn('[UpdateVerifier] No public key found. Updates will fail verification.');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateVerifier] Failed to load public key: ${e.message}`);
         }
     }
@@ -45,7 +45,7 @@ export class UpdateVerifier {
         try {
             // For Ed25519, we don't use a hash algorithm like 'sha256'
             return crypto.verify(null, manifestContent instanceof Buffer ? manifestContent : Buffer.from(manifestContent), this.publicKey, Buffer.from(signatureBase64, 'base64'));
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateVerifier] Signature verification error: ${e.message}`);
             return false;
         }

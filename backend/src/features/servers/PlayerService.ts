@@ -13,7 +13,7 @@ export class PlayerService {
         return path.join(serverDir, file);
     }
 
-    private async readJsonFile(serverDir: string, file: string): Promise<any[]> {
+    private async readJsonFile(serverDir: string, file: string): Promise<unknown[]> {
         const filePath = this.getFilePath(serverDir, file);
         if (await fs.pathExists(filePath)) {
             try {
@@ -44,11 +44,11 @@ export class PlayerService {
             // We also want to check OPS status for the roster
             const opsFile = isBedrock ? 'permissions.json' : 'ops.json';
             const ops = await this.readJsonFile(server.workingDirectory, opsFile);
-            const opNames = new Set(ops.map((o: any) => (o.name || '').toLowerCase()));
+            const opNames = new Set(ops.map((o: unknown) => (o.name || '').toLowerCase()));
             const onlineSet = new Set(onlineNames.map(n => n.toLowerCase()));
 
             // Map cache to Player objects
-            const history = userCache.map((p: any) => ({
+            const history = userCache.map((p: unknown) => ({
                 name: p.name,
                 uuid: isBedrock ? (p.xuid || 'runtime-' + p.name) : p.uuid,
                 skinUrl: `https://mc-heads.net/avatar/${encodeURIComponent(p.name)}/64`,
@@ -80,7 +80,7 @@ export class PlayerService {
             
             const opsFile = isBedrock ? 'permissions.json' : 'ops.json';
             const ops = await this.readJsonFile(server.workingDirectory, opsFile);
-            const opNames = new Set(ops.map((o: any) => (o.name || '').toLowerCase()));
+            const opNames = new Set(ops.map((o: unknown) => (o.name || '').toLowerCase()));
 
             return onlineNames.map(name => ({
                 name,
@@ -150,7 +150,7 @@ export class PlayerService {
         const list = await this.readJsonFile(server.workingDirectory, filename);
         
         // Prevent duplicates (Case Insensitive)
-        if (list.some((p: any) => 
+        if (list.some((p: unknown) => 
             (p.name && p.name.toLowerCase() === identifier.toLowerCase()) || 
             (p.ip && p.ip === identifier) ||
             (isBedrock && p.xuid === identifier)
@@ -158,7 +158,7 @@ export class PlayerService {
             return { success: false, message: 'Already exists in list' };
         }
 
-        let entry: any = {};
+        let entry: unknown = {};
         const now = new Date().toISOString();
 
         if (isBedrock) {
@@ -213,7 +213,7 @@ export class PlayerService {
         let list = await this.readJsonFile(server.workingDirectory, filename);
         
         const initialLength = list.length;
-        list = list.filter((p: any) => {
+        list = list.filter((p: unknown) => {
             if (type === 'banned-ips') return p.ip !== identifier;
             // Match by name or uuid/xuid
             const nameMatch = p.name?.toLowerCase() === identifier.toLowerCase();
@@ -232,7 +232,7 @@ export class PlayerService {
         try {
             // Using Mojang API with Timeout
             const res = await axios.get(`https://api.mojang.com/users/profiles/minecraft/${name}`, { timeout: 3000 });
-            const data = (res.data as any);
+            const data = (res.data as unknown);
             if (data && data.id) {
                 // Format UUID (add dashes)
                 const raw = data.id;
