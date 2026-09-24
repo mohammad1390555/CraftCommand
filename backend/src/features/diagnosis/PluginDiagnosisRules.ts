@@ -148,7 +148,7 @@ export const PluginAccessRule: DiagnosisRule = {
                 // Try to list the directory to confirm access
                 await fs.readdir(pluginsDir);
                 return null; // Access is OK
-            } catch (e: any) {
+            } catch (e: unknown) {
                 // Only report if it's a permission error
                 if (e.code !== 'EACCES' && e.code !== 'EPERM') return null;
             }

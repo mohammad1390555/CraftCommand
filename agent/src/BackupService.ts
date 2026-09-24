@@ -152,7 +152,7 @@ export class BackupService extends EventEmitter {
             await fs.remove(tempRestorePath).catch(() => {});
             this.emit('status', { serverId, status: 'Restore complete' });
 
-        } catch (e: any) {
+        } catch (e: unknown) {
             this.emit('status', { serverId, status: 'Restore failed, rolling back...' });
             try {
                 // Rollback logic
@@ -161,7 +161,7 @@ export class BackupService extends EventEmitter {
                     await fs.move(path.join(tempRestorePath, item), path.join(serverDir, item), { overwrite: true });
                 }
                 await fs.remove(tempRestorePath).catch(() => {});
-            } catch (err: any) {
+            } catch (err: unknown) {
                 throw new Error(`CATASTROPHIC FAILURE: Restore and Rollback failed: ${err.message}`);
             }
             throw e;
