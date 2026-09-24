@@ -35,7 +35,7 @@ export enum ErrorCode {
  * Helper to wrap errors with codes.
  */
 export class SystemError extends Error {
-    constructor(public code: ErrorCode, message: string, public metadata?: any) {
+    constructor(public code: ErrorCode, message: string, public metadata?: unknown) {
         super(`[${code}] ${message}`);
         this.name = 'SystemError';
     }
