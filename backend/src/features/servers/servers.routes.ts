@@ -42,7 +42,7 @@ router.put('*', verifyToken);
 router.delete('*', verifyToken);
 router.patch('*', verifyToken);
 
-const getIconUrl = (server: any) => {
+const getIconUrl = (server: unknown) => {
     const iconName = server.software === 'Bedrock' ? 'world_icon.png' : 'server-icon.png';
     const iconPath = path.join(server.workingDirectory, iconName);
     if (fs.existsSync(iconPath)) {
@@ -61,7 +61,7 @@ router.get('/next-port', verifyToken, async (req, res) => {
         const base = parseInt(req.query.base as string) || 25565;
         const port = getNextAvailablePort(base);
         res.json({ port });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -75,7 +75,7 @@ router.post('/import/local', requirePermission('server.create'), async (req, res
         const server = await importService.importLocal(name, absolutePath, config);
         res.json(server);
         if (req.user) auditService.log(req.user.id, 'SERVER_IMPORT_LOCAL', server.id, { name, path: absolutePath }, req.ip);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -87,7 +87,7 @@ router.post('/import/analyze-local', requirePermission('server.create'), async (
         
         const analysis = await importService.analyzeFolder(absolutePath);
         res.json(analysis);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -100,7 +100,7 @@ router.post('/import/archive', requirePermission('server.create'), upload.single
         const server = await importService.importArchive(name, req.file.path, config ? JSON.parse(config) : {});
         res.json(server);
         if (req.user) auditService.log(req.user.id, 'SERVER_IMPORT_ARCHIVE', server.id, { name }, req.ip);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -111,7 +111,7 @@ router.post('/import/analyze-archive', requirePermission('server.create'), uploa
 
         const analysis = await importService.analyzeArchive(req.file.path);
         res.json(analysis);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -121,14 +121,14 @@ router.get('/', optionalVerifyToken, (req, res) => {
         const servers = getServers();
         const visibleServers = req.user 
             ? servers 
-            : servers.filter((s: any) => s.publicStatus === true);
+            : servers.filter((s: unknown) => s.publicStatus === true);
 
-        const enhanced = visibleServers.map((s: any) => {
+        const enhanced = visibleServers.map((s: unknown) => {
             const isRunning = processManager.isRunning(s.id);
             const isStarting = processManager.isStarting(s.id);
             const cached = processManager.getCachedStatus(s.id);
             
-            let status = s.status;
+            const  s.status;
             if (isRunning) {
                 status = cached?.status || ServerStatus.STARTING;
             } else if (isStarting) {
@@ -145,7 +145,7 @@ router.get('/', optionalVerifyToken, (req, res) => {
             };
         });
         res.json(enhanced);
-    } catch (error: any) {
+    } catch (error: unknown) {
         logger.error(`[ServersRoute] Failed to list servers: ${error}`);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -177,7 +177,7 @@ router.post('/', requirePermission('server.create'), async (req, res) => {
         config.nodeId = 'local';
     }
 
-    let node = nodeRegistryService.getNode(config.nodeId);
+    const  nodeRegistryService.getNode(config.nodeId);
     
     if (!node && config.nodeId !== 'local') {
         config.nodeId = 'local';
@@ -205,7 +205,7 @@ router.post('/', requirePermission('server.create'), async (req, res) => {
     }
 
     const id = `local-${Date.now()}`;
-    let dirName = ValidationUtils.validateId(id, 'Server ID');
+    const  ValidationUtils.validateId(id, 'Server ID');
     if (config.folderName) {
         if (!ValidationUtils.validateFolderName(config.folderName)) {
             return res.status(400).json({ error: 'Folder name must be alphanumeric and cannot be a reserved system name.' });
@@ -218,7 +218,7 @@ router.post('/', requirePermission('server.create'), async (req, res) => {
     try {
         await fs.ensureDir(DATA_PATHS.SERVERS_ROOT); 
         await fs.promises.mkdir(serverDir); 
-    } catch (e: any) {
+    } catch (e: unknown) {
         if (e.code === 'EEXIST') {
              return res.status(409).json({ error: `Server folder '${dirName}' already exists.` });
         }
@@ -264,7 +264,7 @@ router.delete('/:id', requirePermission('server.delete'), async (req, res) => {
         await removeServer(id);
         res.json({ success: true });
         if (req.user) auditService.log(req.user.id, 'SERVER_DELETE', id, undefined, req.ip).catch(e => logger.error(`[Audit] Failed: ${e.message}`));
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -276,7 +276,7 @@ router.post('/:id/clone', requirePermission('server.create'), async (req, res) =
         const clone = await cloneServer(id, name);
         res.json(clone);
         if (req.user) auditService.log(req.user.id, 'SERVER_CREATE', clone.id, { clonedFrom: id, name: clone.name }, req.ip).catch(e => logger.error(`[Audit] Failed: ${e.message}`));
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
