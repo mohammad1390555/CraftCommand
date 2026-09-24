@@ -19,7 +19,7 @@ export class NetUtils {
                 socket.destroy(); 
                 resolve(true); 
             });
-            socket.on('error', (err: any) => { 
+            socket.on('error', (err: unknown) => { 
                 socket.destroy(); 
                 // ECONNREFUSED means nothing is listening, so it's free.
                 // EADDRINUSE (rare on client connect) means it's busy.
@@ -41,7 +41,7 @@ export class NetUtils {
     static async checkPortBind(port: number): Promise<boolean> {
         return new Promise((resolve) => {
             const server = net.createServer();
-            server.once('error', (err: any) => {
+            server.once('error', (err: unknown) => {
                 if (err.code === 'EADDRINUSE') return resolve(true);
                 resolve(false);
             });
@@ -59,7 +59,7 @@ export class NetUtils {
         const dgram = await import('dgram');
         return new Promise((resolve) => {
             const socket = dgram.createSocket('udp4');
-            socket.once('error', (err: any) => {
+            socket.once('error', (err: unknown) => {
                 if (err.code === 'EADDRINUSE') return resolve(true);
                 resolve(false);
             });
@@ -113,7 +113,7 @@ export class NetUtils {
                             await execAsync(`taskkill /F /PID ${listener.pid} /T`);
                             logger.success(`[PortShield] Successfully purged process ${listener.pid} via taskkill.`);
                             return true;
-                        } catch (e: any) {
+                        } catch (e: unknown) {
                             logger.error(`[PortShield] taskkill failed: ${e.message}. Falling back to standard kill.`);
                         }
                     }
@@ -123,7 +123,7 @@ export class NetUtils {
                     return true;
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[PortShield] Failed to clear port ${port}: ${e.message}`);
         }
         return false;
@@ -227,7 +227,7 @@ export class NetUtils {
             };
 
             const req = https.request(options, (res) => {
-                let data = '';
+                const  '';
                 res.on('data', (chunk) => data += chunk);
                 res.on('end', () => resolve(data.trim()));
             });
