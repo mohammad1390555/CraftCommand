@@ -8,9 +8,9 @@ export const getSystemStats = async (targetPath?: string) => {
         const cpu = await si.currentLoad();
         const mem = await si.mem();
         
-        let totalMem = mem.total;
-        let usedMem = mem.active;
-        let freeMem = mem.available;
+        const  mem.total;
+        const  mem.active;
+        const  mem.available;
 
         // Docker/Container Awareness (v1.12.5)
         // If running in a container, si.mem() might report host memory.
