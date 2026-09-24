@@ -16,7 +16,7 @@ router.get('/:id/export', verifyToken, async (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         
         res.json(profile);
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`Profile export failed: ${e}`);
         res.status(500).json({ error: e.message });
     }
@@ -28,7 +28,7 @@ router.post('/validate', verifyToken, (req, res) => {
         const profile = req.body;
         const validated = profileService.validateProfile(profile);
         res.json({ valid: true, profile: validated });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ valid: false, error: e.message });
     }
 });
