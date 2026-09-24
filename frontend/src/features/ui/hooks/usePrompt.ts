@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export interface PromptSetup {
+export export interface
     title: string;
     description: string;
     placeholder?: string;
