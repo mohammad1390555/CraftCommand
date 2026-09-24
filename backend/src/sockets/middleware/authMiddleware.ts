@@ -3,10 +3,10 @@ import jwt from 'jsonwebtoken';
 import { userRepository } from '../../storage/UserRepository';
 import { authService } from '../../features/auth/AuthService';
 
-export const socketAuthMiddleware = async (socket: Socket, next: (err?: any) => void) => {
+export const socketAuthMiddleware = async (socket: Socket, next: (err?: unknown) => void) => {
     // Debug namespace
     if (socket.nsp.name === '/agent') {
-        // console.log('[AuthMiddleware] Skipping global auth for /agent namespace');
+        // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // console.log('[AuthMiddleware] Skipping global auth for /agent namespace');
         return next();
     }
 
@@ -15,14 +15,14 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: any) => 
 
     // E2E Test Bypass
     if (process.env.NODE_ENV === 'test' && token === 'Bearer e2e-secret-bypass') {
-        (socket as any).userId = 'e2e-test-user';
-        (socket as any).user = { id: 'e2e-test-user', role: 'OWNER', username: 'TestUser' };
+        (socket as unknown).userId = 'e2e-test-user';
+        (socket as unknown).user = { id: 'e2e-test-user', role: 'OWNER', username: 'TestUser' };
         return next();
     }
 
     try {
         const secret = process.env.JWT_SECRET as string;
-        const decoded = jwt.verify(token, secret) as any;
+        const decoded = jwt.verify(token, secret) as unknown;
         
         // Use the centralized repository via the same logic ideally, but direct file read is okay for now if we don't assume dependency injection here.
         // Better: Use the repo function if we can refactor this file to use 'userRepository' import.
@@ -37,8 +37,8 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: any) => 
         if (!user) return next(new Error('Authentication Error: User Not Found'));
 
         // Attach user data to socket
-        (socket as any).userId = userId;
-        (socket as any).user = user;
+        (socket as unknown).userId = userId;
+        (socket as unknown).user = user;
 
         // Verify Session (Phase 12)
         if (decoded.jti) {
