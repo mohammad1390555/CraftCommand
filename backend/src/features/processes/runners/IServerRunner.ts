@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-export interface RunnerStats {
+export export interface
     cpu: number;
     memory: number;
     pid?: number;
@@ -15,7 +15,7 @@ export interface IServerRunner extends EventEmitter {
     sendCommand(id: string, command: string): Promise<void>;
     getStats(id: string): Promise<RunnerStats>;
     isRunning(id: string): boolean;
-    createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean, nodeId?: string }): Promise<any>;
+    createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean, nodeId?: string }): Promise<unknown>;
     restoreBackup(id: string, serverDir: string, backupId: string, options: { scope?: 'full' | 'world' | 'configs' | 'plugins', worldOnly?: boolean, nodeId?: string }): Promise<void>;
     sync?(): Promise<void>; // Optional: Re-attach to existing processes after backend restart
 }
