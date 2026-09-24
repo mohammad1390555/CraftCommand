@@ -18,7 +18,7 @@ router.post('/kick-player', verifyToken, requirePermission('server.players.manag
         await playerService.kickPlayer(id, name, reason);
         res.json({ success: true, message: `Kicked ${name}` });
         if (req.user) auditService.log(req.user.id, 'PLAYER_KICK', id, { playerName: name, reason });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -30,9 +30,9 @@ router.get('/players/:listType', async (req, res) => {
     if (!server) return res.status(404).json({ error: 'Server not found' });
 
     try {
-        const list = await playerService.getPlayerList(id, listType as any);
+        const list = await playerService.getPlayerList(id, listType as unknown);
         res.json(list);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -46,13 +46,13 @@ router.post('/players/:listType', verifyToken, requirePermission('server.players
     if (!identifier) return res.status(400).json({ error: 'Identifier is required' });
 
     try {
-        const result = await playerService.addPlayer(id, listType as any, identifier);
+        const result = await playerService.addPlayer(id, listType as unknown, identifier);
         res.json(result);
         
-        const actionMap: any = { 'ops': 'PLAYER_OP', 'banned-players': 'PLAYER_BAN', 'whitelist': 'PLAYER_WHITELIST_ADD' };
+        const actionMap: unknown = { 'ops': 'PLAYER_OP', 'banned-players': 'PLAYER_BAN', 'whitelist': 'PLAYER_WHITELIST_ADD' };
         const action = actionMap[listType] || 'USER_UPDATE';
-        if (req.user) auditService.log(req.user.id, action as any, id, { playerName: identifier });
-    } catch (e: any) {
+        if (req.user) auditService.log(req.user.id, action as unknown, id, { playerName: identifier });
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -64,13 +64,13 @@ router.delete('/players/:listType/:identifier', verifyToken, requirePermission('
     if (!server) return res.status(404).json({ error: 'Server not found' });
 
     try {
-        const result = await playerService.removePlayer(id, listType as any, identifier);
+        const result = await playerService.removePlayer(id, listType as unknown, identifier);
         res.json(result);
 
-        const actionMap: any = { 'ops': 'PLAYER_DEOP', 'banned-players': 'PLAYER_PARDON', 'whitelist': 'PLAYER_WHITELIST_REMOVE' };
+        const actionMap: unknown = { 'ops': 'PLAYER_DEOP', 'banned-players': 'PLAYER_PARDON', 'whitelist': 'PLAYER_WHITELIST_REMOVE' };
         const action = actionMap[listType] || 'USER_UPDATE';
-        if (req.user) auditService.log(req.user.id, action as any, id, { playerName: identifier });
-    } catch (e: any) {
+        if (req.user) auditService.log(req.user.id, action as unknown, id, { playerName: identifier });
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -81,7 +81,7 @@ router.get('/activity', verifyToken, async (req, res) => {
         const { id } = req.params as { id: string };
         const history = processManager.getActivityHistory(id);
         res.json(history);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
