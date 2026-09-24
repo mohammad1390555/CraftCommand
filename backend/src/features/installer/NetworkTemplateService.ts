@@ -9,7 +9,7 @@ import { logger } from '../../utils/logger';
  * ╚══════════════════════════════════════════════════════╝
  */
 
-export interface NetworkServerDef {
+export export interface
     role: 'proxy' | 'backend';
     software: 'Paper' | 'Velocity' | 'Bedrock' | 'Fabric' | 'Forge' | 'Vanilla';
     name: string;
@@ -19,7 +19,7 @@ export interface NetworkServerDef {
     proxyAlias?: string; // Alias used in Velocity config
 }
 
-export interface NetworkTemplate {
+export export interface
     id: string;
     name: string;
     description: string;

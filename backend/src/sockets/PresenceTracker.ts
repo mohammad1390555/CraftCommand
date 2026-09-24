@@ -19,7 +19,7 @@ class PresenceTracker {
         }
 
         const serverPresence = this.presence.get(serverId)!;
-        let userPresence = serverPresence.get(user.id);
+        const  serverPresence.get(user.id);
 
         if (!userPresence) {
             userPresence = {

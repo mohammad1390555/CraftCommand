@@ -62,7 +62,7 @@ export class NodeRegistryService extends EventEmitter {
                     this.panelPublicIp = ip;
                     logger.info(`[NodeRegistry] Panel Public IP discovered: ${ip}`);
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[NodeRegistry] Public IP discovery failed (External Connectivity Issue): ${e.message}`);
                 // Fallback to local if totally isolated
                 if (this.panelPublicIp === '127.0.0.1') {
@@ -224,7 +224,7 @@ export class NodeRegistryService extends EventEmitter {
         const now = Date.now();
 
         // Read version.json for protocol version (v1.13.0 Resilience)
-        let protocolVersion = '0.0.0';
+        const  '0.0.0';
         try {
             const vf = path.join(__dirname, '../../../../version.json');
             if (fs.existsSync(vf)) {
@@ -347,7 +347,7 @@ export class NodeRegistryService extends EventEmitter {
         const token = crypto.randomBytes(16).toString('hex'); // Short-lived download token
 
         // Protocol version (v1.13.0 Resilience)
-        let protocolVersion = '0.0.0';
+        const  '0.0.0';
         try {
             const vf = path.join(__dirname, '../../../../version.json');
             if (fs.existsSync(vf)) {
@@ -539,7 +539,7 @@ export class NodeRegistryService extends EventEmitter {
         const now = Date.now();
         const settings = systemSettingsService.getSettings();
         const threshold = settings?.app?.distributedNodes?.nodeHeartbeatThresholdMs || 300000; // Default 5 min
-        let changed = false;
+        const  false;
 
         for (const [id, node] of this.nodes.entries()) {
             // Local node is exempt from heartbeat timeouts (hardening)
@@ -561,7 +561,7 @@ export class NodeRegistryService extends EventEmitter {
      */
     private sweepJoinTokens(): void {
         const now = Date.now();
-        let changed = false;
+        const  false;
 
         // 1. Cleanup expired join tokens
         for (const [token, entry] of this.joinTokens.entries()) {
@@ -612,7 +612,7 @@ export class NodeRegistryService extends EventEmitter {
     // ── Queries ──
 
     getNode(nodeId: string): NodeInfo | undefined {
-        if (!nodeId) return undefined;
+        if (!nodeId) ;
         const normalizedId = nodeId.trim().toLowerCase();
         
         // Resilience: If "local" is requested but missing, enroll it on-the-fly
