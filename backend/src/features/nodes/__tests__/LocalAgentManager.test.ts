@@ -30,7 +30,7 @@ jest.mock('../../system/SystemSettingsService', () => {
 });
 
 // Mock child_process.spawn
-const mockProcess = new EventEmitter() as any;
+const mockProcess = new EventEmitter() as unknown;
 mockProcess.stdout = new EventEmitter();
 mockProcess.stderr = new EventEmitter();
 mockProcess.kill = jest.fn();
@@ -56,12 +56,12 @@ describe('LocalAgentManager', () => {
         jest.useFakeTimers();
         
         // Reset internal state by toggling off then on
-        (localAgentManager as any).agentProcess = null;
-        (localAgentManager as any).consecutiveFailures = 0;
-        (localAgentManager as any).agentSafeMode = false;
-        (localAgentManager as any).intentionalStop = false;
-        (localAgentManager as any).restartTimer = null;
-        (localAgentManager as any).stabilityTimer = null;
+        (localAgentManager as unknown).agentProcess = null;
+        (localAgentManager as unknown).consecutiveFailures = 0;
+        (localAgentManager as unknown).agentSafeMode = false;
+        (localAgentManager as unknown).intentionalStop = false;
+        (localAgentManager as unknown).restartTimer = null;
+        (localAgentManager as unknown).stabilityTimer = null;
     });
 
     afterEach(() => {
@@ -70,7 +70,7 @@ describe('LocalAgentManager', () => {
 
     describe('Exponential Backoff', () => {
         it('should calculate correct backoff delays', () => {
-            const mgr = localAgentManager as any;
+            const mgr = localAgentManager as unknown;
             
             mgr.consecutiveFailures = 0;
             expect(mgr.getRestartDelay()).toBe(1000);   // 1s
@@ -95,7 +95,7 @@ describe('LocalAgentManager', () => {
 
     describe('Safe Mode', () => {
         it('should block startAgent when in safe mode', () => {
-            const mgr = localAgentManager as any;
+            const mgr = localAgentManager as unknown;
             mgr.agentSafeMode = true;
             
             mgr.startAgent('test-secret');
@@ -107,7 +107,7 @@ describe('LocalAgentManager', () => {
         });
 
         it('should enter safe mode after MAX_CONSECUTIVE_RESTARTS', () => {
-            const mgr = localAgentManager as any;
+            const mgr = localAgentManager as unknown;
             mgr.consecutiveFailures = mgr.MAX_CONSECUTIVE_RESTARTS - 1;
             
             // Start the agent so we have a process
@@ -123,7 +123,7 @@ describe('LocalAgentManager', () => {
         });
 
         it('should reset safe mode and counter when settings are toggled', () => {
-            const mgr = localAgentManager as any;
+            const mgr = localAgentManager as unknown;
             mgr.agentSafeMode = true;
             mgr.consecutiveFailures = 5;
             
@@ -137,7 +137,7 @@ describe('LocalAgentManager', () => {
 
     describe('Stability Timer', () => {
         it('should reset failure counter after 60s of stability', () => {
-            const mgr = localAgentManager as any;
+            const mgr = localAgentManager as unknown;
             mgr.consecutiveFailures = 3;
             
             // Start agent
@@ -156,7 +156,7 @@ describe('LocalAgentManager', () => {
 
     describe('Graceful Stop', () => {
         it('should clear all timers on stop', () => {
-            const mgr = localAgentManager as any;
+            const mgr = localAgentManager as unknown;
             
             // Start agent so timers are set
             mgr.startAgent('test-secret');
@@ -170,7 +170,7 @@ describe('LocalAgentManager', () => {
         });
 
         it('should NOT restart when intentional stop is set', () => {
-            const mgr = localAgentManager as any;
+            const mgr = localAgentManager as unknown;
             
             mgr.startAgent('test-secret');
             mgr.intentionalStop = true;
