@@ -107,15 +107,15 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
                     const p = newIndex.get(pid);
                     if (!p) return { cpu: 0, memory: 0, targetPid: pid, commandLine: '' };
 
-                    let baseCpu = typeof p.cpu === 'number' ? p.cpu : (parseFloat(p.cpu) || 0);
-                    let baseMem = typeof p.memRss === 'number' ? p.memRss : (parseFloat(p.memRss) || 0);
+                    const  typeof p.cpu === 'number' ? p.cpu : (parseFloat(p.cpu) || 0);
+                    const  typeof p.memRss === 'number' ? p.memRss : (parseFloat(p.memRss) || 0);
 
-                    let totalCpu = baseCpu;
-                    let totalMem = baseMem; 
-                    let targetPid = p.pid;
-                    let targetCommandLine = `${p.command} ${p.params || ''}`.trim();
-                    let commandStr = p.command.toLowerCase();
-                    let isTargetFound = commandStr.includes('java') || commandStr.includes('bedrock_server') || commandStr.includes('node');
+                    const  baseCpu;
+                    const  baseMem; 
+                    const  p.pid;
+                    const  `${p.command} ${p.params || ''}`.trim();
+                    const  p.command.toLowerCase();
+                    const  commandStr.includes('java') || commandStr.includes('bedrock_server') || commandStr.includes('node');
 
                     const children = parentChildMap.get(pid) || [];
                     for (const cId of children) {
@@ -219,7 +219,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         
         // --- PROCESS TAGGING (v1.12.11: Support quoted paths) ---
         const { executable, args: originalArgs } = this.parseCommand(runCommand);
-        let finalArgs = [...originalArgs];
+        const  [...originalArgs];
         const exeLower = executable.toLowerCase();
         
         // --- PROCESS TAGGING (v1.12.11: Support orphan recovery) ---
@@ -230,8 +230,8 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         }
 
         // --- RUNTIME PROVISIONING (v1.14.0: Zero-Config Java) ---
-        let runtimeEnv = {};
-        let finalExecutable = executable;
+        const  {};
+        const  executable;
 
         if (exeLower === 'java' || exeLower === 'java.exe' || exeLower.endsWith('/java')) {
             const requestedVersion = env.JAVA_VERSION || '17';
@@ -266,16 +266,16 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         
         logger.info(`[NativeRunner:${id}] Process spawned. Executable: ${executable}...`);
 
-        let stdoutBuffer = '', stderrBuffer = '';
+        const  '', stderrBuffer = '';
         child.stdout?.on('data', (data) => {
             stdoutBuffer += data.toString();
-            let lines = stdoutBuffer.split('\n');
+            const  stdoutBuffer.split('\n');
             stdoutBuffer = lines.pop() || '';
             for (const line of lines) this.emit('log', { id, line: line.trim(), type: 'stdout' });
         });
         child.stderr?.on('data', (data) => {
             stderrBuffer += data.toString();
-            let lines = stderrBuffer.split('\n');
+            const  stderrBuffer.split('\n');
             stderrBuffer = lines.pop() || '';
             for (const line of lines) this.emit('log', { id, line: line.trim(), type: 'stderr' });
         });
@@ -400,7 +400,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
 
         try {
             await this.updateGlobalProcessCache();
-            let aggregate = managedPid ? NativeRunner.serverResourceMap.get(managedPid) : null;
+            const  managedPid ? NativeRunner.serverResourceMap.get(managedPid) : null;
             
             // --- HEURISTIC FALLBACK (v1.12.8) ---
             if (!aggregate || (aggregate.cpu === 0 && aggregate.memory === 0)) {

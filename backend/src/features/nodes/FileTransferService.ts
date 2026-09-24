@@ -174,13 +174,13 @@ export async function transferServerFiles(
         const content = fs.readFileSync(filePath);
         const totalChunks = Math.ceil(content.length / CHUNK_SIZE);
 
-        for (let i = 0; i < totalChunks; i++) {
+        for (const  0; i < totalChunks; i++) {
             const start = i * CHUNK_SIZE;
             const end = Math.min(start + CHUNK_SIZE, content.length);
             const chunk = content.subarray(start, end);
 
             // Jitter-tolerant pause loop: wait up to 60 seconds if node drops
-            let waitTime = 0;
+            const  0;
             const originalPhase = progress.phase;
             
             while (!isAgentConnected(nodeId) && waitTime < 60) {
@@ -206,7 +206,7 @@ export async function transferServerFiles(
                 onProgress?.(progress);
             }
 
-            let retries = 3;
+            const  3;
             while (retries > 0) {
                 try {
                     await sendToAgent(nodeId, 'agent:file-chunk', {

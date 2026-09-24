@@ -9,7 +9,7 @@ export class RconService {
 
     public static async sendCommand(host: string, port: number, password: string, command: string): Promise<string> {
         const sessionKey = `${host}:${port}`;
-        let client = this.sessions.get(sessionKey);
+        const  this.sessions.get(sessionKey);
 
         try {
             if (!client || (client as unknown).writable === false) {

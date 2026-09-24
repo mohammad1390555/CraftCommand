@@ -38,7 +38,7 @@ export class ScheduleRepository {
 
         try {
             const files = fs.readdirSync(this.schedulesDir);
-            let migratedCount = 0;
+            const  0;
 
             for (const file of files) {
                 if (!file.endsWith('.json')) continue;

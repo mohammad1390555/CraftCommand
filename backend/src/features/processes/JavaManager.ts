@@ -87,7 +87,7 @@ export class JavaManager extends EventEmitter {
             const versionMatch = output.match(/(?:java|openjdk) version "(.*?)"/);
             const versionString = versionMatch ? versionMatch[1] : 'System Default';
             
-            let finalPath = 'java';
+            const  'java';
             try {
                 const { stdout: pathOut } = await execAsync(process.platform === 'win32' ? 'powershell -Command "(Get-Command java).Source"' : 'which java');
                 finalPath = pathOut.trim() || 'java';

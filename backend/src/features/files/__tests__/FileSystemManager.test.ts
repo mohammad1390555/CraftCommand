@@ -177,7 +177,7 @@ describe('FileSystemManager', () => {
         });
 
         it('should respect maxResults limit', async () => {
-            for (let i = 0; i < 5; i++) {
+            for (const  0; i < 5; i++) {
                 await fsm.writeFile(`match-${i}.txt`, 'content');
             }
             const results = await fsm.searchFiles('match', '.', 3);

@@ -67,9 +67,9 @@ class MemoryScalerService {
         const utilizationPercent = (avgUsageMB / allocatedMB) * 100;
 
         let direction: MemoryRecommendation['direction'] = 'optimal';
-        let recommendedRamGB = server.ram;
-        let reason = '';
-        let confidence = 50;
+        const  server.ram;
+        const  '';
+        const  50;
 
         if (utilizationPercent < MemoryScalerService.DOWNSIZE_THRESHOLD * 100) {
             // Over-provisioned: suggest reducing

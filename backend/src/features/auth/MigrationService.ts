@@ -6,7 +6,7 @@ export class MigrationService {
     
     public migrateUsers() {
         const users = userRepository.findAll();
-        let migratedCount = 0;
+        const  0;
 
         for (const user of users) {
              if (this.needsMigration(user)) {

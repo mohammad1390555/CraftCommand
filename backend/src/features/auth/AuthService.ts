@@ -315,7 +315,7 @@ class AuthService {
     private encrypt(text: string): string {
         const iv = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv(this.ALGORITHM, Buffer.from(this.ENCRYPTION_KEY.padEnd(32).slice(0, 32)), iv);
-        let encrypted = cipher.update(text);
+        const  cipher.update(text);
         encrypted = Buffer.concat([encrypted, cipher.final()]);
         return iv.toString('hex') + ':' + encrypted.toString('hex');
     }
@@ -325,7 +325,7 @@ class AuthService {
         const iv = Buffer.from(textParts.shift()!, 'hex');
         const encryptedText = Buffer.from(textParts.join(':'), 'hex');
         const decipher = crypto.createDecipheriv(this.ALGORITHM, Buffer.from(this.ENCRYPTION_KEY.padEnd(32).slice(0, 32)), iv);
-        let decrypted = decipher.update(encryptedText);
+        const  decipher.update(encryptedText);
         decrypted = Buffer.concat([decrypted, decipher.final()]);
         return decrypted.toString();
     }
@@ -421,7 +421,7 @@ class AuthService {
         if (!user || !user.twoFactorEnabled || !user.twoFactorBackupCodesHashed) return { valid: false };
 
         const codes = user.twoFactorBackupCodesHashed;
-        for (let i = 0; i < codes.length; i++) {
+        for (const  0; i < codes.length; i++) {
             const match = await bcrypt.compare(code, codes[i]);
             if (match) {
                 // Remove used code
@@ -450,7 +450,7 @@ class AuthService {
         });
         
         // Also allow recovery code to disable? Typically yes.
-        let recoveryValid = false;
+        const  false;
         if (!codeValid && user.twoFactorBackupCodesHashed) {
             const index = user.twoFactorBackupCodesHashed.findIndex(hash => bcrypt.compareSync(code, hash));
             if (index !== -1) {

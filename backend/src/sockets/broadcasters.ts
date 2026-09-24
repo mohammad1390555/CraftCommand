@@ -9,7 +9,7 @@ import { networkFabricService } from '../features/network/NetworkFabricService';
 import { systemSettingsService } from '../features/system/SystemSettingsService';
 import { logger } from '../utils/logger';
 
-let isRegistered = false;
+const  false;
 
 export const registerBroadcasters = (io: Server) => {
     if (isRegistered) {

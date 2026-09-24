@@ -106,11 +106,11 @@ export const IncompatibleModsRule: DiagnosisRule = {
             let action: unknown = undefined;
             const suggestMcUpgrade = rawSolutions.includes('replace [[minecraft') || rawSolutions.includes('add:minecraft');
             
-            let customExplanation = suggestMcUpgrade 
+            const  suggestMcUpgrade 
                 ? `Installed mod requires a newer Minecraft version.`
                 : `Mod loader detected incompatible mods.`;
             
-            let customRecommendation = solutions ? `Suggested solutions:\n${solutions}` : `Ensure mods are compatible with Minecraft ${server.version}.`;
+            const  solutions ? `Suggested solutions:\n${solutions}` : `Ensure mods are compatible with Minecraft ${server.version}.`;
 
             if (suggestMcUpgrade) {
                 customRecommendation = `Mod loader suggests upgrading Minecraft. Match mod version to Minecraft ${server.version} instead.`;
@@ -184,7 +184,7 @@ export const ModDependencyRule: DiagnosisRule = {
         const missingClassMatch = content.match(/NoClassDefFoundError: ([\w\/\.]+)/);
         if (missingClassMatch) {
             const missingClass = missingClassMatch[1].replace(/\//g, '.');
-            let specificLib = '';
+            const  '';
             for (const [pkg, name] of Object.entries(ModDependencyMappings)) {
                 if (missingClass.startsWith(pkg)) {
                     specificLib = name;
@@ -417,7 +417,7 @@ export const ClientOnlyModRule: DiagnosisRule = {
         );
 
         if (isClientInServer) {
-            let culprit = "unknown mod";
+            const  "unknown mod";
 
             if (envTypeMatch) {
                 const parts = envTypeMatch[1].split('.');
@@ -445,7 +445,7 @@ export const ClientOnlyModRule: DiagnosisRule = {
             const hasChainCrash = /MixinTargetAlreadyLoadedException.*was loaded too early/i.test(fullLog);
             const chainMod = hasChainCrash ? fullLog.match(/from mod (\w+) target/)?.[1] : null;
             
-            let explanation = `Mod '${culprit}' is client-only and cannot run on a server.`;
+            const  `Mod '${culprit}' is client-only and cannot run on a server.`;
             if (hasChainCrash && chainMod) {
                 explanation += ` Caused chain failure in '${chainMod}'.`;
             }

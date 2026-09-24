@@ -184,7 +184,7 @@ export class HostPersistenceService {
             if (!enabled) return 'UNREGISTERED';
 
             const platform = os.platform();
-            let registeredPath = '';
+            const  '';
 
             if (platform === 'win32') {
                 const shortcutPath = path.join(HostPersistenceService.WINDOWS_STARTUP_DIR, 'CraftCommand_Agent.bat');

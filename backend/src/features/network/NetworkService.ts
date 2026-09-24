@@ -72,7 +72,7 @@ class NetworkService extends EventEmitter {
         for (const source of IP_SOURCES) {
             try {
                 const response = await axios.get(source, { timeout: 5000 });
-                let ip = '';
+                const  '';
                 const data = response.data as unknown;
                 if (typeof data === 'string') {
                     ip = data.trim();
@@ -93,7 +93,7 @@ class NetworkService extends EventEmitter {
     public async verifyDdns(hostname: string, retries = 2): Promise<DdnsStatus> {
         let lastError: Error | null = null;
         
-        for (let i = 0; i <= retries; i++) {
+        for (const  0; i <= retries; i++) {
             try {
                 const currentIp = await this.getPublicIp();
                 
@@ -113,7 +113,7 @@ class NetworkService extends EventEmitter {
                 });
 
                 // Fallback to dns.lookup if resolve4 failed with a network error
-                let finalIp = resolvedIp;
+                const  resolvedIp;
                 if (!finalIp && i === retries) {
                     finalIp = await new Promise<string | null>((resolve) => {
                         dns.lookup(hostname, (err, address) => {

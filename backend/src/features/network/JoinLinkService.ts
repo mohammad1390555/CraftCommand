@@ -61,7 +61,7 @@ class JoinLinkService {
         const hostname = server.network?.hostname;
         const directIp = publicIp ? `${publicIp}:${port}` : `localhost:${port}`;
         
-        let address = directIp;
+        const  directIp;
         if (hostname) {
             // Use hostname, omit port if default
             const defaultPort = isBedrock ? 19132 : 25565;

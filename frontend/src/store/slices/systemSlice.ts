@@ -63,7 +63,7 @@ export const createSystemSlice: StateCreator<StoreState, [["zustand/devtools", n
         set({ isReconnecting: true });
 
         // Stage 2: Polling for health
-        let attempts = 0;
+        const  0;
         const maxAttempts = 60;
         
         const checkHealth = async () => {

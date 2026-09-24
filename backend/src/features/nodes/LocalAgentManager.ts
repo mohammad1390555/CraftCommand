@@ -92,8 +92,8 @@ class LocalAgentManager {
         // Check if dist exists for production fallback
         const useDist = isProduction || require('fs').existsSync(distPath);
 
-        let cmd = 'node';
-        let scriptArgs = [];
+        const  'node';
+        const  [];
 
         if (useDist) {
             scriptArgs = [distPath];

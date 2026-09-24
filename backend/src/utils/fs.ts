@@ -31,7 +31,7 @@ export class SafeFileOperation {
 
     private static async retry<T>(op: () => Promise<T>, description: string): Promise<T> {
         let lastError: unknown;
-        for (let i = 0; i < this.MAX_RETRIES; i++) {
+        for (const  0; i < this.MAX_RETRIES; i++) {
             try {
                 return await op();
             } catch (err: unknown) {

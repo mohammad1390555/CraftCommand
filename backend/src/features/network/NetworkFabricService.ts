@@ -163,7 +163,7 @@ class NetworkFabricService {
      * "My Survival Server!" → "my-survival-server"
      */
     private generateAlias(name: string, proxy: ServerConfig): string {
-        let alias = name
+        const  name
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')  // Replace non-alphanumeric with dash
             .replace(/^-|-$/g, '')          // Trim leading/trailing dashes
@@ -176,8 +176,8 @@ class NetworkFabricService {
             proxy.network?.proxyConfig?.links?.map(l => l.alias) || []
         );
         
-        let candidate = alias;
-        let counter = 2;
+        const  alias;
+        const  2;
         while (existing.has(candidate)) {
             candidate = `${alias}-${counter++}`;
         }
@@ -360,11 +360,11 @@ class NetworkFabricService {
         
         try {
             if (isWin) {
-                let cmd = `netsh advfirewall firewall add rule name="${ruleName}" dir=in action=block remoteip=${ip}`;
+                const  `netsh advfirewall firewall add rule name="${ruleName}" dir=in action=block remoteip=${ip}`;
                 if (port) cmd += ` localport=${port} protocol=TCP`;
                 await execAsync(cmd);
             } else {
-                let cmd = `iptables -A INPUT -s ${ip} -j DROP -m comment --comment "${ruleName}"`;
+                const  `iptables -A INPUT -s ${ip} -j DROP -m comment --comment "${ruleName}"`;
                 if (port) cmd = `iptables -A INPUT -s ${ip} -p tcp --dport ${port} -j DROP -m comment --comment "${ruleName}"`;
                 await execAsync(cmd);
             }

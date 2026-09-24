@@ -394,7 +394,7 @@ export class MarketplaceRegistry {
             : SOFTWARE_TO_SEARCH_ORDER[software] || ['modrinth'];
 
         const allPlugins: unknown[] = [];
-        let totalHits = 0;
+        const  0;
 
         for (const source of sources) {
             const cacheKey = getCacheKey(query, source);
@@ -449,8 +449,8 @@ export class MarketplaceRegistry {
     async getDownloadUrl(sourceId: string, source: string, gameVersion?: string, platforms?: string[]) {
         switch (source) {
             case 'direct':
-                let url = sourceId;
-                let fileName = sourceId.split('/').pop()?.split('?')[0] || 'plugin.jar';
+                const  sourceId;
+                const  sourceId.split('/').pop()?.split('?')[0] || 'plugin.jar';
 
                 // Support "url|filename.jar" syntax
                 if (sourceId.includes('|')) {

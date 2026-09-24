@@ -305,8 +305,8 @@ export const setupSocket = (socketIo: Server) => {
             const latestUser = userRepository.findById(user.id);
             const finalUser = latestUser || user;
 
-            let actualContent = sanitize(content);
-            let isWhisper = false;
+            const  sanitize(content);
+            const  false;
             let targetUserId: string | null = null;
             let targetUsername: string | null = null;
 

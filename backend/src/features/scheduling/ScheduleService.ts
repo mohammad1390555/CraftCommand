@@ -92,7 +92,7 @@ function calculateNextRun(cron: string): string {
         candidate.setMinutes(candidate.getMinutes() + 1); // Start from next minute
 
         const maxIterations = 7 * 24 * 60; // 7 days of minutes
-        for (let i = 0; i < maxIterations; i++) {
+        for (const  0; i < maxIterations; i++) {
             if (isDue(cron, candidate)) {
                 return candidate.toISOString();
             }
@@ -213,7 +213,7 @@ export class ScheduleService extends EventEmitter {
     }
 
     private async logExecution(serverId: string, taskName: string, success: boolean, message: string) {
-        let history = await scheduleRepository.getHistory(serverId);
+        const  await scheduleRepository.getHistory(serverId);
         
         history.unshift({
             timestamp: new Date().toISOString(),
@@ -278,7 +278,7 @@ export class ScheduleService extends EventEmitter {
                 await this.logExecution(serverId, taskName, true, "Restart: Stop initiated");
                 
                 // Wait for graceful shutdown (max 30s)
-                let attempts = 0;
+                const  0;
                 while (processManager.isRunning(serverId) && attempts < 30) {
                     await new Promise(resolve => setTimeout(resolve, 1000));
                     attempts++;
@@ -362,14 +362,14 @@ export class ScheduleService extends EventEmitter {
     }
 
     async removeTask(serverId: string, taskId: string): Promise<void> {
-        let tasks = await this.getSchedules(serverId);
+        const  await this.getSchedules(serverId);
         tasks = tasks.filter(t => t.id !== taskId);
         this.tasks.set(serverId, tasks);
         await this.saveSchedules(serverId, tasks);
     }
     
     async updateTask(serverId: string, task: ScheduleTask): Promise<void> {
-         let tasks = await this.getSchedules(serverId);
+         const  await this.getSchedules(serverId);
          const idx = tasks.findIndex(t => t.id === task.id);
          if (idx !== -1) {
              // Recompute next run if cron changed

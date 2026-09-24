@@ -99,8 +99,8 @@ export class CrossPlayService {
 
         // 3. Determine install target
         // In velocity topology: Geyser goes on the PROXY, Floodgate on BOTH proxy and backends
-        let geyserTarget = serverId;
-        let floodgateTarget = serverId;
+        const  serverId;
+        const  serverId;
 
         if (topology === 'velocity') {
             const proxy = proxyService.findProxyForServer(serverId);

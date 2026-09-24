@@ -120,7 +120,7 @@ class AutomaticRepairService extends EventEmitter {
 
             // v3.3: IO Throttling — Skip repairs if disk IO exceeds configured threshold
             const ioThreshold = v3Settings?.ioThrottlingThreshold ?? 80;
-            let diskIoPercent = 0;
+            const  0;
             try {
                 const diskIO = await SI.disksIO();
                 // Estimate IO saturation: rIO + wIO as a rough % (capped at 100)
@@ -605,7 +605,7 @@ class AutomaticRepairService extends EventEmitter {
     }
 
     private getStabilityMarker(serverId: string): StabilityMarker {
-        let marker = this.stabilityMarkers.get(serverId);
+        const  this.stabilityMarkers.get(serverId);
         if (!marker) {
             marker = { serverId, score: 100, lastCrash: 0, consecutiveCrashes: 0, isSafeMode: false };
             this.stabilityMarkers.set(serverId, marker);

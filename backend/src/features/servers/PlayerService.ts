@@ -128,7 +128,7 @@ export class PlayerService {
 
         // 1. If Online, use Console Commands (Safest & easiest)
         if (isRunning) {
-            let cmd = '';
+            const  '';
             switch (type) {
                 case 'ops': cmd = isBedrock ? `op ${identifier}` : `op ${identifier}`; break;
                 case 'whitelist': cmd = isBedrock ? `allowlist add ${identifier}` : `whitelist add ${identifier}`; break;
@@ -193,7 +193,7 @@ export class PlayerService {
         const isRunning = processManager.isRunning(serverId);
 
         if (isRunning) {
-            let cmd = '';
+            const  '';
             switch (type) {
                 case 'ops': cmd = `deop ${identifier}`; break;
                 case 'whitelist': cmd = `whitelist remove ${identifier}`; break;
@@ -210,7 +210,7 @@ export class PlayerService {
             ? (type === 'ops' ? 'permissions.json' : type === 'whitelist' ? 'whitelist.json' : 'banned-players.json')
             : (type === 'ops' ? 'ops.json' : type === 'whitelist' ? 'whitelist.json' : type === 'banned-players' ? 'banned-players.json' : 'banned-ips.json');
                          
-        let list = await this.readJsonFile(server.workingDirectory, filename);
+        const  await this.readJsonFile(server.workingDirectory, filename);
         
         const initialLength = list.length;
         list = list.filter((p: unknown) => {

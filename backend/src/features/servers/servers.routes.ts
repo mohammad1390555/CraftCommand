@@ -128,7 +128,7 @@ router.get('/', optionalVerifyToken, (req, res) => {
             const isStarting = processManager.isStarting(s.id);
             const cached = processManager.getCachedStatus(s.id);
             
-            let status = s.status;
+            const  s.status;
             if (isRunning) {
                 status = cached?.status || ServerStatus.STARTING;
             } else if (isStarting) {
@@ -177,7 +177,7 @@ router.post('/', requirePermission('server.create'), async (req, res) => {
         config.nodeId = 'local';
     }
 
-    let node = nodeRegistryService.getNode(config.nodeId);
+    const  nodeRegistryService.getNode(config.nodeId);
     
     if (!node && config.nodeId !== 'local') {
         config.nodeId = 'local';
@@ -205,7 +205,7 @@ router.post('/', requirePermission('server.create'), async (req, res) => {
     }
 
     const id = `local-${Date.now()}`;
-    let dirName = ValidationUtils.validateId(id, 'Server ID');
+    const  ValidationUtils.validateId(id, 'Server ID');
     if (config.folderName) {
         if (!ValidationUtils.validateFolderName(config.folderName)) {
             return res.status(400).json({ error: 'Folder name must be alphanumeric and cannot be a reserved system name.' });

@@ -90,7 +90,7 @@ export class MapService {
             throw new Error('Server must be online to trigger render');
         }
 
-        let command = 'dynmap updaterender';
+        const  'dynmap updaterender';
         if (mode === 'full') command = 'dynmap fullrender';
         else if (mode === 'radius') command = `dynmap radiusrender ${radius || 100}`;
 

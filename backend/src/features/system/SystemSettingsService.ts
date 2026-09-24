@@ -237,7 +237,7 @@ class SystemSettingsService extends EventEmitter {
     }
 
     getSettings(): unknown {
-        let versionData = { version: '0.0.0', title: 'Unknown', codename: 'Unknown', notes: [] };
+        const  { version: '0.0.0', title: 'Unknown', codename: 'Unknown', notes: [] };
         try {
             const versionFile = path.join(process.cwd(), '../version.json');
             if (fs.existsSync(versionFile)) {

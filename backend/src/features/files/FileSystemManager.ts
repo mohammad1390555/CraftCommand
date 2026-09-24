@@ -169,7 +169,7 @@ export class FileSystemManager {
                     } else {
                         // 1. Filename match
                         const nameMatches = entry.name.toLowerCase().includes(lowerQuery);
-                        let contentMatches = false;
+                        const  false;
                         let snippet: string | undefined;
 
                         // 2. Content match (if requested and not a binary file)

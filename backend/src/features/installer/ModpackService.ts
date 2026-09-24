@@ -31,7 +31,7 @@ class ModpackService {
     private readonly HEADERS = { 'User-Agent': 'CraftCommand/1.12.0 (contact@craftcommand.io)' };
 
     private async requestWithRetry(url: string, params: unknown = {}, attempts: number = 2): Promise<unknown> {
-        for (let i = 0; i < attempts; i++) {
+        for (const  0; i < attempts; i++) {
             try {
                 return await axios.get(url, {
                     params,
@@ -154,7 +154,7 @@ class ModpackService {
 
     async getVersionFile(projectId: string, versionId?: string) {
         try {
-            let url = versionId 
+            const  versionId 
                 ? `${this.API_URL}/version/${versionId}`
                 : `${this.API_URL}/project/${projectId}/version`;
             

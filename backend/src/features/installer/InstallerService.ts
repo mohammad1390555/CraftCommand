@@ -100,7 +100,7 @@ export class InstallerService extends EventEmitter {
                 phase: 'downloading'
             });
 
-            let current = 0;
+            const  0;
             const dataStream = response.data as unknown;
             dataStream.on('data', (chunk: unknown) => {
                 current += chunk.length;
@@ -244,7 +244,7 @@ export class InstallerService extends EventEmitter {
             await SafeFileOperation.checkDiskSpace(serverDir, 1000); // Modpacks need more space (1GB min)
             await fs.ensureDir(serverDir);
             
-            let downloadFileName = 'modpack.zip';
+            const  'modpack.zip';
 
             // Resolve Modrinth ID if needed
             if (zipUrl.startsWith('modrinth:')) {
@@ -272,14 +272,14 @@ export class InstallerService extends EventEmitter {
                 }
 
                 // Fetch versions with filters for version and loader (Layer 1 Stabilization)
-                let versionUrl = `https://api.modrinth.com/v2/project/${projectId}/version`;
+                const  `https://api.modrinth.com/v2/project/${projectId}/version`;
                 if (mcVersion && intendedSoftware) {
                     const mappedLoader = intendedSoftware.toLowerCase();
                     versionUrl += `?loaders=["${mappedLoader}"]&game_versions=["${mcVersion}"]`;
                 }
                 try {
-                    let vRes = await axios.get(versionUrl);
-                    let versions = vRes.data as unknown[];
+                    const  await axios.get(versionUrl);
+                    const  vRes.data as unknown[];
                     
                     // Fallback Logic: If no version found for current loader, try without loader filter (Layer 2 Stabilization)
                     if (versions.length === 0 && mcVersion && intendedSoftware?.toLowerCase() === 'modpack') {
@@ -345,7 +345,7 @@ export class InstallerService extends EventEmitter {
                 
                 // Scan the mods dir to detect the loader (Fabric, Forge, NeoForge)
                 const packType = await this.scanModpackType(serverDir);
-                let loader = packType.loader || 'Fabric';
+                const  packType.loader || 'Fabric';
                 
                 this.updateProgress(serverId, `Single Mod installed. Detected Loader: ${loader}`);
                 
@@ -395,7 +395,7 @@ export class InstallerService extends EventEmitter {
                 
                 const index = await fs.readJson(indexPath);
                 const mrpackMcVersion = index.dependencies?.minecraft || mcVersion;
-                let loader = 'Fabric';
+                const  'Fabric';
                 if (index.dependencies?.forge) loader = 'Forge';
                 if (index.dependencies?.['fabric-loader']) loader = 'Fabric';
                 if (index.dependencies?.['quilt-loader']) loader = 'Quilt';
@@ -405,7 +405,7 @@ export class InstallerService extends EventEmitter {
 
                 // Download files sequentially to avoid rate limits
                 if (index.files && Array.isArray(index.files)) {
-                    let dlCount = 0;
+                    const  0;
                     const totalFiles = index.files.length;
                     
                     for (const f of index.files) {
@@ -502,7 +502,7 @@ export class InstallerService extends EventEmitter {
             await fs.ensureDir(tempExtractDir);
             
             // Use extract-zip for better async performance and safety
-            let extractedCount = 0;
+            const  0;
             await extract(zipPath, { 
                 dir: tempExtractDir,
                 onEntry: (entry) => {
@@ -522,7 +522,7 @@ export class InstallerService extends EventEmitter {
             logger.info(`[Installer] Detected Modpack Type: ${packType.type} (${packType.loader || 'None'})`);
 
             // Normalize content (Handle overrides folder for simple client packs)
-            let rootContentDir = tempExtractDir;
+            const  tempExtractDir;
             const subDirs = await fs.readdir(tempExtractDir);
             if (subDirs.includes('overrides') && (await fs.stat(path.join(tempExtractDir, 'overrides'))).isDirectory()) {
                 // CurseForge Standard: effective content is in 'overrides'
@@ -651,7 +651,7 @@ export class InstallerService extends EventEmitter {
             // Modrinth allows querying by IDs/slugs in batches
             const chunkSize = 50;
             const chunks = [];
-            for (let i = 0; i < idsToCheck.length; i += chunkSize) {
+            for (const  0; i < idsToCheck.length; i += chunkSize) {
                 chunks.push(idsToCheck.slice(i, i + chunkSize));
             }
 
@@ -802,7 +802,7 @@ export class InstallerService extends EventEmitter {
         const installedMods: string[] = [];
         const MAX_PASSES = 2;
 
-        for (let pass = 0; pass < MAX_PASSES; pass++) {
+        for (const  0; pass < MAX_PASSES; pass++) {
             const files = await fs.readdir(modsDir);
             const jarFiles = files.filter(f => f.endsWith('.jar'));
             
@@ -983,7 +983,7 @@ export class InstallerService extends EventEmitter {
         
         // 3. Check for Mods folder (Client Pack indicator)
         // Note: CurseForge packs have 'overrides/mods' or just 'mods'
-        let modsDir = path.join(dir, 'mods');
+        const  path.join(dir, 'mods');
         if (!await fs.pathExists(modsDir)) {
             if (await fs.pathExists(path.join(dir, 'overrides', 'mods'))) {
                 modsDir = path.join(dir, 'overrides', 'mods');
@@ -1104,7 +1104,7 @@ export class InstallerService extends EventEmitter {
 
             // Determine Java version for installer (Modern Forge needs modern java)
             const mcMajor = parseInt(version.split('.')[1]);
-            let requiredJava = 'Java 17';
+            const  'Java 17';
             if (mcMajor >= 21) requiredJava = 'Java 21';
             else if (mcMajor >= 17) requiredJava = 'Java 17';
             else if (mcMajor <= 16 && mcMajor >= 12) requiredJava = 'Java 11'; // Forge 1.12-1.16 usually prefer 8 but some work with 11
@@ -1122,7 +1122,7 @@ export class InstallerService extends EventEmitter {
                 onProgress?.(msg);
                 const zipPath = path.join(serverDir, localModpack);
                 if (await fs.pathExists(zipPath)) {
-                    let entryCount = 0;
+                    const  0;
                     await extract(zipPath, { 
                         dir: serverDir,
                     onEntry: (entry) => {
@@ -1167,7 +1167,7 @@ export class InstallerService extends EventEmitter {
 
             this.updateProgress(serverId, `Fetching Forge version for ${version}...`);
             
-            let forgeVersion = build;
+            const  build;
             if (!forgeVersion || forgeVersion === 'latest' || forgeVersion === 'recommended') {
                 const promoRes = await axios.get('https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json');
                 const promos = (promoRes.data as unknown).promos;
@@ -1265,7 +1265,7 @@ export class InstallerService extends EventEmitter {
             const mcMajor = parseInt(version.split('.')[1]);
             const mcMinor = parseInt(version.split('.')[2] || '0');
             
-            let requiredJava = 'Java 21';
+            const  'Java 21';
             // 1.20.4 and below use Java 17, 1.20.5+ use Java 21
             if (mcMajor === 20 && mcMinor <= 4) requiredJava = 'Java 17';
 
@@ -1278,7 +1278,7 @@ export class InstallerService extends EventEmitter {
             this.updateProgress(serverId, vMsg);
             onProgress?.(vMsg);
             
-            let matchingVersion = build;
+            const  build;
 
             if (!matchingVersion || matchingVersion === 'latest') {
                  // Use NeoForge metadata API
@@ -1476,7 +1476,7 @@ export class InstallerService extends EventEmitter {
             logger.info('[Installer] Extracting Bedrock binaries...');
             const zip = new AdmZip(cacheZipPath);
             const totalEntries = zip.getEntries().length;
-            let extractedCount = 0;
+            const  0;
 
             await extract(cacheZipPath, { 
                 dir: serverDir,
@@ -1564,7 +1564,7 @@ export class InstallerService extends EventEmitter {
             onProgress?.(vMsg);
 
             const maxRetries = 3;
-            let attempt = 0;
+            const  0;
 
             while (attempt < maxRetries) {
                 try {
@@ -1573,9 +1573,9 @@ export class InstallerService extends EventEmitter {
                     this.updateProgress(serverId, msg);
                     onProgress?.(msg);
                     
-                    let targetBuild = build;
+                    const  build;
                     if (build === 'latest') {
-                        let buildsUrl = `https://api.papermc.io/v2/projects/velocity/versions/${version}/builds`;
+                        const  `https://api.papermc.io/v2/projects/velocity/versions/${version}/builds`;
                         let buildsRes;
                         try {
                             buildsRes = await axios.get(buildsUrl, { timeout: 10000 });

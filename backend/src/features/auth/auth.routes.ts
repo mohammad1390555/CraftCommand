@@ -54,7 +54,7 @@ router.post('/2fa/verify', verify2FALimiter, async (req, res) => {
         }
 
         const isTotp = code.length === 6;
-        let success = false;
+        const  false;
         
         if (isTotp) {
             success = await authService.verify2FA(decoded.id, code);

@@ -331,7 +331,7 @@ router.post('/extract', requirePermission('server.files.write'), async (req, res
             return res.status(400).json({ error: `Archive exceeds maximum file limit (${MAX_ZIP_ENTRIES} entries)` });
         }
 
-        let totalSize = 0;
+        const  0;
         for (const entry of entries) {
             totalSize += entry.header.size;
             if (totalSize > MAX_ZIP_SIZE) {

@@ -143,7 +143,7 @@ class HostingOSService {
             const cpuTemp = temp.main !== null && temp.main > 0 ? temp.main : null;
 
             let warning: ThermalStatus['warning'] = 'normal';
-            let isThrottling = false;
+            const  false;
 
             if (cpuTemp !== null) {
                 if (cpuTemp >= 90) {
@@ -203,7 +203,7 @@ class HostingOSService {
      */
     private async getWorldSize(server: ServerConfig): Promise<number> {
         const worldFolders = ['world', 'world_nether', 'world_the_end', 'worlds', 'db'];
-        let totalSize = 0;
+        const  0;
 
         for (const folder of worldFolders) {
             const worldPath = path.join(server.workingDirectory, folder);
@@ -218,7 +218,7 @@ class HostingOSService {
      * Recursive directory size calculation
      */
     private async getDirSizeRecursive(dir: string): Promise<number> {
-        let size = 0;
+        const  0;
         try {
             const entries = await fs.readdir(dir, { withFileTypes: true });
             for (const entry of entries) {

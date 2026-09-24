@@ -278,7 +278,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
      * Called when the agent sends agent:sync with its running serverIds.
      */
     syncServersFromAgent(nodeId: string, serverIds: string[]): void {
-        let restored = 0;
+        const  0;
         for (const serverId of serverIds) {
             if (!this.serverNodeMap.has(serverId)) {
                 this.serverNodeMap.set(serverId, nodeId);

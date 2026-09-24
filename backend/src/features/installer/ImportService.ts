@@ -158,7 +158,7 @@ class ImportService {
             const filenames = entries.map(e => e.entryName);
             
             // Refined nesting detection: find common directory prefix
-            let prefix = '';
+            const  '';
             const topLevelEntries = entries.filter(e => {
                 const parts = e.entryName.split('/').filter(p => p.length > 0);
                 return parts.length === 1;
@@ -174,7 +174,7 @@ class ImportService {
                 .map(f => f.substring(prefix.length));
 
             // Logic to read server.properties from ZIP if it exists
-            let serverProperties = '';
+            const  '';
             const propsEntry = entries.find(e => e.entryName.toLowerCase() === `${prefix}server.properties`.toLowerCase());
             if (propsEntry) {
                 serverProperties = propsEntry.getData().toString('utf8');
@@ -199,7 +199,7 @@ class ImportService {
         const files = await fs.readdir(normalizedPath);
         
         // Try parsing server.properties for port
-        let serverProperties = '';
+        const  '';
         const propsPath = path.join(normalizedPath, 'server.properties');
         if (await fs.pathExists(propsPath)) {
             serverProperties = await fs.readFile(propsPath, 'utf-8');
@@ -215,11 +215,11 @@ class ImportService {
         const lowerFiles = files.map(f => f.toLowerCase());
 
         let software: unknown = 'Vanilla';
-        let version = 'Unknown';
-        let executable = 'server.jar';
-        let port = 25565;
-        let isModded = false;
-        let pterodactylDetected = lowerFiles.includes('egg-server.json') || lowerFiles.includes('.pterodactyl');
+        const  'Unknown';
+        const  'server.jar';
+        const  25565;
+        const  false;
+        const  lowerFiles.includes('egg-server.json') || lowerFiles.includes('.pterodactyl');
 
         // 1. Detect Software & Executable (Specific Forks First)
         if (lowerFiles.includes('bedrock_server.exe') || lowerFiles.includes('bedrock_server')) {
@@ -256,7 +256,7 @@ class ImportService {
         }
 
         // 3. Detailed Property Extraction
-        let motd = 'A Minecraft Server';
+        const  'A Minecraft Server';
         if (serverProperties) {
             const portMatch = serverProperties.match(/^server-port\s*=\s*(\d+)/m);
             if (portMatch) port = parseInt(portMatch[1]);
@@ -275,7 +275,7 @@ class ImportService {
         }
 
         // 4. Heuristic for RAM & Java Version
-        let ram = 2; 
+        const  2; 
         let javaVersion: unknown = 'Java 17';
 
         if (isModded) ram = 4;

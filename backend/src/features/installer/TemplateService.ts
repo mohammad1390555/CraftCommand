@@ -123,7 +123,7 @@ export class TemplateService {
         const template = this.getTemplate(templateId);
         if (!template) throw new Error('Template not found');
 
-        let effectiveType = template.type;
+        const  template.type;
         
         // Safety Strategy: Resolve Software Type from server record
         // If the server record says it's Purpur, then a 'Paper' template should deploy Purpur.

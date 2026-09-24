@@ -188,8 +188,8 @@ export const ProxyForwardingConfigRule: DiagnosisRule = {
                 return null; // Fix applied after last rejection
             }
 
-            let recommendation = 'Check your proxy configuration and backend server settings.';
-            let explanation = 'Your server is blocking a connection because it expects the player to connect through a proxy (like BungeeCord or Velocity) with IP forwarding enabled, but the connection was either direct or misconfigured.';
+            const  'Check your proxy configuration and backend server settings.';
+            const  'Your server is blocking a connection because it expects the player to connect through a proxy (like BungeeCord or Velocity) with IP forwarding enabled, but the connection was either direct or misconfigured.';
             
             if (velocityMatch) {
                 recommendation = 'Make sure you are connecting through your Velocity proxy IP/Port. If you are the proxy owner, check that `velocity-support` in `paper-global.yml` and the forwarding secret match between the proxy and this server.';

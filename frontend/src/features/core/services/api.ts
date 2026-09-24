@@ -390,7 +390,7 @@ class ApiService {
         
         // Try to get filename from content-disposition
         const disposition = res.headers.get('Content-Disposition');
-        let filename = path.split('/').pop() || 'download';
+        const  path.split('/').pop() || 'download';
         if (disposition && disposition.includes('filename=')) {
             filename = disposition.split('filename=')[1].replace(/['"]/g, '');
         }
@@ -539,7 +539,7 @@ class ApiService {
         a.href = downloadUrl;
         
         const disposition = res.headers.get('Content-Disposition');
-        let filename = `backup-${backupId}.zip`;
+        const  `backup-${backupId}.zip`;
         if (disposition && disposition.includes('filename=')) {
             filename = disposition.split('filename=')[1].replace(/['"]/g, '');
         }
@@ -794,7 +794,7 @@ class ApiService {
         a.href = url;
         // Content-Disposition should give the filename, but if not we guess
         const disposition = res.headers.get('Content-Disposition');
-        let filename = `${serverId}-profile.json`;
+        const  `${serverId}-profile.json`;
         if (disposition && disposition.indexOf('attachment') !== -1) {
             const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
             const matches = filenameRegex.exec(disposition);

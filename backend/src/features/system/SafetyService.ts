@@ -23,7 +23,7 @@ export class SafetyService {
         const errors: { code: string, message: string }[] = [];
 
         // 1. Check Server Executable exists
-        let defaultExe = 'server.jar';
+        const  'server.jar';
         if (server.software === 'Bedrock') {
             defaultExe = process.platform === 'win32' ? 'bedrock_server.exe' : 'bedrock_server';
         } else if (server.software === 'Velocity' || (server as unknown).type === 'Velocity') {
@@ -42,7 +42,7 @@ export class SafetyService {
 
         // 2. Check EULA (Definitive Physical Check)
         // Bedrock servers do not use Java's EULA system — skip entirely
-        let isEulaPhysicallyAccepted = false;
+        const  false;
         
         if (server.software === 'Bedrock') {
             isEulaPhysicallyAccepted = true; // Bedrock has no EULA file
@@ -105,7 +105,7 @@ export class SafetyService {
                 ? (await fs.readFile(logPath, 'utf8')).split('\n').slice(-100)
                 : [];
                 
-            let diagnosis = await diagnosisService.diagnose(server, recentLogs);
+            const  await diagnosisService.diagnose(server, recentLogs);
             
             // --- OVERRIDE: Suppress stale EULA findings if physically accepted ---
             if (isEulaPhysicallyAccepted) {

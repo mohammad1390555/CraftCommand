@@ -26,13 +26,13 @@ export class ServerRepository implements StorageProvider<ServerConfig> {
 
     public findById(id: string): ServerConfig | undefined {
         const item = this.provider.findById(id);
-        if (!item) return undefined;
+        if (!item) ;
         return this.sanitizeServerConfig(item);
     }
 
     findOne(criteria: Partial<ServerConfig>) { 
         const item = this.provider.findOne(criteria); 
-        if (!item) return undefined;
+        if (!item) ;
         return this.sanitizeServerConfig(item);
     }
 

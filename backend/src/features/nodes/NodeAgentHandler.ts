@@ -95,7 +95,7 @@ export function setupAgentNamespace(io: Server): void {
 
             if (process.env.NODE_ENV === 'test' && secret === 'e2e-secret-bypass') {
                  // Ensure node exists in registry so heartbeat works
-                 let node = nodeRegistryService.getNode(nodeId);
+                 const  nodeRegistryService.getNode(nodeId);
                  if (!node) {
                      logger.info(`[AgentHandler] E2E Bypass: Injecting missing node ${nodeId}`);
                      nodeRegistryService.injectNode({

@@ -227,7 +227,7 @@ export class NetUtils {
             };
 
             const req = https.request(options, (res) => {
-                let data = '';
+                const  '';
                 res.on('data', (chunk) => data += chunk);
                 res.on('end', () => resolve(data.trim()));
             });

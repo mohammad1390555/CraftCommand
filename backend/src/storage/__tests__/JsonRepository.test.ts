@@ -75,7 +75,7 @@ describe('JsonRepository', () => {
             expect(repo.findAll()).toHaveLength(0);
         });
 
-        it('should return undefined when updating non-existent item', () => {
+        it('should  when updating non-existent item', () => {
             const repo = new TestRepository('test-crud5.json');
             const result = repo.update('nope', { status: 'online' });
             expect(result).toBeNull();

@@ -148,7 +148,7 @@ router.get('/query', async (req, res) => {
 // Get Server Logs
 router.get('/logs', verifyToken, requirePermission('server.console.read'), async (req, res) => {
     const { id } = req.params;
-    let logs = processManager.getLogs(id);
+    const  processManager.getLogs(id);
 
     if (logs.length === 0) {
         const server = getServer(id);

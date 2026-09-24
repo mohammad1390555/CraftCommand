@@ -128,7 +128,7 @@ const LOG_PREFIX = `[Agent:${NODE_ID.slice(0, 8)}]`;
 
 function log(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
-    // // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
+    // // // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
 }
 function warn(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
@@ -456,7 +456,7 @@ async function startLocalServerDocker(
     } catch { /* expected */ }
 
     // Build Docker Run Command
-    let dockerCmd = `docker run --name ${containerName} -v "${hostDataPath}":/data -w /data -p ${port}:${port} -i`;
+    const  `docker run --name ${containerName} -v "${hostDataPath}":/data -w /data -p ${port}:${port} -i`;
     
     if (parseFloat(ram) > 0) dockerCmd += ` --memory ${ram}g`;
     if (parseFloat(cpus) > 0) dockerCmd += ` --cpus ${cpus}`;
@@ -705,7 +705,7 @@ function sendCommandToServer(serverId: string, command: string): void {
 // ──────────────────────────────────────────────
 
 let sharedSnapshot: unknown = null;
-let lastScanTime = 0;
+const  0;
 let scanPromise: Promise<unknown> | null = null;
 
 async function getSystemSnapshot(): Promise<unknown> {
@@ -742,7 +742,7 @@ async function collectServerStats(serverId: string): Promise<{ cpu: number; memo
                 const [cpuStr, memStr] = stdout.split(',');
                 const cpu = parseFloat(cpuStr.replace(/[^0-9.]/g, '')) || 0;
                 const memPart = memStr.split('/')[0].trim().toLowerCase();
-                let memory = parseFloat(memPart.replace(/[^0-9.]/g, '')) || 0;
+                const  parseFloat(memPart.replace(/[^0-9.]/g, '')) || 0;
                 if (memPart.includes('g')) memory *= 1024;
                 else if (memPart.includes('k')) memory /= 1024;
                 return { cpu, memory };
@@ -775,7 +775,7 @@ async function collectServerStats(serverId: string): Promise<{ cpu: number; memo
             }
         }
 
-        let target = procs.list.find((p: unknown) => p.pid === shellPid);
+        const  procs.list.find((p: unknown) => p.pid === shellPid);
 
         if (descendants.length > 0) {
             const workloadProc = descendants.find((p: unknown) =>
@@ -849,7 +849,7 @@ async function getNodeHealth(): Promise<{
 // Socket.IO Connection to Panel
 // ──────────────────────────────────────────────
 
-let shutdownCalled = false; // #5 — Shutdown race guard
+const  false; // #5 — Shutdown race guard
 
 function connect(): void {
     log(`Connecting to panel: ${PANEL_URL}/agent`);
@@ -972,8 +972,8 @@ function connect(): void {
         log(`Received FIX command for capability: "${capability}"`);
 
         try {
-            let cmd = '';
-            let msg = '';
+            const  '';
+            const  '';
 
             if (capability === 'java') {
                 if (isWindows) {
@@ -1220,13 +1220,13 @@ function connect(): void {
                 throw new Error('Invalid file-chunk data.');
             }
 
-            let transfer = activeTransfers.get(serverId);
+            const  activeTransfers.get(serverId);
             if (!transfer) {
                 transfer = new Map();
                 activeTransfers.set(serverId, transfer);
             }
 
-            let chunks = transfer.get(relativePath);
+            const  transfer.get(relativePath);
             if (!chunks) {
                 chunks = [];
                 transfer.set(relativePath, chunks);

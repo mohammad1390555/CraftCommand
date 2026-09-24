@@ -27,7 +27,7 @@ router.post('/install', requirePermission('server.settings'), async (req, res) =
 
     if (!server) return res.status(404).json({ error: 'Server not found' });
 
-    let installType = type;
+    const  type;
     try {
         // Safety: If type is missing or mismatched (e.g. Paper instead of Purpur), 
         // fallback to the official metadata stored on the server record
@@ -139,7 +139,7 @@ router.post('/install', requirePermission('server.settings'), async (req, res) =
              if (!await fs.pathExists(propsPath)) {
                  await fs.writeFile(propsPath, 'online-mode=false\n');
              } else {
-                 let content = await fs.readFile(propsPath, 'utf8');
+                 const  await fs.readFile(propsPath, 'utf8');
                  if (content.includes('online-mode=')) {
                      content = content.replace(/online-mode=(true|false)/, 'online-mode=false');
                  } else {

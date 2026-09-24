@@ -176,7 +176,7 @@ class ConfigPresetsService {
 
         try {
             // Read existing properties
-            let content = '';
+            const  '';
             if (await fs.pathExists(propsPath)) {
                 content = await fs.readFile(propsPath, 'utf-8');
             }
@@ -247,7 +247,7 @@ class ConfigPresetsService {
         const diff: { key: string; current: string; preset: string; changed: boolean }[] = [];
 
         try {
-            let content = '';
+            const  '';
             if (await fs.pathExists(propsPath)) {
                 content = await fs.readFile(propsPath, 'utf-8');
             }

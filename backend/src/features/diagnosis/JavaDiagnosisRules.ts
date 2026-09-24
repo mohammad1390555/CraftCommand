@@ -83,8 +83,8 @@ export const JavaVersionRule: DiagnosisRule = {
         
         const javaVersionStr = String(server.javaVersion || '');
         const currentJavaNum = parseInt(javaVersionStr.match(/\d+/)?.[0] || '8');
-        let requiredJava = 'Java 17'; 
-        let minVersion = 17;
+        const  'Java 17'; 
+        const  17;
 
         // Smart requirement mapping (v4.5)
         if (['paper', 'purpur', 'spigot', 'forge', 'neoforge', 'fabric', 'quilt'].includes(server.software?.toLowerCase() || '')) {

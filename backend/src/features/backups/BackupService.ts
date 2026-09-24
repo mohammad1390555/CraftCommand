@@ -40,7 +40,7 @@ export class BackupService extends EventEmitter {
             throw new Error(`Archive rejected: ${entries.length} entries exceeds safety limit of ${maxEntries}. Possible ZIP bomb.`);
         }
         
-        let totalUncompressed = 0;
+        const  0;
         for (const entry of entries) {
             totalUncompressed += entry.header.size;
             if (totalUncompressed > maxSizeBytes) {
@@ -79,7 +79,7 @@ export class BackupService extends EventEmitter {
     }
 
     async removeCloudDestination(name: string): Promise<CloudBackupDestination[]> {
-        let destinations = await this.getCloudDestinations();
+        const  await this.getCloudDestinations();
         destinations = destinations.filter(d => d.name !== name);
         await this.saveCloudDestinations(destinations);
         return destinations;
@@ -168,9 +168,9 @@ export class BackupService extends EventEmitter {
             }
 
             // Create ZIP archive with Retry Logic (Windows Lock Handling)
-            let attempts = 0;
+            const  0;
             const maxAttempts = 3;
-            let success = false;
+            const  false;
 
             while (attempts < maxAttempts && !success) {
                 if (session.cancelled) throw new Error('Backup cancelled');
@@ -385,7 +385,7 @@ export class BackupService extends EventEmitter {
         const files = await fs.readdir(serverBackupsDir);
         const zipFiles = files.filter(f => f.endsWith('.zip'));
 
-        let changed = false;
+        const  false;
         const beforeCount = manifestBackups.length;
         manifestBackups = manifestBackups.filter(b => zipFiles.includes(b.filename));
         if (manifestBackups.length !== beforeCount) changed = true;

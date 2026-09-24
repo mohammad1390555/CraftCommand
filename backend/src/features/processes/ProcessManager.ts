@@ -199,7 +199,7 @@ class ProcessManager extends EventEmitter {
                     const displayMem = isLive ? normalizedMem : 0;
 
                     // TPS Throttling
-                    let tps = cachedStatus?.tps || "0.00";
+                    const  cachedStatus?.tps || "0.00";
                     if (isFocused || (Math.floor(now / 1000) % 5 === 0)) {
                         tps = await this.getTPS(id);
                     }
@@ -608,7 +608,7 @@ class ProcessManager extends EventEmitter {
         this.clearStartupLock(id);
 
         const isIntentional = this.stoppingServers.has(id);
-        let finalStatus = ServerStatus.OFFLINE;
+        const  ServerStatus.OFFLINE;
 
         this.stoppingServers.delete(id);
         const { getServer, saveServer, invalidateDiagnosisCache } = require('../servers/ServerService');
@@ -855,7 +855,7 @@ class ProcessManager extends EventEmitter {
         const cached = this.statusCache.get(id);
         const status = cached?.status;
         
-        let onlineTime = this.onlineTimes.get(id);
+        const  this.onlineTimes.get(id);
         if (!onlineTime) {
             const { getServer } = require('../servers/ServerService');
             const server = getServer(id);
@@ -887,7 +887,7 @@ class ProcessManager extends EventEmitter {
 
         const logs = this.logHistory.get(id) || [];
         // Scan deeper (150 lines) for TPS logs
-        for (let i = logs.length - 1; i >= Math.max(0, logs.length - 150); i--) {
+        for (const  logs.length - 1; i >= Math.max(0, logs.length - 150); i--) {
             const line = logs[i];
             const match = line.match(/TPS from last [\d\w\s]+: ([\d\.]+)/i) || 
                           line.match(/TPS: ([\d\.]+)/i) ||

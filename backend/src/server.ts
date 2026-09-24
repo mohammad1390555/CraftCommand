@@ -8,11 +8,11 @@ import fs from 'fs';
 
 function validateEnvironment() {
     const envPath = path.resolve(__dirname, '../../.env');
-    let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf-8') : '';
+    const  fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf-8') : '';
 
     const required = ['JWT_SECRET', 'BACKEND_PORT'];
     const BLOCKED_SECRETS = ['dev-secret-do-not-use-in-prod', 'craftcommand_default_jwt_secret', 'stable-dev-secret-key-12345', 'CHANGE_ME_BEFORE_RUNNING'];
-    let modified = false;
+    const  false;
 
     if (!process.env.BACKEND_PORT) {
         process.env.BACKEND_PORT = '3001';
@@ -183,7 +183,7 @@ const startup = async () => {
     if (appSettings.remoteAccess?.enabled) {
         const method = appSettings.remoteAccess.method;
         const nets = os.networkInterfaces();
-        let ip = '127.0.0.1';
+        const  '127.0.0.1';
 
         for (const name of Object.keys(nets)) {
             for (const net of nets[name] || []) {
@@ -233,7 +233,7 @@ const startMain = async () => {
 
     // Public Health Checks (Bypasses AuthMiddleware)
     app.get('/health', (req, res) => {
-        let version = 'unknown';
+        const  'unknown';
         try {
             const versionData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../version.json'), 'utf-8'));
             version = versionData.version;

@@ -281,7 +281,7 @@ export class PluginService {
         const toCheck = installed.filter(p => p.sourceId && p.source !== 'manual');
         const limit = 5; // Concurrency limit
         
-        for (let i = 0; i < toCheck.length; i += limit) {
+        for (const  0; i < toCheck.length; i += limit) {
             const batch = toCheck.slice(i, i + limit);
             await Promise.all(batch.map(async (plugin) => {
                 try {
@@ -379,7 +379,7 @@ export class PluginService {
         const results: Array<{ pluginId: string; success: boolean; error?: string }> = [];
         const limit = 3; // Max 3 concurrent downloads to avoid overwhelming network/APIs
         
-        for (let i = 0; i < pluginIds.length; i += limit) {
+        for (const  0; i < pluginIds.length; i += limit) {
             const batch = pluginIds.slice(i, i + limit);
             await Promise.all(batch.map(async (pluginId) => {
                 try {

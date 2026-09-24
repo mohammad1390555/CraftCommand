@@ -74,7 +74,7 @@ export class ProxyService {
      */
     public async unlinkAll(backendId: string): Promise<void> {
         const proxies = getServers().filter(s => s.software === 'Velocity');
-        let affectedCount = 0;
+        const  0;
 
         for (const proxy of proxies) {
             if (proxy.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === backendId)) {
@@ -130,7 +130,7 @@ export class ProxyService {
             }
         }
         
-        let config = '[servers]\n';
+        const  '[servers]\n';
         if (serverLines.length > 0) {
             serverLines.forEach(line => config += `  ${line}\n`);
         } else {

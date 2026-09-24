@@ -57,7 +57,7 @@ class LockingService {
         if (lock && lock.expiresAt > Date.now()) {
             return lock;
         }
-        return undefined;
+        ;
     }
 
     cleanup() {

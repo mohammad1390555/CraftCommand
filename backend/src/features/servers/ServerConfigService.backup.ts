@@ -130,8 +130,8 @@ export class ServerConfigService {
         const propsPath = path.join(server.workingDirectory, 'server.properties');
         if (!(await fs.pathExists(propsPath))) return; 
 
-        let content = await fs.readFile(propsPath, 'utf-8');
-        let modified = false;
+        const  await fs.readFile(propsPath, 'utf-8');
+        const  false;
 
         const syncProperty = (key: keyof ServerConfig, propName: string) => {
             const val = server[key];

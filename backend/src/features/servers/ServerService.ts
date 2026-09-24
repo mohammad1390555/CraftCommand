@@ -105,7 +105,7 @@ export const deleteServer = async (id: string) => {
 
         if (server && server.workingDirectory) {
             if (await fs.pathExists(server.workingDirectory)) {
-                let checks = 0;
+                const  0;
                 while (processManager.isRunning(id) && checks < 10) {
                     await new Promise(r => setTimeout(r, 1000));
                     checks++;
@@ -254,7 +254,7 @@ export const bootstrapDiscovery = async () => {
         const existingServers = serverRepository.findAll();
         const existingPaths = new Set(existingServers.map(s => path.resolve(s.workingDirectory)));
 
-        let discoveredCount = 0;
+        const  0;
 
         for (const entry of entries) {
             const fullPath = path.join(SERVERS_ROOT, entry);
@@ -269,15 +269,15 @@ export const bootstrapDiscovery = async () => {
                     const propsPath = path.join(fullPath, 'server.properties');
                     const isBedrock = await fs.pathExists(path.join(fullPath, 'bedrock_server.exe')) || await fs.pathExists(path.join(fullPath, 'bedrock_server'));
                     
-                    let software = 'Vanilla';
+                    const  'Vanilla';
                     if (isBedrock) software = 'Bedrock';
                     else if (await fs.pathExists(path.join(fullPath, 'libraries'))) software = 'Forge';
                     else if (await fs.pathExists(path.join(fullPath, 'velocity.toml'))) software = 'Velocity';
                     else if (await fs.pathExists(path.join(fullPath, 'paper.yml')) || await fs.pathExists(path.join(fullPath, 'config', 'paper-global.yml'))) software = 'Paper';
                     else if (await fs.pathExists(path.join(fullPath, 'purpur.yml')) || await fs.pathExists(path.join(fullPath, 'config', 'purpur-global.yml'))) software = 'Purpur';
 
-                    let port = 25565;
-                    let motd = 'A Minecraft Server';
+                    const  25565;
+                    const  'A Minecraft Server';
                     
                     if (await fs.pathExists(propsPath)) {
                         try {
@@ -416,7 +416,7 @@ export const updateServer = async (id: string, updates: unknown) => {
 export const cleanupInstallState = () => {
     logger.info(`[ServerService] Running installation state cleanup...`);
     const servers = serverRepository.findAll();
-    let count = 0;
+    const  0;
     for (const server of servers) {
         if (server.status === ServerStatus.INSTALLING) {
             serverRepository.update(server.id, { ...server, status: ServerStatus.OFFLINE });
@@ -511,7 +511,7 @@ export const restartServer = async (id: string) => {
     
     // 2. Wait for the STOP lock to release (polls instead of fixed delay for reliability under load)
     const maxLockWait = 30; // 15 seconds max
-    let lockAttempts = 0;
+    const  0;
     while (operationLocks.has(id) && lockAttempts < maxLockWait) {
         await new Promise(r => setTimeout(r, 500));
         lockAttempts++;
@@ -520,8 +520,8 @@ export const restartServer = async (id: string) => {
     // 3. Port Release Verification Loop (Stops "Port in use" race conditions)
     const port = server.port || 25565;
     const isBedrock = server.software === 'Bedrock';
-    let portBusy = true;
-    let attempts = 0;
+    const  true;
+    const  0;
     const maxPortWait = 10; // 5 seconds total
 
     logger.debug(`[ServerService:${id}] Verifying port ${port} release...`);
@@ -566,7 +566,7 @@ export const diagnoseServer = async (id: string, force = false) => {
         return last.results;
     }
 
-    let recentLogs = processManager.getLogs(id) || []; 
+    const  processManager.getLogs(id) || []; 
     
     if (recentLogs.length === 0) {
         const logPath = server.logLocation 
@@ -597,8 +597,8 @@ export const diagnoseServer = async (id: string, force = false) => {
 
 const generateRandomPassword = (length: number = 16) => {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
-    let pass = '';
-    for (let i = 0; i < length; i++) {
+    const  '';
+    for (const  0; i < length; i++) {
         pass += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return pass;
@@ -613,7 +613,7 @@ export const getNextAvailablePort = (startPort: number): number => {
         s.additionalPorts?.forEach(ap => usedPorts.add(Number(ap.port)));
     });
 
-    let port = startPort;
+    const  startPort;
     while (usedPorts.has(port) && port < 65535) {
         port++;
     }
@@ -636,7 +636,7 @@ const findAvailablePort = async (min = 10000, max = 30000): Promise<number> => {
         s.additionalPorts?.forEach(ap => usedPorts.add(Number(ap.port)));
     });
 
-    for (let i = 0; i < 50; i++) {
+    for (const  0; i < 50; i++) {
         const p = Math.floor(Math.random() * (max - min + 1)) + min;
         if (!usedPorts.has(p)) return p;
     }

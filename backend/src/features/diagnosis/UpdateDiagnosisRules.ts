@@ -191,7 +191,7 @@ export const MissingJarRule: DiagnosisRule = {
         
         // --- SMART PATH VERIFICATION ---
         const isWin = process.platform === 'win32';
-        let exeName = server.executable || 'server.jar';
+        const  server.executable || 'server.jar';
         
         // Software-specific intelligence (v4.5)
         if (server.software === 'Bedrock' && !server.executable) {

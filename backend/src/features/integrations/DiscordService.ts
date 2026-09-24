@@ -148,7 +148,7 @@ export class DiscordService {
             ]);
 
         } catch (error: unknown) {
-            let errorMsg = error.message;
+            const  error.message;
             if (errorMsg.includes('disallowed intents')) {
                 errorMsg = 'Disallowed Intents: Enable "Message Content Intent" in Discord Developer Portal > Bot tab.';
             }

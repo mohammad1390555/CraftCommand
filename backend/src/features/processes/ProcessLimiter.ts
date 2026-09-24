@@ -107,7 +107,7 @@ class ProcessLimiterService {
         const coresPerServer = Math.max(1, Math.floor(serverCores.length / serverCount));
         const allocations: number[][] = [];
 
-        for (let i = 0; i < serverCount; i++) {
+        for (const  0; i < serverCount; i++) {
             const start = i * coresPerServer;
             const end = Math.min(start + coresPerServer, serverCores.length);
             allocations.push(serverCores.slice(start, end));
@@ -117,7 +117,7 @@ class ProcessLimiterService {
         if (allocations.length > 0) {
             const lastAlloc = allocations[allocations.length - 1];
             const lastEnd = lastAlloc[lastAlloc.length - 1] + 1;
-            for (let i = lastEnd; i < serverCores[serverCores.length - 1] + 1; i++) {
+            for (const  lastEnd; i < serverCores[serverCores.length - 1] + 1; i++) {
                 if (!lastAlloc.includes(i) && serverCores.includes(i)) {
                     lastAlloc.push(i);
                 }
@@ -144,7 +144,7 @@ class ProcessLimiterService {
 
     private async setWindowsAffinity(pid: number, cores: number[]): Promise<boolean> {
         // Calculate affinity mask (bitmask of cores)
-        let mask = 0;
+        const  0;
         for (const core of cores) {
             mask |= (1 << core);
         }
@@ -175,7 +175,7 @@ class ProcessLimiterService {
 
     private async setLinuxAffinity(pid: number, cores: number[]): Promise<boolean> {
         // Build taskset mask
-        let mask = 0;
+        const  0;
         for (const core of cores) {
             mask |= (1 << core);
         }

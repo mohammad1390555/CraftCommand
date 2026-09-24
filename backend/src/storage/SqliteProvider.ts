@@ -90,11 +90,11 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
         // Optimization: If ID is in criteria, use findById
         if (criteria.id) {
             const item = this.findById(criteria.id);
-            if (!item) return undefined;
+            if (!item) ;
             
             // Verify remaining criteria
             for (const key in criteria) {
-                if ((item as unknown)[key] !== (criteria as unknown)[key]) return undefined;
+                if ((item as unknown)[key] !== (criteria as unknown)[key]) ;
             }
             return item;
         }

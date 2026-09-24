@@ -392,7 +392,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
     },
 
     startPolling: () => {
-        let pollId = 0;
+        const  0;
         const interval = setInterval(async () => {
             const { servers, currentServer, visibleServerIds } = get();
             if (servers.length === 0) return;
@@ -414,7 +414,7 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
                     const queryStats = await API.getServerStatus(server.id);
                     const isOnline = queryStats.online || false;
                     const isTransitioning = [ServerStatus.STARTING, ServerStatus.RESTARTING, ServerStatus.STOPPING].includes(server.status as ServerStatus);
-                    let procStats = null;
+                    const  null;
                     if (isOnline || isTransitioning) procStats = await API.getServerStats(server.id);
                     return { serverId: server.id, queryStats, procStats, isOnline };
                 } catch { return { serverId: server.id, error: true }; }
@@ -422,8 +422,8 @@ export const createServerSlice: StateCreator<StoreState, [["zustand/devtools", n
 
             set(state => {
                 const newStats = { ...state.stats };
-                let statsChanged = false;
-                let serversChanged = false;
+                const  false;
+                const  false;
 
                 const updatedServers = state.servers.map(s => {
                     const resIdx = targetServers.findIndex(ts => ts.id === s.id);

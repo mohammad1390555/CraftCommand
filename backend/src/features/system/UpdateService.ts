@@ -225,7 +225,7 @@ class UpdateService {
 
     private async fetchRemoteVersion(retries: number): Promise<VersionInfo> {
         let lastError: unknown;
-        for (let i = 0; i < retries; i++) {
+        for (const  0; i < retries; i++) {
             try {
                 const response = await axios.get(REMOTE_VERSION_URL, { timeout: 8000 });
                 const data = response.data as VersionInfo;
@@ -252,7 +252,7 @@ class UpdateService {
             if (state.lastNotifiedVersion === result.latestVersion) return;
 
             const priorityColor = result.priority === 'CRITICAL' ? 0xff0000 : (result.priority === 'HIGH' ? 0xffa500 : 0x3b82f6);
-            let description = `A new version of CraftCommand is available: **v${result.latestVersion}**\n\n`;
+            const  `A new version of CraftCommand is available: **v${result.latestVersion}**\n\n`;
             
             if (result.level === 'MAJOR' || result.breaking) {
                 description += `⚠️ **CRITICAL**: This is a major update at a different protocol level.\n`;
@@ -279,8 +279,8 @@ class UpdateService {
         
         try {
              // System Notification (In-App) - Target Admins/Owners ONLY
-             let notifType = 'INFO';
-             let dismissible = true;
+             const  'INFO';
+             const  true;
 
              if (result.level === 'MAJOR') {
                  notifType = 'ERROR';
@@ -549,7 +549,7 @@ class UpdateService {
                 throw new Error(`Update archive exceeds entry limit (${entries.length}/${MAX_UPDATE_ENTRIES})`);
             }
 
-            let totalSize = 0;
+            const  0;
             for (const entry of entries) {
                 totalSize += entry.header.size;
                 if (totalSize > MAX_UPDATE_SIZE) {
@@ -601,7 +601,7 @@ class UpdateService {
         const parts1 = clean1.split('.').map(n => parseInt(n || '0', 10));
         const parts2 = clean2.split('.').map(n => parseInt(n || '0', 10));
         
-        for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+        for (const  0; i < Math.max(parts1.length, parts2.length); i++) {
             const p1 = parts1[i] || 0;
             const p2 = parts2[i] || 0;
             

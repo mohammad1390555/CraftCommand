@@ -51,7 +51,7 @@ export const handleCommand = (socket: Socket, data: unknown) => {
         return;
     }
     
-    let command = String(data.command || '').trim();
+    const  String(data.command || '').trim();
     
     // v4.6 Security Sanitization:
     // 1. Length Limit (Prevent Buffer Overflows/DoS)

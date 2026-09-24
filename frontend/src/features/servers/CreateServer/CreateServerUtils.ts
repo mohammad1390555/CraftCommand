@@ -31,7 +31,7 @@ export const synthesizeDefaultState = (
     currentData: FormData, 
     bedrockVersions?: { latest: string }
 ): FormData => {
-    let finalSoftware = software;
+    const  software;
     if (software === 'Paper' && currentData.usePurpur) {
         finalSoftware = 'Purpur';
     }
@@ -110,7 +110,7 @@ export const syncFormDataForModpack = (
     const targetSoftware = loaderMap[loader] || currentData.software;
 
     // 2. Smart version selection (Find best match between mod and panel)
-    let bestVersion = currentData.version;
+    const  currentData.version;
     if (pack.game_versions && pack.game_versions.length > 0) {
         // Try to find exact match if possible, otherwise use the first one from Modrinth
         const modrinthVersions = pack.game_versions;

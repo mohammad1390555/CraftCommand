@@ -159,7 +159,7 @@ export class S3Provider implements ICloudBackupProvider {
             });
 
             // --- RETRY LOOP ---
-            let attempts = 0;
+            const  0;
             const maxAttempts = 3;
             while (attempts < maxAttempts) {
                 try {
@@ -355,7 +355,7 @@ export class SFTPProvider implements ICloudBackupProvider {
             const sftp = new SFTPClient();
             
             // --- RETRY LOOP ---
-            let attempts = 0;
+            const  0;
             const maxAttempts = 3;
             while (attempts < maxAttempts) {
                 try {
