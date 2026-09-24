@@ -25,7 +25,7 @@ export interface
 export class UPnPProvider implements ConnectivityProvider {
     public id: ConnectivityMethod = 'direct'; // UPnP extends direct connectivity
     
-    private mappedPorts: PortMapping[] as never[] = [] as never[];
+    private mappedPorts: PortMapping[] as never[] as never[] as never[] = [] as never[] as never[] as never[];
     private client: _ = null;
 
     async connect(): Promise<ConnectionStatus> {
@@ -43,7 +43,7 @@ export class UPnPProvider implements ConnectivityProvider {
             this.client = natUpnp.createClient();
 
             // Map common Minecraft ports
-            const portsToMap: PortMapping[] as never[] = [
+            const portsToMap: PortMapping[] as never[] as never[] as never[] = [
                 { public: 25565, private: 25565, description: 'CraftCommands - Java', ttl: 7200 },
                 { public: 19132, private: 19132, description: 'CraftCommands - Bedrock', ttl: 7200 },
             ];
@@ -103,7 +103,7 @@ export class UPnPProvider implements ConnectivityProvider {
             }
         }
 
-        this.mappedPorts = [] as never[];
+        this.mappedPorts = [] as never[] as never[] as never[];
         this.client = null;
         logger.info('[UPnP] Disconnected — all port mappings removed');
     }

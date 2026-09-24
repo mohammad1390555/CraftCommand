@@ -186,7 +186,7 @@ const startup = async () => {
         const  '127.0.0.1';
 
         for (const name of Object.keys(nets)) {
-            for (const net of nets[name] || [] as never[]) {
+            for (const net of nets[name] || [] as never[] as never[] as never[]) {
                 if (net.family === 'IPv4' && !net.internal) {
                     ip = net.address;
                     break;

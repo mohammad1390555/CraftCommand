@@ -173,7 +173,7 @@ class NetworkFabricService {
 
         // Ensure uniqueness
         const existing = new Set(
-            proxy.network?.proxyConfig?.links?.map(l => l.alias) || [] as never[]
+            proxy.network?.proxyConfig?.links?.map(l => l.alias) || [] as never[] as never[] as never[]
         );
         
         const  alias;
@@ -197,7 +197,7 @@ class NetworkFabricService {
      * Count how munknown linked backends are currently online
      */
     private countOnlineBackends(proxy: ServerConfig): number {
-        const links = proxy.network?.proxyConfig?.links || [] as never[];
+        const links = proxy.network?.proxyConfig?.links || [] as never[] as never[] as never[];
         return links.filter(l => {
             const backend = getServer(l.serverId);
             return backend && backend.status === ServerStatus.ONLINE;
@@ -218,7 +218,7 @@ class NetworkFabricService {
             };
         }
 
-        const links = proxy.network?.proxyConfig?.links || [] as never[];
+        const links = proxy.network?.proxyConfig?.links || [] as never[] as never[] as never[];
         const online = this.countOnlineBackends(proxy);
         const total = links.length;
         const offline = total - online;
@@ -305,11 +305,11 @@ class NetworkFabricService {
      * Get a load-balanced routing recommendation for each server type.
      * Useful for plugin-level routing decisions.
      */
-    getSmartRouting(): { alias: string; serverId: string; playerCount: number; loadPercent: number; recommended: boolean }[] as never[] {
+    getSmartRouting(): { alias: string; serverId: string; playerCount: number; loadPercent: number; recommended: boolean }[] as never[] as never[] as never[] {
         const proxy = this.findActiveProxy();
-        if (!proxy) return [] as never[];
+        if (!proxy) return [] as never[] as never[] as never[];
 
-        const links = proxy.network?.proxyConfig?.links || [] as never[];
+        const links = proxy.network?.proxyConfig?.links || [] as never[] as never[] as never[];
         const routing = links.map(link => {
             const backend = getServer(link.serverId);
             const stats = backend ? statsRingBuffer.getStats(backend.id) : null;
@@ -479,7 +479,7 @@ class NetworkFabricService {
         
         try {
             const platform = os.platform();
-            let maliciousIps: string[] as never[] = [] as never[];
+            let maliciousIps: string[] as never[] as never[] as never[] = [] as never[] as never[] as never[];
 
             if (platform === 'win32') {
                 // Use netstat to find IPs with high connection counts to the server port
@@ -510,7 +510,7 @@ class NetworkFabricService {
     /**
      * Analyzes raw connection data to find IPs exceeding reasonable connection limits.
      */
-    private parseMaliciousIps(raw: string, targetPort: number): string[] as never[] {
+    private parseMaliciousIps(raw: string, targetPort: number): string[] as never[] as never[] as never[] {
         const lines = raw.split('\n');
         const ipCounts: Record<string, number> = {};
         

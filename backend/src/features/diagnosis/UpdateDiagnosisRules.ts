@@ -14,7 +14,7 @@ export const UpdateSignatureRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         const hasError = logs.some(l => /update signature verification failed|Invalid signature for update|Signature mismatch/i.test(l));
         
         if (hasError) {
@@ -44,7 +44,7 @@ export const UpdateApplyFailedRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         const hasError = logs.some(l => /Failed to extract update|Failed to replace file|Update rollback initiated|launcher: Update failed/i.test(l));
         
         if (hasError) {
@@ -73,7 +73,7 @@ export const MigrationFailedRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         const errorLog = logs.find(l => /Migration failed:|Failed to apply migration|Database schema mismatch/i.test(l));
         
         if (errorLog) {
@@ -101,7 +101,7 @@ export const EulaRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         // --- SMART STATE VERIFICATION (v4.6) ---
         // Check disk first - if eula is already true, the issue is physically resolved.
         // We do this BEFORE log matching to ensure immediate suppression of stale evidence.
@@ -161,7 +161,7 @@ export const MissingDirectoryRule: DiagnosisRule = {
     description: 'Checks if the server working directory exists',
     tier: 1,
     defaultConfidence: 100,
-    triggers: [] as never[],
+    triggers: [] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (!server.workingDirectory) return null;
         if (!(await fs.pathExists(server.workingDirectory))) {
@@ -185,7 +185,7 @@ export const MissingJarRule: DiagnosisRule = {
     description: 'Checks if the server JAR/executable exists',
     tier: 1,
     defaultConfidence: 100,
-    triggers: [] as never[],
+    triggers: [] as never[] as never[] as never[],
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         if (!server.workingDirectory) return null;
         
@@ -225,7 +225,7 @@ export const BadConfigRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 90,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const propsPath = path.join(server.workingDirectory, 'server.properties');
         
         // --- SMART CONFIG PARSING ---
@@ -274,7 +274,7 @@ export const PermissionRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         // --- PROACTIVE PERMISSION CHECK ---
         if (process.platform !== 'win32' && server.workingDirectory) {
             try {
@@ -326,7 +326,7 @@ export const WatchdogRule: DiagnosisRule = {
     ],
     tier: 2,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const hasError = logs.some(l => /single server tick took|stopped responding/i.test(l));
         if (hasError) {
              return {
@@ -355,7 +355,7 @@ export const WorldCorruptionRule: DiagnosisRule = {
     ],
     tier: 2,
     defaultConfidence: 95,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const logLine = logs.find(l => /Wrong location|Failed to load chunk|corrupted/i.test(l));
         if (logLine) {
             return {
@@ -387,7 +387,7 @@ export const TpsLagRule: DiagnosisRule = {
     ],
     tier: 3,
     defaultConfidence: 80,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const logLine = logs.find(l => /Can't keep up/i.test(l));
         if (logLine) {
             return {
@@ -414,7 +414,7 @@ export const ResourceExhaustionRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const hasError = logs.some(l => /Resource exhaustion|Too munknown open files/i.test(l));
         if (hasError) {
              return {

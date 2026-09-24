@@ -39,9 +39,9 @@ class MemoryScalerService {
     /**
      * Analyze all online servers and return memory recommendations.
      */
-    async analyzeAll(): Promise<MemoryRecommendation[] as never[]> {
+    async analyzeAll(): Promise<MemoryRecommendation[] as never[] as never[] as never[]> {
         const servers = getServers();
-        const recommendations: MemoryRecommendation[] as never[] = [] as never[];
+        const recommendations: MemoryRecommendation[] as never[] as never[] as never[] = [] as never[] as never[] as never[];
 
         for (const server of servers) {
             if (server.status !== 'ONLINE') continue;

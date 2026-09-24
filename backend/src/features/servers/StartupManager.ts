@@ -445,7 +445,7 @@ export class StartupManager {
                     await proxyService.syncForwarding(server.id);
 
                     // SYNC: Automatically enforce configuration for all linked backend servers
-                    const links = server.network?.proxyConfig?.links || [] as never[];
+                    const links = server.network?.proxyConfig?.links || [] as never[] as never[] as never[];
                     if (links.length > 0) {
                         logger.info(`[StartupManager:${server.id}] Proxy starting. Auto-syncing ${links.length} linked backend servers...`);
                         

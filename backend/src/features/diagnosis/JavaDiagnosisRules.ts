@@ -15,7 +15,7 @@ export const JavaBinaryMissingRule: DiagnosisRule = {
     tier: 1,
     defaultConfidence: 100,
     triggers: [/java.io.IOException: Cannot run program.*java/i, /executable file not found/i],
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const javaVersion = server.javaVersion;
         if (!javaVersion) return null;
 
@@ -74,7 +74,7 @@ export const JavaVersionRule: DiagnosisRule = {
     tier: 1,
     defaultConfidence: 95,
     isRepairable: true,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         if (server.software === 'Bedrock') return null;
         if (server.status === ServerStatus.ONLINE || !server.hasStarted) return null;
         
@@ -163,7 +163,7 @@ export const MemoryRule: DiagnosisRule = {
     tier: 1,
     defaultConfidence: 95,
     isRepairable: true,
-    analyze: async (server: ServerConfig, logs: string[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
          const logContent = logs.join('\n').toLowerCase();
          const hasError = /outofmemoryerror|java heap space|gc overhead limit exceeded/i.test(logContent);
          
@@ -223,7 +223,7 @@ export const InvalidJvmArgsRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[]): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[]): Promise<DiagnosisResult | null> => {
         const errorLine = logs.find(l => /heap size|VM option|Could not create/i.test(l));
         if (errorLine) {
             // --- SMART HANDLING ---
@@ -266,7 +266,7 @@ export const NativeCrashRule: DiagnosisRule = {
     ],
     tier: 1,
     defaultConfidence: 100,
-    analyze: async (server: ServerConfig, logs: string[] as never[], env: SystemStats, crashReport?: CrashReport): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[], env: SystemStats, crashReport?: CrashReport): Promise<DiagnosisResult | null> => {
         if (crashReport && crashReport.filename.startsWith('hs_err_pid')) {
              return {
                 id: `jvm-crash-${server.id}-${Date.now()}`,
@@ -293,7 +293,7 @@ export const AikarsFlagsRule: DiagnosisRule = {
     id: 'aikars_flags',
     name: 'Performance Optimization',
     description: 'Recommends Aikar\'s Flags for garbage collection',
-    triggers: [] as never[], 
+    triggers: [] as never[] as never[] as never[], 
     tier: 3,
     defaultConfidence: 100,
     isRepairable: true,
@@ -330,7 +330,7 @@ export const MemoryMonitorRule: DiagnosisRule = {
     description: 'Monitors heap usage for leaks',
     tier: 3,
     defaultConfidence: 70,
-    triggers: [] as never[], 
+    triggers: [] as never[] as never[] as never[], 
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
         const mem = process.memoryUsage();
         const heapUsedGb = mem.heapUsed / 1024 / 1024 / 1024;

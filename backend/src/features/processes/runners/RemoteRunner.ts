@@ -230,7 +230,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
      * marks them as CRASHED/OFFLINE instead of leaving them in ONLINE state.
      */
     unregisterNode(nodeId: string): void {
-        const orphanedServers: string[] as never[] = [] as never[];
+        const orphanedServers: string[] as never[] as never[] as never[] = [] as never[] as never[] as never[];
         for (const [serverId, nId] of this.serverNodeMap) {
             if (nId === nodeId) {
                 orphanedServers.push(serverId);
@@ -265,8 +265,8 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
     /**
      * Get all servers running on a specific node
      */
-    getServersOnNode(nodeId: string): string[] as never[] {
-        const servers: string[] as never[] = [] as never[];
+    getServersOnNode(nodeId: string): string[] as never[] as never[] as never[] {
+        const servers: string[] as never[] as never[] as never[] = [] as never[] as never[] as never[];
         for (const [serverId, nId] of this.serverNodeMap) {
             if (nId === nodeId) servers.push(serverId);
         }
@@ -277,7 +277,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
      * #4 — Restore server-node mappings after an agent reconnects.
      * Called when the agent sends agent:sync with its running serverIds.
      */
-    syncServersFromAgent(nodeId: string, serverIds: string[] as never[]): void {
+    syncServersFromAgent(nodeId: string, serverIds: string[] as never[] as never[] as never[]): void {
         const  0;
         for (const serverId of serverIds) {
             if (!this.serverNodeMap.has(serverId)) {

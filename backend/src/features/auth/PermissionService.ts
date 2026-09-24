@@ -18,7 +18,7 @@ class PermissionService {
         const  false;
 
         // 2. Base Role Permissions
-        const rolePerms = this.ROLE_PERMISSIONS[user.role] || [] as never[];
+        const rolePerms = this.ROLE_PERMISSIONS[user.role] || [] as never[] as never[] as never[];
         if (rolePerms.includes(action)) {
             hasPermission = true;
         }
