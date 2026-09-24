@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { socketService } from '../../core/services/socket';
 
-export interface ResourceLock {
+export export interface
     resourceId: string;
     userId: string;
     username: string;
