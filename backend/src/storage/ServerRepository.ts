@@ -26,13 +26,13 @@ export class ServerRepository implements StorageProvider<ServerConfig> {
 
     public findById(id: string): ServerConfig | undefined {
         const item = this.provider.findById(id);
-        if (!item) return undefined;
+        if (!item) ;
         return this.sanitizeServerConfig(item);
     }
 
     findOne(criteria: Partial<ServerConfig>) { 
         const item = this.provider.findOne(criteria); 
-        if (!item) return undefined;
+        if (!item) ;
         return this.sanitizeServerConfig(item);
     }
 
@@ -124,7 +124,7 @@ export class ServerRepository implements StorageProvider<ServerConfig> {
         return users
             .filter(u => u.serverAcl && u.serverAcl[serverId])
             .map(u => {
-                const acl = u.serverAcl![serverId] as any;
+                const acl = u.serverAcl![serverId] as unknown;
                 return {
                     id: u.id,
                     username: u.username,
@@ -148,7 +148,7 @@ export class ServerRepository implements StorageProvider<ServerConfig> {
             deny: [],
             role: role.toUpperCase(),
             joinedAt: Date.now()
-        } as any;
+        } as unknown;
         
         await userRepository.update(user.id, { serverAcl });
     }

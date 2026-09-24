@@ -58,7 +58,7 @@ export class HealthMonitoringService extends EventEmitter {
             const { getServers } = require('../servers/ServerService');
             
             // We use a mock-like server config for global OS context
-            const globalContextServer = { id: 'global', workingDirectory: process.cwd() } as any;
+            const globalContextServer = { id: 'global', workingDirectory: process.cwd() } as unknown;
             const diagnosis = await diagnosisService.diagnose(globalContextServer, []);
             
             // 1. CPU Health
@@ -91,7 +91,7 @@ export class HealthMonitoringService extends EventEmitter {
             }
 
             // 3. Disk Health (v4.0 Added)
-            const diskUsage = (stats as any).disk?.usagePercent || (stats.memory.used / stats.memory.total * 100); // Fallback
+            const diskUsage = (stats as unknown).disk?.usagePercent || (stats.memory.used / stats.memory.total * 100); // Fallback
             if (diskUsage > 90) {
                  this.triggerLocalAlert(ErrorCode.E_FS_ATOMIC_FAIL, `Disk space is nearly full (${Math.round(diskUsage)}%). Silent-Maintenance triggered.`);
             }

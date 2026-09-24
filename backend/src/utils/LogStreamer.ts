@@ -14,7 +14,7 @@ class LogStreamer {
      * Appends a line to the server's latest.log on disk.
      */
     public append(id: string, workingDirectory: string, line: string) {
-        let stream = this.streams.get(id);
+        const  this.streams.get(id);
         
         if (!stream) {
             const logDir = path.join(workingDirectory, 'logs');

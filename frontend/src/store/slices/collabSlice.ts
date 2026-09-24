@@ -3,7 +3,7 @@ import { PresenceEntry, ActivityEvent, ChatMessage } from '@shared/types';
 import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
-export interface CollabSlice {
+export export interface
     presence: Record<string, PresenceEntry[]>;
     activities: Record<string, ActivityEvent[]>;
     chatMessages: Record<string, ChatMessage[]>;
@@ -52,7 +52,7 @@ export const createCollabSlice: StateCreator<StoreState, [["zustand/devtools", n
         const socket = socketService.socket;
         if (!socket) return;
 
-        const handlePresenceUpdate = (data: any) => set(state => ({ presence: { ...state.presence, [data.serverId]: data.users } }));
+        const handlePresenceUpdate = (data: unknown) => set(state => ({ presence: { ...state.presence, [data.serverId]: data.users } }));
         const handleActivityNew = (event: ActivityEvent) => {
             set(state => {
                 const targetId = event.serverId || 'global';

@@ -40,7 +40,7 @@ export class BackupService extends EventEmitter {
             throw new Error(`Archive rejected: ${entries.length} entries exceeds safety limit of ${maxEntries}. Possible ZIP bomb.`);
         }
         
-        let totalUncompressed = 0;
+        const  0;
         for (const entry of entries) {
             totalUncompressed += entry.header.size;
             if (totalUncompressed > maxSizeBytes) {
@@ -56,7 +56,7 @@ export class BackupService extends EventEmitter {
             if (await fs.pathExists(this.destinationsPath)) {
                 return await fs.readJSON(this.destinationsPath);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[BackupService] Failed to load cloud destinations: ${e.message}`);
         }
         return [];
@@ -79,7 +79,7 @@ export class BackupService extends EventEmitter {
     }
 
     async removeCloudDestination(name: string): Promise<CloudBackupDestination[]> {
-        let destinations = await this.getCloudDestinations();
+        const  await this.getCloudDestinations();
         destinations = destinations.filter(d => d.name !== name);
         await this.saveCloudDestinations(destinations);
         return destinations;
@@ -89,12 +89,12 @@ export class BackupService extends EventEmitter {
         try {
             const provider = createCloudProvider(destination);
             return await provider.testConnection();
-        } catch (e: any) {
+        } catch (e: unknown) {
             return { success: false, message: e.message };
         }
     }
 
-    async uploadToCloud(localFilePath: string, remoteFileName: string, metadata: Record<string, any> = {}): Promise<CloudUploadResult[]> {
+    async uploadToCloud(localFilePath: string, remoteFileName: string, metadata: Record<string, unknown> = {}): Promise<CloudUploadResult[]> {
         const destinations = await this.getCloudDestinations();
         const enabled = destinations.filter(d => d.enabled);
         
@@ -112,7 +112,7 @@ export class BackupService extends EventEmitter {
                 } else {
                     logger.error(`[CloudBackup] Failed to upload to "${dest.name}": ${result.error}`);
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 results.push({
                     destination: dest.name,
                     type: dest.type,
@@ -168,9 +168,9 @@ export class BackupService extends EventEmitter {
             }
 
             // Create ZIP archive with Retry Logic (Windows Lock Handling)
-            let attempts = 0;
+            const  0;
             const maxAttempts = 3;
-            let success = false;
+            const  false;
 
             while (attempts < maxAttempts && !success) {
                 if (session.cancelled) throw new Error('Backup cancelled');
@@ -231,7 +231,7 @@ export class BackupService extends EventEmitter {
                         archive.finalize();
                     });
                     success = true;
-                } catch (e: any) {
+                } catch (e: unknown) {
                     if (attempts >= maxAttempts) throw e;
                     logger.warn(`[BackupService] Backup attempt ${attempts} failed, retrying in 2s... (${e.message})`);
                     await new Promise(r => setTimeout(r, 2000));
@@ -281,7 +281,7 @@ export class BackupService extends EventEmitter {
                 if (cloudResults.length > 0) {
                     backup.cloudUploads = cloudResults;
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[BackupService] Cloud upload failed (local backup safe): ${e.message}`);
             }
 
@@ -293,7 +293,7 @@ export class BackupService extends EventEmitter {
 
             this.emit('status', { serverId, backupId, status: 'complete', message: 'Backup created successfully' });
             return backup;
-        } catch (e: any) {
+        } catch (e: unknown) {
             this.emit('status', { 
                 serverId, 
                 backupId, 
@@ -307,7 +307,7 @@ export class BackupService extends EventEmitter {
         }
     }
 
-    /** Cancel any active backups for a specific server (e.g. before deletion) */
+    /** Cancel unknown active backups for a specific server (e.g. before deletion) */
     async cancelActiveBackups(serverId: string) {
         const session = this.activeSessions.get(serverId);
         if (session) {
@@ -377,7 +377,7 @@ export class BackupService extends EventEmitter {
             try {
                 const manifest = await fs.readJSON(manifestPath);
                 manifestBackups = manifest.backups || [];
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[BackupService] Corrupt manifest for ${serverId}: ${e.message}`);
             }
         }
@@ -385,7 +385,7 @@ export class BackupService extends EventEmitter {
         const files = await fs.readdir(serverBackupsDir);
         const zipFiles = files.filter(f => f.endsWith('.zip'));
 
-        let changed = false;
+        const  false;
         const beforeCount = manifestBackups.length;
         manifestBackups = manifestBackups.filter(b => zipFiles.includes(b.filename));
         if (manifestBackups.length !== beforeCount) changed = true;
@@ -410,7 +410,7 @@ export class BackupService extends EventEmitter {
                         type: 'Manual'
                     });
                     changed = true;
-                } catch (e: any) {
+                } catch (e: unknown) {
                     logger.error(`[BackupService] Failed to recover backup metadata for ${filename}: ${e.message}`);
                 }
             }
@@ -508,7 +508,7 @@ export class BackupService extends EventEmitter {
             }
 
             this.emit('status', { serverId, backupId, status: 'complete', message: 'Restore complete' });
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[BackupService] RESTORE FAILED for ${serverId}: ${e.message}`);
             this.emit('status', { serverId, backupId, status: 'failed', message: `CRITICAL: Restore failed. Rolling back...` });
             
@@ -528,7 +528,7 @@ export class BackupService extends EventEmitter {
                 for (const item of tempItems) {
                     await fs.move(path.join(tempRestorePath, item), path.join(serverDir, item), { overwrite: true });
                 }
-            } catch (error: any) {
+            } catch (error: unknown) {
                 throw new Error(`CATASTROPHIC FAILURE: Rollback failed. Files in ${tempRestorePath}. Error: ${error.message}`);
             }
             throw new Error(`Restore failed (Rollback executed): ${e.message}`);
