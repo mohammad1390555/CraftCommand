@@ -23,7 +23,7 @@ router.post('/analyze', verifyToken, requireRole(['OWNER', 'ADMIN']), async (req
         } else {
             return res.status(400).json({ error: 'Either path or zipPath is required' });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[ImportRoute] Analysis failed: ${e.message}`);
         res.status(500).json({ error: e.message });
     }
@@ -48,7 +48,7 @@ router.post('/execute', verifyToken, requireRole(['OWNER', 'ADMIN']), async (req
 
         auditService.log(req.user.id, 'SERVER_IMPORT', 'system', { name, path: absolutePath || zipPath });
         res.json(server);
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[ImportRoute] Execution failed: ${e.message}`);
         res.status(500).json({ error: e.message });
     }
@@ -65,7 +65,7 @@ router.post('/undo/:id', verifyToken, requireRole(['OWNER', 'ADMIN']), async (re
         await importService.rollbackImport(id);
         auditService.log(req.user.id, 'SERVER_IMPORT_UNDO', 'system', { serverId: id });
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[ImportRoute] Undo failed: ${e.message}`);
         res.status(500).json({ error: e.message });
     }
