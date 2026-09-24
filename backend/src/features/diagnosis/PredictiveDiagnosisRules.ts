@@ -16,10 +16,10 @@ export const MemoryCrashPredictionRule: DiagnosisRule = {
     id: 'predict_memory_crash',
     name: 'Memory Crash Prediction',
     description: 'Predicts if memory usage trend will exceed allocation within minutes.',
-    triggers: [], // Proactive — always runs
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], // Proactive — always runs
     tier: 3,
     defaultConfidence: 70,
-    analyze: async (server: ServerConfig, logs: string[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         if (!server.ram) return null;
 
         const trend = statsRingBuffer.getTrend(server.id, 'memory', 600, 30); // 10 min horizon, need 30s of data
@@ -71,10 +71,10 @@ export const TpsDegradationPredictionRule: DiagnosisRule = {
     id: 'predict_tps_degradation',
     name: 'TPS Degradation Prediction',
     description: 'Detects a sustained downward trend in server tick rate.',
-    triggers: [], // Proactive
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], // Proactive
     tier: 3,
     defaultConfidence: 65,
-    analyze: async (server: ServerConfig, logs: string[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         const trend = statsRingBuffer.getTrend(server.id, 'tps', 300, 30); // 5 min horizon, need 30s
         if (!trend || trend.r2 < 0.4) return null;
 
@@ -107,7 +107,7 @@ export const DiskExhaustionPredictionRule: DiagnosisRule = {
     id: 'predict_disk_exhaustion',
     name: 'Disk Space Exhaustion Prediction',
     description: 'Predicts when the disk will run out of space based on growth rate.',
-    triggers: [], // Proactive
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], // Proactive
     tier: 3,
     defaultConfidence: 60,
     analyze: async (server: ServerConfig): Promise<DiagnosisResult | null> => {
@@ -165,10 +165,10 @@ export const CpuSaturationPredictionRule: DiagnosisRule = {
     id: 'predict_cpu_saturation',
     name: 'CPU Saturation Warning',
     description: 'Detects sustained high CPU usage that may lead to performance collapse.',
-    triggers: [], // Proactive
+    triggers: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], // Proactive
     tier: 3,
     defaultConfidence: 65,
-    analyze: async (server: ServerConfig, logs: string[], env: SystemStats): Promise<DiagnosisResult | null> => {
+    analyze: async (server: ServerConfig, logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], env: SystemStats): Promise<DiagnosisResult | null> => {
         const samples = statsRingBuffer.getSamples(server.id);
         if (samples.length < 30) return null; // Need at least 30 seconds
 
@@ -200,7 +200,7 @@ export const CpuSaturationPredictionRule: DiagnosisRule = {
 };
 
 // ─── Export ──────────────────────────────────────────────────────────────────
-export function getPredictiveRules(): DiagnosisRule[] {
+export function getPredictiveRules(): DiagnosisRule[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
     return [
         MemoryCrashPredictionRule,
         TpsDegradationPredictionRule,

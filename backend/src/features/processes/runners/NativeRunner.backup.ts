@@ -21,8 +21,8 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
     private processes: Map<string, ChildProcess> = new Map();
 
     // --- GLOBAL PROCESS CACHE (v1.14.0: Top-Down Aggregation) ---
-    private static cachedProcessList: any[] = [];
-    private static processIndex: Map<number, any> = new Map(); 
+    private static cachedProcessList: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+    private static processIndex: Map<number, unknown> = new Map(); 
     private static serverResourceMap: Map<number, { cpu: number, memory: number, targetPid: number, commandLine: string }> = new Map();
     private static lastGlobalScan = 0;
     private static scanPromise: Promise<void> | null = null;
@@ -35,9 +35,9 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         NativeRunner.scanPromise = (async () => {
             try {
                 const isWindows = process.platform === 'win32';
-                const newList: any[] = [];
-                const newIndex = new Map<number, any>();
-                const parentChildMap = new Map<number, number[]>();
+                const newList: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+                const newIndex = new Map<number, unknown>();
+                const parentChildMap = new Map<number, number[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]>();
 
                 // 1. Fetch Process Inventory
                 if (isWindows) {
@@ -88,7 +88,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
 
                 for (const p of newList) {
                     if (!newIndex.has(p.pid)) newIndex.set(p.pid, p);
-                    if (!parentChildMap.has(p.parentPid)) parentChildMap.set(p.parentPid, []);
+                    if (!parentChildMap.has(p.parentPid)) parentChildMap.set(p.parentPid, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]);
                     parentChildMap.get(p.parentPid)!.push(p.pid);
                 }
 
@@ -105,17 +105,17 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
                     const p = newIndex.get(pid);
                     if (!p) return { cpu: 0, memory: 0, targetPid: pid, commandLine: '' };
 
-                    let baseCpu = typeof p.cpu === 'number' ? p.cpu : (parseFloat(p.cpu) || 0);
-                    let baseMem = typeof p.memRss === 'number' ? p.memRss : (parseFloat(p.memRss) || 0);
+                    const  typeof p.cpu === 'number' ? p.cpu : (parseFloat(p.cpu) || 0);
+                    const  typeof p.memRss === 'number' ? p.memRss : (parseFloat(p.memRss) || 0);
 
-                    let totalCpu = baseCpu;
-                    let totalMem = baseMem; 
-                    let targetPid = p.pid;
-                    let targetCommandLine = `${p.command} ${p.params || ''}`.trim();
-                    let commandStr = p.command.toLowerCase();
-                    let isTargetFound = commandStr.includes('java') || commandStr.includes('bedrock_server') || commandStr.includes('node');
+                    const  baseCpu;
+                    const  baseMem; 
+                    const  p.pid;
+                    const  `${p.command} ${p.params || ''}`.trim();
+                    const  p.command.toLowerCase();
+                    const  commandStr.includes('java') || commandStr.includes('bedrock_server') || commandStr.includes('node');
 
-                    const children = parentChildMap.get(pid) || [];
+                    const children = parentChildMap.get(pid) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                     for (const cId of children) {
                         const childAgg = getAggregate(cId);
                         totalCpu += childAgg.cpu;
@@ -192,15 +192,15 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         return safe;
     }
 
-    private parseCommand(cmd: string): { executable: string; args: string[] } {
-        const parts: string[] = [];
+    private parseCommand(cmd: string): { executable: string; args: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] } {
+        const parts: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         const regex = /"([^"]*)"|'([^']*)'|(\S+)/g;
         let match;
         while ((match = regex.exec(cmd)) !== null) {
             parts.push(match[1] || match[2] || match[3]);
         }
         
-        if (parts.length === 0) return { executable: '', args: [] };
+        if (parts.length === 0) return { executable: '', args: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] };
         const executable = parts[0];
         const args = parts.slice(1);
         return { executable, args };
@@ -212,7 +212,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         
         // --- PROCESS TAGGING (v1.12.11: Support quoted paths) ---
         const { executable, args: originalArgs } = this.parseCommand(runCommand);
-        let finalArgs = [...originalArgs];
+        const  [...originalArgs];
         
         const exeLower = executable.toLowerCase();
         if (exeLower.includes('java')) {
@@ -223,7 +223,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
 
         // --- HARDWARE THROTTLING (Windows Job Objects / Linux Cgroups) ---
         // Detached: true allows the process to survive if the panel crashes or restarts
-        const options: any = { 
+        const options: unknown = { 
             cwd, 
             shell: false, // Force shell: false to strictly respect windowsHide on Windows
             detached: true, 
@@ -246,16 +246,16 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         
         logger.info(`[NativeRunner:${id}] Process spawned. Executable: ${executable}...`);
 
-        let stdoutBuffer = '', stderrBuffer = '';
+        const  '', stderrBuffer = '';
         child.stdout?.on('data', (data) => {
             stdoutBuffer += data.toString();
-            let lines = stdoutBuffer.split('\n');
+            const  stdoutBuffer.split('\n');
             stdoutBuffer = lines.pop() || '';
             for (const line of lines) this.emit('log', { id, line: line.trim(), type: 'stdout' });
         });
         child.stderr?.on('data', (data) => {
             stderrBuffer += data.toString();
-            let lines = stderrBuffer.split('\n');
+            const  stderrBuffer.split('\n');
             stderrBuffer = lines.pop() || '';
             for (const line of lines) this.emit('log', { id, line: line.trim(), type: 'stderr' });
         });
@@ -293,12 +293,12 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
                     // We can't get real stdout/stderr pipes back, so management will rely on logs and RCON
                     const ghostChild = { 
                         pid, 
-                        kill: (sig: any) => treeKill(pid, sig || 'SIGKILL'),
+                        kill: (sig: unknown) => treeKill(pid, sig || 'SIGKILL'),
                         stdin: { write: () => false }, // Stdin is lost forever on restart
                         stdout: { on: () => {} },
                         stderr: { on: () => {} },
                         on: () => {} 
-                    } as any;
+                    } as unknown;
 
                     this.processes.set(server.id, ghostChild);
                     this.emit('recovered', { id: server.id, pid });
@@ -331,7 +331,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         if (!proc) return;
 
         // If stdin is writable (Managed Process), use it directly
-        if (proc.stdin && (proc.stdin as any).writable !== false) {
+        if (proc.stdin && (proc.stdin as unknown).writable !== false) {
              proc.stdin.write(command + "\n");
              return;
         }
@@ -370,7 +370,7 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
 
         try {
             await this.updateGlobalProcessCache();
-            let aggregate = managedPid ? NativeRunner.serverResourceMap.get(managedPid) : null;
+            const  managedPid ? NativeRunner.serverResourceMap.get(managedPid) : null;
             
             // --- HEURISTIC FALLBACK (v1.12.8) ---
             if (!aggregate || (aggregate.cpu === 0 && aggregate.memory === 0)) {
@@ -405,11 +405,11 @@ export class NativeRunner extends EventEmitter implements IServerRunner {
         return this.processes.has(id);
     }
 
-    async createBackup(id: string, serverDir: string, options: any): Promise<any> {
+    async createBackup(id: string, serverDir: string, options: unknown): Promise<unknown> {
         return backupService.createBackup(serverDir, id, options.description, options.worldOnly);
     }
 
-    async restoreBackup(id: string, serverDir: string, backupId: string, options: any): Promise<void> {
+    async restoreBackup(id: string, serverDir: string, backupId: string, options: unknown): Promise<void> {
         return backupService.restoreBackup(serverDir, id, backupId, options);
     }
 }

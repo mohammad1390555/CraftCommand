@@ -45,12 +45,12 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
             if (migrationMarker && fs.existsSync(migrationMarker)) return;
 
             try {
-                let items: any[] = [];
+                let items: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
                 if (hasMonolithic) {
                     logger.info(`[SqliteProvider] Migrating from monolithic ${this.migrationJsonPath}...`);
                     const raw = fs.readJSONSync(jsonPath!);
-                    items = Array.isArray(raw) ? raw : [];
+                    items = Array.isArray(raw) ? raw : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                 } else if (hasFragments) {
                     logger.info(`[SqliteProvider] Migrating from fragmented directory ${fragmentDir}...`);
                     const files = fs.readdirSync(fragmentDir!).filter(f => f.endsWith('.json'));
@@ -59,14 +59,14 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
 
                 if (items.length > 0) {
                     const insert = this.db.prepare(`INSERT INTO ${this.tableName} (id, data) VALUES (?, ?)`);
-                    const tx = this.db.transaction((toMigrate: any[]) => {
+                    const tx = this.db.transaction((toMigrate: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) => {
                         for (const item of toMigrate) insert.run(item.id, JSON.stringify(item));
                     });
                     tx(items);
                 logger.info(`[SqliteProvider] Successfully migrated ${items.length} items to SQLite.`);
                     if (migrationMarker) fs.writeFileSync(migrationMarker, new Date().toISOString());
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[SqliteProvider] CRITICAL MIGRATION FAILURE: ${e}`);
                 // Throwing ensures the system doesn't start with partial/corrupted data
                 throw new Error(`Migration to SQLite failed: ${e.message}`);
@@ -74,9 +74,9 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
         }
     }
 
-    findAll(): T[] {
+    findAll(): T[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         const stmt = this.db.prepare(`SELECT data FROM ${this.tableName}`);
-        const rows = stmt.all() as { data: string }[];
+        const rows = stmt.all() as { data: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         return rows.map(row => JSON.parse(row.data));
     }
 
@@ -90,11 +90,11 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
         // Optimization: If ID is in criteria, use findById
         if (criteria.id) {
             const item = this.findById(criteria.id);
-            if (!item) return undefined;
+            if (!item) ;
             
             // Verify remaining criteria
             for (const key in criteria) {
-                if ((item as any)[key] !== (criteria as any)[key]) return undefined;
+                if ((item as unknown)[key] !== (criteria as unknown)[key]) ;
             }
             return item;
         }
@@ -103,7 +103,7 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
         const all = this.findAll();
         return all.find(item => {
             for (const key in criteria) {
-                if ((item as any)[key] !== (criteria as any)[key]) return false;
+                if ((item as unknown)[key] !== (criteria as unknown)[key]) return false;
             }
             return true;
         });
@@ -140,9 +140,9 @@ export class SqliteProvider<T extends { id: string }> implements StorageProvider
         return success;
     }
 
-    saveAll(items: T[]): void {
+    saveAll(items: T[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): void {
         const stmt = this.db.prepare(`INSERT OR REPLACE INTO ${this.tableName} (id, data) VALUES (?, ?)`);
-        const tx = this.db.transaction((items: T[]) => {
+        const tx = this.db.transaction((items: T[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) => {
             for (const item of items) {
                 stmt.run(item.id, JSON.stringify(item));
             }

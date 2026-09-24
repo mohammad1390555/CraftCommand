@@ -17,7 +17,7 @@ export class ProfileService {
 
         // Scan plugins to include in the profile manifest
         const pluginsDir = path.join(server.workingDirectory, 'plugins');
-        const plugins: { name: string }[] = [];
+        const plugins: { name: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         
         try {
             if (await fs.pathExists(pluginsDir)) {
@@ -49,7 +49,7 @@ export class ProfileService {
     /**
      * Validates that a JSON object matches the ServerProfile interface.
      */
-    validateProfile(data: any): ServerProfile {
+    validateProfile(data: unknown): ServerProfile {
         if (!data || typeof data !== 'object') {
             throw new Error('Invalid profile format: Not a JSON object');
         }

@@ -50,7 +50,7 @@ export class BinaryProvisioner {
         }
 
         // 2. Resolve URL
-        const urlMap: any = BinaryProvisioner.URLS[type];
+        const urlMap: unknown = BinaryProvisioner.URLS[type];
         const url = urlMap[key] || urlMap[`${platform}-x64`]; // Fallback to x64
 
         if (!url) {
@@ -71,8 +71,8 @@ export class BinaryProvisioner {
             const tempPath = binPath + '.tmp';
             const writer = fs.createWriteStream(tempPath);
 
-            // TypeScript safety: cast to any for stream piping
-            (response.data as any).pipe(writer);
+            // TypeScript safety: cast to unknown for stream piping
+            (response.data as unknown).pipe(writer);
 
             await new Promise<void>((resolve, reject) => {
                 writer.on('finish', () => resolve());
@@ -106,7 +106,7 @@ export class BinaryProvisioner {
             logger.info(`[BinaryProvisioner] ${type} binary provisioned successfully.`);
             return binPath;
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[BinaryProvisioner] Failed to provision ${type}: ${err.message}`);
             throw err;
         }

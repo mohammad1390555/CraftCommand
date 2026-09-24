@@ -23,7 +23,7 @@ export class DiscordService {
     private connecting = false;
     private lastError: string | null = null;
     private listenersAttached = false;
-    private activeListeners: { emitter: any, event: string, handler: Function }[] = [];
+    private activeListeners: { emitter: unknown, event: string, handler: Function }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     private playerEventDebounce: Map<string, NodeJS.Timeout> = new Map();
     private reconnectAttempts = 0;
     private readonly MAX_RECONNECT_ATTEMPTS = 5;
@@ -56,7 +56,7 @@ export class DiscordService {
                 logger.info('Destroying existing Discord client...');
                 await this.client.destroy();
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`Error destroying Discord client: ${e.message}`);
         } finally {
             this.cleanupListeners();
@@ -76,7 +76,7 @@ export class DiscordService {
         for (const { emitter, event, handler } of this.activeListeners) {
             emitter.removeListener(event, handler);
         }
-        this.activeListeners = [];
+        this.activeListeners = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         this.listenersAttached = false;
     }
 
@@ -121,7 +121,7 @@ export class DiscordService {
                 await this.handleInteraction(interaction);
             });
 
-            this.client.on('messageCreate', async (message: any) => {
+            this.client.on('messageCreate', async (message: unknown) => {
                 if (message.author.bot) return;
 
                 const config = systemSettingsService.getSettings().discordBot;
@@ -147,8 +147,8 @@ export class DiscordService {
                 new Promise((_, reject) => setTimeout(() => reject(new Error('Discord login timed out (10s)')), 10000))
             ]);
 
-        } catch (error: any) {
-            let errorMsg = error.message;
+        } catch (error: unknown) {
+            const  error.message;
             if (errorMsg.includes('disallowed intents')) {
                 errorMsg = 'Disallowed Intents: Enable "Message Content Intent" in Discord Developer Portal > Bot tab.';
             }
@@ -236,7 +236,7 @@ export class DiscordService {
         if (this.listenersAttached) return;
         this.listenersAttached = true;
 
-        const addManagedListener = (emitter: any, event: string, handler: (...args: any[]) => void) => {
+        const addManagedListener = (emitter: unknown, event: string, handler: (...args: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) => void) => {
             emitter.on(event, handler);
             this.activeListeners.push({ emitter, event, handler });
         };
@@ -314,12 +314,12 @@ export class DiscordService {
             const channel = await Promise.race([
                 this.client.channels.fetch(config.chatChannel),
                 new Promise((_, reject) => setTimeout(() => reject(new Error('Channel fetch timeout')), 5000))
-            ]) as any;
+            ]) as unknown;
 
             if (channel && channel.isTextBased()) {
                 await channel.send({ content });
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[Discord] Failed to send chat message: ${e.message}`);
         }
     }
@@ -344,7 +344,7 @@ export class DiscordService {
             const channel = await Promise.race([
                 this.client.channels.fetch(config.notificationChannel),
                 new Promise((_, reject) => setTimeout(() => reject(new Error('Channel fetch timeout')), 5000))
-            ]) as any;
+            ]) as unknown;
 
             if (!channel) {
                 logger.warn(`[Discord] Channel ${config.notificationChannel} not found or inaccessible.`);
@@ -364,7 +364,7 @@ export class DiscordService {
             } else {
                 logger.warn(`[Discord] Channel ${config.notificationChannel} is not text-based.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[Discord] Failed to send notification: ${e.message}`);
             
             // If it's a 403 or 404, maybe our channel cache is stale or permissions are missing
@@ -379,10 +379,10 @@ export class DiscordService {
         const config = systemSettingsService.getSettings().discordBot;
 
         // Simple Role Security
-        const commandRoles = config.commandRoles || [];
+        const commandRoles = config.commandRoles || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         if (commandRoles.length > 0) {
-            const member = interaction.member as any;
-            const hasRole = member?.roles?.cache.some((role: any) => commandRoles.includes(role.id));
+            const member = interaction.member as unknown;
+            const hasRole = member?.roles?.cache.some((role: unknown) => commandRoles.includes(role.id));
             if (!hasRole && !member?.permissions?.has('Administrator')) {
                 return interaction.reply({ content: '❌ You do not have permission to use this command.', ephemeral: true });
             }
@@ -397,7 +397,7 @@ export class DiscordService {
                     .setColor(0x5865F2)
                     .setTimestamp();
 
-                servers.forEach((s: any) => {
+                servers.forEach((s: unknown) => {
                     const isRunning = processManager.isRunning(s.id);
                     const stats = isRunning ? processManager.getCachedStatus(s.id) : null;
                     const statusIcon = isRunning ? (stats?.status === ServerStatus.STARTING ? '🟡' : '🟢') : '🔴';
@@ -442,7 +442,7 @@ export class DiscordService {
 
                 try {
                     await startServer(id!);
-                } catch (e: any) {
+                } catch (e: unknown) {
                     processManager.removeListener('status', statusListener);
                     await interaction.followUp({ content: `❌ **Initialization Error**: ${e.message}`, ephemeral: true });
                 }
@@ -516,7 +516,7 @@ export class DiscordService {
                 try {
                     await backupService.createBackup(server.workingDirectory, id!, `Discord Command: ${interaction.user.tag}`);
                     // Notification will be handle by the managed listener we setup in setupEventForwarding
-                } catch (e: any) {
+                } catch (e: unknown) {
                     await interaction.followUp({ content: `❌ **Backup Failure**: ${e.message}`, ephemeral: true });
                 }
             }

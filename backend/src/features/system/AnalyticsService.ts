@@ -1,6 +1,6 @@
 import { ServerStatus } from '@shared/types';
 
-export interface ServerMetrics {
+export export interface
     cpu: number;      // Percentage 0-100
     memory: number;   // Used in MB
     allocated: number;// Max in MB
@@ -8,9 +8,9 @@ export interface ServerMetrics {
     uptime: number;
 }
 
-export interface AnalysisResult {
+export export interface
     status: 'HEALTHY' | 'WARNING' | 'CRITICAL';
-    issues: string[];
+    issues: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     environment: {
         java?: string;
         loader?: string;
@@ -19,8 +19,8 @@ export interface AnalysisResult {
 
 export class AnalyticsService {
 
-    analyze(metrics: ServerMetrics, recentLogs: string[], serverStatus: string = ServerStatus.ONLINE): AnalysisResult {
-        const issues: string[] = [];
+    analyze(metrics: ServerMetrics, recentLogs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], serverStatus: string = ServerStatus.ONLINE): AnalysisResult {
+        const issues: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         let status: 'HEALTHY' | 'WARNING' | 'CRITICAL' = 'HEALTHY';
 
         const setStatus = (newStatus: 'WARNING' | 'CRITICAL') => {
@@ -87,7 +87,7 @@ export class AnalyticsService {
         return { status, issues, environment };
     }
 
-    analyzeCrash(logs: string[]): string {
+    analyzeCrash(logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): string {
         const recent = logs.slice(-100);
         const text = recent.join('\n');
         
@@ -99,7 +99,7 @@ export class AnalyticsService {
         return 'Unknown Crash - Please check the console logs for "Exception" or "Error".';
     }
 
-    detectEnvironment(logs: string[]): { java?: string, loader?: string } {
+    detectEnvironment(logs: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): { java?: string, loader?: string } {
         const result: { java?: string, loader?: string } = {};
         
         // Scan logs for environment details
