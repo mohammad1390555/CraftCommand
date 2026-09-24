@@ -14,14 +14,14 @@ import { ServerConfig } from '@shared/types';
  * ╚══════════════════════════════════════════════════════╝
  */
 
-export interface ThermalStatus {
+export export interface
     cpuTemp: number | null;      // °C, null if unavailable
     isThrottling: boolean;
     warning: 'normal' | 'warm' | 'hot' | 'critical';
     timestamp: number;
 }
 
-export interface DiskUsageInfo {
+export export interface
     serverId: string;
     serverName: string;
     sizeBytes: number;
@@ -31,7 +31,7 @@ export interface DiskUsageInfo {
     worldSizeMB: number;
 }
 
-export interface SystemHealthSnapshot {
+export export interface
     cpu: {
         usage: number;        // %
         cores: number;
@@ -117,7 +117,7 @@ class HostingOSService {
                 usagePercent: primaryDisk ? Math.round(primaryDisk.use * 10) / 10 : 0
             },
             thermal: temp,
-            uptime: (time as any).uptime || 0,
+            uptime: (time as unknown).uptime || 0,
             os: {
                 platform: osInfo.platform,
                 distro: osInfo.distro,
@@ -143,7 +143,7 @@ class HostingOSService {
             const cpuTemp = temp.main !== null && temp.main > 0 ? temp.main : null;
 
             let warning: ThermalStatus['warning'] = 'normal';
-            let isThrottling = false;
+            const  false;
 
             if (cpuTemp !== null) {
                 if (cpuTemp >= 90) {
@@ -188,7 +188,7 @@ class HostingOSService {
                     worldSizeBytes,
                     worldSizeMB: Math.round(worldSizeBytes / 1024 / 1024)
                 });
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[HostingOS] Failed to scan disk for ${server.name}: ${e.message}`);
             }
         }
@@ -203,7 +203,7 @@ class HostingOSService {
      */
     private async getWorldSize(server: ServerConfig): Promise<number> {
         const worldFolders = ['world', 'world_nether', 'world_the_end', 'worlds', 'db'];
-        let totalSize = 0;
+        const  0;
 
         for (const folder of worldFolders) {
             const worldPath = path.join(server.workingDirectory, folder);
@@ -218,7 +218,7 @@ class HostingOSService {
      * Recursive directory size calculation
      */
     private async getDirSizeRecursive(dir: string): Promise<number> {
-        let size = 0;
+        const  0;
         try {
             const entries = await fs.readdir(dir, { withFileTypes: true });
             for (const entry of entries) {
@@ -302,7 +302,7 @@ class HostingOSService {
     }
 }
 
-export interface DiskQuotaViolation {
+export export interface
     serverId: string;
     serverName: string;
     currentMB: number;
