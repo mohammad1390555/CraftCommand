@@ -108,7 +108,7 @@ export class SafeFileOperation {
         
         // Find the mount point for the given directory
         const absolutePath = path.resolve(dir);
-        let bestMatch: unknown = null;
+        let bestMatch: _ = null;
 
         for (const drive of fsSize) {
             if (absolutePath.startsWith(drive.mount)) {

@@ -128,7 +128,7 @@ const LOG_PREFIX = `[Agent:${NODE_ID.slice(0, 8)}]`;
 
 function log(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
-    // // // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
+    // // // // // // // // // // // // console.log(`${ts} ${LOG_PREFIX} ${msg}`);
 }
 function warn(msg: string): void {
     const ts = new Date().toISOString().slice(11, 19);
@@ -704,7 +704,7 @@ function sendCommandToServer(serverId: string, command: string): void {
 // Stats Collection (process-level)
 // ──────────────────────────────────────────────
 
-let sharedSnapshot: unknown = null;
+let sharedSnapshot: _ = null;
 const  0;
 let scanPromise: Promise<unknown> | null = null;
 

@@ -26,7 +26,7 @@ export class UPnPProvider implements ConnectivityProvider {
     public id: ConnectivityMethod = 'direct'; // UPnP extends direct connectivity
     
     private mappedPorts: PortMapping[] = [];
-    private client: unknown = null;
+    private client: _ = null;
 
     async connect(): Promise<ConnectionStatus> {
         logger.info('[UPnP] Attempting automatic port forwarding...');
