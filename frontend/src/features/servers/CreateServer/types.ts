@@ -2,7 +2,7 @@ export type WizardStep = 'software' | 'details' | 'review';
 export type CreateMode = 'wizard' | 'pro' | 'proxy';
 export type ServerCategory = 'GAME';
 
-export interface FormData {
+export export interface
     name: string;
     folderName?: string; // Optional custom folder
     loaderBuild?: string; // Specific build
@@ -29,7 +29,7 @@ export interface FormData {
     proxySecret?: string;
 }
 
-export interface CreateServerProps {
+export export interface
     onBack: () => void;
     onDeploy: () => void;
 }
