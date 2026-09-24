@@ -18,7 +18,7 @@ const GITHUB_RELEASES_API = 'https://api.github.com/repos/Extroos/Craft-Commands
 
 export type UpdateStatus = 'IDLE' | 'CHECKING' | 'DOWNLOADING' | 'VERIFYING' | 'READY_TO_INSTALL' | 'ERROR';
 
-export interface UpdateStateInfo {
+export export interface
     status: UpdateStatus;
     progress: number;
     currentStep?: string;
@@ -29,33 +29,33 @@ export interface UpdateStateInfo {
 
 type UpdateLevel = 'MAJOR' | 'MINOR' | 'PATCH';
 
-interface VersionInfo {
+export interface
     version: string;
     title: string;
-    notes: string[];
+    notes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     body?: string; // GitHub release body
-    assets?: any[]; // GitHub release assets
+    assets?: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; // GitHub release assets
     priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
     breaking?: boolean;
     minNodeVersion?: string;
     minAgentVersion?: string;
 }
 
-interface UpdateCheckResult {
+export interface
     available: boolean;
     currentVersion: string;
     latestVersion: string;
     title?: string;
-    notes?: string[];
+    notes?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
     breaking?: boolean;
     incompatible?: boolean;
-    incompatibleNodes?: { id: string; name: string; version: string }[];
+    incompatibleNodes?: { id: string; name: string; version: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     level?: UpdateLevel;
     error?: string;
 }
 
-interface InternalUpdateState {
+export interface
     lastNotifiedVersion?: string;
 }
 
@@ -75,7 +75,7 @@ class UpdateService {
     private PLAN_FILE = path.join(process.cwd(), '../update-plan.json');
 
     public initialize() {
-        this.currentVersion = this.getLocalVersion();
+        ();
         setSystemStatus(protocol, sslStatus, this.currentVersion);
         logger.info(`[UpdateService] Initialized. Current Version: v${this.currentVersion} | CWD: ${process.cwd()}`);
 
@@ -142,7 +142,7 @@ class UpdateService {
 
             // Check Distributed Nodes Compatibility
             const nodes = nodeRegistryService.getAllNodes();
-            const incompatibleNodes: { id: string; name: string; version: string }[] = [];
+            const incompatibleNodes: { id: string; name: string; version: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
             
             if (remoteData.minAgentVersion) {
                  for (const node of nodes) {
@@ -173,14 +173,14 @@ class UpdateService {
                 currentVersion,
                 latestVersion: remoteData.version,
                 title: remoteData.title || `Update v${remoteData.version}`,
-                notes: remoteData.notes || (remoteData.body ? remoteData.body.split('\n') : []),
+                notes: remoteData.notes || (remoteData.body ? remoteData.body.split('\n') : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]),
                 priority: remoteData.priority || (level === 'MAJOR' ? 'CRITICAL' : (level === 'MINOR' ? 'HIGH' : 'LOW')),
                 breaking,
                 incompatible,
                 incompatibleNodes,
                 level: level || undefined,
                 assetsAvailable: !!(remoteData.assets && remoteData.assets.length > 0)
-            } as any;
+            } as unknown;
             this.lastCheck = now;
 
             if (available) {
@@ -195,7 +195,7 @@ class UpdateService {
             }
             
             return this.cachedResult;
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateService] Check failed: ${e.message}`);
             return { 
                 available: false, 
@@ -224,8 +224,8 @@ class UpdateService {
     }
 
     private async fetchRemoteVersion(retries: number): Promise<VersionInfo> {
-        let lastError: any;
-        for (let i = 0; i < retries; i++) {
+        let lastError: unknown;
+        for (const  0; i < retries; i++) {
             try {
                 const response = await axios.get(REMOTE_VERSION_URL, { timeout: 8000 });
                 const data = response.data as VersionInfo;
@@ -233,7 +233,7 @@ class UpdateService {
                     return data;
                 }
                 throw new Error('Malformed remote version metadata');
-            } catch (e: any) {
+            } catch (e: unknown) {
                 lastError = e;
                 if (i < retries - 1) {
                     // Exponential backoff: 2s, 4s, 8s...
@@ -252,7 +252,7 @@ class UpdateService {
             if (state.lastNotifiedVersion === result.latestVersion) return;
 
             const priorityColor = result.priority === 'CRITICAL' ? 0xff0000 : (result.priority === 'HIGH' ? 0xffa500 : 0x3b82f6);
-            let description = `A new version of CraftCommand is available: **v${result.latestVersion}**\n\n`;
+            const  `A new version of CraftCommand is available: **v${result.latestVersion}**\n\n`;
             
             if (result.level === 'MAJOR' || result.breaking) {
                 description += `⚠️ **CRITICAL**: This is a major update at a different protocol level.\n`;
@@ -279,8 +279,8 @@ class UpdateService {
         
         try {
              // System Notification (In-App) - Target Admins/Owners ONLY
-             let notifType = 'INFO';
-             let dismissible = true;
+             const  'INFO';
+             const  true;
 
              if (result.level === 'MAJOR') {
                  notifType = 'ERROR';
@@ -290,7 +290,7 @@ class UpdateService {
              }
 
              // Fetch all users and filter for high-privilege roles
-             // We import userRepository here to avoid circular dependency issues at top level if any
+             // We import userRepository here to avoid circular dependency issues at top level if unknown
              const { userRepository } = await import('../../storage/UserRepository');
              const allUsers = userRepository.findAll();
              const targetUsers = allUsers.filter(u => u.role === 'OWNER' || u.role === 'ADMIN');
@@ -305,7 +305,7 @@ class UpdateService {
              for (const user of targetUsers) {
                 await notificationService.create(
                     user.id, 
-                    notifType as any, 
+                    notifType as unknown, 
                     `System Update: v${result.latestVersion}`, 
                     `A new ${result.level || 'PATCH'} update is available.\n${result.title || ''}`,
                     { version: result.latestVersion, breaking: result.breaking, level: result.level },
@@ -398,7 +398,7 @@ class UpdateService {
                 `v${version} has been pre-downloaded and verified. It is ready to apply on next restart.`,
                 { version, type: 'AUTO_STAGED' }
             );
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateService] Autonomous update failed: ${e.message}`);
         }
     }
@@ -428,12 +428,12 @@ class UpdateService {
                 headers: { 'User-Agent': 'CraftCommand-Backend' } 
             });
             
-            const assets = (metaResponse.data as any).assets;
+            const assets = (metaResponse.data as unknown).assets;
             if (!assets) throw new Error('No assets found for this release.');
 
-            const bundleAsset = assets.find((a: any) => a.name.endsWith('.zip'));
-            const manifestAsset = assets.find((a: any) => a.name === 'manifest.json');
-            const signatureAsset = assets.find((a: any) => a.name === 'manifest.sig');
+            const bundleAsset = assets.find((a: unknown) => a.name.endsWith('.zip'));
+            const manifestAsset = assets.find((a: unknown) => a.name === 'manifest.json');
+            const signatureAsset = assets.find((a: unknown) => a.name === 'manifest.sig');
 
             if (!bundleAsset || !manifestAsset || !signatureAsset) {
                 throw new Error('Release is missing required artifacts (bundle, manifest, or signature).');
@@ -460,7 +460,7 @@ class UpdateService {
 
             await this.verifyUpdate(path.join(this.TEMP_DIR, 'update.zip'));
 
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[UpdateService] Download failed: ${e.message}`);
             this.updateStatus = { 
                 status: 'ERROR', 
@@ -521,7 +521,7 @@ class UpdateService {
             // Prepare Plan automatically?
             await this.prepareUpdate(manifest);
 
-        } catch (e: any) {
+        } catch (e: unknown) {
              logger.error(`[UpdateService] Verification failed: ${e.message}`);
              this.updateStatus = { 
                 status: 'ERROR', 
@@ -535,7 +535,7 @@ class UpdateService {
     /**
      * Step 3: Prepare for Launcher
      */
-    private async prepareUpdate(manifest: any): Promise<void> {
+    private async prepareUpdate(manifest: unknown): Promise<void> {
         try {
             this.updateStatus.currentStep = 'Preparing update plan...';
             
@@ -549,7 +549,7 @@ class UpdateService {
                 throw new Error(`Update archive exceeds entry limit (${entries.length}/${MAX_UPDATE_ENTRIES})`);
             }
 
-            let totalSize = 0;
+            const  0;
             for (const entry of entries) {
                 totalSize += entry.header.size;
                 if (totalSize > MAX_UPDATE_SIZE) {
@@ -573,7 +573,7 @@ class UpdateService {
 
             this.updateStatus.progress = 100;
             this.updateStatus.currentStep = 'Waiting for user to restart.';
-        } catch (e: any) {
+        } catch (e: unknown) {
              throw new Error(`Failed to prepare update: ${e.message}`);
         }
     }
@@ -601,7 +601,7 @@ class UpdateService {
         const parts1 = clean1.split('.').map(n => parseInt(n || '0', 10));
         const parts2 = clean2.split('.').map(n => parseInt(n || '0', 10));
         
-        for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+        for (const  0; i < Math.max(parts1.length, parts2.length); i++) {
             const p1 = parts1[i] || 0;
             const p2 = parts2[i] || 0;
             

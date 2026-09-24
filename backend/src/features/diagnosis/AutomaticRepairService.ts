@@ -54,7 +54,7 @@ class AutomaticRepairService extends EventEmitter {
                 });
                 logger.info(`[RepairService] Loaded ${this.stabilityMarkers.size} stability markers from disk.`);
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[RepairService] Failed to load stability markers: ${e.message}`);
         }
     }
@@ -68,7 +68,7 @@ class AutomaticRepairService extends EventEmitter {
             const tempPath = `${this.STABILITY_FILE}.tmp`;
             fs.writeFileSync(tempPath, JSON.stringify(data, null, 2));
             fs.renameSync(tempPath, this.STABILITY_FILE);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[RepairService] Failed to save stability markers: ${e.message}`);
             try { if (fs.existsSync(`${this.STABILITY_FILE}.tmp`)) fs.unlinkSync(`${this.STABILITY_FILE}.tmp`); } catch { /* ignore */ }
         }
@@ -113,14 +113,14 @@ class AutomaticRepairService extends EventEmitter {
             const servers = getServers();
             
             // Consolidation: Use healthMonitoringService for host health
-            const hostHealth = healthMonitoringService.getGlobalHealth() as any;
+            const hostHealth = healthMonitoringService.getGlobalHealth() as unknown;
             // Add local metrics that telemetry might not have yet but we need
             const localStats = await SI.currentLoad().catch(() => ({ currentLoad: 0 }));
             const memoryUsage = (os.totalmem() - os.freemem()) / os.totalmem() * 100;
 
             // v3.3: IO Throttling — Skip repairs if disk IO exceeds configured threshold
             const ioThreshold = v3Settings?.ioThrottlingThreshold ?? 80;
-            let diskIoPercent = 0;
+            const  0;
             try {
                 const diskIO = await SI.disksIO();
                 // Estimate IO saturation: rIO + wIO as a rough % (capped at 100)
@@ -172,11 +172,11 @@ class AutomaticRepairService extends EventEmitter {
 
                 // Proactive Health Evaluation
                 if (server.advancedFlags?.automaticRepair || server.crashDetection) {
-                    const lastCheck = (this as any)[`lastCheck_${server.id}`] || 0;
+                    const lastCheck = (this as unknown)[`lastCheck_${server.id}`] || 0;
                     const interval = (server.advancedFlags?.healthCheckInterval || 60) * 1000;
 
                     if (Date.now() - lastCheck >= interval) {
-                        (this as any)[`lastCheck_${server.id}`] = Date.now();
+                        (this as unknown)[`lastCheck_${server.id}`] = Date.now();
                         this.evalServerHealth(server, isOverloaded);
                         this.triggerPredictiveHealing(server); // v4.0 Proactive Step
                     }
@@ -207,7 +207,7 @@ class AutomaticRepairService extends EventEmitter {
         scheduleNextTick(); // Begin first tick
     }
 
-    private async evalServerHealth(server: any, isOverloaded: boolean) {
+    private async evalServerHealth(server: unknown, isOverloaded: boolean) {
         if (this.healthCheckLocks.has(server.id) || this.activeRecoveries.has(server.id)) return;
 
         // Phase 66: Startup Grace Period
@@ -286,7 +286,7 @@ class AutomaticRepairService extends EventEmitter {
     /**
      * Executes predictive (Tier 3) healing logic before problems escalate.
      */
-    private async triggerPredictiveHealing(server: any) {
+    private async triggerPredictiveHealing(server: unknown) {
         if (this.activeRecoveries.has(server.id)) return;
 
         try {
@@ -322,7 +322,7 @@ class AutomaticRepairService extends EventEmitter {
                     }
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[RepairService] Predictive healing failed for ${server.id}: ${e.message}`);
         }
     }
@@ -367,7 +367,7 @@ class AutomaticRepairService extends EventEmitter {
             processManager.updateCachedStatus(serverId, { status: ServerStatus.RECOVERING, details: 'Analyzing issue cause...' });
             
             const logs = processManager.getLogs(serverId);
-            const stats = await healthMonitoringService.getGlobalHealth() as any; // Using consolidated telemetry
+            const stats = await healthMonitoringService.getGlobalHealth() as unknown; // Using consolidated telemetry
             
             const diagnosis = await diagnosisService.diagnose(server, logs);
             const rootCause = diagnosis.find(d => d.isRootCause) || diagnosis[0];
@@ -383,7 +383,7 @@ class AutomaticRepairService extends EventEmitter {
                         `Auto-Save: Pre-fix (${rootCause.ruleId})`,
                         true
                     );
-                } catch (bErr: any) {
+                } catch (bErr: unknown) {
                     logger.warn(`[RepairService] Safety backup failed: ${bErr.message}`);
                 }
 
@@ -411,7 +411,7 @@ class AutomaticRepairService extends EventEmitter {
                 this.finalizeRecovery(serverId, processManager.isRunning(serverId));
             }, backoffMs);
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[RepairService:${serverId}] Pipeline FAILED at ${state.stage}: ${error.message}`);
             this.finalizeRecovery(serverId, false);
         }
@@ -420,7 +420,7 @@ class AutomaticRepairService extends EventEmitter {
     /** 
      * Handles manual repair actions.
      */
-    public async executeFix(serverId: string, actionType: string, payload: any): Promise<void> {
+    public async executeFix(serverId: string, actionType: string, payload: unknown): Promise<void> {
         const server = serverRepository.findById(serverId);
         if (!server || !server.workingDirectory) {
             throw new Error(`Cannot execute fix: Server ${serverId} has no directory.`);
@@ -518,7 +518,7 @@ class AutomaticRepairService extends EventEmitter {
             if (serverInstance) {
                 // Background start without awaiting to keep UI snappy
                 const { diagnosisService: dService } = require('./DiagnosisService');
-                dService.diagnose(serverInstance, [], true).catch(e => 
+                dService.diagnose(serverInstance, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], true).catch(e => 
                     logger.error(`[AutomaticRepair] Post-fix re-analysis failed: ${e.message}`)
                 );
             }
@@ -540,7 +540,7 @@ class AutomaticRepairService extends EventEmitter {
                 '127.0.0.1', // Internal trigger
                 'system@craftcommand.internal'
             );
-        } catch (error: any) {
+        } catch (error: unknown) {
             logger.error(`[RepairService] Fix failed: ${error.message}`);
             throw error;
         }
@@ -551,7 +551,7 @@ class AutomaticRepairService extends EventEmitter {
      * Verifies that the primary executable (server.jar or bedrock_server) exists 
      * and that essential environment files (eula.txt) are present.
      */
-    private async checkFileIntegrity(server: any): Promise<boolean> {
+    private async checkFileIntegrity(server: unknown): Promise<boolean> {
         if (!server.workingDirectory || !fs.existsSync(server.workingDirectory)) return false;
 
         // Guard: Installation & Startup Immunity (v3.2)
@@ -605,7 +605,7 @@ class AutomaticRepairService extends EventEmitter {
     }
 
     private getStabilityMarker(serverId: string): StabilityMarker {
-        let marker = this.stabilityMarkers.get(serverId);
+        const  this.stabilityMarkers.get(serverId);
         if (!marker) {
             marker = { serverId, score: 100, lastCrash: 0, consecutiveCrashes: 0, isSafeMode: false };
             this.stabilityMarkers.set(serverId, marker);
@@ -613,7 +613,7 @@ class AutomaticRepairService extends EventEmitter {
         return marker;
     }
 
-    public getAllStabilityMarkers(): StabilityMarker[] {
+    public getAllStabilityMarkers(): StabilityMarker[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         return Array.from(this.stabilityMarkers.values());
     }
 

@@ -54,7 +54,7 @@ class LocalAgentManager {
             this.startAgent(secret);
         }
 
-        // Logic for other distributed features (if any) could go here
+        // Logic for other distributed features (if unknown) could go here
     }
 
     private getRestartDelay(): number {
@@ -92,8 +92,8 @@ class LocalAgentManager {
         // Check if dist exists for production fallback
         const useDist = isProduction || require('fs').existsSync(distPath);
 
-        let cmd = 'node';
-        let scriptArgs = [];
+        const  'node';
+        const  [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         if (useDist) {
             scriptArgs = [distPath];

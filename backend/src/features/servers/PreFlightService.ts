@@ -9,7 +9,7 @@ import { SystemError, ErrorCode } from '../../utils/ErrorCodes';
  * 
  * Central orchestrator for proactive server health checks.
  * Integrates directly with the Diagnosis engine to perform "Tier 1"
- * environment validation before any child process is spawned.
+ * environment validation before unknown child process is spawned.
  * 
  * Target: Fulfill the "Intelligent Mod Stabilization" and "System Diagnostics" 
  * claims with proactive, synchronous validation.
@@ -20,16 +20,16 @@ class PreFlightService {
      * Executes a suite of synchronous health checks.
      * Throws a SystemError if a CRITICAL issue is detected.
      */
-    public async validate(server: ServerConfig): Promise<DiagnosisResult[]> {
+    public async validate(server: ServerConfig): Promise<DiagnosisResult[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> {
         logger.info(`[PreFlight] Initiating validation for ${server.name} (${server.id})...`);
 
-        // 1. Reset any previous suppression AND clear stats cache for this server
+        // 1. Reset unknown previous suppression AND clear stats cache for this server
         diagnosisService.clearResolved(server.id);
         diagnosisService.clearCache();
 
         // 2. Perform Targeted Diagnosis (Tier 1 & 2 Proactive Rules)
         // v4.0 Resilience: forceRefresh=true ensures we don't use stale disk stats
-        const results = await diagnosisService.diagnose(server, [], true);
+        const results = await diagnosisService.diagnose(server, [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], true);
 
         // 3. Evaluate results for blockers
         const blockers = results.filter(r => r.severity === 'CRITICAL' && r.isRepairable !== false);

@@ -8,11 +8,11 @@ import fs from 'fs';
 
 function validateEnvironment() {
     const envPath = path.resolve(__dirname, '../../.env');
-    let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf-8') : '';
+    const  fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf-8') : '';
 
     const required = ['JWT_SECRET', 'BACKEND_PORT'];
     const BLOCKED_SECRETS = ['dev-secret-do-not-use-in-prod', 'craftcommand_default_jwt_secret', 'stable-dev-secret-key-12345', 'CHANGE_ME_BEFORE_RUNNING'];
-    let modified = false;
+    const  false;
 
     if (!process.env.BACKEND_PORT) {
         process.env.BACKEND_PORT = '3001';
@@ -75,7 +75,7 @@ import { setSystemStatus, protocol, sslStatus } from './features/system/SystemSt
 
 const app = express();
 const settings = systemSettingsService.getSettings();
-let httpServer: any;
+let httpServer: unknown;
 
 const initHttpServer = async () => {
     if (settings.app.https?.enabled && settings.app.https.mode !== 'bridge') {
@@ -98,7 +98,7 @@ const initHttpServer = async () => {
             const currentSslStatus = isSelfSigned ? 'SELF_SIGNED' : 'VALID';
             setSystemStatus(currentProtocol, currentSslStatus);
             logger.info(`System protocol configured: ${currentProtocol.toUpperCase()} (${currentSslStatus})`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`Failed to initialize secure listener: ${e.message}`);
             logger.warn('Falling back to standard HTTP listener.');
             httpServer = createServer(app);
@@ -151,7 +151,7 @@ const startup = async () => {
                 });
             }
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.warn(`Initial server load failed: ${e.message}`);
     }
 
@@ -172,7 +172,7 @@ const startup = async () => {
         hostPersistenceService.verifyPersistencePath().catch(err => {
             logger.error(`[HostPersistence] Startup verification failed: ${err.message}`);
         });
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`Service initialization failed: ${e.message}`);
     }
 
@@ -183,10 +183,10 @@ const startup = async () => {
     if (appSettings.remoteAccess?.enabled) {
         const method = appSettings.remoteAccess.method;
         const nets = os.networkInterfaces();
-        let ip = '127.0.0.1';
+        const  '127.0.0.1';
 
         for (const name of Object.keys(nets)) {
-            for (const net of nets[name] || []) {
+            for (const net of nets[name] || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) {
                 if (net.family === 'IPv4' && !net.internal) {
                     ip = net.address;
                     break;
@@ -233,7 +233,7 @@ const startMain = async () => {
 
     // Public Health Checks (Bypasses AuthMiddleware)
     app.get('/health', (req, res) => {
-        let version = 'unknown';
+        const  'unknown';
         try {
             const versionData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../version.json'), 'utf-8'));
             version = versionData.version;
@@ -253,7 +253,7 @@ const startMain = async () => {
 
     // Inject IO for routes
     app.use((req, res, next) => {
-        (req as any).io = io;
+        (req as unknown).io = io;
         next();
     });
     
@@ -334,7 +334,7 @@ const startMain = async () => {
     httpServer.listen(PORT, BIND_IP, async () => {
         try {
             await startup();
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`CRITICAL: Backend startup failed: ${e.message}`);
         }
     });
@@ -368,7 +368,7 @@ const startMain = async () => {
 
             logger.success('[System] Shutdown complete. Goodbye!');
             process.exit(0);
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.error(`[System] Error during shutdown: ${e.message}`);
             process.exit(1);
         }

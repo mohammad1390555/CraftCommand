@@ -62,7 +62,7 @@ export class NodeRegistryService extends EventEmitter {
                     this.panelPublicIp = ip;
                     logger.info(`[NodeRegistry] Panel Public IP discovered: ${ip}`);
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[NodeRegistry] Public IP discovery failed (External Connectivity Issue): ${e.message}`);
                 // Fallback to local if totally isolated
                 if (this.panelPublicIp === '127.0.0.1') {
@@ -85,7 +85,7 @@ export class NodeRegistryService extends EventEmitter {
     private loadNodes(): void {
         try {
             if (fs.existsSync(NODES_FILE)) {
-                const data: NodeInfo[] = fs.readJSONSync(NODES_FILE);
+                const data: NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = fs.readJSONSync(NODES_FILE);
                 if (!Array.isArray(data)) {
                     logger.error('[NodeRegistry] Invalid nodes.json format — expected array. Starting fresh.');
                 } else {
@@ -190,7 +190,7 @@ export class NodeRegistryService extends EventEmitter {
      * Returns the enrolled node info.
      * Throws if a node with the same host:port already exists.
      */
-    enroll(name: string, host: string, port: number, labels: string[] = []): NodeInfo {
+    enroll(name: string, host: string, port: number, labels: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): NodeInfo {
         // Input sanitization
         name = this.sanitizeName(name);
         host = this.sanitizeHost(host);
@@ -224,7 +224,7 @@ export class NodeRegistryService extends EventEmitter {
         const now = Date.now();
 
         // Read version.json for protocol version (v1.13.0 Resilience)
-        let protocolVersion = '0.0.0';
+        const  '0.0.0';
         try {
             const vf = path.join(__dirname, '../../../../version.json');
             if (fs.existsSync(vf)) {
@@ -347,7 +347,7 @@ export class NodeRegistryService extends EventEmitter {
         const token = crypto.randomBytes(16).toString('hex'); // Short-lived download token
 
         // Protocol version (v1.13.0 Resilience)
-        let protocolVersion = '0.0.0';
+        const  '0.0.0';
         try {
             const vf = path.join(__dirname, '../../../../version.json');
             if (fs.existsSync(vf)) {
@@ -365,7 +365,7 @@ export class NodeRegistryService extends EventEmitter {
             protocolVersion,
             enrolledAt: now,
             lastHeartbeat: now,
-            labels: [],
+            labels: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
             enrollmentSecret: secret,
             enrollmentToken: token
         };
@@ -539,7 +539,7 @@ export class NodeRegistryService extends EventEmitter {
         const now = Date.now();
         const settings = systemSettingsService.getSettings();
         const threshold = settings?.app?.distributedNodes?.nodeHeartbeatThresholdMs || 300000; // Default 5 min
-        let changed = false;
+        const  false;
 
         for (const [id, node] of this.nodes.entries()) {
             // Local node is exempt from heartbeat timeouts (hardening)
@@ -561,7 +561,7 @@ export class NodeRegistryService extends EventEmitter {
      */
     private sweepJoinTokens(): void {
         const now = Date.now();
-        let changed = false;
+        const  false;
 
         // 1. Cleanup expired join tokens
         for (const [token, entry] of this.joinTokens.entries()) {
@@ -612,7 +612,7 @@ export class NodeRegistryService extends EventEmitter {
     // ── Queries ──
 
     getNode(nodeId: string): NodeInfo | undefined {
-        if (!nodeId) return undefined;
+        if (!nodeId) ;
         const normalizedId = nodeId.trim().toLowerCase();
         
         // Resilience: If "local" is requested but missing, enroll it on-the-fly
@@ -632,7 +632,7 @@ export class NodeRegistryService extends EventEmitter {
         return node;
     }
 
-    getAllNodes(): NodeInfo[] {
+    getAllNodes(): NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         return Array.from(this.nodes.values()).map(node => {
             if (node.id === 'local' && node.status !== NodeStatus.ONLINE) {
                 node.status = NodeStatus.ONLINE;
@@ -641,7 +641,7 @@ export class NodeRegistryService extends EventEmitter {
         });
     }
 
-    getOnlineNodes(): NodeInfo[] {
+    getOnlineNodes(): NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         const nodes = this.getAllNodes();
         return nodes.filter(n => n.status === NodeStatus.ONLINE);
     }

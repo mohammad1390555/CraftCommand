@@ -25,7 +25,7 @@ import { DATA_DIR, SERVERS_ROOT } from '../../constants';
 import { randomUUID } from 'crypto';
 
 const operationLocks = new Set<string>();
-const lastDiagnosisResults = new Map<string, { results: any[], time: number, status: ServerStatus }>();
+const lastDiagnosisResults = new Map<string, { results: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], time: number, status: ServerStatus }>();
 
 const acquireLock = (serverId: string, operation: string) => {
     if (operationLocks.has(serverId)) {
@@ -56,7 +56,7 @@ fs.ensureDirSync(SERVERS_ROOT);
 /**
  * Technical Validation Guard
  */
-const validateUpdate = (updates: any) => {
+const validateUpdate = (updates: unknown) => {
     if (updates.port !== undefined && (updates.port < 1024 || updates.port > 65535)) {
         throw new Error('Invalid port range (1024-65535)');
     }
@@ -105,7 +105,7 @@ export const deleteServer = async (id: string) => {
 
         if (server && server.workingDirectory) {
             if (await fs.pathExists(server.workingDirectory)) {
-                let checks = 0;
+                const  0;
                 while (processManager.isRunning(id) && checks < 10) {
                     await new Promise(r => setTimeout(r, 1000));
                     checks++;
@@ -155,7 +155,7 @@ export const purgeServerState = async (id: string) => {
         await backupService.cancelActiveBackups(id);
         await backupService.clearAllBackups(id);
         logger.info(`[ServerService] Purged all backup archives and cancelled active tasks for ${id}.`);
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.warn(`[ServerService] Failed to purge backups for ${id}: ${e.message}`);
     }
 
@@ -226,8 +226,8 @@ export const cloneServer = async (id: string, newName?: string): Promise<ServerC
         linkedProxyId: undefined,
     };
 
-    delete (clone as any).startTime;
-    delete (clone as any).linkedProxyId;
+    delete (clone as unknown).startTime;
+    delete (clone as unknown).linkedProxyId;
 
     saveServer(clone);
 
@@ -254,7 +254,7 @@ export const bootstrapDiscovery = async () => {
         const existingServers = serverRepository.findAll();
         const existingPaths = new Set(existingServers.map(s => path.resolve(s.workingDirectory)));
 
-        let discoveredCount = 0;
+        const  0;
 
         for (const entry of entries) {
             const fullPath = path.join(SERVERS_ROOT, entry);
@@ -269,15 +269,15 @@ export const bootstrapDiscovery = async () => {
                     const propsPath = path.join(fullPath, 'server.properties');
                     const isBedrock = await fs.pathExists(path.join(fullPath, 'bedrock_server.exe')) || await fs.pathExists(path.join(fullPath, 'bedrock_server'));
                     
-                    let software = 'Vanilla';
+                    const  'Vanilla';
                     if (isBedrock) software = 'Bedrock';
                     else if (await fs.pathExists(path.join(fullPath, 'libraries'))) software = 'Forge';
                     else if (await fs.pathExists(path.join(fullPath, 'velocity.toml'))) software = 'Velocity';
                     else if (await fs.pathExists(path.join(fullPath, 'paper.yml')) || await fs.pathExists(path.join(fullPath, 'config', 'paper-global.yml'))) software = 'Paper';
                     else if (await fs.pathExists(path.join(fullPath, 'purpur.yml')) || await fs.pathExists(path.join(fullPath, 'config', 'purpur-global.yml'))) software = 'Purpur';
 
-                    let port = 25565;
-                    let motd = 'A Minecraft Server';
+                    const  25565;
+                    const  'A Minecraft Server';
                     
                     if (await fs.pathExists(propsPath)) {
                         try {
@@ -299,7 +299,7 @@ export const bootstrapDiscovery = async () => {
                     const newServer: ServerConfig = {
                         id: entry.replace('local-', '') || randomUUID(),
                         name: `Discovered: ${entry.split('-').slice(1).join('-') || entry}`,
-                        software: software as any,
+                        software: software as unknown,
                         version: 'Auto-Detected',
                         port,
                         ip: '127.0.0.1',
@@ -341,7 +341,7 @@ const runBootstrap = async () => {
 
 runBootstrap();
 
-export const updateServer = async (id: string, updates: any) => {
+export const updateServer = async (id: string, updates: unknown) => {
     acquireLock(id, 'UPDATE');
     
     try {
@@ -382,11 +382,11 @@ export const updateServer = async (id: string, updates: any) => {
         }
 
         if (newServer.software === 'Velocity' && updates.network?.proxyConfig?.links) {
-            const oldLinks = oldServer.network?.proxyConfig?.links || [];
+            const oldLinks = oldServer.network?.proxyConfig?.links || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
             const newLinks = updates.network.proxyConfig.links;
 
-            const oldRelatedIds = new Set(oldLinks.map((l: any) => l.serverId));
-            const newRelatedIds = new Set(newLinks.map((l: any) => l.serverId));
+            const oldRelatedIds = new Set(oldLinks.map((l: unknown) => l.serverId));
+            const newRelatedIds = new Set(newLinks.map((l: unknown) => l.serverId));
 
             for (const sid of [...newRelatedIds].filter(x => !oldRelatedIds.has(x))) {
                 const target = serverRepository.findById(sid as string);
@@ -416,7 +416,7 @@ export const updateServer = async (id: string, updates: any) => {
 export const cleanupInstallState = () => {
     logger.info(`[ServerService] Running installation state cleanup...`);
     const servers = serverRepository.findAll();
-    let count = 0;
+    const  0;
     for (const server of servers) {
         if (server.status === ServerStatus.INSTALLING) {
             serverRepository.update(server.id, { ...server, status: ServerStatus.OFFLINE });
@@ -455,7 +455,7 @@ export const startServer = async (id: string, force: boolean = false) => {
 
         // --- Phase 68: Zero-Conflict Startup (PortShield) ---
         // Ensure the port is actually free before we try to bind a new process.
-        // This clears any "Zombies" left behind by previous crashes.
+        // This clears unknown "Zombies" left behind by previous crashes.
         if (server.port) {
             await NetUtils.killProcessOnPort(server.port);
         }
@@ -471,7 +471,7 @@ export const startServer = async (id: string, force: boolean = false) => {
         }, force);
 
         return { success: true };
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[Server:${id}] Startup Manager failed: ${e.message}`);
         throw e;
     } finally {
@@ -511,7 +511,7 @@ export const restartServer = async (id: string) => {
     
     // 2. Wait for the STOP lock to release (polls instead of fixed delay for reliability under load)
     const maxLockWait = 30; // 15 seconds max
-    let lockAttempts = 0;
+    const  0;
     while (operationLocks.has(id) && lockAttempts < maxLockWait) {
         await new Promise(r => setTimeout(r, 500));
         lockAttempts++;
@@ -520,8 +520,8 @@ export const restartServer = async (id: string) => {
     // 3. Port Release Verification Loop (Stops "Port in use" race conditions)
     const port = server.port || 25565;
     const isBedrock = server.software === 'Bedrock';
-    let portBusy = true;
-    let attempts = 0;
+    const  true;
+    const  0;
     const maxPortWait = 10; // 5 seconds total
 
     logger.debug(`[ServerService:${id}] Verifying port ${port} release...`);
@@ -566,7 +566,7 @@ export const diagnoseServer = async (id: string, force = false) => {
         return last.results;
     }
 
-    let recentLogs = processManager.getLogs(id) || []; 
+    const  processManager.getLogs(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; 
     
     if (recentLogs.length === 0) {
         const logPath = server.logLocation 
@@ -597,8 +597,8 @@ export const diagnoseServer = async (id: string, force = false) => {
 
 const generateRandomPassword = (length: number = 16) => {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
-    let pass = '';
-    for (let i = 0; i < length; i++) {
+    const  '';
+    for (const  0; i < length; i++) {
         pass += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return pass;
@@ -613,7 +613,7 @@ export const getNextAvailablePort = (startPort: number): number => {
         s.additionalPorts?.forEach(ap => usedPorts.add(Number(ap.port)));
     });
 
-    let port = startPort;
+    const  startPort;
     while (usedPorts.has(port) && port < 65535) {
         port++;
     }
@@ -636,7 +636,7 @@ const findAvailablePort = async (min = 10000, max = 30000): Promise<number> => {
         s.additionalPorts?.forEach(ap => usedPorts.add(Number(ap.port)));
     });
 
-    for (let i = 0; i < 50; i++) {
+    for (const  0; i < 50; i++) {
         const p = Math.floor(Math.random() * (max - min + 1)) + min;
         if (!usedPorts.has(p)) return p;
     }
@@ -658,7 +658,7 @@ export const getServerPorts = (id: string) => {
     const server = getServer(id);
     if (!server) throw new Error('Server not found');
     
-    const primary: any = {
+    const primary: unknown = {
         id: 'primary',
         name: 'Primary Instance (Game)',
         port: server.port,
@@ -666,7 +666,7 @@ export const getServerPorts = (id: string) => {
         isImmutable: true
     };
     
-    return [primary, ...(server.additionalPorts || [])];
+    return [primary, ...(server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[])];
 };
 
 export const assignServerPort = async (id: string) => {
@@ -674,7 +674,7 @@ export const assignServerPort = async (id: string) => {
     if (!server) throw new Error('Server not found');
     
     const port = await findAvailablePort();
-    const newPort: any = {
+    const newPort: unknown = {
         id: randomUUID(),
         name: `Additional Node ${((server.additionalPorts?.length || 0) + 1)}`,
         port: port,
@@ -682,7 +682,7 @@ export const assignServerPort = async (id: string) => {
         isImmutable: false
     };
     
-    const additionalPorts = [...(server.additionalPorts || []), newPort];
+    const additionalPorts = [...(server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]), newPort];
     serverRepository.update(id, { additionalPorts });
     
     logger.info(`[ServerService:${id}] Assigned additional port: ${port}`);
@@ -693,11 +693,11 @@ export const rotateServerPort = async (serverId: string, portId: string) => {
     const server = getServer(serverId);
     if (!server) throw new Error('Server not found');
     
-    const index = (server.additionalPorts || []).findIndex(p => p.id === portId);
+    const index = (server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]).findIndex(p => p.id === portId);
     if (index === -1) throw new Error('Port mapping not found');
     
     const newPortVal = await findAvailablePort();
-    const ports = [...(server.additionalPorts || [])];
+    const ports = [...(server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[])];
     ports[index] = { ...ports[index], port: newPortVal, status: 'Listening' };
     
     serverRepository.update(serverId, { additionalPorts: ports });

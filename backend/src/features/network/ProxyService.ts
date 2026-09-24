@@ -30,7 +30,7 @@ export class ProxyService {
             };
         }
         if (!proxy.network.proxyConfig) {
-            proxy.network.proxyConfig = { links: [] };
+            proxy.network.proxyConfig = { links: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] };
         }
         
         // Remove existing link to this server if it exists or alias conflict
@@ -74,12 +74,12 @@ export class ProxyService {
      */
     public async unlinkAll(backendId: string): Promise<void> {
         const proxies = getServers().filter(s => s.software === 'Velocity');
-        let affectedCount = 0;
+        const  0;
 
         for (const proxy of proxies) {
-            if (proxy.network?.proxyConfig?.links?.some((l: any) => l.serverId === backendId)) {
+            if (proxy.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === backendId)) {
                 logger.info(`[ProxyService] Removing ghost link for ${backendId} from proxy ${proxy.name}`);
-                proxy.network.proxyConfig.links = proxy.network.proxyConfig.links.filter((l: any) => l.serverId !== backendId);
+                proxy.network.proxyConfig.links = proxy.network.proxyConfig.links.filter((l: unknown) => l.serverId !== backendId);
                 saveServer(proxy);
                 this.syncAdvancedVelocityConfig(proxy.id);
                 
@@ -97,11 +97,11 @@ export class ProxyService {
     /**
      * Finds the proxy server that a backend server is linked to.
      */
-    public findProxyForServer(backendId: string): any | null {
+    public findProxyForServer(backendId: string): unknown | null {
         const allServers = getServers();
         return allServers.find(s => 
             s.software === 'Velocity' && 
-            s.network?.proxyConfig?.links?.some((l: any) => l.serverId === backendId)
+            s.network?.proxyConfig?.links?.some((l: unknown) => l.serverId === backendId)
         ) || null;
     }
 
@@ -113,8 +113,8 @@ export class ProxyService {
         if (!proxy || !proxy.network?.proxyConfig) return '';
         
         const allServers = getServers();
-        const serverLines: string[] = [];
-        const tryList: string[] = [];
+        const serverLines: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
+        const tryList: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         
         for (const link of proxy.network.proxyConfig.links) {
             const backend = allServers.find(s => s.id === link.serverId);
@@ -130,7 +130,7 @@ export class ProxyService {
             }
         }
         
-        let config = '[servers]\n';
+        const  '[servers]\n';
         if (serverLines.length > 0) {
             serverLines.forEach(line => config += `  ${line}\n`);
         } else {
@@ -139,7 +139,7 @@ export class ProxyService {
         
         // Velocity requires at least one server in the 'try' list if it's not empty, 
         // normally we want to prioritize the first linked server as the fallback.
-        // If empty, we MUST explicitly set it to [] to avoid internal defaults like ["lobby"]
+        // If empty, we MUST explicitly set it to [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] to avoid internal defaults like ["lobby"]
         config += `\n  # Priority list of servers to try when a player joins the proxy\n`;
         config += `  try = [${tryList.join(', ')}]\n`;
         
@@ -166,7 +166,7 @@ export class ProxyService {
             try {
                 await pluginService.install(proxyId, p.id, 'modrinth');
                 logger.success(`[ProxyService] Installed ${p.name}`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.warn(`[ProxyService] Failed to install ${p.name}: ${e.message}`);
                 // Continue with others
             }
@@ -190,7 +190,7 @@ export class ProxyService {
                 // Velocity secret file is just the raw string
                 await fs.writeFile(secretPath, config.secret.trim());
                 logger.info(`[ProxyService] Synced forwarding.secret for ${proxy.name}`);
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[ProxyService] Failed to write forwarding.secret: ${e.message}`);
             }
         }

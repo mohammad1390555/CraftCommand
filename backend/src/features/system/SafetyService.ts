@@ -6,9 +6,9 @@ import { logger } from '../../utils/logger';
 
 export class SafetyError extends Error {
     public code: string;
-    public details?: any;
+    public details?: unknown;
 
-    constructor(message: string, code: string, details?: any) {
+    constructor(message: string, code: string, details?: unknown) {
         super(message);
         this.name = 'SafetyError';
         this.code = code;
@@ -20,13 +20,13 @@ export class SafetyService {
     
     async validateServer(server: ServerConfig): Promise<void> {
         logger.info(`[Safety] Validating server ${server.id} (${server.name})...`);
-        const errors: { code: string, message: string }[] = [];
+        const errors: { code: string, message: string }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
         // 1. Check Server Executable exists
-        let defaultExe = 'server.jar';
+        const  'server.jar';
         if (server.software === 'Bedrock') {
             defaultExe = process.platform === 'win32' ? 'bedrock_server.exe' : 'bedrock_server';
-        } else if (server.software === 'Velocity' || (server as any).type === 'Velocity') {
+        } else if (server.software === 'Velocity' || (server as unknown).type === 'Velocity') {
             defaultExe = 'velocity.jar';
         }
         const exeName = server.executable || defaultExe;
@@ -42,7 +42,7 @@ export class SafetyService {
 
         // 2. Check EULA (Definitive Physical Check)
         // Bedrock servers do not use Java's EULA system — skip entirely
-        let isEulaPhysicallyAccepted = false;
+        const  false;
         
         if (server.software === 'Bedrock') {
             isEulaPhysicallyAccepted = true; // Bedrock has no EULA file
@@ -92,7 +92,7 @@ export class SafetyService {
                     { allocated: allocatedRAM, total: totalRAM }
                  );
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             if (e instanceof SafetyError) throw e;
         }
 
@@ -103,9 +103,9 @@ export class SafetyService {
             const logPath = path.join(server.workingDirectory, 'logs', 'latest.log');
             const recentLogs = fs.existsSync(logPath) 
                 ? (await fs.readFile(logPath, 'utf8')).split('\n').slice(-100)
-                : [];
+                : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
                 
-            let diagnosis = await diagnosisService.diagnose(server, recentLogs);
+            const  await diagnosisService.diagnose(server, recentLogs);
             
             // --- OVERRIDE: Suppress stale EULA findings if physically accepted ---
             if (isEulaPhysicallyAccepted) {
@@ -116,7 +116,7 @@ export class SafetyService {
                 }
             }
 
-            // Critical Root Causes: If any Tier 1 issue is identified as a root cause, BLOCK boot.
+            // Critical Root Causes: If unknown Tier 1 issue is identified as a root cause, BLOCK boot.
             const fatalRootCauses = diagnosis.filter(d => 
                 (d.isRootCause || d.severity === 'CRITICAL') && 
                 ['java_binary_missing', 'port_binding', 'eula_not_accepted', 'invalid_jvm_args'].includes(d.ruleId)
@@ -137,7 +137,7 @@ export class SafetyService {
                 logger.warn(`[Safety] Pre-flight warning for ${server.name}: ${warnings[0].explanation}`);
             }
 
-        } catch (diagErr: any) {
+        } catch (diagErr: unknown) {
             if (diagErr instanceof SafetyError) throw diagErr;
             logger.debug(`[Safety] Pre-flight diagnosis skipped: ${diagErr.message}`);
         }

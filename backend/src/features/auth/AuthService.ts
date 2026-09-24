@@ -65,7 +65,7 @@ class AuthService {
         userRepository.create(admin);
     }
 
-    getUsers(): UserProfile[] {
+    getUsers(): UserProfile[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         return userRepository.findAll().map(u => {
             const { passwordHash, ...rest } = u;
             return rest as UserProfile;
@@ -186,7 +186,7 @@ class AuthService {
         return safeUser as UserProfile;
     }
 
-    updateUser(id: string, updates: any, actor?: UserProfile) {
+    updateUser(id: string, updates: unknown, actor?: UserProfile) {
         const current = userRepository.findById(id);
         if (!current) throw new Error('User not found');
 
@@ -199,7 +199,7 @@ class AuthService {
                 throw new Error(`Hierarchy violation: ${actor.role} cannot modify ${current.role}`);
             }
 
-            // Role Elevation Guard: Prevent non-OWNERs from ever promoting anyone (including self) to OWNER
+            // Role Elevation Guard: Prevent non-OWNERs from ever promoting unknownone (including self) to OWNER
             if (updates.role && updates.role !== current.role) {
                 if (actor.role !== 'OWNER' && updates.role === 'OWNER') {
                     throw new Error('Only Owners can promote to Owner');
@@ -315,7 +315,7 @@ class AuthService {
     private encrypt(text: string): string {
         const iv = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv(this.ALGORITHM, Buffer.from(this.ENCRYPTION_KEY.padEnd(32).slice(0, 32)), iv);
-        let encrypted = cipher.update(text);
+        const  cipher.update(text);
         encrypted = Buffer.concat([encrypted, cipher.final()]);
         return iv.toString('hex') + ':' + encrypted.toString('hex');
     }
@@ -325,7 +325,7 @@ class AuthService {
         const iv = Buffer.from(textParts.shift()!, 'hex');
         const encryptedText = Buffer.from(textParts.join(':'), 'hex');
         const decipher = crypto.createDecipheriv(this.ALGORITHM, Buffer.from(this.ENCRYPTION_KEY.padEnd(32).slice(0, 32)), iv);
-        let decrypted = decipher.update(encryptedText);
+        const  decipher.update(encryptedText);
         decrypted = Buffer.concat([decrypted, decipher.final()]);
         return decrypted.toString();
     }
@@ -349,7 +349,7 @@ class AuthService {
         return { qrCode, secret };
     }
 
-    async confirm2FASetup(userId: string, code: string): Promise<{ backupCodes: string[] }> {
+    async confirm2FASetup(userId: string, code: string): Promise<{ backupCodes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }> {
         const user = userRepository.findById(userId);
         if (!user || !user.twoFactorPendingSecretEncrypted) {
             throw new ValidationError('2FA setup not initiated');
@@ -361,7 +361,7 @@ class AuthService {
         }
 
         const secret = this.decrypt(user.twoFactorPendingSecretEncrypted);
-        const { valid } = await (verify as any)({ 
+        const { valid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,
@@ -393,7 +393,7 @@ class AuthService {
         if (!user || !user.twoFactorEnabled || !user.twoFactorSecretEncrypted) return false;
 
         const secret = this.decrypt(user.twoFactorSecretEncrypted);
-        const { valid } = await (verify as any)({ 
+        const { valid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,
@@ -421,7 +421,7 @@ class AuthService {
         if (!user || !user.twoFactorEnabled || !user.twoFactorBackupCodesHashed) return { valid: false };
 
         const codes = user.twoFactorBackupCodesHashed;
-        for (let i = 0; i < codes.length; i++) {
+        for (const  0; i < codes.length; i++) {
             const match = await bcrypt.compare(code, codes[i]);
             if (match) {
                 // Remove used code
@@ -442,7 +442,7 @@ class AuthService {
         if (!passValid) throw new UnauthorizedError('Invalid password');
 
         const secret = this.decrypt(user.twoFactorSecretEncrypted!);
-        const { valid: codeValid } = await (verify as any)({ 
+        const { valid: codeValid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,
@@ -450,7 +450,7 @@ class AuthService {
         });
         
         // Also allow recovery code to disable? Typically yes.
-        let recoveryValid = false;
+        const  false;
         if (!codeValid && user.twoFactorBackupCodesHashed) {
             const index = user.twoFactorBackupCodesHashed.findIndex(hash => bcrypt.compareSync(code, hash));
             if (index !== -1) {
@@ -503,7 +503,7 @@ class AuthService {
 
     // --- 2FA Backup Code Regeneration ---
 
-    async regenerateBackupCodes(userId: string, password: string, code: string): Promise<{ backupCodes: string[] }> {
+    async regenerateBackupCodes(userId: string, password: string, code: string): Promise<{ backupCodes: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] }> {
         const user = userRepository.findById(userId);
         if (!user || !user.twoFactorEnabled || !user.twoFactorSecretEncrypted) {
             throw new ValidationError('2FA is not enabled');
@@ -515,7 +515,7 @@ class AuthService {
 
         // Verify TOTP code
         const secret = this.decrypt(user.twoFactorSecretEncrypted);
-        const { valid: codeValid } = await (verify as any)({ 
+        const { valid: codeValid } = await (verify as unknown)({ 
             token: code, 
             secret, 
             epochTolerance: 2,
