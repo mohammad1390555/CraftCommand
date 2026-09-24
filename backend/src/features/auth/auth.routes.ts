@@ -13,19 +13,19 @@ const router = express.Router();
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, 
     max: 10, // Increased from 5 to 10 for v4.0 Resilience
-    message: { error: 'Too many login attempts. Please try again in 15 minutes or contact support.' }
+    message: { error: 'Too munknown login attempts. Please try again in 15 minutes or contact support.' }
 });
 
 const verify2FALimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 20, // Increased from 10 to 20
-    message: { error: 'Too many 2FA attempts. Please try again in 15 minutes.' }
+    message: { error: 'Too munknown 2FA attempts. Please try again in 15 minutes.' }
 });
 
 const sensitiveActionLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 5,
-    message: { error: 'Too many sensitive actions, please try again later' }
+    message: { error: 'Too munknown sensitive actions, please try again later' }
 });
 
 // Login
@@ -37,7 +37,7 @@ router.post('/login', loginLimiter, async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
         res.json(result);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -47,14 +47,14 @@ router.post('/2fa/verify', verify2FALimiter, async (req, res) => {
     const { loginToken, code } = req.body;
     try {
         const secret = process.env.JWT_SECRET as string;
-        const decoded = jwt.verify(loginToken, secret) as any;
+        const decoded = jwt.verify(loginToken, secret) as unknown;
         
         if (!decoded.partial) {
             return res.status(400).json({ error: 'Invalid token type' });
         }
 
         const isTotp = code.length === 6;
-        let success = false;
+        const  false;
         
         if (isTotp) {
             success = await authService.verify2FA(decoded.id, code);
@@ -96,7 +96,7 @@ router.post('/2fa/verify', verify2FALimiter, async (req, res) => {
         userRepository.update(user!.id, { lastLogin: Date.now() });
 
         res.json({ success: true, user, token });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(401).json({ error: 'Session expired or invalid' });
     }
 });
@@ -107,7 +107,7 @@ router.post('/2fa/setup/start', verifyToken, async (req, res) => {
     try {
         const result = await authService.start2FASetup(user.id);
         res.json(result);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -120,7 +120,7 @@ router.post('/2fa/setup/confirm', verifyToken, async (req, res) => {
         const result = await authService.confirm2FASetup(user.id, code);
         auditService.log(user.id, 'AUTH_2FA_ENABLE', undefined, undefined, req.ip, user.email);
         res.json({ success: true, ...result });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
@@ -133,7 +133,7 @@ router.post('/2fa/disable', verifyToken, async (req, res) => {
         await authService.disable2FA(user.id, password, code);
         auditService.log(user.id, 'AUTH_2FA_DISABLE', undefined, undefined, req.ip, user.email);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
@@ -146,7 +146,7 @@ router.post('/2fa/backup/regen', verifyToken, async (req, res) => {
         const result = await authService.regenerateBackupCodes(user.id, password, code);
         auditService.log(user.id, 'AUTH_2FA_BACKUP_REGEN', undefined, undefined, req.ip, user.email);
         res.json(result);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
@@ -159,7 +159,7 @@ router.post('/change-password', verifyToken, sensitiveActionLimiter, async (req,
         await authService.changePassword(user.id, currentPassword, newPassword);
         auditService.log(user.id, 'USER_UPDATE', user.id, { action: 'PASSWORD_CHANGED' }, req.ip, user.email);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
@@ -176,7 +176,7 @@ router.patch('/me', verifyToken, (req, res) => {
         const updated = authService.updateUser(user.id, req.body, user);
         auditService.log(user.id, 'USER_UPDATE', user.id, { changes: Object.keys(req.body) }, req.ip, user.email);
         res.json(updated);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(403).json({ error: e.message });
     }
 });
@@ -187,7 +187,7 @@ router.post('/rotate-api-key', verifyToken, async (req, res) => {
     try {
         const apiKey = await authService.rotateApiKey(user.id);
         res.json({ apiKey });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -211,7 +211,7 @@ router.post('/users', verifyToken, requirePermission('users.manage'), async (req
         const newUser = await authService.createUser(data, password, actor);
         auditService.log(actor.id, 'USER_CREATE', newUser.id, { email: newUser.email, role: newUser.role }, req.ip, actor.email);
         res.json(newUser);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(403).json({ error: e.message });
     }
 });
@@ -227,7 +227,7 @@ router.patch('/users/:id', verifyToken, requirePermission('users.manage'), (req,
         const updated = authService.updateUser(id, req.body, actor);
         auditService.log(actor.id, 'USER_UPDATE', id, { changes: Object.keys(req.body) }, req.ip, actor.email);
         res.json(updated);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(403).json({ error: e.message });
     }
 });
@@ -243,7 +243,7 @@ router.delete('/users/:id', verifyToken, requirePermission('users.manage'), (req
         authService.deleteUser(id, actor);
         auditService.log(actor.id, 'USER_DELETE', id, undefined, req.ip, actor.email);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(403).json({ error: e.message });
     }
 });
@@ -256,7 +256,7 @@ router.get('/sessions', verifyToken, async (req, res) => {
     try {
         const sessions = await authService.getSessions(user.id);
         res.json(sessions);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -268,7 +268,7 @@ router.post('/sessions/:sessionId/revoke', verifyToken, async (req, res) => {
     try {
         await authService.revokeSession(sessionId, user.id);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
@@ -279,7 +279,7 @@ router.post('/sessions/revoke-all', verifyToken, async (req, res) => {
     try {
         await authService.revokeAllSessions(user.id, user.id);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(400).json({ error: e.message });
     }
 });
