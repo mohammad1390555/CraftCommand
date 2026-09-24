@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { logger } from '../../utils/logger';
 
-interface BedrockVersionsResponse {
+export interface
     latest: string;
     versions: string[];
 }
@@ -38,7 +38,7 @@ export class BedrockVersionService {
                     return result;
                 }
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             logger.warn(`[BedrockVersionService] Community manifest failed: ${e.message}. Trying fallback...`);
         }
 

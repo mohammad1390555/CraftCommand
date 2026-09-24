@@ -100,7 +100,7 @@ export const BedrockJSONCorruptionRule: DiagnosisRule = {
                     if (content.trim()) {
                         JSON.parse(content);
                     }
-                } catch (e: any) {
+                } catch (e: unknown) {
                     return {
                         id: `br-json-${file}-${server.id}-${Date.now()}`,
                         ruleId: 'bedrock_json_corrupted',

@@ -14,7 +14,7 @@ import { systemSettingsService } from '../../system/SystemSettingsService';
  */
 
 // Bridge functions injected by NodeAgentHandler (breaks circular import)
-type AgentSendFn = (nodeId: string, event: string, data: any, timeoutMs?: number) => Promise<any>;
+type AgentSendFn = (nodeId: string, event: string, data: unknown, timeoutMs?: number) => Promise<unknown>;
 type AgentCheckFn = (nodeId: string) => boolean;
 
 let _sendToAgent: AgentSendFn | null = null;
@@ -70,7 +70,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
     async start(id: string, runCommand: string, cwd: string, env: NodeJS.ProcessEnv): Promise<void> {
         requireBridge();
 
-        const nodeId = (env as any).nodeId;
+        const nodeId = (env as unknown).nodeId;
         if (!nodeId) {
             throw new Error(
                 `Server "${id}" is configured for remote execution but has no nodeId assigned. ` +
@@ -99,7 +99,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
                 cwd,
                 env
             }, 15000);
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[RemoteRunner] Failed to start server ${id} on node ${nodeId}: ${err.message}`);
             throw err;
         }
@@ -130,7 +130,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
         
         try {
             await _sendToAgent!(nodeId, 'agent:stop', { serverId: id, force }, 10000);
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[RemoteRunner] Failed to stop server ${id} on node ${nodeId}: ${err.message}`);
             throw err;
         }
@@ -150,7 +150,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
 
         try {
             await _sendToAgent!(nodeId, 'agent:kill', { serverId: id, signal }, 10000);
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[RemoteRunner] Kill failed for server ${id}: ${err.message}`);
             throw err;
         }
@@ -169,7 +169,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
 
         try {
             await _sendToAgent!(nodeId, 'agent:command', { serverId: id, command }, 5000);
-        } catch (err: any) {
+        } catch (err: unknown) {
             logger.error(`[RemoteRunner] Command failed for server ${id}: ${err.message}`);
             throw err;
         }
@@ -183,7 +183,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
         return this.runningServers.has(id);
     }
 
-    async createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean, nodeId?: string }): Promise<any> {
+    async createBackup(id: string, serverDir: string, options: { description?: string, worldOnly?: boolean, nodeId?: string }): Promise<unknown> {
         requireBridge();
         const nodeId = options.nodeId || this.serverNodeMap.get(id);
         if (!nodeId) throw new Error(`No node assigned to server ${id}`);
@@ -220,7 +220,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
     /**
      * Register a connected node (called by NodeAgentHandler)
      */
-    registerNode(nodeId: string, _connection: any): void {
+    registerNode(nodeId: string, _connection: unknown): void {
         logger.info(`[RemoteRunner] Node ${nodeId} registered.`);
     }
 
@@ -278,7 +278,7 @@ export class RemoteRunner extends EventEmitter implements IServerRunner {
      * Called when the agent sends agent:sync with its running serverIds.
      */
     syncServersFromAgent(nodeId: string, serverIds: string[]): void {
-        let restored = 0;
+        const  0;
         for (const serverId of serverIds) {
             if (!this.serverNodeMap.has(serverId)) {
                 this.serverNodeMap.set(serverId, nodeId);
