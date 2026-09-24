@@ -6,7 +6,7 @@ export class MigrationService {
     
     public migrateUsers() {
         const users = userRepository.findAll();
-        let migratedCount = 0;
+        const  0;
 
         for (const user of users) {
              if (this.needsMigration(user)) {
@@ -15,7 +15,7 @@ export class MigrationService {
                      userRepository.update(user.id, upgraded);
                      migratedCount++;
                      logger.info(`[Migration] Upgraded user ${user.username} to Schema 1`);
-                 } catch (e: any) {
+                 } catch (e: unknown) {
                      logger.error(`[Migration] Failed to upgrade user ${user.username}: ${e.message}`);
                  }
              }

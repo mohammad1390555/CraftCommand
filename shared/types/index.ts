@@ -3,12 +3,12 @@ import { NetworkConfig } from './network';
 import { UserRole, Permission } from '../constants/roles';
 export type { UserRole, Permission };
 
-export interface ResourceConfig {
+export export interface
     cpuPriority: 'normal' | 'high' | 'realtime';
     maxRam: number; // in MB
 }
 
-export interface ServerTemplate {
+export export interface
     id: string;
     name: string;
     type: 'Paper' | 'Fabric' | 'Forge' | 'NeoForge' | 'Modpack' | 'Vanilla' | 'Spigot' | 'Bedrock' | 'Velocity' | 'Folia' | 'Purpur';
@@ -23,14 +23,14 @@ export interface ServerTemplate {
     executable?: string; // Specific fallback filename (e.g. velocity.jar)
 }
 
-export interface BackgroundSettings {
+export export interface
     enabled: boolean;
     url: string;
     opacity: number; // 0.0 to 1.0
     blur: number; // pixels
 }
 
-export interface CustomBackgrounds {
+export export interface
     global?: BackgroundSettings;
     login?: BackgroundSettings;
     serverSelection?: BackgroundSettings;
@@ -54,7 +54,7 @@ export interface CustomBackgrounds {
     network?: BackgroundSettings;
 }
 
-export interface UserProfile {
+export export interface
     id: string; // UUID
     email: string;
     username: string;
@@ -72,7 +72,7 @@ export interface UserProfile {
         theme?: 'dark' | 'light' | 'system';  // Theme preference
         language?: string; // Preferred language (e.g., 'en', 'es', 'fr')
         backgrounds?: CustomBackgrounds;
-        dashboardLayout?: any; // Stores react-grid-layout state
+        dashboardLayout?: unknown; // Stores react-grid-layout state
         notifications: {
             browser: boolean;
             sound: boolean;
@@ -103,7 +103,7 @@ export interface UserProfile {
     twoFactorPendingCreatedAt?: number;
 }
 
-export interface ServerPort {
+export export interface
     id: string;
     name: string;
     port: number;
@@ -111,7 +111,7 @@ export interface ServerPort {
     isImmutable?: boolean;
 }
 
-export interface DatabaseInstance {
+export export interface
     id: string;
     serverId: string;
     name: string;
@@ -122,7 +122,7 @@ export interface DatabaseInstance {
     createdAt?: number;
 }
 
-export interface ServerAdvancedFlags {
+export export interface
     aikarFlags?: boolean;
     installSpark?: boolean;
     useGraalVM?: boolean;
@@ -144,7 +144,7 @@ export interface ServerAdvancedFlags {
     compressionLimit?: number;
 }
 
-export interface ServerConfig {
+export export interface
     id: string;
     name: string;
     folderName?: string; // Optional custom folder name
@@ -240,7 +240,7 @@ export type AppState = 'LOGIN' | 'PUBLIC_STATUS' | 'SERVER_SELECTION' | 'CREATE_
 
 export type AccentColor = 'emerald' | 'blue' | 'violet' | 'amber' | 'rose';
 
-export interface LogEntry {
+export export interface
     id: string;
     timestamp: string;
     level: string;
@@ -267,7 +267,7 @@ export enum ServerLifecyclePolicy {
     RESILIENT = 'RESILIENT'     // Watchdog: Always try to be ONLINE
 }
 
-export interface GlobalSettings {
+export export interface
     app: {
         hostMode: boolean;
         autoUpdate: boolean;
@@ -314,7 +314,7 @@ export interface GlobalSettings {
     version?: string; // Programmatic version from version.json
 }
 
-export interface ApiToken {
+export export interface
     id: string;
     name: string;
     token: string;
@@ -325,7 +325,7 @@ export interface ApiToken {
 }
 
 
-export interface Player {
+export export interface
     name: string;
     uuid?: string;
     online?: boolean;
@@ -341,7 +341,7 @@ export interface Player {
     banExpires?: string; // 'forever' or ISO date
 }
 
-export interface CloudUploadResult {
+export export interface
     destination: string;
     type: string;
     success: boolean;
@@ -350,14 +350,14 @@ export interface CloudUploadResult {
     durationMs: number;
 }
 
-export interface CloudBackupDestination {
+export export interface
     type: 'local-copy' | 's3' | 'sftp';
     enabled: boolean;
     name: string;
-    config: Record<string, any>;
+    config: Record<string, unknown>;
 }
 
-export interface Backup {
+export export interface
     id: string;
     name: string;
     date: number;
@@ -371,12 +371,12 @@ export interface Backup {
     cloudUploads?: CloudUploadResult[];
 }
 
-export interface ScheduleAction {
+export export interface
     type: 'command' | 'backup' | 'restart' | 'start' | 'stop';
     command: string; // The command or detail
 }
 
-export interface ScheduleTask {
+export export interface
     id: string;
     serverId: string; // Added for storage consolidation
     name: string;
@@ -391,7 +391,7 @@ export interface ScheduleTask {
 }
 
 
-export interface FileNode {
+export export interface
     id?: string;
     name: string;
     path: string;
@@ -399,12 +399,12 @@ export interface FileNode {
     type?: string;
     size: number | string;
     lastModified?: number;
-    modified?: any;
+    modified?: unknown;
     isProtected?: boolean;
     children?: FileNode[];
 }
 
-export interface DiscordConfig {
+export export interface
     enabled: boolean;
     webhookUrl?: string;
     botToken?: string;
@@ -425,17 +425,17 @@ export interface DiscordConfig {
     };
 }
 
-export interface DiscordBotConfig {
+export export interface
     token: string;
     clientId: string;
     guildId?: string;
     enabled?: boolean;
-    commandRoles?: any;
+    commandRoles?: unknown;
     notificationChannel?: string;
     chatChannel?: string;
 }
 
-export interface SecurityConfig {
+export export interface
     firewallEnabled: boolean;
     allowedIps: string[];
     ddosProtection: boolean;
@@ -444,7 +444,7 @@ export interface SecurityConfig {
     regionLock: string[];
 }
 
-export interface Plugin {
+export export interface
     id: string;
     name: string;
     version: string;
@@ -482,18 +482,18 @@ export type AuditAction =
     | 'PLAYER_KICK' | 'PLAYER_OP' | 'PLAYER_DEOP' | 'PLAYER_WHITELIST_ADD' | 'PLAYER_WHITELIST_REMOVE' | 'PLAYER_BAN' | 'PLAYER_PARDON'
     | 'FILE_UPLOAD' | 'FILE_EXTRACT' | 'FILE_MOVE' | 'FILE_COPY' | 'FILE_COMPRESS' | 'FILE_DELETE_BULK' | 'FOLDER_CREATE' | 'FILE_DOWNLOAD';
 
-export interface AuditLog {
+export export interface
     id: string;
     timestamp: number;
     userId: string;
     userEmail?: string;
     action: AuditAction;
     resourceId?: string;
-    metadata?: any;
+    metadata?: unknown;
     ip?: string;
 }
 
-export interface ImportAnalysis {
+export export interface
     software: 'Paper' | 'Spigot' | 'Forge' | 'Fabric' | 'Vanilla' | 'Purpur' | 'Bedrock' | 'Velocity' | 'Folia';
     version: string;
     executable: string;
@@ -511,7 +511,7 @@ export interface ImportAnalysis {
 
 // --- Diagnosis Types (Synced) ---
 
-export interface DiagnosisResult {
+export export interface
     id: string; // Unique ID for this specific diagnosis instance
     ruleId: string;
     severity: 'CRITICAL' | 'WARNING' | 'INFO';
@@ -520,7 +520,7 @@ export interface DiagnosisResult {
     recommendation: string;
     action?: {
         type: 'UPDATE_CONFIG' | 'SWITCH_JAVA' | 'AGREE_EULA' | 'INSTALL_DEPENDENCY' | 'REPAIR_PROPERTIES' | 'CLEANUP_TELEMETRY' | 'OPTIMIZE_ARGUMENTS' | 'PURGE_GHOST' | 'RESOLVE_PORT_CONFLICT' | 'REMOVE_DUPLICATE_PLUGIN' | 'CREATE_PLUGIN_FOLDER' | 'TAKE_HEAP_SNAPSHOT' | 'RESTORE_DATA_BACKUP' | 'REINSTALL_BEDROCK' | 'RESYNC_VELOCITY_SECRET' | 'INSTALL_JAVA' | 'TRIGGER_DDNS_UPDATE' | 'REINSTALL_GEYSER' | 'REINSTALL_FLOODGATE' | 'RESYNC_CROSSPLAY_FORWARDING' | 'REASSIGN_BEDROCK_PORT' | 'CLEANUP_WORLD_LOCK' | 'FIX_JVM_ARGS' | 'ENABLE_ENTITY_PURGE' | 'RESTORE_LEVEL_DATA' | 'CLEANUP_LOGS' | 'REPAIR_PERMISSIONS' | 'FIX_IP_BINDING' | 'SMART_LOG_ROTATION' | 'ROTATE_LOGS' | 'SAFE_GC' | 'SYSTEM_MAINTENANCE' | 'REINSTALL_LOADER' | 'PERFORM_STORAGE_CLEANUP' | 'ADJUST_RAM' | 'REINSTALL_GEYSER' | 'REINSTALL_FLOODGATE' | 'RESYNC_CROSSPLAY_FORWARDING';
-        payload: any;
+        payload: unknown;
         automaticRepair?: boolean; // If true, AutomaticRepairService can execute this automatically
     };
     connectedCrashReport?: {
@@ -544,7 +544,7 @@ export interface DiagnosisResult {
 
 export type NotificationType = 'INFO' | 'SUCCESS' | 'WARNING' | 'ERROR';
 
-export interface Notification {
+export export interface
     id: string;
     userId: string; // 'ALL', 'ADMIN', or UUID
     type: NotificationType;
@@ -552,7 +552,7 @@ export interface Notification {
     message: string;
     read: boolean;
     createdAt: number;
-    metadata?: any;
+    metadata?: unknown;
     link?: string;
     actionLabel?: string; // Custom label for the link button (e.g. "Install", "View")
     dismissible?: boolean; // If false, cannot be deleted by user
@@ -560,14 +560,14 @@ export interface Notification {
 
 export type ConnectivityMethod = 'vpn' | 'proxy' | 'direct' | 'cloudflare';
 
-export interface ConnectionStatus {
+export export interface
     enabled: boolean;
     method?: ConnectivityMethod;
     externalIP?: string;
     localIP?: string;
     bindAddress: string;
     error?: string;
-    details?: any; // Provider specific details (e.g. tunnel URL)
+    details?: unknown; // Provider specific details (e.g. tunnel URL)
 }
 
 // --- Plugin Marketplace Types ---
@@ -575,7 +575,7 @@ export interface ConnectionStatus {
 export type PluginSource = 'spiget' | 'modrinth' | 'hangar' | 'manual' | 'direct';
 export type PluginPlatform = 'bukkit' | 'spigot' | 'paper' | 'purpur' | 'forge' | 'fabric';
 
-export interface MarketplacePlugin {
+export export interface
     sourceId: string;       // ID on the external platform
     source: PluginSource;
     name: string;
@@ -593,7 +593,7 @@ export interface MarketplacePlugin {
     updatedAt: number;
 }
 
-export interface InstalledPlugin {
+export export interface
     id: string;             // Internal UUID
     serverId: string;
     sourceId?: string;
@@ -615,7 +615,7 @@ export interface InstalledPlugin {
     dependencies?: string[];
 }
 
-export interface PluginSearchQuery {
+export export interface
     query: string;
     category?: string;
     platform?: PluginPlatform;
@@ -626,14 +626,14 @@ export interface PluginSearchQuery {
     sort?: 'downloads' | 'updated' | 'name' | 'rating';
 }
 
-export interface PluginSearchResult {
+export export interface
     plugins: MarketplacePlugin[];
     total: number;
     page: number;
     pages: number;
 }
 
-export interface PluginUpdateInfo {
+export export interface
     pluginId: string;
     name: string;
     currentVersion: string;
@@ -644,7 +644,7 @@ export interface PluginUpdateInfo {
 
 // --- Collaboration Types ---
 
-export interface PresenceEntry {
+export export interface
     userId: string;
     username: string;
     role: UserRole;
@@ -661,19 +661,19 @@ export type ActivityAction =
     | 'USER_JOINED_PANEL' | 'USER_LEFT_PANEL'
     | 'SCHEDULE_CREATED' | 'SCHEDULE_DELETED';
 
-export interface ActivityEvent {
+export export interface
     id: string;
     serverId: string;
     userId: string;
     username: string;
     action: ActivityAction;
     detail: string;
-    metadata?: Record<string, any>;
+    metadata?: Record<string, unknown>;
     visibility: UserRole;   // Minimum role to see this event
     timestamp: number;
 }
 
-export interface ChatMessage {
+export export interface
     id: string;
     serverId: string;
     userId: string;
@@ -690,7 +690,7 @@ export interface ChatMessage {
  * The OWNER/ADMIN can configure minimum role requirements for each feature.
  * This is stored on the ServerConfig for per-server control.
  */
-export interface CollabSettings {
+export export interface
     activityFeed: {
         enabled: boolean;
         minRole: UserRole;       // Who can SEE the activity feed (default: 'VIEWER')
@@ -721,7 +721,7 @@ export enum NodeStatus {
     REMOVED = 'REMOVED'
 }
 
-export interface NodeHealth {
+export export interface
     cpu: number;           // 0-100 percentage
     memoryUsed: number;    // bytes
     memoryTotal: number;   // bytes
@@ -731,7 +731,7 @@ export interface NodeHealth {
     uptime: number;        // seconds
 }
 
-export interface NodeCapabilities {
+export export interface
     java?: string;         // e.g. "17.0.2"
     docker?: boolean;      // Is Docker engine available?
     git?: boolean;         // Is git installed?
@@ -739,7 +739,7 @@ export interface NodeCapabilities {
     os?: string;           // e.g. "Linux 5.10" or "Windows 10"
 }
 
-export interface NodeInfo {
+export export interface
     id: string;            // UUID
     name: string;          // Human-readable label (e.g. "Gaming Rig", "VPS-01")
     host: string;          // IP or hostname
@@ -758,7 +758,7 @@ export interface NodeInfo {
 
 // --- Ecosystem Types ---
 
-export interface ServerProfile {
+export export interface
     name: string;
     description?: string;
     version: string; // Minecraft version
@@ -777,7 +777,7 @@ export interface ServerProfile {
 
 export type WebhookTrigger = 'SERVER_START' | 'SERVER_STOP' | 'SERVER_CRASH' | 'BACKUP_COMPLETE' | 'PLAYER_JOIN' | 'PLAYER_LEAVE';
 
-export interface WebhookConfig {
+export export interface
     id: string;
     url: string;
     name: string;
@@ -788,7 +788,7 @@ export interface WebhookConfig {
     serverId?: string; // Target server filter
 }
 
-export interface ServerCapabilities {
+export export interface
     softwareCategory: 'JAVA' | 'BEDROCK' | 'OTHER';
     supportsPlugins: boolean;
     supportsModpacks: boolean;
@@ -804,7 +804,7 @@ export interface ServerCapabilities {
     termPlugin: string; // 'Plugins' vs 'Add-ons'
 }
 
-export interface MapStatus {
+export export interface
     installed: boolean;
     port: number | null;
     verified: boolean;
@@ -812,20 +812,20 @@ export interface MapStatus {
     internalUrl?: string;
 }
 
-export interface ConfigMismatch {
+export export interface
     setting: string;
-    diskValue: any;
-    dbValue: any;
+    diskValue: unknown;
+    dbValue: unknown;
     severity: 'low' | 'medium' | 'high';
 }
 
-export interface SyncReport {
+export export interface
     synchronized: boolean;
     mismatches: ConfigMismatch[];
     eulaAccepted: boolean;
 }
 
-export interface UserSession {
+export export interface
     id: string; // JTI (JWT ID)
     userId: string;
     userAgent?: string;

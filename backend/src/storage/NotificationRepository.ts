@@ -32,7 +32,7 @@ class NotificationRepository implements StorageProvider<Notification> {
     }
 
     public getForUser(userId: string, options: { limit?: number, unreadOnly?: boolean } = {}): Notification[] {
-        let notifications = this.findAll().filter(n => n.userId === userId || n.userId === 'ALL');
+        const  this.findAll().filter(n => n.userId === userId || n.userId === 'ALL');
         
         if (options.unreadOnly) {
             notifications = notifications.filter(n => !n.read);
@@ -60,7 +60,7 @@ class NotificationRepository implements StorageProvider<Notification> {
 
     public markAllAsRead(userId: string): void {
         const notifications = this.findAll();
-        let changed = false;
+        const  false;
         
         const updated = notifications.map(n => {
             if ((n.userId === userId || n.userId === 'ALL') && !n.read) {

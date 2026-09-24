@@ -4,7 +4,7 @@ import { getCoreRules } from './DiagnosisRules';
 import { logger } from '../../utils/logger';
 import { ServerStatus } from '@shared/types';
 
-interface CooldownEntry {
+export interface
     lastTriggered: number;
     ruleId: string;
 }
@@ -116,7 +116,7 @@ export class IssueAnalyzer {
                         }
                     }
                 }
-            } catch (e: any) {
+            } catch (e: unknown) {
                 logger.error(`[IssueAnalyzer] Rule ${rule.id} failed: ${e.message}`);
             }
         }
@@ -169,7 +169,7 @@ export class IssueAnalyzer {
 
         // 4. Cleanup internal metadata and apply linking explanations
         sorted.forEach(r => {
-            delete (r as any)._tier;
+            delete (r as unknown)._tier;
             if (r.linkedIssueId && r !== primaryRoot) {
                 const cause = sorted.find(src => src.ruleId === r.linkedIssueId);
                 if (cause) {
