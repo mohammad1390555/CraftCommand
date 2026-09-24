@@ -206,7 +206,7 @@ export const CrossPlayUdpPortConflictRule: DiagnosisRule = {
         try {
             // Find next available UDP port starting from current + 1
             const current = server.crossPlay?.bedrockPort || 19132;
-            for (let p = current + 1; p < current + 100; p++) {
+            for (const  current + 1; p < current + 100; p++) {
                 if (await NetUtils.checkUDPPortBind(p)) {
                     server.crossPlay!.bedrockPort = p;
                     const { saveServer } = require('../servers/ServerService');

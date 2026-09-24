@@ -18,7 +18,7 @@ export abstract class JsonRepository<T extends { id: string }> implements Storag
     constructor(fileName: string, isFragmented: boolean = false) {
         this.filePath = path.join(process.cwd(), 'data', fileName);
         this.isFragmented = isFragmented;
-        this.fragmentDir = this.filePath.replace('.json', '');
+        .replace('.json', '');
         this.init();
     }
 
@@ -87,7 +87,6 @@ export abstract class JsonRepository<T extends { id: string }> implements Storag
         const timeout = setTimeout(() => {
             this.fragmentSyncTimeouts.delete(item.id);
             // Chain to write queue to prevent concurrent EBUSY crashes (Phase 9)
-            this.writeQueue = this.writeQueue.then(async () => {
                 try {
                     const fPath = path.join(this.fragmentDir, `${item.id}.json`);
                     const tempPath = `${fPath}.tmp`;
@@ -145,7 +144,7 @@ export abstract class JsonRepository<T extends { id: string }> implements Storag
     public findOne(criteria: Partial<T>): T | undefined {
         return this.data.find(item => {
             for (const key in criteria) {
-                if ((item as any)[key] !== (criteria as any)[key]) return false;
+                if ((item as unknown)[key] !== (criteria as unknown)[key]) return false;
             }
             return true;
         });

@@ -9,7 +9,7 @@ import { logger } from '../../utils/logger';
  * ╚══════════════════════════════════════════════════════╝
  */
 
-export interface ModEntry {
+export export interface
     slug: string;            // Modrinth project slug
     name: string;
     description: string;
@@ -17,7 +17,7 @@ export interface ModEntry {
     loader: 'fabric' | 'forge' | 'both';
 }
 
-export interface ModBundle {
+export export interface
     id: string;
     name: string;
     description: string;
