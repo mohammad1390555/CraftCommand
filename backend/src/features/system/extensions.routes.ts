@@ -24,7 +24,7 @@ router.post('/servers/:serverId', verifyToken, async (req, res) => {
 
         const newWebhook = await webhookService.addWebhook(config);
         res.json(newWebhook);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -33,7 +33,7 @@ router.put('/:id', verifyToken, async (req, res) => {
     try {
         await webhookService.updateWebhook(req.params.id, req.body);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -42,7 +42,7 @@ router.delete('/:id', verifyToken, async (req, res) => {
     try {
         await webhookService.removeWebhook(req.params.id);
         res.json({ success: true });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -51,7 +51,7 @@ router.post('/:id/test', verifyToken, async (req, res) => {
     try {
         await webhookService.testWebhook(req.params.id);
         res.json({ success: true, status: 200 });
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
