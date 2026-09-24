@@ -25,7 +25,7 @@ router.post('/heal', verifyToken, requirePermission('server.settings'), async (r
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_REPAIR', id, { type, payload }, req.ip);
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         logger.error(`[Servers] Manual fix failed for ${id}: ${e}`);
         res.status(500).json({ error: e.message || 'Failed to apply automatic fix.' });
     }
@@ -40,7 +40,7 @@ router.post('/health/reset', verifyToken, requirePermission('server.settings'), 
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_REPAIR_RESET', id, undefined, req.ip);
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -57,7 +57,7 @@ router.patch('/', verifyToken, requirePermission('server.settings'), async (req,
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_UPDATE', id, { updates: Object.keys(updates) }, req.ip);
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         if (e.message === 'Server not found') return res.status(404).json({ error: 'Server not found' });
         res.status(500).json({ error: e.message });
     }
@@ -72,7 +72,7 @@ router.post('/sftp/reset', verifyToken, requirePermission('server.settings'), as
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_UPDATE', id, { detail: 'SFTP Password Reset' });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -83,7 +83,7 @@ router.get('/ports', verifyToken, requirePermission('server.view'), async (req, 
     try {
         const ports = getServerPorts(id);
         res.json(ports);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -97,7 +97,7 @@ router.post('/ports', verifyToken, requirePermission('server.settings'), async (
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_UPDATE', id, { detail: 'Allocated additional port', port: newPort.port });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -111,7 +111,7 @@ router.patch('/ports/:portId/rotate', verifyToken, requirePermission('server.set
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_UPDATE', id, { detail: 'Rotated additional port', portId, newPort: updatedPort.port });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -125,7 +125,7 @@ router.get('/config/check', verifyToken, async (req, res) => {
         
         const report = await serverConfigService.verifyConfig(server);
         res.json(report);
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
@@ -144,7 +144,7 @@ router.post('/config/sync', verifyToken, requirePermission('server.settings'), a
         if (req.user) {
             auditService.log(req.user.id, 'SERVER_UPDATE', id, { detail: 'Forced configuration sync' });
         }
-    } catch (e: any) {
+    } catch (e: unknown) {
         res.status(500).json({ error: e.message });
     }
 });
