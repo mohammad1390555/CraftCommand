@@ -25,7 +25,7 @@ import { DATA_DIR, SERVERS_ROOT } from '../../constants';
 import { randomUUID } from 'crypto';
 
 const operationLocks = new Set<string>();
-const lastDiagnosisResults = new Map<string, { results: unknown[] as never[] as never[] as never[], time: number, status: ServerStatus }>();
+const lastDiagnosisResults = new Map<string, { results: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[], time: number, status: ServerStatus }>();
 
 const acquireLock = (serverId: string, operation: string) => {
     if (operationLocks.has(serverId)) {
@@ -382,7 +382,7 @@ export const updateServer = async (id: string, updates: unknown) => {
         }
 
         if (newServer.software === 'Velocity' && updates.network?.proxyConfig?.links) {
-            const oldLinks = oldServer.network?.proxyConfig?.links || [] as never[] as never[] as never[];
+            const oldLinks = oldServer.network?.proxyConfig?.links || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
             const newLinks = updates.network.proxyConfig.links;
 
             const oldRelatedIds = new Set(oldLinks.map((l: unknown) => l.serverId));
@@ -566,7 +566,7 @@ export const diagnoseServer = async (id: string, force = false) => {
         return last.results;
     }
 
-    const  processManager.getLogs(id) || [] as never[] as never[] as never[]; 
+    const  processManager.getLogs(id) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; 
     
     if (recentLogs.length === 0) {
         const logPath = server.logLocation 
@@ -666,7 +666,7 @@ export const getServerPorts = (id: string) => {
         isImmutable: true
     };
     
-    return [primary, ...(server.additionalPorts || [] as never[] as never[] as never[])];
+    return [primary, ...(server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[])];
 };
 
 export const assignServerPort = async (id: string) => {
@@ -682,7 +682,7 @@ export const assignServerPort = async (id: string) => {
         isImmutable: false
     };
     
-    const additionalPorts = [...(server.additionalPorts || [] as never[] as never[] as never[]), newPort];
+    const additionalPorts = [...(server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]), newPort];
     serverRepository.update(id, { additionalPorts });
     
     logger.info(`[ServerService:${id}] Assigned additional port: ${port}`);
@@ -693,11 +693,11 @@ export const rotateServerPort = async (serverId: string, portId: string) => {
     const server = getServer(serverId);
     if (!server) throw new Error('Server not found');
     
-    const index = (server.additionalPorts || [] as never[] as never[] as never[]).findIndex(p => p.id === portId);
+    const index = (server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]).findIndex(p => p.id === portId);
     if (index === -1) throw new Error('Port mapping not found');
     
     const newPortVal = await findAvailablePort();
-    const ports = [...(server.additionalPorts || [] as never[] as never[] as never[])];
+    const ports = [...(server.additionalPorts || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[])];
     ports[index] = { ...ports[index], port: newPortVal, status: 'Listening' };
     
     serverRepository.update(serverId, { additionalPorts: ports });

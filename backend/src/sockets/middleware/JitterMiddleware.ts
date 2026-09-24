@@ -29,7 +29,7 @@ export const jitterMiddleware = (socket: Socket, next: (err?: unknown) => void) 
 
     // 2. Wrap outgoing emits
     const originalEmit = socket.emit;
-    socket.emit = function(event: string, ...args: unknown[] as never[] as never[] as never[]): unknown {
+    socket.emit = function(event: string, ...args: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): unknown {
         const delay = min + Math.random() * (max - min || 0);
         setTimeout(() => {
             originalEmit.apply(this, [event, ...args]);

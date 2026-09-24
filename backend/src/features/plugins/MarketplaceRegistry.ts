@@ -53,22 +53,22 @@ function setCache(key: string, data: PluginSearchResult) {
 }
 
 // --- Platform Mapping ---
-export const SOFTWARE_TO_PLATFORMS: Record<string, string[] as never[] as never[] as never[]> = {
+export const SOFTWARE_TO_PLATFORMS: Record<string, string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> = {
     'Paper': ['bukkit', 'spigot', 'paper'],
     'Purpur': ['bukkit', 'spigot', 'paper', 'purpur'],
     'Spigot': ['bukkit', 'spigot'],
     'Forge': ['forge'],
     'Fabric': ['fabric'],
-    'Vanilla': [] as never[] as never[] as never[],
+    'Vanilla': [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
 };
 
-const SOFTWARE_TO_SEARCH_ORDER: Record<string, string[] as never[] as never[] as never[]> = {
+const SOFTWARE_TO_SEARCH_ORDER: Record<string, string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]> = {
     'Paper': ['hangar', 'modrinth', 'spiget'],
     'Purpur': ['hangar', 'modrinth', 'spiget'],
     'Spigot': ['spiget', 'modrinth'],
     'Forge': ['modrinth'],
     'Fabric': ['modrinth'],
-    'Vanilla': [] as never[] as never[] as never[],
+    'Vanilla': [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
 };
 
 export function getTargetDir(software: string): string {
@@ -86,7 +86,7 @@ async function searchModrinth(query: PluginSearchQuery, software: string): Promi
     const offset = ((query.page || 1) - 1) * limit;
 
     // Build facets based on server software
-    const facets: string[] as never[] as never[] as never[][] as never[] as never[] as never[] = [] as never[] as never[] as never[];
+    const facets: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[][] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     if (software === 'Forge') {
         facets.push(['categories:forge']);
         facets.push(['project_type:mod']);
@@ -141,9 +141,9 @@ async function searchModrinth(query: PluginSearchQuery, software: string): Promi
         downloads: hit.downloads || 0,
         rating: hit.follows || 0,
         category: hit.categories?.[0] || 'General',
-        platforms: hit.categories?.filter((c: string) => ['bukkit', 'spigot', 'paper', 'purpur', 'forge', 'fabric'].includes(c)) || [] as never[] as never[] as never[],
+        platforms: hit.categories?.filter((c: string) => ['bukkit', 'spigot', 'paper', 'purpur', 'forge', 'fabric'].includes(c)) || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
         latestVersion: hit.latest_version || 'Unknown',
-        latestGameVersions: hit.versions || [] as never[] as never[] as never[],
+        latestGameVersions: hit.versions || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
         externalUrl: `https://modrinth.com/plugin/${hit.slug}`,
         updatedAt: new Date(hit.date_modified).getTime(),
     }));
@@ -157,7 +157,7 @@ async function searchModrinth(query: PluginSearchQuery, software: string): Promi
 }
 
 // --- Modrinth Download URL Resolution ---
-export async function getModrinthDownloadUrl(projectId: string, gameVersion?: string, platforms?: string[] as never[] as never[] as never[]) {
+export async function getModrinthDownloadUrl(projectId: string, gameVersion?: string, platforms?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) {
     const headers = { 'User-Agent': 'CraftCommand/1.8.0 (contact@craftcommand.io)' };
     
     // Build strict query parameters for Modrinth API (Layer 1 Stabilization)
@@ -177,7 +177,7 @@ export async function getModrinthDownloadUrl(projectId: string, gameVersion?: st
     ]);
 
     const project = projectRes.data as unknown;
-    const versions = versionsRes.data as unknown[] as never[] as never[] as never[];
+    const versions = versionsRes.data as unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
 
     if (!versions.length) {
         const platformStr = platforms?.join('/') || 'unknown';
@@ -189,7 +189,7 @@ export async function getModrinthDownloadUrl(projectId: string, gameVersion?: st
 
     if (!primaryFile?.url) throw new Error('No download URL found');
 
-    const dependencies = (latest.dependencies || [] as never[] as never[] as never[])
+    const dependencies = (latest.dependencies || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[])
         .filter((d: unknown) => d.dependency_type === 'required')
         .map((d: unknown) => ({
             id: d.project_id,
@@ -242,13 +242,13 @@ async function searchSpiget(query: PluginSearchQuery): Promise<PluginSearchResul
         if (err.response?.status === 404) {
             // Spiget returns 404 for search queries it can't handle (e.g. including slashes or dots)
             // We return empty results instead of letting the error bubble up.
-            return { plugins: [] as never[] as never[] as never[], total: 0, page, pages: 0 };
+            return { plugins: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: 0, page, pages: 0 };
         }
         throw err; // Re-throw other errors (500, timeout, etc.)
     }
 
     const data = response.data;
-    const plugins = (Array.isArray(data) ? data : [] as never[] as never[] as never[]).map((resource: unknown) => ({
+    const plugins = (Array.isArray(data) ? data : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]).map((resource: unknown) => ({
         sourceId: String(resource.id),
         source: 'spiget',
         name: resource.name || 'Unknown',
@@ -261,7 +261,7 @@ async function searchSpiget(query: PluginSearchQuery): Promise<PluginSearchResul
         category: resource.category?.name || 'General',
         platforms: ['bukkit', 'spigot'],
         latestVersion: resource.version?.id ? String(resource.version.id) : 'Unknown',
-        latestGameVersions: resource.testedVersions || [] as never[] as never[] as never[],
+        latestGameVersions: resource.testedVersions || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
         externalUrl: `https://www.spigotmc.org/resources/${resource.id}/`,
         updatedAt: (resource.updateDate || 0) * 1000,
     }));
@@ -322,7 +322,7 @@ async function searchHangar(query: PluginSearchQuery): Promise<PluginSearchResul
     });
 
     const data = response.data;
-    const plugins = ((data as unknown).result || [] as never[] as never[] as never[]).map((project: unknown) => ({
+    const plugins = ((data as unknown).result || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]).map((project: unknown) => ({
         sourceId: project.namespace?.slug || project.name,
         source: 'hangar',
         name: project.name || 'Unknown',
@@ -335,8 +335,8 @@ async function searchHangar(query: PluginSearchQuery): Promise<PluginSearchResul
         category: project.category || 'General',
         platforms: ['paper', 'purpur'],
         latestVersion: project.lastUpdated || 'Unknown',
-        latestGameVersions: (project.promotedVersions || [] as never[] as never[] as never[]).flatMap((pv: unknown) => 
-            (pv.tags || [] as never[] as never[] as never[]).filter((t: unknown) => t.name).map((t: unknown) => t.name)
+        latestGameVersions: (project.promotedVersions || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]).flatMap((pv: unknown) => 
+            (pv.tags || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]).filter((t: unknown) => t.name).map((t: unknown) => t.name)
         ),
         externalUrl: `https://hangar.papermc.io/${project.namespace?.owner}/${project.namespace?.slug}`,
         updatedAt: new Date(project.lastUpdated).getTime() || 0,
@@ -386,14 +386,14 @@ export async function getHangarDownloadUrl(slug: string, gameVersion?: string) {
 export class MarketplaceRegistry {
     async search(query: PluginSearchQuery, software: string): Promise<PluginSearchResult> {
         if (!supportsPlugins(software)) {
-            return { plugins: [] as never[] as never[] as never[], total: 0, page: 1, pages: 0 };
+            return { plugins: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], total: 0, page: 1, pages: 0 };
         }
 
         const sources = query.source 
             ? [query.source as string] 
             : SOFTWARE_TO_SEARCH_ORDER[software] || ['modrinth'];
 
-        const allPlugins: unknown[] as never[] as never[] as never[] = [] as never[] as never[] as never[];
+        const allPlugins: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         const  0;
 
         for (const source of sources) {
@@ -446,7 +446,7 @@ export class MarketplaceRegistry {
         };
     }
 
-    async getDownloadUrl(sourceId: string, source: string, gameVersion?: string, platforms?: string[] as never[] as never[] as never[]) {
+    async getDownloadUrl(sourceId: string, source: string, gameVersion?: string, platforms?: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]) {
         switch (source) {
             case 'direct':
                 const  sourceId;

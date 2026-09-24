@@ -85,7 +85,7 @@ export class NodeRegistryService extends EventEmitter {
     private loadNodes(): void {
         try {
             if (fs.existsSync(NODES_FILE)) {
-                const data: NodeInfo[] as never[] as never[] as never[] = fs.readJSONSync(NODES_FILE);
+                const data: NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = fs.readJSONSync(NODES_FILE);
                 if (!Array.isArray(data)) {
                     logger.error('[NodeRegistry] Invalid nodes.json format — expected array. Starting fresh.');
                 } else {
@@ -190,7 +190,7 @@ export class NodeRegistryService extends EventEmitter {
      * Returns the enrolled node info.
      * Throws if a node with the same host:port already exists.
      */
-    enroll(name: string, host: string, port: number, labels: string[] as never[] as never[] as never[] = [] as never[] as never[] as never[]): NodeInfo {
+    enroll(name: string, host: string, port: number, labels: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]): NodeInfo {
         // Input sanitization
         name = this.sanitizeName(name);
         host = this.sanitizeHost(host);
@@ -365,7 +365,7 @@ export class NodeRegistryService extends EventEmitter {
             protocolVersion,
             enrolledAt: now,
             lastHeartbeat: now,
-            labels: [] as never[] as never[] as never[],
+            labels: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
             enrollmentSecret: secret,
             enrollmentToken: token
         };
@@ -632,7 +632,7 @@ export class NodeRegistryService extends EventEmitter {
         return node;
     }
 
-    getAllNodes(): NodeInfo[] as never[] as never[] as never[] {
+    getAllNodes(): NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         return Array.from(this.nodes.values()).map(node => {
             if (node.id === 'local' && node.status !== NodeStatus.ONLINE) {
                 node.status = NodeStatus.ONLINE;
@@ -641,7 +641,7 @@ export class NodeRegistryService extends EventEmitter {
         });
     }
 
-    getOnlineNodes(): NodeInfo[] as never[] as never[] as never[] {
+    getOnlineNodes(): NodeInfo[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] {
         const nodes = this.getAllNodes();
         return nodes.filter(n => n.status === NodeStatus.ONLINE);
     }

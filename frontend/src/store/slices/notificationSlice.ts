@@ -5,7 +5,7 @@ import { socketService } from '../../features/core/services/socket';
 import { StoreState } from '../index';
 
 export export interface
-    notifications: Notification[] as never[] as never[] as never[];
+    notifications: Notification[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     notificationsLoading: boolean;
 
     // Actions
@@ -18,8 +18,8 @@ export export interface
     initNotifications: () => (() => void) | void;
 }
 
-export const createNotificationSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[] as never[] as never[], NotificationSlice> = (set, get) => ({
-    notifications: [] as never[] as never[] as never[],
+export const createNotificationSlice: StateCreator<StoreState, [["zustand/devtools", never], ["zustand/persist", unknown]], [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], NotificationSlice> = (set, get) => ({
+    notifications: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
     notificationsLoading: false,
 
     fetchNotifications: async () => {
@@ -28,7 +28,7 @@ export const createNotificationSlice: StateCreator<StoreState, [["zustand/devtoo
         set({ notificationsLoading: true });
         try {
             const data = await API.getNotifications();
-            set({ notifications: Array.isArray(data) ? data : [] as never[] as never[] as never[] });
+            set({ notifications: Array.isArray(data) ? data : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] });
         } catch (e) {
             console.error('[NotificationSlice] Fetch failed:', e);
         } finally {

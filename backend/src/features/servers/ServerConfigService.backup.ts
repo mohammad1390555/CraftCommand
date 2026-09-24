@@ -13,7 +13,7 @@ export export interface
 
 export export interface
     synchronized: boolean;
-    mismatches: ConfigMismatch[] as never[] as never[] as never[];
+    mismatches: ConfigMismatch[] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
     eulaAccepted: boolean;
 }
 
@@ -25,7 +25,7 @@ export class ServerConfigService {
     async verifyConfig(server: ServerConfig): Promise<SyncReport> {
         const report: SyncReport = {
             synchronized: true,
-            mismatches: [] as never[] as never[] as never[],
+            mismatches: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
             eulaAccepted: false
         };
 
@@ -47,7 +47,7 @@ export class ServerConfigService {
             const props = await ServerConfigService.parseProperties(propsPath);
 
             // Mapping for detection
-            const mappings: { key: keyof ServerConfig; prop: string; type: 'int' | 'bool' | 'string'; severity: 'high' | 'medium' | 'low' }[] as never[] as never[] as never[] = [
+            const mappings: { key: keyof ServerConfig; prop: string; type: 'int' | 'bool' | 'string'; severity: 'high' | 'medium' | 'low' }[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
                 { key: 'port', prop: 'server-port', type: 'int', severity: 'high' },
                 { key: 'onlineMode', prop: 'online-mode', type: 'bool', severity: 'medium' },
                 { key: 'maxPlayers', prop: 'max-players', type: 'int', severity: 'low' },

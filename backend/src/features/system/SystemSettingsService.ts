@@ -15,7 +15,7 @@ export export interface
         token: string;
         clientId: string;
         guildId: string;
-        commandRoles: string[] as never[] as never[] as never[]; // Role IDs allowed to use commands
+        commandRoles: string[] as never[] as never[] as never[] as never[] as never[] as never[] as never[]; // Role IDs allowed to use commands
         notificationChannel: string; // Channel ID for server events
         chatChannel: string; // Channel ID for chat bridge
     };
@@ -131,7 +131,7 @@ class SystemSettingsService extends EventEmitter {
                         token: '',
                         clientId: '',
                         guildId: '',
-                        commandRoles: [] as never[] as never[] as never[],
+                        commandRoles: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[],
                         notificationChannel: '',
                         chatChannel: ''
                     },
@@ -230,14 +230,14 @@ class SystemSettingsService extends EventEmitter {
             const { logger } = require('../../utils/logger');
             logger.error(`Failed to load settings.json, using defaults: ${e}`);
             return {
-                discordBot: { enabled: false, token: '', clientId: '', guildId: '', commandRoles: [] as never[] as never[] as never[], notificationChannel: '', chatChannel: '' },
+                discordBot: { enabled: false, token: '', clientId: '', guildId: '', commandRoles: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[], notificationChannel: '', chatChannel: '' },
                 app: { theme: 'dark', autoUpdate: false, hostMode: true }
             } as unknown;
         }
     }
 
     getSettings(): unknown {
-        const  { version: '0.0.0', title: 'Unknown', codename: 'Unknown', notes: [] as never[] as never[] as never[] };
+        const  { version: '0.0.0', title: 'Unknown', codename: 'Unknown', notes: [] as never[] as never[] as never[] as never[] as never[] as never[] as never[] };
         try {
             const versionFile = path.join(process.cwd(), '../version.json');
             if (fs.existsSync(versionFile)) {

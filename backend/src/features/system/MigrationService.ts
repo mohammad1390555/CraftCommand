@@ -16,7 +16,7 @@ class MigrationService {
 
     async runMigrations(): Promise<void> {
         logger.info('[MigrationService] Running startup migrations/initialization...');
-        const repos: unknown[] as never[] as never[] as never[] = [
+        const repos: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
             userRepository,
             serverRepository,
             notificationRepository,
@@ -64,7 +64,7 @@ class MigrationService {
             });
 
             // Step 2: Re-initialize all repositories. 
-            const repos: unknown[] as never[] as never[] as never[] = [
+            const repos: unknown[] as never[] as never[] as never[] as never[] as never[] as never[] as never[] = [
                 userRepository,
                 serverRepository,
                 notificationRepository,

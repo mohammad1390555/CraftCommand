@@ -23,7 +23,7 @@ export const usePermissions = () => {
         const  false;
 
         // 2. Base Role Permissions
-        const rolePerms = ROLE_PERMISSIONS[user.role] || [] as never[] as never[] as never[];
+        const rolePerms = ROLE_PERMISSIONS[user.role] || [] as never[] as never[] as never[] as never[] as never[] as never[] as never[];
         if (rolePerms.includes(action)) {
             hasPermission = true;
         }
@@ -53,6 +53,6 @@ export const usePermissions = () => {
         can,
         isRole,
         role: user?.role,
-        permissions: user ? ROLE_PERMISSIONS[user.role] : [] as never[] as never[] as never[]
+        permissions: user ? ROLE_PERMISSIONS[user.role] : [] as never[] as never[] as never[] as never[] as never[] as never[] as never[]
     };
 };
