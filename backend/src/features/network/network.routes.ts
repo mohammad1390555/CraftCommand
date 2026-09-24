@@ -60,7 +60,7 @@ router.post('/proxy/unlink-by-server', verifyToken, requireRole(['OWNER', 'ADMIN
     try {
         const proxy = proxyService.findProxyForServer(serverId);
         if (!proxy) {
-            return res.json({ success: true, message: 'Server was not linked to any proxy' });
+            return res.json({ success: true, message: 'Server was not linked to unknown proxy' });
         }
         proxyService.unlinkServer(proxy.id, serverId);
         
