@@ -43,7 +43,7 @@
     "socket.io": "^4.7.4",
     "rcon-client": "^4.2.3",
     "ssh2-sftp-client": "^12.1.1",
-    "systeminformation": "^5.21.22",
+    "systeminformation": "^5.33.16",
     "tree-kill": "^1.2.2",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
